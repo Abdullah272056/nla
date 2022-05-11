@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
-class PrivacyPolicyForParticularScreen extends StatefulWidget {
-  const PrivacyPolicyForParticularScreen({Key? key}) : super(key: key);
+class PrivacyPolicyForCompanyScreen extends StatefulWidget {
+  const PrivacyPolicyForCompanyScreen({Key? key}) : super(key: key);
 
   @override
-  State<PrivacyPolicyForParticularScreen> createState() => _PrivacyPolicyForParticularScreenState();
+  State<PrivacyPolicyForCompanyScreen> createState() => _PrivacyPolicyForCompanyScreenState();
 }
 
-class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParticularScreen> with SingleTickerProviderStateMixin{
+class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyScreen> with SingleTickerProviderStateMixin{
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -55,7 +55,6 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                     ),
                   ),
                 ),
-
                 Expanded(
                     child: Container(
                       margin: new EdgeInsets.only(right: 50),
@@ -106,19 +105,19 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                   SizedBox(
                     height: 22,
                   ),
-                 Align(
-                   alignment: Alignment.centerLeft,
-                   child:  Text(
-                     "Privacy Policy for Particular",
-                     textAlign: TextAlign.left,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child:  Text(
+                      "Privacy Policy for Company",
+                      textAlign: TextAlign.left,
 
-                     style: TextStyle(
-                         color: Colors.novalexxa_color,
-                         fontSize: 25,
-                         decoration: TextDecoration.none,
-                         fontWeight: FontWeight.w600),
-                   ),
-                 ),
+                      style: TextStyle(
+                          color: Colors.novalexxa_color,
+                          fontSize: 25,
+                          decoration: TextDecoration.none,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
 
                   SizedBox(
                     height: 25,

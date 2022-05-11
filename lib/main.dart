@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/create_account_particular_company.dart';
+import 'package:nova_lexxa/splash_screen/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            CreateAccountParticularAndCompanyScreen(),
+            PrivacyPolicyForParticularScreen(),
           ],
         ),
       ),

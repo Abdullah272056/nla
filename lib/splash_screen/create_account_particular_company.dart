@@ -8,6 +8,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/splash_screen/privacy_policy_for_particular.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -340,7 +341,10 @@ int _particular_company_selected_status=1;
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
       child: ElevatedButton(
         onPressed: () {
-          if(_particular_company_selected_status==1){}
+          if(_particular_company_selected_status==1){
+
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
+          }
           else{
 
           }

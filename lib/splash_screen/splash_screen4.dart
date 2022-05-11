@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'create_account_particular_company.dart';
+
 class SplashScreen4 extends StatefulWidget {
   const SplashScreen4({Key? key}) : super(key: key);
 
@@ -287,8 +289,8 @@ class _SplashScreen4State extends State<SplashScreen4> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          _showToast("sign up");
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateAccountParticularAndCompanyScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

@@ -24,7 +24,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"),
+            image: AssetImage("assets/images/bg.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -37,23 +37,28 @@ class _SplashScreen1State extends State<SplashScreen1> {
               children: [
                 Expanded(child: Container()),
                 Container(
-                  margin:EdgeInsets.only(right: 20.0,top: 00,left: 20),
-                  child:   Flex(direction: Axis.horizontal,
-                    children: [
-                      Align(alignment: Alignment.topLeft,
-                        child:  Text("Novalexxa",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold),
-                          // textAlign: TextAlign.left,
-
-                        ),
-                      ),
-
-                    ],
+                  margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                  child:Align(alignment: Alignment.topLeft,
+                    child:Image.asset(
+                      "assets/images/logo_icon.png",
+                      width: 81,
+                      height: 81,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
+                Container(
+                  margin:EdgeInsets.only(right: 20.0,top: 00,left: 20),
+                  child:Align(alignment: Alignment.topLeft,
+                    child:Image.asset(
+                      "assets/images/novalexxa_text.png",
+                      width: 178,
+                      height: 48,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+
                 Container(
                   margin:EdgeInsets.only(right: 20.0,top: 20,left: 20,bottom: 0),
                   child: Align(alignment: Alignment.topLeft,
@@ -64,7 +69,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 22,
-                          fontWeight: FontWeight.bold),
+                          fontWeight: FontWeight.normal),
                       softWrap: false,
                       maxLines:2,
                     ),

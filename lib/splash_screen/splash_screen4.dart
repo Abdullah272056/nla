@@ -3,20 +3,21 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 
-class SplashScreen2 extends StatefulWidget {
-  const SplashScreen2({Key? key}) : super(key: key);
+class SplashScreen4 extends StatefulWidget {
+  const SplashScreen4({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen2> createState() => _SplashScreen2State();
+  State<SplashScreen4> createState() => _SplashScreen4State();
 }
 
-class _SplashScreen2State extends State<SplashScreen2> {
+class _SplashScreen4State extends State<SplashScreen4> {
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -74,19 +75,29 @@ class _SplashScreen2State extends State<SplashScreen2> {
                         height: 15,
                       ),
 
+
+
                       Container(
                         margin:EdgeInsets.only(right:00.0,top: 30,left: 00,
                           bottom: 50,
                         ),
-                        child:Image.asset(
-                          "assets/images/vector1.png",
-                          // width: 81,
-                          //height: 230,
-                          fit: BoxFit.fill,
+                        child:DelayedWidget(
+
+                          delayDuration: Duration(milliseconds: 100),// Not required
+                          animationDuration: Duration(milliseconds: 500),// Not required
+                          animation: DelayedAnimations.SLIDE_FROM_LEFT,// Not required
+                          child: Image.asset(
+                            "assets/images/vector3.png",
+                            // width: 81,
+                            //height: 230,
+                            fit: BoxFit.fill,
+                          ),
                         ),
+
+
                       ),
                       Text(
-                        "Open Your Bank Account\nin 5 Minutes",
+                        "Send Money Fastly around\nthe World",
                         textAlign: TextAlign.center,
 
                         style: TextStyle(
@@ -116,35 +127,35 @@ class _SplashScreen2State extends State<SplashScreen2> {
                           Container(
                             margin: const EdgeInsets.only(left: 3.0, right: 3.0),
                             decoration: const BoxDecoration(
+                              color: Colors.intello_hint_color,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                                bottomRight: Radius.circular(4.0),
+                                bottomLeft: Radius.circular(4.0),
+                              ),
+                            ),
+                            height: 8,
+                            width: 8,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 3.0, right: 3.0),
+                            decoration: const BoxDecoration(
+                              color: Colors.intello_hint_color,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                                bottomRight: Radius.circular(4.0),
+                                bottomLeft: Radius.circular(4.0),
+                              ),
+                            ),
+                            height: 8,
+                            width: 8,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 3.0, right: 3.0),
+                            decoration: const BoxDecoration(
                               color: Colors.intello_bd_color,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                                bottomRight: Radius.circular(4.0),
-                                bottomLeft: Radius.circular(4.0),
-                              ),
-                            ),
-                            height: 8,
-                            width: 8,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 3.0, right: 3.0),
-                            decoration: const BoxDecoration(
-                              color: Colors.intello_hint_color,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                                bottomRight: Radius.circular(4.0),
-                                bottomLeft: Radius.circular(4.0),
-                              ),
-                            ),
-                            height: 8,
-                            width: 8,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(left: 3.0, right: 3.0),
-                            decoration: const BoxDecoration(
-                              color: Colors.intello_hint_color,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(4.0),
                                 topRight: Radius.circular(4.0),
@@ -160,7 +171,8 @@ class _SplashScreen2State extends State<SplashScreen2> {
                       SizedBox(
                         height: 40,
                       ),
-                      _buildNextButton()
+                      _buildSignUpButton(),
+                      _buildLogInButton()
                     ],
                   ))
 
@@ -265,17 +277,17 @@ class _SplashScreen2State extends State<SplashScreen2> {
                 SizedBox(
                   height: 40,
                 ),
-                _buildNextButton()
+                _buildSignUpButton()
               ],
             )));
   }
 
-  Widget _buildNextButton() {
+  Widget _buildSignUpButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen3()));
+          _showToast("sign up");
          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
@@ -298,7 +310,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
             height: 50,
             alignment: Alignment.center,
             child:  Text(
-              "Next",
+              "Sign Up",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'PT-Sans',
@@ -312,8 +324,39 @@ class _SplashScreen2State extends State<SplashScreen2> {
       ),
     );
   }
+  Widget _buildLogInButton() {
+    return InkWell(
+      onTap: (){
+        _showToast("login");
+      },
+      child: Container(
 
+        height: 50,
+        alignment: Alignment.center,
+        child:  Text(
+          "LogIn",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'PT-Sans',
+            fontSize: 20,
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),
+        ),
+      ),
+    );
+  }
 
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.intello_bd_color_dark,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 
   Widget _buildDropButton() {
     return Container(

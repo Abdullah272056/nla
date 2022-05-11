@@ -3,20 +3,21 @@ import 'dart:convert';
 import 'dart:io';
 
 
+import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:page_transition/page_transition.dart';
 
-class SplashScreen2 extends StatefulWidget {
-  const SplashScreen2({Key? key}) : super(key: key);
+class SplashScreen3 extends StatefulWidget {
+  const SplashScreen3({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen2> createState() => _SplashScreen2State();
+  State<SplashScreen3> createState() => _SplashScreen3State();
 }
 
-class _SplashScreen2State extends State<SplashScreen2> {
+class _SplashScreen3State extends State<SplashScreen3> {
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -74,19 +75,29 @@ class _SplashScreen2State extends State<SplashScreen2> {
                         height: 15,
                       ),
 
+
+
                       Container(
                         margin:EdgeInsets.only(right:00.0,top: 30,left: 00,
                           bottom: 50,
                         ),
-                        child:Image.asset(
-                          "assets/images/vector1.png",
-                          // width: 81,
-                          //height: 230,
-                          fit: BoxFit.fill,
+                        child:DelayedWidget(
+
+                          delayDuration: Duration(milliseconds: 100),// Not required
+                          animationDuration: Duration(milliseconds: 500),// Not required
+                          animation: DelayedAnimations.SLIDE_FROM_RIGHT,// Not required
+                          child: Image.asset(
+                            "assets/images/vector2.png",
+                            // width: 81,
+                            //height: 230,
+                            fit: BoxFit.fill,
+                          ),
                         ),
+
+
                       ),
                       Text(
-                        "Open Your Bank Account\nin 5 Minutes",
+                        "Send Money Fastly around\nthe World",
                         textAlign: TextAlign.center,
 
                         style: TextStyle(
@@ -116,7 +127,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                           Container(
                             margin: const EdgeInsets.only(left: 3.0, right: 3.0),
                             decoration: const BoxDecoration(
-                              color: Colors.intello_bd_color,
+                              color: Colors.intello_hint_color,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(4.0),
                                 topRight: Radius.circular(4.0),
@@ -130,7 +141,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                           Container(
                             margin: const EdgeInsets.only(left: 3.0, right: 3.0),
                             decoration: const BoxDecoration(
-                              color: Colors.intello_hint_color,
+                              color: Colors.intello_bd_color,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(4.0),
                                 topRight: Radius.circular(4.0),
@@ -275,8 +286,8 @@ class _SplashScreen2State extends State<SplashScreen2> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen3()));
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

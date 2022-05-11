@@ -87,6 +87,9 @@ dependencies:
   dropdown_button2: ^1.4.0
   #page transaction
   page_transition: "^2.0.5"
+  #animations
+  delayed_widget: ^1.1.1
+
 flutter_icons:
   android: "launcher_icon"
   ios: true

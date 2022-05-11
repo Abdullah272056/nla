@@ -15,16 +15,8 @@ class PrivacyPolicyForCompanyScreen extends StatefulWidget {
 class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyScreen> with SingleTickerProviderStateMixin{
   String countryName="en",countryIcon="icon_country.png";
 
-
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-                                    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
-
   late AnimationController controller;
   late Animation heartbeatAnimation;
-
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +149,6 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
               ),
             )));
   }
-
 
   Widget _buildAcceptButton() {
     return Container(

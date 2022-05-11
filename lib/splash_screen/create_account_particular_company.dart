@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/splash_screen/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/splash_screen/privacy_policy_for_particular.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -292,7 +293,7 @@ int _particular_company_selected_status=1;
   Widget _buildHaveAnAccountButton() {
     return InkWell(
       onTap: (){
-        _showToast("have an account");
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
       },
       child: Container(
 

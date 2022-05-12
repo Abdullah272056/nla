@@ -3,6 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_lexxa/splash_screen/registration_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 class PrivacyPolicyForParticularScreen extends StatefulWidget {
@@ -166,7 +167,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
       child: ElevatedButton(
         onPressed: () {
 
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpForParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

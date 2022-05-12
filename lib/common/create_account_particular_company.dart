@@ -235,12 +235,7 @@ int _particular_company_selected_status=1;
           }
           else{
             Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForCompanyScreen()));
-
           }
-
-          _showToast(_particular_company_selected_status.toString());
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },
         style: ElevatedButton.styleFrom(

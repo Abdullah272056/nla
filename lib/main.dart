@@ -9,6 +9,8 @@ import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
+import 'Particular/message_verification_particular.dart';
+
 
 
 void main() {
@@ -33,7 +35,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            SplashScreen4(),
+            MessageVerificationParticularScreen(),
           ],
         ),
       ),

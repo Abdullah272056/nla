@@ -131,7 +131,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                     ,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        color: Colors.intello_small_text_color_,
+                        color: Colors.novalexxa_text_color,
                         fontSize: 15,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.w400),
@@ -220,7 +220,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
             fontFamily: 'PT-Sans',
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            color: Colors.black,
+            color: Colors.novalexxa_text_color,
           ),
         ),
       ),

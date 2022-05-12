@@ -58,7 +58,7 @@ int _particular_company_selected_status=1;
                       center: Text("10%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.intello_page_unselected_tab_color,
+                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
                       progressColor: Colors.novalexxa_color,
                     ),
                     SizedBox(
@@ -69,7 +69,7 @@ int _particular_company_selected_status=1;
                       textAlign: TextAlign.center,
 
                       style: TextStyle(
-                          color: Colors.intello_easylearn_bold_text_color_,
+                          color: Colors.novalexxa_text_color,
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
@@ -80,7 +80,7 @@ int _particular_company_selected_status=1;
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Colors.intello_hint_color,
+                          color: Colors.novalexxa_hint_text_color,
                           fontSize: 15,
                           fontWeight: FontWeight.w400),
                     ),
@@ -94,9 +94,6 @@ int _particular_company_selected_status=1;
                     ]else...{
                       _buildCompanySelectedSection(),
                     },
-
-
-
                     SizedBox(
                       height: 50,
                     ),
@@ -116,7 +113,6 @@ int _particular_company_selected_status=1;
 
                   ],
                 ))
-
           ],
         ),
       ),
@@ -145,10 +141,6 @@ int _particular_company_selected_status=1;
                   fit: BoxFit.fill,
                 ),
               )
-
-
-
-
           ),
 
 
@@ -170,14 +162,7 @@ int _particular_company_selected_status=1;
                   fit: BoxFit.fill,
                 ),
               )
-
-
-
-
           )
-
-
-
         ],
       ),
     );
@@ -290,6 +275,7 @@ int _particular_company_selected_status=1;
       ),
     );
   }
+
   Widget _buildHaveAnAccountButton() {
     return InkWell(
       onTap: (){
@@ -306,7 +292,7 @@ int _particular_company_selected_status=1;
             fontFamily: 'PT-Sans',
             fontSize: 20,
             fontWeight: FontWeight.normal,
-            color: Colors.black,
+            color: Colors.novalexxa_text_color,
           ),
         ),
       ),

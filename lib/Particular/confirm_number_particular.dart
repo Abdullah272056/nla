@@ -5,14 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
 
-class ConfirmNumberForCompanyScreen extends StatefulWidget {
-  const ConfirmNumberForCompanyScreen({Key? key}) : super(key: key);
+class ConfirmNumberForParticularScreen extends StatefulWidget {
+  const ConfirmNumberForParticularScreen({Key? key}) : super(key: key);
 
   @override
-  State<ConfirmNumberForCompanyScreen> createState() => _ConfirmNumberForCompanyScreenState();
+  State<ConfirmNumberForParticularScreen> createState() => _ConfirmNumberForParticularScreenState();
 }
 
-class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyScreen> with SingleTickerProviderStateMixin{
+class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParticularScreen> with SingleTickerProviderStateMixin{
   String countryName="en",countryIcon="icon_country.png";
 
   late AnimationController controller;

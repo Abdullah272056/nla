@@ -3,7 +3,10 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+
+import 'confirm_number_particular.dart';
 
 class SignUpForParticularScreen extends StatefulWidget {
   const SignUpForParticularScreen({Key? key}) : super(key: key);
@@ -216,7 +219,9 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                                   ),
                                 ),
                                 InkResponse(
-                                  onTap: (){},
+                                  onTap: (){
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const LogInScreen()));
+                                  },
                                   child: Align(alignment: Alignment.centerLeft,
                                     child:  Text(
                                       " Sign In",
@@ -426,17 +431,9 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
-          // if(_particular_company_selected_status==1){
-          //
-          //   Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
-          // }
-          // else{
-          //   Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForCompanyScreen()));
-          //
-          // }
 
           //_showToast(_particular_company_selected_status.toString());
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

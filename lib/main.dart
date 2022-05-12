@@ -7,12 +7,13 @@ import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/company/registration_for_company.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 
 
 void main() {
   runApp( MyApp());
-  SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.transparent,
     // statusBarColor: Colors.intello_bd_color_dark.withOpacity(0.0),
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            LogInScreen(),
+            SplashScreen4(),
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_lexxa/company/registration_for_company.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 class PrivacyPolicyForCompanyScreen extends StatefulWidget {
@@ -156,7 +157,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
       child: ElevatedButton(
         onPressed: () {
 
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const SignUpForCompanyScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },
@@ -167,7 +168,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: const LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

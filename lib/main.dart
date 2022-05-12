@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nova_lexxa/splash_screen/create_account_particular_company.dart';
-import 'package:nova_lexxa/splash_screen/log_in.dart';
-import 'package:nova_lexxa/splash_screen/privacy_policy_for_particular.dart';
+import 'package:nova_lexxa/common/create_account_particular_company.dart';
+import 'package:nova_lexxa/common/log_in.dart';
+import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
+import 'package:nova_lexxa/company/registration_for_company.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
+
+
 
 void main() {
   runApp( MyApp());
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            SplashScreen1(),
+            LogInScreen(),
           ],
         ),
       ),

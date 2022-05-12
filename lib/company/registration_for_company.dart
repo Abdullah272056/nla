@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class SignUpForParticularScreen extends StatefulWidget {
-  const SignUpForParticularScreen({Key? key}) : super(key: key);
+class SignUpForCompanyScreen extends StatefulWidget {
+  const SignUpForCompanyScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpForParticularScreen> createState() => _SignUpForParticularScreenState();
+  State<SignUpForCompanyScreen> createState() => _SignUpForCompanyScreenState();
 }
 
-class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
+class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
   String _genderDropDownSelectedValue = "English";
@@ -51,7 +51,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       center: Text("30%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.intello_page_unselected_tab_color,
+                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
                       progressColor: Colors.novalexxa_color,
                     ),
                     SizedBox(
@@ -171,26 +171,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                     userInputCountry(_countryController!, 'Country', TextInputType.text),
 
                     SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text("Promo code",
-                            style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    userPromoCode(_promoCodeController!, 'Prome code', TextInputType.text),
-                    SizedBox(
-                      height: 50,
+                      height: 35,
                     ),
 
                     DelayedWidget(
@@ -266,7 +247,10 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             // border: InputBorder.,
 
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_text_color, width: 1.0),
+              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
             ),
 
             suffixIconConstraints: BoxConstraints(
@@ -309,7 +293,10 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               minWidth: 15,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_text_color, width: 1.0),
+              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
             ),
             suffixIcon:  Icon(
               Icons.phone_iphone,
@@ -347,7 +334,10 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               minWidth: 15,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_text_color, width: 1.0),
+              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
             ),
             suffixIcon:Image(
               image: AssetImage(
@@ -368,46 +358,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
-  Widget userPromoCode(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
-
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.done,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 12,
-              minWidth: 12,
-            ),
-            suffixIcon: Image(
-              image: AssetImage(
-                "assets/images/promo_code_icon.png",
-
-              ),
-
-              height: 18,
-              width: 18,
-              fit: BoxFit.fill,
-            ),
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_text_color, width: 1.0),
-            ),
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),
-      ),
-    );
-  }
 
   Widget _buildNextButton() {
     return Container(

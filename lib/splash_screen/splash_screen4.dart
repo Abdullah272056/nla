@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'create_account_particular_company.dart';
-import 'log_in.dart';
+import '../common/create_account_particular_company.dart';
+import '../common/log_in.dart';
 
 class SplashScreen4 extends StatefulWidget {
   const SplashScreen4({Key? key}) : super(key: key);
@@ -269,7 +269,7 @@ class _SplashScreen4State extends State<SplashScreen4> {
             fontFamily: 'PT-Sans',
             fontSize: 20,
             fontWeight: FontWeight.normal,
-            color: Colors.black,
+            color: Colors.novalexxa_text_color,
           ),
         ),
       ),

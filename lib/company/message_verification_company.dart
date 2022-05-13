@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/Particular/email_verification_particular.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -17,16 +18,15 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'email_verification_particular.dart';
 
-class MessageVerificationParticularScreen extends StatefulWidget {
-  const MessageVerificationParticularScreen({Key? key}) : super(key: key);
+class MessageVerificationCompanyScreen extends StatefulWidget {
+  const MessageVerificationCompanyScreen({Key? key}) : super(key: key);
 
   @override
-  State<MessageVerificationParticularScreen> createState() => _MessageVerificationParticularScreenState();
+  State<MessageVerificationCompanyScreen> createState() => _MessageVerificationCompanyScreenState();
 }
 
-class _MessageVerificationParticularScreenState extends State<MessageVerificationParticularScreen> {
+class _MessageVerificationCompanyScreenState extends State<MessageVerificationCompanyScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -191,7 +191,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
         ),
         keyboardType: TextInputType.number,
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
           //_otpTxt = pin;
           _showToast(pin);
         },

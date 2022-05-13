@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
 
+import 'message_verification_particular.dart';
+
 class ConfirmNumberForParticularScreen extends StatefulWidget {
   const ConfirmNumberForParticularScreen({Key? key}) : super(key: key);
 
@@ -85,9 +87,6 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
                           fontWeight: FontWeight.normal),
                     ),
                   ),
-
-
-
 
                 ],
               ),
@@ -174,9 +173,8 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          //Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen3()));
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationParticularScreen()));
 
         },
         style: ElevatedButton.styleFrom(

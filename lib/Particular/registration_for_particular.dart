@@ -3,6 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -54,8 +55,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       center: Text("30%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
-                      progressColor: Colors.novalexxa_color,
+                      backgroundColor: novalexxa_indicator_unselected_color,
+                      progressColor: novalexxa_color,
                     ),
                     SizedBox(
                       height: 30,
@@ -108,7 +109,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                           "Register with your email address and password.",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_hint_text_color,
+                              color: novalexxa_hint_text_color,
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -124,7 +125,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         alignment: Alignment.topLeft,
                         child: Text("Email",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -146,7 +147,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         alignment: Alignment.topLeft,
                         child: Text("Phone Number",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -164,7 +165,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         alignment: Alignment.topLeft,
                         child: Text("Country",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -182,7 +183,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         alignment: Alignment.topLeft,
                         child: Text("Promo code",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -265,16 +266,16 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.,
 
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
             suffixIconConstraints: BoxConstraints(
@@ -289,7 +290,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -308,7 +309,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -317,10 +318,10 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               minWidth: 15,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
             suffixIcon:  Icon(
               Icons.phone_iphone,
@@ -330,7 +331,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -349,7 +350,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -358,10 +359,10 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               minWidth: 15,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
             suffixIcon:Image(
               image: AssetImage(
@@ -374,7 +375,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle:  TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -393,7 +394,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           textInputAction: TextInputAction.done,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -412,13 +413,13 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               fit: BoxFit.fill,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle:  TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -444,7 +445,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

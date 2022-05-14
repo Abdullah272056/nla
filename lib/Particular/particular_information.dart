@@ -3,6 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -47,8 +48,8 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       center: Text("70%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
-                      progressColor: Colors.novalexxa_color,
+                      backgroundColor: novalexxa_indicator_unselected_color,
+                      progressColor: novalexxa_color,
                     ),
                     SizedBox(
                       height: 30,
@@ -101,7 +102,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                           "Enter your personal information",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_hint_text_color,
+                              color: novalexxa_hint_text_color,
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -117,7 +118,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                         alignment: Alignment.topLeft,
                         child: Text("Name",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -139,7 +140,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                         alignment: Alignment.topLeft,
                         child: Text("Surname",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -157,7 +158,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                         alignment: Alignment.topLeft,
                         child: Text("Birthday",
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color:novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
@@ -210,16 +211,16 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
           textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.,
 
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
             suffixIconConstraints: BoxConstraints(
@@ -234,7 +235,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -253,7 +254,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
           textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -262,10 +263,10 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
               minWidth: 15,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
             suffixIcon: Icon(
               Icons.date_range_sharp,
@@ -275,7 +276,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color:novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -294,7 +295,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
           textInputAction: TextInputAction.done,
           autocorrect: false,
           enableSuggestions: false,
-          cursorColor: Colors.novalexxa_text_color,
+          cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -313,13 +314,13 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
               fit: BoxFit.fill,
             ),
             focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: 1.0),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: Colors.novalexxa_hint_text_color, width: .5),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -345,7 +346,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

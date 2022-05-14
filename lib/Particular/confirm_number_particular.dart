@@ -3,6 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
 
 import 'message_verification_particular.dart';
@@ -129,7 +130,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
                   textAlign: TextAlign.center,
 
                   style: TextStyle(
-                      color: Colors.novalexxa_text_color,
+                      color: novalexxa_text_color,
                       fontSize: 30,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.bold),
@@ -142,7 +143,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
                   textAlign: TextAlign.center,
 
                   style: TextStyle(
-                      color: Colors.novalexxa_color,
+                      color: novalexxa_color,
                       fontSize: 30,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.bold),
@@ -184,7 +185,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -228,7 +229,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
             fontFamily: 'PT-Sans',
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            color: Colors.novalexxa_text_color,
+            color: novalexxa_text_color,
           ),
         ),
       ),

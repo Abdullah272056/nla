@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -52,8 +53,8 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                       center: Text("60%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
-                      progressColor: Colors.novalexxa_color,
+                      backgroundColor: novalexxa_indicator_unselected_color,
+                      progressColor: novalexxa_color,
                     ),
                     SizedBox(
                       height: 40,
@@ -89,7 +90,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                           child:Text(
                             "Novalexxxa",
                             style: TextStyle(
-                                color: Colors.novalexxa_text_color,
+                                color: novalexxa_text_color,
                                 fontSize: 21,
                                 decoration: TextDecoration.none,
                                 fontWeight: FontWeight.normal),
@@ -109,7 +110,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                           "Please enter the verification code, was send to your email",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_text_color,
+                              color: novalexxa_text_color,
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -121,7 +122,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                           "01:36",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_color,
+                              color: novalexxa_color,
                               fontSize: 18,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -133,7 +134,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                           "Resend Code",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_hint_text_color,
+                              color: novalexxa_hint_text_color,
                               fontSize: 13,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -176,7 +177,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
 
         style: TextStyle(
           fontSize: 18,
-          color: Colors.novalexxa_text_color,
+          color: novalexxa_text_color,
         ),
         keyboardType: TextInputType.number,
         onCompleted: (pin) {

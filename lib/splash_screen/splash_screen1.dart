@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -100,7 +101,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                     Container(
                       margin: const EdgeInsets.only(left: 20.0, right: 00.0),
                       decoration: const BoxDecoration(
-                        color: Colors.novalexxa_color,
+                        color:novalexxa_color,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(2.0),
                           topRight: Radius.circular(2.0),
@@ -115,7 +116,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                     Expanded(child: Container(
                       margin: const EdgeInsets.only(left: 10.0, right: 0.0),
                       decoration: const BoxDecoration(
-                        color: Colors.novalexxa_color,
+                        color: novalexxa_color,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(2.0),
                           topRight: Radius.circular(2.0),
@@ -130,7 +131,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                     Expanded(child: Container(
                       margin: const EdgeInsets.only(left: 10.0, right: 20.0),
                       decoration: const BoxDecoration(
-                        color: Colors.novalexxa_color,
+                        color:novalexxa_color,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(2.0),
                           topRight: Radius.circular(2.0),

@@ -4,6 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/Particular/registration_for_particular.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 class PrivacyPolicyForParticularScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Colors.novalexxa_color,
+          color: novalexxa_color,
         ),
         child: Flex(
           direction: Axis.vertical,
@@ -114,7 +115,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                      textAlign: TextAlign.left,
 
                      style: TextStyle(
-                         color: Colors.novalexxa_color,
+                         color: novalexxa_color,
                          fontSize: 25,
                          decoration: TextDecoration.none,
                          fontWeight: FontWeight.w600),
@@ -131,7 +132,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                     ,
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                        color: Colors.novalexxa_text_color,
+                        color: novalexxa_text_color,
                         fontSize: 15,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.w400),
@@ -178,7 +179,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -220,7 +221,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
             fontFamily: 'PT-Sans',
             fontSize: 18,
             fontWeight: FontWeight.normal,
-            color: Colors.novalexxa_text_color,
+            color: novalexxa_text_color,
           ),
         ),
       ),

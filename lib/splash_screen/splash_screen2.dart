@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -59,7 +60,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                                   topLeft: Radius.circular(40.0),
                                   bottomLeft: Radius.circular(40.0)),
                               border: Border.all(
-                                color: Colors.novalexxa_rounded_border_color, //                   <--- border color
+                                color: novalexxa_rounded_border_color, //                   <--- border color
                                 width: 1.0, //                   <--- border width here
                               ),
 
@@ -94,7 +95,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                             textAlign: TextAlign.center,
 
                             style: TextStyle(
-                                color: Colors.novalexxa_text_color,
+                                color: novalexxa_text_color,
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -109,7 +110,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua",
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: Colors.novalexxa_hint_text_color,
+                                color: novalexxa_hint_text_color,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -128,7 +129,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                               Container(
                                 margin: const EdgeInsets.only(left: 3.0, right: 3.0),
                                 decoration: const BoxDecoration(
-                                  color: Colors.novalexxa_color,
+                                  color: novalexxa_color,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(4.0),
                                     topRight: Radius.circular(4.0),
@@ -142,7 +143,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                               Container(
                                 margin: const EdgeInsets.only(left: 3.0, right: 3.0),
                                 decoration: const BoxDecoration(
-                                  color: Colors.novalexxa_next_page_circle_color,
+                                  color: novalexxa_next_page_circle_color,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(4.0),
                                     topRight: Radius.circular(4.0),
@@ -156,7 +157,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                               Container(
                                 margin: const EdgeInsets.only(left: 3.0, right: 3.0),
                                 decoration: const BoxDecoration(
-                                  color: Colors.novalexxa_next_page_circle_color,
+                                  color: novalexxa_next_page_circle_color,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(4.0),
                                     topRight: Radius.circular(4.0),
@@ -208,7 +209,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -268,7 +269,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                       fontFamily: 'PT-Sans',
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
-                      color: Colors.novalexxa_hint_text_color,
+                      color: novalexxa_hint_text_color,
                     ),
                   ),
                 ),
@@ -279,7 +280,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                   alignment: Alignment.center,
                   child:Icon(
                     Icons.arrow_drop_down_sharp,
-                    color: Colors.novalexxa_hint_text_color,
+                    color: novalexxa_hint_text_color,
                     size: 18.0,
                   ),
                 ),

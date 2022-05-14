@@ -14,6 +14,8 @@ import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import 'Colors.dart';
+
 class CreateAccountParticularAndCompanyScreen extends StatefulWidget {
   const CreateAccountParticularAndCompanyScreen({Key? key}) : super(key: key);
 
@@ -58,8 +60,8 @@ int _particular_company_selected_status=1;
                       center: Text("10%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
-                      progressColor: Colors.novalexxa_color,
+                      backgroundColor: novalexxa_indicator_unselected_color,
+                      progressColor: novalexxa_color,
                     ),
                     SizedBox(
                       height: 50,
@@ -69,7 +71,7 @@ int _particular_company_selected_status=1;
                       textAlign: TextAlign.center,
 
                       style: TextStyle(
-                          color: Colors.novalexxa_text_color,
+                          color: novalexxa_text_color,
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
@@ -80,7 +82,7 @@ int _particular_company_selected_status=1;
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Colors.novalexxa_hint_text_color,
+                          color: novalexxa_hint_text_color,
                           fontSize: 15,
                           fontWeight: FontWeight.w400),
                     ),
@@ -245,7 +247,7 @@ int _particular_company_selected_status=1;
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -287,7 +289,7 @@ int _particular_company_selected_status=1;
             fontFamily: 'PT-Sans',
             fontSize: 20,
             fontWeight: FontWeight.normal,
-            color: Colors.novalexxa_text_color,
+            color: novalexxa_text_color,
           ),
         ),
       ),

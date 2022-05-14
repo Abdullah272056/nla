@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/email_verification_particular.dart';
+import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -63,8 +65,8 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                       center: Text("50%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
-                      backgroundColor: Colors.novalexxa_indicator_unselected_color,
-                      progressColor: Colors.novalexxa_color,
+                      backgroundColor: novalexxa_indicator_unselected_color,
+                      progressColor: novalexxa_color,
                     ),
                     SizedBox(
                       height: 40,
@@ -100,7 +102,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                           child:Text(
                             "Novalexxxa",
                             style: TextStyle(
-                                color: Colors.novalexxa_text_color,
+                                color:novalexxa_text_color,
                                 fontSize: 21,
                                 decoration: TextDecoration.none,
                                 fontWeight: FontWeight.normal),
@@ -120,7 +122,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                           "Please enter the verification code, was send to your mobile ***",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_text_color,
+                              color:novalexxa_text_color,
                               fontSize: 15,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -132,7 +134,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                           "01:36",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_color,
+                              color: novalexxa_color,
                               fontSize: 18,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -144,7 +146,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                           "Resend Code",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.novalexxa_hint_text_color,
+                              color: novalexxa_hint_text_color,
                               fontSize: 13,
                               fontWeight: FontWeight.w400),
                         ),),
@@ -187,7 +189,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
 
         style: TextStyle(
           fontSize: 18,
-          color: Colors.novalexxa_text_color,
+          color: novalexxa_text_color,
         ),
         keyboardType: TextInputType.number,
         onCompleted: (pin) {
@@ -231,7 +233,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

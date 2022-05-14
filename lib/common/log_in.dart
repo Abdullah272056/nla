@@ -10,9 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+
+import 'Colors.dart';
+
+
+
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -20,16 +22,8 @@ class LogInScreen extends StatefulWidget {
   @override
   State<LogInScreen> createState() => _LogInScreenState();
 }
-
 class _LogInScreenState extends State<LogInScreen> {
   String countryName="en",countryIcon="icon_country.png";
-
-
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
   int _particular_company_selected_status=1;
   TextEditingController? _emailController = TextEditingController();
@@ -224,7 +218,6 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-
   Widget _buildLogInButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -240,6 +233,7 @@ class _LogInScreenState extends State<LogInScreen> {
           }
 
           _showToast(_particular_company_selected_status.toString());
+
           // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
@@ -251,7 +245,7 @@ class _LogInScreenState extends State<LogInScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.novalexxa_color, Colors.novalexxa_color],
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -277,7 +271,6 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -288,7 +281,6 @@ class _LogInScreenState extends State<LogInScreen> {
         textColor: Colors.white,
         fontSize: 16.0);
   }
-
 
 }
 

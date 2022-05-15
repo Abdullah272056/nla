@@ -9,23 +9,20 @@ import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'company_account.dart';
 
-
-class AddInformationForCompanyScreen extends StatefulWidget {
-  const AddInformationForCompanyScreen({Key? key}) : super(key: key);
+class CompanyAccountScreen extends StatefulWidget {
+  const CompanyAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddInformationForCompanyScreen> createState() => _AddInformationForCompanyScreenState();
+  State<CompanyAccountScreen> createState() => _CompanyAccountScreenState();
 }
 
-class _AddInformationForCompanyScreenState extends State<AddInformationForCompanyScreen> {
+class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
 
 
-  TextEditingController? _companyNameController = TextEditingController();
-  TextEditingController? _SectorofActivitiesController = TextEditingController();
-  TextEditingController? _zipCodeController = TextEditingController();
-  TextEditingController? _addressController = TextEditingController();
+  TextEditingController? _companyIDController = TextEditingController();
+  TextEditingController? _responsibleNameController = TextEditingController();
+  TextEditingController? _responsibleSurnameController = TextEditingController();
   String _countryBirthDay="Enter Birthday";
   String select_your_country="Enter Birthday";
   @override
@@ -49,8 +46,8 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
-                      percent: 0.7,
-                      center: Text("70%"),
+                      percent: 0.8,
+                      center: Text("80%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
@@ -119,7 +116,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Company Name",
+                        child: Text("Company ID",
                             style: TextStyle(
                                 color: novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -131,7 +128,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                     SizedBox(
                       height: 0,
                     ),
-                    companyNameInput(_companyNameController!, 'Company Name', TextInputType.text,"assets/images/commpany_name_icon.png"),
+                    companyInfoInput(_companyIDController!, 'Company ID', TextInputType.text,"assets/images/icon_id.png",15,18),
 
                     SizedBox(
                       height: 20,
@@ -140,7 +137,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Sector of Activities",
+                        child: Text("Responsible Name",
                             style: TextStyle(
                                 color: novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -149,7 +146,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       ),
                     ),
 
-                    companyNameInput(_SectorofActivitiesController!, 'Sector of Activities', TextInputType.text,"assets/images/icon_activity.png"),
+                    companyInfoInput(_responsibleNameController!, 'Responsible Name', TextInputType.text,"assets/images/icon_user.png",18,18),
 
 
                     //country
@@ -160,7 +157,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Address",
+                        child: Text("Responsible Surname",
                             style: TextStyle(
                                 color:novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -168,31 +165,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                         ),
                       ),
                     ),
-                    companyNameInput(_addressController!, 'Address', TextInputType.text,"assets/images/icon_map.png"),
-
-                    // userInputBirthDay(_birthDayController!, 'BirthDay', TextInputType.datetime),
-                    // Container( color: novalexxa_hint_text_color,
-                    //   margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
-                    //   height: .5,
-                    // ),
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text("Zip Code",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
-                        ),
-                      ),
-                    ),
-
-                    companyNameInput(_zipCodeController!, 'Zip Code', TextInputType.text,"assets/images/icon_zip.png"),
+                    companyInfoInput(_responsibleSurnameController!, 'Responsible Surname', TextInputType.text,"assets/images/icon_user.png",18,18),
 
 
                     SizedBox(
@@ -223,7 +196,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
-  Widget companyNameInput(TextEditingController controller, String hintTitle, TextInputType keyboardType,String icon_link) {
+  Widget companyInfoInput(TextEditingController controller, String hintTitle, TextInputType keyboardType,String icon_link,double iconHeight,double iconWidth) {
     return Container(
       height: 55,
 
@@ -238,7 +211,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.,
-
+            contentPadding: EdgeInsets.only(bottom: 5),
             focusedBorder:UnderlineInputBorder(
               borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
@@ -252,8 +225,8 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
             ),
             suffixIcon: Image(
               image: AssetImage(icon_link),
-              height: 18,
-              width: 16,
+              height: iconHeight,
+              width: iconWidth,
               fit: BoxFit.fill,
             ),
 
@@ -267,51 +240,6 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
-
-
-  Widget userInputBirthDay(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return InkResponse(
-      onTap: (){
-
-      },
-      child: SizedBox(
-        height: 52,
-
-        child: Padding(
-          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-          child:Flex(direction: Axis.horizontal,
-            children: [
-              if(_countryBirthDay==select_your_country)...{
-                Expanded(child: Text(_countryBirthDay,
-                    style: TextStyle(
-                        color: Colors.intello_hint_color,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal)
-                )),
-              }
-              else...{
-                Expanded(child: Text(_countryBirthDay,
-                    style: TextStyle(
-                        color: Colors.intello_text_color,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal)
-                )),
-              },
-              Image.asset(
-                "assets/images/icon_birthday.png",
-                width: 18,
-                height: 18,
-                fit: BoxFit.fill,
-              ),
-             // Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
-            ],
-          ),
-
-        ),
-      ),
-    );
-  }
-
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -319,7 +247,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         onPressed: () {
 
           //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CompanyAccountScreen()));
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

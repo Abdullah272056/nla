@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nova_lexxa">
    <application
-        android:label="nova_lexxa"
+        android:label="Novalexxa"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -79,8 +79,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
 
                       ),
                     ),
-
-
+                    
                     Container(
                       margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topLeft,
@@ -108,7 +107,6 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                         ),),
                     ),
 
-
                     SizedBox(
                       height: 30,
                     ),
@@ -129,7 +127,6 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       height: 0,
                     ),
                     userInputName(_nameController!, 'Name', TextInputType.text),
-
 
                     SizedBox(
                       height: 20,

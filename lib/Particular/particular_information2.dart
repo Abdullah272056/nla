@@ -11,21 +11,32 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'confirm_number_particular.dart';
 
-class AddInformationForParticularScreen extends StatefulWidget {
-  const AddInformationForParticularScreen({Key? key}) : super(key: key);
+class AddInformationForParticular2Screen extends StatefulWidget {
+  const AddInformationForParticular2Screen({Key? key}) : super(key: key);
 
   @override
-  State<AddInformationForParticularScreen> createState() => _AddInformationForParticularScreenState();
+  State<AddInformationForParticular2Screen> createState() => _AddInformationForParticularScreen2State();
 }
 
-class _AddInformationForParticularScreenState extends State<AddInformationForParticularScreen> {
+class _AddInformationForParticularScreen2State extends State<AddInformationForParticular2Screen> {
 
 
   TextEditingController? _nameController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();
   TextEditingController? _birthDayController = TextEditingController();
-  String _countryBirthDay="Enter Birthday";
-  String select_your_country="Enter Birthday";
+
+  String _nationality="Nationality";
+  String select_your__nationality="Nationality";
+  FlagsCode _nationalityCountryFlagCode=FlagsCode.IT;
+
+  String _placeOFBirth="Place of Birth";
+  String select_your_place_of_birth="Place of Birth";
+  FlagsCode _placeOFBirthCountryFlagCode=FlagsCode.IT;
+
+
+  int _particular_company_selected_status=1;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,13 +122,13 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                     ),
 
                     SizedBox(
-                      height: 30,
+                      height: 35,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Name",
+                        child: Text("Nationality",
                             style: TextStyle(
                                 color: novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -126,37 +137,24 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
-                    userInputName(_nameController!, 'Name', TextInputType.text),
+
+                    userInputNationality(_nameController!,),
+                    Container( color: novalexxa_hint_text_color,
+                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                      height: .5,
+                    ),
 
                     SizedBox(
-                      height: 20,
+                      height: 25,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Surname",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
-                        ),
-                      ),
-                    ),
-
-                    userInputName(_surnameController!, 'Surname', TextInputType.text),
-                    //country
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text("Birthday",
+                        child: Text("Place of Birth",
                             style: TextStyle(
                                 color:novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -165,7 +163,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       ),
                     ),
 
-                    userInputBirthDay(_birthDayController!, 'BirthDay', TextInputType.datetime),
+                    userInputPlaceOfBirth(_birthDayController!,),
                     Container( color: novalexxa_hint_text_color,
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                       height: .5,
@@ -173,7 +171,28 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                     SizedBox(
                       height: 20,
                     ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10,bottom: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("Sex",
+                            style: TextStyle(
+                                color:novalexxa_hint_text_color,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400)
+                        ),
+                      ),
+                    ),
+                    if(_particular_company_selected_status==1)...[
+                      _buildParticularSelectedSection(),
 
+                    ]else...{
+                      _buildCompanySelectedSection(),
+                    },
+                    Container( color: novalexxa_hint_text_color,
+                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                      height: .5,
+                    ),
 
                     SizedBox(
                       height: 35,
@@ -195,7 +214,10 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                     )
 
                   ],
-                ))
+                )),
+
+
+
 
           ],
         ),
@@ -203,87 +225,38 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
-  Widget userInputName(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
 
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.,
-
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
-
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            suffixIcon: Image(
-              image: AssetImage(
-                "assets/images/icon_user.png"
-              ),
-              height: 18,
-              width: 18,
-              fit: BoxFit.fill,
-            ),
-
-
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),
-      ),
-    );
-  }
-
-  Widget userInputBirthDay(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputNationality(TextEditingController userInput, ) {
     return InkResponse(
       onTap: (){
 
       },
-      child: SizedBox(
+      child: Container(
         height: 52,
 
         child: Padding(
           padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
           child:Flex(direction: Axis.horizontal,
             children: [
-              if(_countryBirthDay==select_your_country)...{
-                Expanded(child: Text(_countryBirthDay,
+
+              if(_nationality==select_your__nationality)...{
+                Expanded(child: Text(_nationality,
                     style: TextStyle(
-                        color: Colors.intello_hint_color,
+                        color: Colors.hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
               }
               else...{
-                Expanded(child: Text(_countryBirthDay,
+                Expanded(child: Text(_nationality,
                     style: TextStyle(
                         color: Colors.intello_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
               },
-              Image.asset(
-                "assets/images/icon_birthday.png",
-                width: 18,
-                height: 18,
-                fit: BoxFit.fill,
-              ),
-             // Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+
+              Flag.fromCode(_nationalityCountryFlagCode, height: 18, width: 22, fit: BoxFit.fill)
             ],
           ),
 
@@ -292,47 +265,44 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
-  Widget userInputBirthDay1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
+  Widget userInputPlaceOfBirth(TextEditingController userInput,) {
+    return InkResponse(
+      onTap: (){
 
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
-            suffixIcon: Icon(
-              Icons.date_range_sharp,
-              color: Colors.intello_hint_color,
-              size: 22.0,
-            ),
+      },
+      child: Container(
+        height: 52,
 
+        child: Padding(
+          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          child:Flex(direction: Axis.horizontal,
+            children: [
 
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color:novalexxa_text_color, fontStyle: FontStyle.normal),
+              if(_placeOFBirth==select_your_place_of_birth)...{
+                Expanded(child: Text(_placeOFBirth,
+                    style: TextStyle(
+                        color: Colors.hint_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              }
+              else...{
+                Expanded(child: Text(_placeOFBirth,
+                    style: TextStyle(
+                        color: Colors.intello_text_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              },
+
+              Flag.fromCode(_placeOFBirthCountryFlagCode, height: 18, width: 22, fit: BoxFit.fill)
+            ],
           ),
-          keyboardType: keyboardType,
+
         ),
       ),
     );
   }
-
 
   Widget _buildNextButton() {
     return Container(
@@ -374,6 +344,167 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildParticularSelectedSection() {
+    return Container(
+      margin: const EdgeInsets.only(left: 00.0, right: 00.0),
+      child:Flex(
+        direction: Axis.horizontal,
+        children: [
+          Container(
+              margin:EdgeInsets.only(right:00.0,top: 00,left: 00,
+                bottom: 00,
+              ),
+              child:InkResponse(
+                onTap: (){
+                  setState(() {
+                    _particular_company_selected_status=2;
+                  });
+                },
+                child: Image.asset(
+                  "assets/images/company_unselected.png",
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.fill,
+                ),
+              )
+          ),
+          Container(
+            margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
+            child: Align(alignment: Alignment.topLeft,
+              child: Text(
+                "Male",
+                textAlign: TextAlign.center,
+
+                style: TextStyle(
+                    color: Colors.intello_easylearn_bold_text_color_,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+
+
+          Container(
+              margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
+                bottom: 00,
+              ),
+              child:InkResponse(
+                onTap: (){
+                  setState(() {
+                    _particular_company_selected_status=1;
+                  });
+
+                },
+                child:  Image.asset(
+                  "assets/images/particular_selected.png",
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.fill,
+                ),
+              )
+          ),
+          Container(
+            margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
+            child: Align(alignment: Alignment.topLeft,
+              child: Text(
+                "Female",
+                textAlign: TextAlign.center,
+
+                style: TextStyle(
+                    color: Colors.intello_easylearn_bold_text_color_,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCompanySelectedSection() {
+    return Container(
+      margin: const EdgeInsets.only(left: 00.0, right: 00.0),
+      child:Flex(
+        direction: Axis.horizontal,
+        children: [
+
+          Container(
+              margin:EdgeInsets.only(right:00.0,top: 00,left: 00,
+                bottom: 00,
+              ),
+              child:InkResponse(
+                onTap: (){
+                  // _showToast("company");
+                  setState(() {
+                    _particular_company_selected_status=2;
+                  });
+
+                },
+                child: Image.asset(
+                  "assets/images/company_selected.png",
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.fill,
+                ),
+              )
+
+
+          ),
+          Container(
+            margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
+            child: Align(alignment: Alignment.topLeft,
+              child: Text(
+                "Male",
+                textAlign: TextAlign.center,
+
+                style: TextStyle(
+                    color: Colors.intello_easylearn_bold_text_color_,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+          Container(
+              margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
+                bottom: 00,
+              ),
+              child: InkResponse(
+                onTap: (){
+                  //_showToast("particular");
+                  setState(() {
+                    _particular_company_selected_status=1;
+                  });
+
+                },
+                child: Image.asset(
+                  "assets/images/particular_unselected.png",
+                  width: 50,
+                  height: 50,
+                  fit: BoxFit.fill,
+                ),
+              )
+
+          ),
+          Container(
+            margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
+            child: Align(alignment: Alignment.topLeft,
+              child: Text(
+                "Female",
+                textAlign: TextAlign.center,
+
+                style: TextStyle(
+                    color: Colors.intello_easylearn_bold_text_color_,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

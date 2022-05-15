@@ -92,8 +92,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
                       ),
                     ),
-
-
                     Container(
                       margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topLeft,

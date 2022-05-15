@@ -5,6 +5,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -292,48 +293,6 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
-  Widget userInputBirthDay1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
-
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
-            suffixIcon: Icon(
-              Icons.date_range_sharp,
-              color: Colors.intello_hint_color,
-              size: 22.0,
-            ),
-
-
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color:novalexxa_text_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),
-      ),
-    );
-  }
-
-
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -341,7 +300,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
         onPressed: () {
 
           //_showToast(_particular_company_selected_status.toString());
-        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

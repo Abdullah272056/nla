@@ -20,17 +20,15 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'email_verification_company.dart';
 
-
-class MessageVerificationCompanyScreen extends StatefulWidget {
-  const MessageVerificationCompanyScreen({Key? key}) : super(key: key);
+class EmailVerificationCompanyScreen extends StatefulWidget {
+  const EmailVerificationCompanyScreen({Key? key}) : super(key: key);
 
   @override
-  State<MessageVerificationCompanyScreen> createState() => _MessageVerificationCompanyScreenState();
+  State<EmailVerificationCompanyScreen> createState() => _EmailVerificationCompanyScreenState();
 }
 
-class _MessageVerificationCompanyScreenState extends State<MessageVerificationCompanyScreen> {
+class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompanyScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -63,8 +61,8 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
-                      percent: 0.5,
-                      center: Text("50%"),
+                      percent: 0.6,
+                      center: Text("60%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
@@ -121,7 +119,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                       margin:EdgeInsets.only(right: 20.0,top: 40,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topCenter,
                         child: Text(
-                          "Please enter the verification code, was send to your mobile ***",
+                          "Please enter the verification code, was send to your email",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color:novalexxa_text_color,
@@ -195,7 +193,6 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
         ),
         keyboardType: TextInputType.number,
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationCompanyScreen()));
          // Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
           //_otpTxt = pin;
           _showToast(pin);
@@ -225,7 +222,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
           }
 
           _showToast(_particular_company_selected_status.toString());
-           Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationCompanyScreen()));
+          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

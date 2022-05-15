@@ -1,5 +1,7 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
+import 'package:flag/flag_enum.dart';
+import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,6 +32,10 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   TextEditingController? _phoneController = TextEditingController();
   TextEditingController? _countryController = TextEditingController();
   TextEditingController? _promoCodeController = TextEditingController();
+
+  String _countryName="Select your country";
+  String select_your_country="Select your country";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -172,8 +178,12 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       ),
                     ),
 
-                    userInputCountry(_countryController!, 'Country', TextInputType.text),
 
+                    userInputCountry(_countryController!, 'Country', TextInputType.text),
+                    Container( color: novalexxa_hint_text_color,
+                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                      height: .6,
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -339,7 +349,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
-  Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputCountry1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
 
@@ -378,6 +388,43 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             hintStyle:  TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+  Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+    return InkResponse(
+      onTap: (){
+
+      },
+      child: Container(
+        height: 52,
+
+        child: Padding(
+          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          child:Flex(direction: Axis.horizontal,
+            children: [
+              if(_countryName==select_your_country)...{
+                Expanded(child: Text(_countryName,
+                    style: TextStyle(
+                        color: Colors.intello_hint_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              }
+              else...{
+                Expanded(child: Text(_countryName,
+                    style: TextStyle(
+                        color: Colors.intello_text_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              },
+
+              Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+            ],
+          ),
+
         ),
       ),
     );

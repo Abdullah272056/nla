@@ -93,6 +93,7 @@ dependencies:
   #animations
   delayed_widget: ^1.1.1
   flutter_otp_text_field: ^1.0.0
+  flag: ^6.0.0
 
 flutter_icons:
   image_path: 'assets/images/logo_icon.png'

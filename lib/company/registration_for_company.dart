@@ -1,5 +1,7 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
+import 'package:flag/flag_enum.dart';
+import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,6 +32,9 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
   TextEditingController? _phoneController = TextEditingController();
   TextEditingController? _countryController = TextEditingController();
   TextEditingController? _promoCodeController = TextEditingController();
+
+  String _countryName="Select your country";
+  String select_your_country="Select your country";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,6 +178,11 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
                     ),
 
                     userInputCountry(_countryController!, 'Country', TextInputType.text),
+                    Container( color: novalexxa_hint_text_color,
+                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                    height: .6,
+                    ),
+                    //userInputCountry(_countryController!, 'Country', TextInputType.text,"assets/images/icon_country.png"),
 
                     SizedBox(
                       height: 35,
@@ -321,7 +331,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
-  Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputCountry1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
 
@@ -360,6 +370,88 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
             hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+  Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+    return InkResponse(
+      onTap: (){
+
+      },
+      child: Container(
+        height: 52,
+
+        child: Padding(
+          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          child:Flex(direction: Axis.horizontal,
+            children: [
+              if(_countryName==select_your_country)...{
+                Expanded(child: Text(_countryName,
+                    style: TextStyle(
+                        color: Colors.intello_hint_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              }
+              else...{
+                Expanded(child: Text(_countryName,
+                    style: TextStyle(
+                        color: Colors.intello_text_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              },
+
+              Flag.fromCode(FlagsCode.IT, height: 18, width: 22, fit: BoxFit.fill)
+            ],
+          ),
+
+        ),
+      ),
+    );
+  }
+
+  Widget userInputCountry2(TextEditingController userInput, String hintTitle, TextInputType keyboardType,String icon_link) {
+    return InkResponse(
+      onTap: (){
+        setState(() {
+          _countryName="Bangladesh";
+          //_getCountryDataList();
+        });
+
+        // showToast("Ok");
+      },
+      child: Container(
+        height: 55,
+        alignment: Alignment.center,
+        margin: const EdgeInsets.only(bottom: 15),
+        decoration: BoxDecoration(color: Colors.ig_inputBoxBackGroundColor, borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding:  EdgeInsets.only(left: 25.0, top: 0,bottom: 0, right: 20),
+          child:Flex(direction: Axis.horizontal,
+            children: [
+              if(_countryName==select_your_country)...{
+                Expanded(child: Text(_countryName,
+                    style: TextStyle(
+                        color: Colors.intello_hint_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              }
+              else...{
+                Expanded(child: Text(_countryName,
+                    style: TextStyle(
+                        color: Colors.intello_text_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              },
+
+              Flag.fromCode(FlagsCode.IT, height: 18, width: 22, fit: BoxFit.fill)
+            ],
+          ),
+
         ),
       ),
     );

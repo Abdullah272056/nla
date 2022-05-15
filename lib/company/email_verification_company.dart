@@ -20,6 +20,8 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import 'company_information.dart';
+
 
 class EmailVerificationCompanyScreen extends StatefulWidget {
   const EmailVerificationCompanyScreen({Key? key}) : super(key: key);
@@ -193,7 +195,9 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
         ),
         keyboardType: TextInputType.number,
         onCompleted: (pin) {
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForCompanyScreen()));
+
+          // Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
           //_otpTxt = pin;
           _showToast(pin);
         },

@@ -21,7 +21,6 @@ class ParticularAccountInformationScreen extends StatefulWidget {
 
 class _ParticularAccountInformationScreenState extends State<ParticularAccountInformationScreen> {
 
-
   TextEditingController? _nameController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();
   TextEditingController? _birthDayController = TextEditingController();
@@ -29,6 +28,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
 
   String _countryName="Select your country";
   String select_your_country="Select your country";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -310,8 +310,6 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
-
-
   Widget userInputDateOfIssue(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
@@ -403,17 +401,13 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
-
-
-
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
 
-          //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

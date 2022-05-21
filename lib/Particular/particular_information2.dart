@@ -5,6 +5,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/Particular/particular_acount_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -311,7 +312,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
         onPressed: () {
 
           //_showToast(_particular_company_selected_status.toString());
-        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen()));
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>ParticularAccountInformationScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

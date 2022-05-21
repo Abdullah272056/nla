@@ -13,5 +13,8 @@ import 'dart:ui';
  const Color add_address_button_start_color = Color(0xFFF50057);
  const Color add_address_button_end_color = Color(0xFFEB0443);
 
+
+ const Color scan_text_box_color = Color(0xFFF9F9FC);
+
  const  Color novalexxa_next_page_circle_color = Color(0x10000000);
  const  Color novalexxa_indicator_unselected_color = Color(0xFFF9F9FC);

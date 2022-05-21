@@ -5,37 +5,30 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'confirm_number_particular.dart';
 
-class SignUpForParticularScreen extends StatefulWidget {
-  const SignUpForParticularScreen({Key? key}) : super(key: key);
+class ParticularAccountInformationScreen extends StatefulWidget {
+  const ParticularAccountInformationScreen({Key? key}) : super(key: key);
 
   @override
-  State<SignUpForParticularScreen> createState() => _SignUpForParticularScreenState();
+  State<ParticularAccountInformationScreen> createState() => _ParticularAccountInformationScreenState();
 }
 
-class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
-  String countryName="en",countryIcon="icon_country.png";
+class _ParticularAccountInformationScreenState extends State<ParticularAccountInformationScreen> {
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
-  int _particular_company_selected_status=1;
-  TextEditingController? _emailController = TextEditingController();
-  TextEditingController? _phoneController = TextEditingController();
+  TextEditingController? _nameController = TextEditingController();
+  TextEditingController? _surnameController = TextEditingController();
+  TextEditingController? _birthDayController = TextEditingController();
   TextEditingController? _countryController = TextEditingController();
-  TextEditingController? _promoCodeController = TextEditingController();
 
   String _countryName="Select your country";
   String select_your_country="Select your country";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +50,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
-                      percent: 0.3,
-                      center: Text("30%"),
+                      percent: 0.7,
+                      center: Text("80%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
@@ -92,11 +85,12 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
                       ),
                     ),
+                    
                     Container(
                       margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topLeft,
                         child: Text(
-                          "Register",
+                          "Account Info",
                           textAlign: TextAlign.center,
 
                           style: TextStyle(
@@ -106,11 +100,12 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         ),
                       ),
                     ),
+
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.centerLeft,
                         child: Text(
-                          "Register with your email address and password.",
+                          "Enter your account Information",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: novalexxa_hint_text_color,
@@ -119,15 +114,15 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         ),),
                     ),
 
-
                     SizedBox(
                       height: 30,
                     ),
+
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Email",
+                        child: Text("Passport No or ID Card",
                             style: TextStyle(
                                 color: novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -139,37 +134,56 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                     SizedBox(
                       height: 0,
                     ),
-                    userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
 
+                    userInputPassportNoOrIDCard(_nameController!, 'Passport No or ID Card', TextInputType.text),
 
                     SizedBox(
                       height: 20,
                     ),
+
+
+
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Phone Number",
+                        child: Text("Date of Issue",
                             style: TextStyle(
-                                color: novalexxa_hint_text_color,
+                                color:novalexxa_hint_text_color,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w400)
                         ),
                       ),
                     ),
 
-                    userInputPhoneNumber(_phoneController!, 'Phone Number', TextInputType.phone),
-                    //country
+                    userInputDateOfIssue(_birthDayController!, 'select date', TextInputType.datetime),
+
                     SizedBox(
                       height: 20,
                     ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("Date of Expiry",
+                            style: TextStyle(
+                                color:novalexxa_hint_text_color,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400)
+                        ),
+                      ),
+                    ),
 
+                    userInputDateOfExpire(_birthDayController!, 'select date', TextInputType.datetime),
+                    SizedBox(
+                      height: 20,
+                    ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Country",
+                        child: Text("Place of Issue",
                             style: TextStyle(
                                 color: novalexxa_hint_text_color,
                                 fontSize: 14,
@@ -182,25 +196,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                       height: .6,
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text("Promo code",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 0,
-                    ),
-                    userPromoCode(_promoCodeController!, 'Prome code', TextInputType.text),
+
+
                     SizedBox(
                       height: 35,
                     ),
@@ -213,41 +210,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       child:Flex(direction: Axis.vertical,
                         children: [
                           _buildNextButton(),
-                          Container(
-                            margin:EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
-                            child: Flex(direction: Axis.horizontal,
-                              children: [
-                                Text(
-                                  "Already have an account?",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'PT-Sans',
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                InkResponse(
-                                  onTap: (){
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const LogInScreen()));
-                                  },
-                                  child: Align(alignment: Alignment.centerLeft,
-                                    child:  Text(
-                                      " Sign In",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'PT-Sans',
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.black,
-                                      ),
-                                    ),),
 
-                                )
-                              ],
-                            ),
-                          ),
 
 
                         ],
@@ -263,7 +226,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
-  Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputPassportNoOrIDCard(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
 
@@ -280,110 +243,28 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             // border: InputBorder.,
 
             focusedBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
             suffixIconConstraints: BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            suffixIcon:  Icon(
-              Icons.email,
-              color:hint_color,
-              size: 22.0,
-            ),
-
-
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),
-      ),
-    );
-  }
-
-  Widget userInputPhoneNumber(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
-
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            focusedBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
-            suffixIcon:  Icon(
-              Icons.phone_iphone,
-              color: hint_color,
-              size: 22.0,
-            ),
-
-
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),
-      ),
-    );
-  }
-
-  Widget userInputCountry1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
-
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            focusedBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
-            suffixIcon:Image(
+            suffixIcon: Image(
               image: AssetImage(
-                "assets/images/icon_country.png",
+                "assets/images/icon_user.png"
               ),
-              height: 15,
+              height: 18,
               width: 18,
               fit: BoxFit.fill,
             ),
 
 
             hintText: hintTitle,
-            hintStyle:  TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -429,7 +310,9 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
-  Widget userPromoCode(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+
+
+  Widget userInputDateOfIssue(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
 
@@ -437,41 +320,91 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
         child: TextField(
           controller: userInput,
-          textInputAction: TextInputAction.done,
+          textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
           cursorColor: novalexxa_text_color,
           autofocus: false,
           decoration: InputDecoration(
-            // border: InputBorder.none,
+            // border: InputBorder.,
+
+            focusedBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
+            ),
+
             suffixIconConstraints: BoxConstraints(
-              minHeight: 12,
-              minWidth: 12,
+              minHeight: 15,
+              minWidth: 15,
             ),
             suffixIcon: Image(
               image: AssetImage(
-                "assets/images/promo_code_icon.png",
-
+                  "assets/images/icon_calendar.png"
               ),
-
               height: 18,
               width: 18,
               fit: BoxFit.fill,
             ),
-            focusedBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
+
+
             hintText: hintTitle,
-            hintStyle:  TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
       ),
     );
   }
+  Widget userInputDateOfExpire(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+    return Container(
+      height: 55,
+
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+        child: TextField(
+          controller: userInput,
+          textInputAction: TextInputAction.next,
+          autocorrect: false,
+          enableSuggestions: false,
+          cursorColor: novalexxa_text_color,
+          autofocus: false,
+          decoration: InputDecoration(
+            // border: InputBorder.,
+
+            focusedBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
+            ),
+
+            suffixIconConstraints: BoxConstraints(
+              minHeight: 15,
+              minWidth: 15,
+            ),
+            suffixIcon: Image(
+              image: AssetImage(
+                  "assets/images/icon_calendar.png"
+              ),
+              height: 18,
+              width: 18,
+              fit: BoxFit.fill,
+            ),
+
+
+            hintText: hintTitle,
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+          ),
+          keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+
+
+
 
   Widget _buildNextButton() {
     return Container(
@@ -480,7 +413,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         onPressed: () {
 
           //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

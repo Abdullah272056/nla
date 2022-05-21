@@ -93,7 +93,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                           textAlign: TextAlign.center,
 
                           style: TextStyle(
-                              color: Colors.intello_easylearn_bold_text_color_,
+                              color:intello_easylearn_bold_text_color_,
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         ),
@@ -259,7 +259,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: Colors.hint_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color:hint_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -284,7 +284,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
               if(_countryBirthDay==select_your_country)...{
                 Expanded(child: Text(_countryBirthDay,
                     style: TextStyle(
-                        color: Colors.intello_hint_color,
+                        color: hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -292,7 +292,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
               else...{
                 Expanded(child: Text(_countryBirthDay,
                     style: TextStyle(
-                        color: Colors.intello_text_color,
+                        color:novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -362,7 +362,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.intello_bd_color_dark,
+        backgroundColor: Colors.white,
         textColor: Colors.white,
         fontSize: 16.0);
   }

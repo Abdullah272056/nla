@@ -102,7 +102,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                           textAlign: TextAlign.center,
 
                           style: TextStyle(
-                              color: Colors.intello_easylearn_bold_text_color_,
+                              color: novalexxa_text_color,
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         ),
@@ -242,7 +242,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
               if(_nationality==select_your__nationality)...{
                 Expanded(child: Text(_nationality,
                     style: TextStyle(
-                        color: Colors.hint_color,
+                        color:hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -250,7 +250,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
               else...{
                 Expanded(child: Text(_nationality,
                     style: TextStyle(
-                        color: Colors.intello_text_color,
+                        color:novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -281,7 +281,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
               if(_placeOFBirth==select_your_place_of_birth)...{
                 Expanded(child: Text(_placeOFBirth,
                     style: TextStyle(
-                        color: Colors.hint_color,
+                        color:hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -289,7 +289,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
               else...{
                 Expanded(child: Text(_placeOFBirth,
                     style: TextStyle(
-                        color: Colors.intello_text_color,
+                        color: novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -356,7 +356,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
         children: [
           Container(
               margin:EdgeInsets.only(right:00.0,top: 00,left: 00,
-                bottom: 00,
+                bottom: 10,
               ),
               child:InkResponse(
                 onTap: (){
@@ -365,9 +365,9 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                   });
                 },
                 child: Image.asset(
-                  "assets/images/company_unselected.png",
-                  width: 50,
-                  height: 50,
+                  "assets/images/female_unselected.png",
+                  width: 35,
+                  height: 35,
                   fit: BoxFit.fill,
                 ),
               )
@@ -380,7 +380,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 textAlign: TextAlign.center,
 
                 style: TextStyle(
-                    color: Colors.intello_easylearn_bold_text_color_,
+                    color: novalexxa_text_color,
                     fontSize: 20,
                     fontWeight: FontWeight.w500),
               ),
@@ -390,7 +390,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
           Container(
               margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
-                bottom: 00,
+                bottom: 10,
               ),
               child:InkResponse(
                 onTap: (){
@@ -400,9 +400,9 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
                 },
                 child:  Image.asset(
-                  "assets/images/particular_selected.png",
-                  width: 50,
-                  height: 50,
+                  "assets/images/male_selected.png",
+                  width: 35,
+                  height: 35,
                   fit: BoxFit.fill,
                 ),
               )
@@ -415,7 +415,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 textAlign: TextAlign.center,
 
                 style: TextStyle(
-                    color: Colors.intello_easylearn_bold_text_color_,
+                    color: novalexxa_text_color,
                     fontSize: 20,
                     fontWeight: FontWeight.w500),
               ),
@@ -435,7 +435,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
           Container(
               margin:EdgeInsets.only(right:00.0,top: 00,left: 00,
-                bottom: 00,
+                bottom: 10,
               ),
               child:InkResponse(
                 onTap: (){
@@ -446,9 +446,10 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
                 },
                 child: Image.asset(
-                  "assets/images/company_selected.png",
-                  width: 50,
-                  height: 50,
+                  "assets/images/female_unselected.png",
+
+                  width: 35,
+                  height: 35,
                   fit: BoxFit.fill,
                 ),
               )
@@ -463,7 +464,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 textAlign: TextAlign.center,
 
                 style: TextStyle(
-                    color: Colors.intello_easylearn_bold_text_color_,
+                    color: novalexxa_text_color,
                     fontSize: 20,
                     fontWeight: FontWeight.w500),
               ),
@@ -471,7 +472,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
           ),
           Container(
               margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
-                bottom: 00,
+                bottom: 10,
               ),
               child: InkResponse(
                 onTap: (){
@@ -482,9 +483,10 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
                 },
                 child: Image.asset(
-                  "assets/images/particular_unselected.png",
-                  width: 50,
-                  height: 50,
+                  "assets/images/male_selected.png",
+
+                  width: 35,
+                  height: 35,
                   fit: BoxFit.fill,
                 ),
               )
@@ -498,7 +500,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 textAlign: TextAlign.center,
 
                 style: TextStyle(
-                    color: Colors.intello_easylearn_bold_text_color_,
+                    color: novalexxa_text_color,
                     fontSize: 20,
                     fontWeight: FontWeight.w500),
               ),
@@ -515,7 +517,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.intello_bd_color_dark,
+        backgroundColor: Colors.white,
         textColor: Colors.white,
         fontSize: 16.0);
   }

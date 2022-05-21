@@ -41,7 +41,7 @@ dependencies:
 
   fluttertoast: ^8.0.8
   otp_text_field: ^1.1.1
-  flutter_svg: ^1.0.0
+
   xml: ^5.3.1
   url_launcher: ^6.0.17
 
@@ -52,7 +52,7 @@ dependencies:
   font_awesome_flutter: ^8.8.1
   #date
   intl: ^0.17.0
-  share_plus: ^3.0.4
+
   shared_preferences: ^2.0.11
 
   #expandable Text view
@@ -94,6 +94,9 @@ dependencies:
   delayed_widget: ^1.1.1
   flutter_otp_text_field: ^1.0.0
   flag: ^6.0.0
+  flutter_svg: ^1.0.3
+  #google_maps_flutter: ^2.1.5
+
 
 flutter_icons:
   image_path: 'assets/images/logo_icon.png'

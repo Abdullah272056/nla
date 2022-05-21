@@ -100,7 +100,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                           textAlign: TextAlign.center,
 
                           style: TextStyle(
-                              color: Colors.intello_easylearn_bold_text_color_,
+                              color: novalexxa_text_color,
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         ),
@@ -292,7 +292,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             ),
             suffixIcon:  Icon(
               Icons.email,
-              color: Colors.intello_hint_color,
+              color:hint_color,
               size: 22.0,
             ),
 
@@ -333,7 +333,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             ),
             suffixIcon:  Icon(
               Icons.phone_iphone,
-              color: Colors.intello_hint_color,
+              color: hint_color,
               size: 22.0,
             ),
 
@@ -405,7 +405,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               if(_countryName==select_your_country)...{
                 Expanded(child: Text(_countryName,
                     style: TextStyle(
-                        color: Colors.intello_hint_color,
+                        color: hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -413,7 +413,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               else...{
                 Expanded(child: Text(_countryName,
                     style: TextStyle(
-                        color: Colors.intello_text_color,
+                        color: novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -522,7 +522,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.intello_bd_color_dark,
+        backgroundColor: Colors.white,
         textColor: Colors.white,
         fontSize: 16.0);
   }

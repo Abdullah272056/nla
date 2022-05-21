@@ -156,10 +156,11 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
                     SizedBox(
                       height: 24,
                     ),
+
                     _buildTextFieldOTPView(
                       hintText: 'Enter 6 digit Number',
                       obscureText: false,
-                      prefixedIcon: const Icon(Icons.phone, color: Colors.appRed),
+                      prefixedIcon: const Icon(Icons.phone, color: novalexxa_text_color),
                     ),
 
 
@@ -270,7 +271,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.intello_bd_color_dark,
+        backgroundColor: Colors.white,
         textColor: Colors.white,
         fontSize: 16.0);
   }

@@ -101,7 +101,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
                           textAlign: TextAlign.center,
 
                           style: TextStyle(
-                              color: Colors.intello_easylearn_bold_text_color_,
+                              color:intello_easylearn_bold_text_color_,
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         ),
@@ -276,7 +276,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
             ),
             suffixIcon:  Icon(
               Icons.email,
-              color: Colors.intello_hint_color,
+              color:hint_color,
               size: 22.0,
             ),
 
@@ -317,7 +317,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
             ),
             suffixIcon:  Icon(
               Icons.phone_iphone,
-              color: Colors.intello_hint_color,
+              color: hint_color,
               size: 22.0,
             ),
 
@@ -389,7 +389,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
               if(_countryName==select_your_country)...{
                 Expanded(child: Text(_countryName,
                     style: TextStyle(
-                        color: Colors.intello_hint_color,
+                        color: hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -397,7 +397,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
               else...{
                 Expanded(child: Text(_countryName,
                     style: TextStyle(
-                        color: Colors.intello_text_color,
+                        color: novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -412,50 +412,6 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
-  Widget userInputCountry2(TextEditingController userInput, String hintTitle, TextInputType keyboardType,String icon_link) {
-    return InkResponse(
-      onTap: (){
-        setState(() {
-          _countryName="Bangladesh";
-          //_getCountryDataList();
-        });
-
-        // showToast("Ok");
-      },
-      child: Container(
-        height: 55,
-        alignment: Alignment.center,
-        margin: const EdgeInsets.only(bottom: 15),
-        decoration: BoxDecoration(color: Colors.ig_inputBoxBackGroundColor, borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding:  EdgeInsets.only(left: 25.0, top: 0,bottom: 0, right: 20),
-          child:Flex(direction: Axis.horizontal,
-            children: [
-              if(_countryName==select_your_country)...{
-                Expanded(child: Text(_countryName,
-                    style: TextStyle(
-                        color: Colors.intello_hint_color,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal)
-                )),
-              }
-              else...{
-                Expanded(child: Text(_countryName,
-                    style: TextStyle(
-                        color: Colors.intello_text_color,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal)
-                )),
-              },
-
-              Flag.fromCode(FlagsCode.IT, height: 18, width: 22, fit: BoxFit.fill)
-            ],
-          ),
-
-        ),
-      ),
-    );
-  }
 
 
   Widget _buildNextButton() {
@@ -509,7 +465,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.intello_bd_color_dark,
+        backgroundColor: Colors.white,
         textColor: Colors.white,
         fontSize: 16.0);
   }

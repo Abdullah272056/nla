@@ -92,7 +92,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                           textAlign: TextAlign.center,
 
                           style: TextStyle(
-                              color: Colors.intello_easylearn_bold_text_color_,
+                              color: novalexxa_text_color,
                               fontSize: 35,
                               fontWeight: FontWeight.bold),
                         ),
@@ -265,7 +265,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
               if(_countryBirthDay==select_your_country)...{
                 Expanded(child: Text(_countryBirthDay,
                     style: TextStyle(
-                        color: Colors.intello_hint_color,
+                        color: hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -273,7 +273,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
               else...{
                 Expanded(child: Text(_countryBirthDay,
                     style: TextStyle(
-                        color: Colors.intello_text_color,
+                        color: novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
                 )),
@@ -343,7 +343,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.intello_bd_color_dark,
+        backgroundColor: Colors.white,
         textColor: Colors.white,
         fontSize: 16.0);
   }

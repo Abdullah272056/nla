@@ -1,22 +1,13 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:scan/scan.dart';
 
 import '../common/Colors.dart';
-
-
 
 class ScanDocFrontParticularScreen extends StatefulWidget {
   const ScanDocFrontParticularScreen({Key? key}) : super(key: key);
@@ -28,14 +19,9 @@ class ScanDocFrontParticularScreen extends StatefulWidget {
 class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
-
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
-
 int _particular_company_selected_status=1;
+  ScanController controller = ScanController();
+  String qrcode = 'Unknown';
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +29,11 @@ int _particular_company_selected_status=1;
      backgroundColor:Colors.white ,
       body:Column(
         children: [
+
           SizedBox(
             height: 50,
           ),
+
           Container(
             margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
             child:   LinearPercentIndicator(
@@ -66,49 +54,30 @@ int _particular_company_selected_status=1;
             height: 50,
           ),
 
-
           Container(
-            margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+            margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
             child:   userInputEmail(),
           ),
-          Expanded(child: Column(
-            children: [
-              Flex(direction: Axis.horizontal,
-                children: [
-                  Container(
-                      height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            left: BorderSide(
-                              color: Colors.green,
-                              width: 5,
 
-                            ),
-                            top: BorderSide(
-                              color: Colors.indigo,
-                              width: 7,
-                            ),
-                            right: BorderSide(
-                              color: Colors.black45,
-                              width: 5,
-                            ),
-                            bottom: BorderSide(
-                              color: Colors.orange,
-                              width: 20,
-                            ))),
-                  ),
+          Expanded(child:Center(
+            child:  Container(
+              width: 350, // custom wrap size
+              height: 350,
+              child: ScanView(
+                controller: controller,
 
-                ],
+                // custom scan area, if set to 1.0, will scan full area
+                scanAreaScale: 0.99,
+                scanLineColor: Colors.green.shade400,
+                onCapture: (data) {
+                  // do something
+                },
+              ),
+            ),
+          )
+          ),
 
-              )
-
-
-            ],
-
-          )),
-
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
 
@@ -116,12 +85,11 @@ int _particular_company_selected_status=1;
             child: _buildNextButton(),
           ),
 
-          SizedBox(height: 25,),
+          const SizedBox(height: 25,),
+
           Container(
             child: _buildRetryButton(),
           ),
-
-
 
         ],
       ),
@@ -140,7 +108,7 @@ int _particular_company_selected_status=1;
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: const [
             Text(
               "Scan Document",
               textAlign: TextAlign.center,

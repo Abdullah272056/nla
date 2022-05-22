@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
+import 'package:nova_lexxa/Particular/scan_doc_front_particular.dart';
 import 'package:nova_lexxa/common/Colors.dart';
 import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -407,7 +408,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
       child: ElevatedButton(
         onPressed: () {
 
-        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

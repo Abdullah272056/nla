@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
+import 'Particular/create_password_particular.dart';
 import 'Particular/scan_doc_front_particular.dart';
 
 
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             //ScanDocFrontScreen(),
-            ScanDocFrontParticularScreen(),
+            CreatePasswordParticularScreen(),
           ],
         ),
       ),

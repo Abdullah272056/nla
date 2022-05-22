@@ -185,7 +185,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
 
 
           //_otpTxt = pin;
-          _showToast(pin);
+         // _showToast(pin);
         },
         onChanged: (value) {
           if (value.length < 6) {

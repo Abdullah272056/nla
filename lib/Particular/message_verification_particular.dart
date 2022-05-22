@@ -194,7 +194,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
         onCompleted: (pin) {
           Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
           //_otpTxt = pin;
-          _showToast(pin);
+         // _showToast(pin);
         },
         onChanged: (value) {
           if (value.length < 6) {

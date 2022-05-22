@@ -12,6 +12,7 @@ import 'package:nova_lexxa/common/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'confirm_number_particular.dart';
+import 'create_password_particular.dart';
 
 class ParticularAccountInformationScreen extends StatefulWidget {
   const ParticularAccountInformationScreen({Key? key}) : super(key: key);
@@ -408,7 +409,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
       child: ElevatedButton(
         onPressed: () {
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

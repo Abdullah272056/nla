@@ -19,16 +19,14 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'create_confirm_pin_particular.dart';
-
-class CreatePinParticularScreen extends StatefulWidget {
-  const CreatePinParticularScreen({Key? key}) : super(key: key);
+class CreateConfirmPinParticularScreen extends StatefulWidget {
+  const CreateConfirmPinParticularScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreatePinParticularScreen> createState() => _CreatePinParticularScreenState();
+  State<CreateConfirmPinParticularScreen> createState() => _CreateConfirmPinParticularScreenState();
 }
 
-class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
+class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParticularScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +44,13 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    new LinearPercentIndicator(
+                    LinearPercentIndicator(
                       // width: MediaQuery.of(context).size.width - 80,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
-                      percent: 0.9,
-                      center: Text("90%"),
+                      percent: 1.0,
+                      center: Text("100%"),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
@@ -109,7 +107,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
                       margin:EdgeInsets.only(right: 20.0,top: 40,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topCenter,
                         child: Text(
-                          "Create a new pin for future transaction and account security purpose",
+                          "Create confirm pin for future transaction and account security purpose",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: novalexxa_text_color,
@@ -117,7 +115,6 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
                               fontWeight: FontWeight.w400),
                         ),),
                     ),
-
 
                     SizedBox(
                       height: 24,
@@ -154,14 +151,18 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
         fieldStyle: FieldStyle.box,
        // contentPadding: EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
         fieldWidth:45,
-
+        spaceBetween:0,
         style: TextStyle(
           fontSize: 18,
           color: novalexxa_text_color,
         ),
         keyboardType: TextInputType.number,
+        // textInputAction: TextInputAction.search,
+        // onSubmitted: (value) {
+        //   print("search");
+        // },
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen()));
+        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
 
 
           //_otpTxt = pin;

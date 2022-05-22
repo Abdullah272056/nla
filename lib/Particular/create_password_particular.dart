@@ -1,11 +1,11 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 
 import '../common/Colors.dart';
+import 'create_pin_particular.dart';
 
 
 class CreatePasswordParticularScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class CreatePasswordParticularScreen extends StatefulWidget {
 class _CreatePasswordParticularScreenState extends State<CreatePasswordParticularScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
-  int _particular_company_selected_status=1;
+
   TextEditingController? _confirmPasswordController = TextEditingController();
   TextEditingController? _passwordController = TextEditingController();
   bool _isObscure = true;
@@ -266,19 +266,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
-          if(_particular_company_selected_status==1){
-
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
-          }
-          else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForCompanyScreen()));
-
-          }
-
-          _showToast(_particular_company_selected_status.toString());
-
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePinParticularScreen()));
 
         },
         style: ElevatedButton.styleFrom(

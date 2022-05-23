@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -15,20 +14,16 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
 
 import '../common/Colors.dart';
+import 'create_password_particular.dart';
 
-class ScanDocFrontParticularScreen extends StatefulWidget {
-  const ScanDocFrontParticularScreen({Key? key}) : super(key: key);
+class BiometricParticularScreen extends StatefulWidget {
+  const BiometricParticularScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScanDocFrontParticularScreen> createState() => _ScanDocFrontParticularScreenState();
+  State<BiometricParticularScreen> createState() => _BiometricParticularScreenState();
 }
 
-class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScreen> {
-  String countryName="en",countryIcon="icon_country.png";
-
-int _particular_company_selected_status=1;
-  ScanController controller = ScanController();
-  String qrcode = 'Unknown';
+class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
 
   //image upload
   PickedFile? _imageFile;
@@ -40,96 +35,77 @@ int _particular_company_selected_status=1;
   Widget build(BuildContext context) {
     return Scaffold(
      backgroundColor:Colors.white ,
-      body:SingleChildScrollView(
-        child: Column(
-          children: [
+      body:Column(
+        children: [
 
-            SizedBox(
-              height: 50,
-            ),
-
-            Container(
-              margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
-              child:   LinearPercentIndicator(
-                // width: MediaQuery.of(context).size.width - 80,
-                animation: true,
-                lineHeight: 20.0,
-                animationDuration: 1000,
-                percent: 0.85,
-                center: Text("85%"),
-                linearStrokeCap: LinearStrokeCap.roundAll,
-                fillColor:Colors.white,
-                backgroundColor: novalexxa_indicator_unselected_color,
-                progressColor: novalexxa_color,
+          Column(
+            children: [
+              SizedBox(
+                height: 50,
               ),
-            ),
 
-            SizedBox(
-              height: 50,
-            ),
-
-            Container(
-              margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
-              child:   scanMessageSection(),
-            ),
-            InkResponse(
-              onTap: (){
-                showModalBottomSheet(context: context, builder: ( (builder) =>_buildImageUploadBottomSheet()));
-                // _showToast("clicked");
-              },
-              child: Container(
-                  width: 350, // custom wrap size
-                  height: 350,
-                  margin: const EdgeInsets.only(left:10, top: 30, right: 10, bottom: 00),
-                  child:Column(
-                    children: [
-                      if( imageFile==null)...{
-                        Image.asset(
-                          "assets/images/add_image.png",
-                          width: 300,
-                          height: 300,
-                          fit: BoxFit.fill,
-                        ),
-
-                      }else...{
-                        Image.file(
-                          imageFile!,
-                          width: 300, // custom wrap size
-                          height: 300,
-
-                          fit: BoxFit.fill,
-                        )
-                      }
-
-                    ],
-                  )
-
-
+              Container(
+                margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+                child:   LinearPercentIndicator(
+                  // width: MediaQuery.of(context).size.width - 80,
+                  animation: true,
+                  lineHeight: 20.0,
+                  animationDuration: 1000,
+                  percent: 0.85,
+                  center: Text("85%"),
+                  linearStrokeCap: LinearStrokeCap.roundAll,
+                  fillColor:Colors.white,
+                  backgroundColor: novalexxa_indicator_unselected_color,
+                  progressColor: novalexxa_color,
+                ),
               ),
+
+              SizedBox(
+                height: 50,
+              ),
+
+              Container(
+                margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 0),
+                child:   scanMessageSection(),
+              ),
+
+            ],
+          ),
+
+
+          Expanded(child: Center(
+            child:  Image.asset(
+              "assets/images/add_finger_print.png",
+              width: 205,
+              height: 205,
+              fit: BoxFit.fill,
             ),
+          )
+         ),
 
+          Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
 
+              Container(
+                child: _buildNextButton(),
+              ),
 
-            const SizedBox(
-              height: 50,
-            ),
+              const SizedBox(height: 25,),
 
-            Container(
-              child: _buildNextButton(),
-            ),
+              Container(
+                child: _buildMayBeLaterButton(),
+              ),
+              const SizedBox(height: 40,),
+            ],
+          )
 
-            const SizedBox(height: 25,),
-
-            Container(
-              child: _buildRetryButton(),
-            ),
-
-          ],
-        ),
+        ],
       ),
     );
   }
-
 
   Widget scanMessageSection() {
     return Container(
@@ -144,7 +120,7 @@ int _particular_company_selected_status=1;
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             Text(
-              "Scan Document",
+              "Fingerprint Required",
               textAlign: TextAlign.center,
 
               style: TextStyle(
@@ -156,7 +132,7 @@ int _particular_company_selected_status=1;
               height: 10,
             ),
             Text(
-              "Scan the front of your document",
+              "Add your fingerprint for future connections and authorizations of payments",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: novalexxa_hint_text_color,
@@ -170,19 +146,21 @@ int _particular_company_selected_status=1;
     );
   }
 
-
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-          if( imageFile==null){
-            _showToast("please select document image!");
-          }
-          else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen()));
-            //_showToast("Ok");
-          }
+
+
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen()));
+
+          // if( imageFile==null){
+          //   _showToast("please select document image!");
+          // }
+          // else{
+          //   _showToast("Ok");
+          // }
 
 
 
@@ -206,11 +184,11 @@ int _particular_company_selected_status=1;
             height: 50,
             alignment: Alignment.center,
             child:  Text(
-              "Next",
+              "Add Fingerprint",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'PT-Sans',
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.normal,
                 color: Colors.white,
               ),
@@ -221,21 +199,22 @@ int _particular_company_selected_status=1;
     );
   }
 
-  Widget _buildRetryButton() {
+  Widget _buildMayBeLaterButton() {
     return InkWell(
       onTap: (){
-        showModalBottomSheet(context: context, builder: ( (builder) =>_buildImageUploadBottomSheet()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen()));
+
       },
       child: Container(
 
         height: 50,
         alignment: Alignment.center,
         child:  Text(
-          "Retry",
+          "Maybe Later",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: 'PT-Sans',
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.normal,
             color: novalexxa_text_color,
           ),
@@ -389,7 +368,6 @@ int _particular_company_selected_status=1;
     }
   }
 
-
   Widget _buildImageUploadBottomSheet() {
     return Container(
       height: 100,
@@ -452,5 +430,6 @@ int _particular_company_selected_status=1;
 
     );
   }
+
 }
 

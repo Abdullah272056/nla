@@ -31,6 +31,9 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
   String _countryName="Select your country";
   String select_your_country="Select your country";
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -394,6 +397,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
             ),
 
 
+
             hintText: hintTitle,
             hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
@@ -409,7 +413,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
       child: ElevatedButton(
         onPressed: () {
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/Particular/scan_face_particular.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -16,14 +16,14 @@ import 'package:scan/scan.dart';
 
 import '../common/Colors.dart';
 
-class ScanDocFrontParticularScreen extends StatefulWidget {
-  const ScanDocFrontParticularScreen({Key? key}) : super(key: key);
+class ScanDocBackParticularScreen extends StatefulWidget {
+  const ScanDocBackParticularScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScanDocFrontParticularScreen> createState() => _ScanDocFrontParticularScreenState();
+  State<ScanDocBackParticularScreen> createState() => _ScanDocBackParticularScreenState();
 }
 
-class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScreen> {
+class _ScanDocBackParticularScreenState extends State<ScanDocBackParticularScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
 int _particular_company_selected_status=1;
@@ -156,7 +156,7 @@ int _particular_company_selected_status=1;
               height: 10,
             ),
             Text(
-              "Scan the front of your document",
+              "Scan the back of your document",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: novalexxa_hint_text_color,
@@ -180,8 +180,7 @@ int _particular_company_selected_status=1;
             _showToast("please select document image!");
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen()));
-            //_showToast("Ok");
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanFaceParticularScreen()));
           }
 
 

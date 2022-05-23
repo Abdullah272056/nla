@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/Particular/scan_done_particular.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -16,19 +16,16 @@ import 'package:scan/scan.dart';
 
 import '../common/Colors.dart';
 
-class ScanDocFrontParticularScreen extends StatefulWidget {
-  const ScanDocFrontParticularScreen({Key? key}) : super(key: key);
+class ScanFaceParticularScreen extends StatefulWidget {
+  const ScanFaceParticularScreen({Key? key}) : super(key: key);
 
   @override
-  State<ScanDocFrontParticularScreen> createState() => _ScanDocFrontParticularScreenState();
+  State<ScanFaceParticularScreen> createState() => _ScanFaceParticularScreenState();
 }
 
-class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScreen> {
-  String countryName="en",countryIcon="icon_country.png";
+class _ScanFaceParticularScreenState extends State<ScanFaceParticularScreen> {
 
-int _particular_company_selected_status=1;
-  ScanController controller = ScanController();
-  String qrcode = 'Unknown';
+
 
   //image upload
   PickedFile? _imageFile;
@@ -85,7 +82,7 @@ int _particular_company_selected_status=1;
                     children: [
                       if( imageFile==null)...{
                         Image.asset(
-                          "assets/images/add_image.png",
+                          "assets/images/add_face_image.png",
                           width: 300,
                           height: 300,
                           fit: BoxFit.fill,
@@ -95,7 +92,7 @@ int _particular_company_selected_status=1;
                         Image.file(
                           imageFile!,
                           width: 300, // custom wrap size
-                          height: 300,
+                          height: 350,
 
                           fit: BoxFit.fill,
                         )
@@ -144,7 +141,7 @@ int _particular_company_selected_status=1;
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             Text(
-              "Scan Document",
+              "Scan Your Face",
               textAlign: TextAlign.center,
 
               style: TextStyle(
@@ -156,7 +153,7 @@ int _particular_company_selected_status=1;
               height: 10,
             ),
             Text(
-              "Scan the front of your document",
+              "Scan the your face",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: novalexxa_hint_text_color,
@@ -177,13 +174,12 @@ int _particular_company_selected_status=1;
       child: ElevatedButton(
         onPressed: () {
           if( imageFile==null){
-            _showToast("please select document image!");
+            _showToast("please add your face image!");
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen()));
-            //_showToast("Ok");
-          }
+             Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDoneParticularScreen()));
 
+          }
 
 
 

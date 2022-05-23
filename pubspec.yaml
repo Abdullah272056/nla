@@ -100,6 +100,7 @@ dependencies:
 
 
 
+
 flutter_icons:
   image_path: 'assets/images/logo_icon.png'
   ios: true

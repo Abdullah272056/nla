@@ -14,6 +14,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
 
 import '../common/Colors.dart';
+import 'biometric_Company.dart';
 
 
 class ScanDoneCompanyScreen extends StatefulWidget {
@@ -118,7 +119,7 @@ class _ScanDoneCompanyScreenState extends State<ScanDoneCompanyScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-   //      Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricParticularScreen()));
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricCompanyScreen()));
 
         },
         style: ElevatedButton.styleFrom(

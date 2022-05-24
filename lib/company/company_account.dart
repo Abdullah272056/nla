@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/company/scan_doc_front_company.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 
@@ -247,7 +248,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
         onPressed: () {
 
           //_showToast(_particular_company_selected_status.toString());
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const ScanDocFrontCompanyScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },

@@ -51,18 +51,20 @@ int _particular_company_selected_status=1;
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    new LinearPercentIndicator(
+                    LinearPercentIndicator(
                       // width: MediaQuery.of(context).size.width - 80,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
                       percent: 0.1,
                       center: Text("10%"),
+                    //  linearStrokeCap: LinearStrokeCap.roundAll,
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,
                     ),
+
                     SizedBox(
                       height: 50,
                     ),

@@ -4,19 +4,21 @@ import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'Particular/scan_doc_front_particular.dart';
+import 'common/money_option.dart';
 
 
 
 void main() {
   runApp( MyApp());
-  SystemChrome.setSystemUIOverlayStyle( const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    systemNavigationBarColor: Colors.transparent,
-    // statusBarColor: Colors.intello_bd_color_dark.withOpacity(0.0),
-    //
-    // systemNavigationBarColor: Colors.intello_bd_color_dark,
-    //
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+   // systemNavigationBarColor: Color(0xFF000000),
+   // systemNavigationBarIconBrightness: Brightness.light,
+   // systemNavigationBarDividerColor: null,
+    statusBarColor: Colors.white,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.dark,
   ));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             //ScanDocFrontScreen(),
-            SplashScreen1(),
+            MoneyOptionScreen(),
           ],
         ),
       ),

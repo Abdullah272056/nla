@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'Particular/scan_doc_front_particular.dart';
+import 'common/home_page.dart';
 import 'common/money_option.dart';
 
 
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             //ScanDocFrontScreen(),
-            MoneyOptionScreen(),
+            HomePageScreen(),
           ],
         ),
       ),

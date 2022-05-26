@@ -251,6 +251,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  flutter_spinkit:
+    dependency: "direct main"
+    description:
+      name: flutter_spinkit
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -258,6 +265,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  flutter_svprogresshud:
+    dependency: "direct main"
+    description:
+      name: flutter_svprogresshud
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

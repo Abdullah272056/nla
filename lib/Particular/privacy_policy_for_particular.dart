@@ -204,6 +204,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
       ),
     );
   }
+
   Widget _buildDeclineButton() {
     return InkWell(
       onTap: (){

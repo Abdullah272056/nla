@@ -13,6 +13,8 @@ import 'dart:ui';
  const Color add_address_button_start_color = Color(0xFFF50057);
  const Color add_address_button_end_color = Color(0xFFEB0443);
 
+ const Color loging_loading_bg_color = Color(0xFFF50057);
+
 
  const Color scan_text_box_color = Color(0xFFF9F9FC);
 

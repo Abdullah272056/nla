@@ -97,6 +97,8 @@ dependencies:
   flutter_svg: ^1.0.3
   #google_maps_flutter: ^2.1.5
   scan: ^1.6.0
+  flutter_svprogresshud: ^1.0.0
+  flutter_spinkit: ^5.1.0
 
 
 

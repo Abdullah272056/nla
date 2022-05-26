@@ -38,7 +38,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
               children: [
                 Expanded(child: Container()),
                 Container(
-                  margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                  margin:EdgeInsets.only(right: 20.0,top: 00,left: 25),
                   child:Align(alignment: Alignment.topLeft,
                     child:Image.asset(
                       "assets/images/logo_icon.png",
@@ -49,19 +49,24 @@ class _SplashScreen1State extends State<SplashScreen1> {
                   ),
                 ),
                 Container(
-                  margin:EdgeInsets.only(right: 20.0,top: 00,left: 20),
-                  child:Align(alignment: Alignment.topLeft,
-                    child:Image.asset(
-                      "assets/images/novalexxa_text.png",
-                      width: 178,
-                      height: 48,
-                      fit: BoxFit.fill,
+                  margin:EdgeInsets.only(right: 20.0,top: 20,left: 25,bottom: 0),
+                  child: Align(alignment: Alignment.topLeft,
+                    child: Text(
+                      "Novalexxa",
+                      overflow: TextOverflow.ellipsis,
+                      //textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold),
+                      softWrap: false,
+                      maxLines:1,
                     ),
                   ),
                 ),
 
                 Container(
-                  margin:EdgeInsets.only(right: 20.0,top: 20,left: 20,bottom: 0),
+                  margin:EdgeInsets.only(right: 20.0,top: 20,left: 25,bottom: 0),
                   child: Align(alignment: Alignment.topLeft,
                     child: Text(
                       "Lorem Ipsum is simply dummy industry...",
@@ -77,7 +82,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                   ),
                 ),
                 Container(
-                  margin:EdgeInsets.only(right: 20.0,top: 10,left: 20,bottom: 30),
+                  margin:EdgeInsets.only(right: 20.0,top: 10,left: 25,bottom: 30),
                   child: Align(alignment: Alignment.topLeft,
                       child: Text(
                         "Lorem ipsum dolor sit amet, consectetur adipis.",
@@ -99,7 +104,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
                   children: [
                     Expanded(child:
                     Container(
-                      margin: const EdgeInsets.only(left: 20.0, right: 00.0),
+                      margin: const EdgeInsets.only(left: 25.0, right: 00.0),
                       decoration: const BoxDecoration(
                         color:novalexxa_color,
                         borderRadius: BorderRadius.only(

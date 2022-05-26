@@ -271,6 +271,7 @@ class _LogInScreenState extends State<LogInScreen> {
           autocorrect: false,
           enableSuggestions: false,
           cursorColor: intello_input_text_color,
+          obscureText: _isObscure,
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,

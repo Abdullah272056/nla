@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/home_page.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:page_transition/page_transition.dart';
+
+import 'navigation_bar_page.dart';
 
 
 class LoginLoadingScreen extends StatefulWidget {
@@ -241,7 +244,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
   _delay2(){
     Timer(Duration(seconds: 2), () {
       setState(() {
-        //loging_status=3;
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationBarScreen(0,HomePageScreen())));
       });
 
     });

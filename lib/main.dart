@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'common/home_page.dart';
 import 'common/navigation_bar_page.dart';
@@ -29,8 +30,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            NavigationBarScreen(0,HomePageScreen()),
-           // HomePageScreen(),
+            //NavigationBarScreen(0,HomePageScreen()),
+           SplashScreen1(),
           ],
         ),
       ),

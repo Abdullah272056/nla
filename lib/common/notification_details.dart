@@ -326,9 +326,6 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
     );
   }
 
-
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

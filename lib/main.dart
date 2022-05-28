@@ -6,6 +6,7 @@ import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'Particular/scan_done_particular.dart';
 import 'common/home_page.dart';
 import 'common/navigation_bar_page.dart';
+import 'common/no_notifications.dart';
 import 'common/notification.dart';
 import 'common/notification_details.dart';
 import 'common/notifications_deleted.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             //NavigationBarScreen(0,HomePageScreen()),
-            NotificationsDeletedScreen(),
+            NoNotificationsScreen(),
           ],
         ),
       ),

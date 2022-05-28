@@ -8,6 +8,7 @@ import 'dart:ui';
  const  Color novalexxa_text_color = Color(0xFF1D2733);
  const  Color intello_easylearn_bold_text_color_ = Color(0xFF1D2733);
  const  Color intello_level_color = Color(0xFF999B9F);
+ const  Color notification_image_bg_color = Color(0xFFEFF1F3);
  const Color hint_color = Color(0xFF808080);
  const Color intello_input_text_color = Color(0xFF1D2733);
  const Color add_address_button_start_color = Color(0xFFF50057);

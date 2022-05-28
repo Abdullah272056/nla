@@ -19,7 +19,7 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-
+import 'notification.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({Key? key}) : super(key: key);
@@ -78,17 +78,54 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ),
                     Expanded(child:Column(
                       children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child:Text(
-                            "Simon Lewis",
-                            style: TextStyle(
-                                color: novalexxa_text_color,
-                                fontSize: 22,
-                                decoration: TextDecoration.none,
-                                fontWeight: FontWeight.bold),
+                        Flex(direction: Axis.horizontal,
+                        children: [
+                          Expanded(child:  Align(
+                            alignment: Alignment.centerLeft,
+                            child:Text(
+                              "Simon Lewis",
+                              style: TextStyle(
+                                  color: novalexxa_text_color,
+                                  fontSize: 22,
+                                  decoration: TextDecoration.none,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ) ,),
+                          Container(
+                            margin:EdgeInsets.only(right: 15,top: 0,left: 10,bottom: 0),
+                            child:InkResponse(
+                              onTap: (){
+                                _showToast("call");
+                              },
+                              child: Image.asset(
+                                'assets/images/call_icon.png',
+                                height: 22,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+
                           ),
-                        ) ,
+                          Container(
+                            margin:EdgeInsets.only(right: 20,top: 0,left: 10,bottom: 0),
+                            child:InkResponse(
+                              onTap: (){
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsScreen()));
+
+                              },
+                              child:Image.asset(
+                                'assets/images/icon_noti.png',
+                                height: 25,
+
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+
+
+
+                        ],
+                        ),
+
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -104,6 +141,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                       ],
                     )
+
                     )
 
                   ],

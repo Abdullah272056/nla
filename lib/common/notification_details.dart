@@ -22,6 +22,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'home_page.dart';
 import 'navigation_bar_page.dart';
+import 'notifications_deleted.dart';
 
 
 
@@ -284,7 +285,7 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
   Widget _buildTrashAltButton() {
     return InkResponse(
       onTap: (){
-
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsDeletedScreen()));
 
       },
 

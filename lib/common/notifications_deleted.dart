@@ -1,10 +1,12 @@
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../common/Colors.dart';
+import 'no_notifications.dart';
 
 
 class NotificationsDeletedScreen extends StatefulWidget {
@@ -21,6 +23,20 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
   final ImagePicker _picker=ImagePicker();
   String _imageLink = "";
   File? imageFile;
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 1500), () {
+      setState(() {
+       Navigator.push(context,MaterialPageRoute(builder: (context)=>NoNotificationsScreen()));
+
+      });
+
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,47 +112,6 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
   }
 
 
-  Widget _buildNextButton() {
-    return Container(
-      margin: const EdgeInsets.only(left: 50.0, right: 50.0),
-      child: ElevatedButton(
-        onPressed: () {
-
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricParticularScreen()));
-
-        },
-        style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7))),
-        child: Ink(
-
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(7.0)
-          ),
-          child: Container(
-
-            height: 50,
-            alignment: Alignment.center,
-            child:  Text(
-              "Next",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'PT-Sans',
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 
   _showToast(String message) {
     Fluttertoast.showToast(

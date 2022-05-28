@@ -10,6 +10,7 @@ import 'common/no_notifications.dart';
 import 'common/notification.dart';
 import 'common/notification_details.dart';
 import 'common/notifications_deleted.dart';
+import 'common/notifications_settings.dart';
 
 
 void main() {
@@ -35,8 +36,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            //NavigationBarScreen(0,HomePageScreen()),
-            NoNotificationsScreen(),
+            NotificationsSettingsScreen(),
+            //NoNotificationsScreen(),
           ],
         ),
       ),

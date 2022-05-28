@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             //NavigationBarScreen(0,HomePageScreen()),
-           SplashScreen1(),
+            HomePageScreen(),
           ],
         ),
       ),

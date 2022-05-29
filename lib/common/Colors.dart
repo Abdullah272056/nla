@@ -21,3 +21,5 @@ import 'dart:ui';
 
  const  Color novalexxa_next_page_circle_color = Color(0x10000000);
  const  Color novalexxa_indicator_unselected_color = Color(0xFFF9F9FC);
+ const  Color novalexxa_customer_services_tab_border_color = Color(0x24272C26);
+ const  Color novalexxa_customer_services_list_divider_color = Color(0x24272C0D);

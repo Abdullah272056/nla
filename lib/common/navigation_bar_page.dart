@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 
 import 'Colors.dart';
+import 'card_page.dart';
 import 'home_page.dart';
 import 'money_option.dart';
 
@@ -64,7 +65,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
     HomePageScreen(),
     HomePageScreen(),
     MoneyOptionScreen(),
-    HomePageScreen(),
+    CardPageScreen(),
     HomePageScreen(),
     // RoomDetailsScreen("1"),
     // CartPageScreen()

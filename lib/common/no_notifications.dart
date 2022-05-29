@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import '../common/Colors.dart';
+import 'notifications_settings.dart';
 
 
 class NoNotificationsScreen extends StatefulWidget {
@@ -70,20 +71,15 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
 
                 Container(
                   margin: const EdgeInsets.only(right: 30),
-                  child: InkWell(
-
-                    onTap: () {
-
-                      _showToast("cog");
-                    },
-                    child:Text(
-                      "cog",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: novalexxa_text_color,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                  child:IconButton(
+                    icon: const Icon(Icons.settings,
+                      size: 25,
                     ),
+                    color: novalexxa_text_color,
+                    onPressed: () {
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
+
+                    },
                   ),
                 ),
               ],

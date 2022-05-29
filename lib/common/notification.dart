@@ -21,6 +21,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'notification_details.dart';
+import 'notifications_settings.dart';
 
 
 
@@ -80,20 +81,15 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
               Container(
                 margin: const EdgeInsets.only(right: 30),
-                child: InkWell(
-
-                  onTap: () {
-
-                    _showToast("cog");
-                  },
-                  child:Text(
-                    "cog",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: novalexxa_text_color,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
+                child:IconButton(
+                  icon: const Icon(Icons.settings,
+                  size: 25,
                   ),
+                  color: novalexxa_text_color,
+                  onPressed: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
+
+                  },
                 ),
               ),
             ],

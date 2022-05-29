@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'Particular/scan_done_particular.dart';
+import 'common/card_page.dart';
+import 'common/customer_services.dart';
 import 'common/home_page.dart';
 import 'common/navigation_bar_page.dart';
 import 'common/no_notifications.dart';
@@ -29,6 +31,9 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -36,8 +41,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children: [
-            NotificationsSettingsScreen(),
-            //NoNotificationsScreen(),
+            //NotificationsSettingsScreen(),
+            SplashScreen1(),
           ],
         ),
       ),

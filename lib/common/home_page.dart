@@ -19,6 +19,7 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import 'customer_services.dart';
 import 'notification.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -95,7 +96,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             margin:EdgeInsets.only(right: 15,top: 0,left: 10,bottom: 0),
                             child:InkResponse(
                               onTap: (){
-                                _showToast("call");
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>CustomerServicesScreen()));
                               },
                               child: Image.asset(
                                 'assets/images/call_icon.png',

@@ -23,6 +23,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'home_page.dart';
 import 'navigation_bar_page.dart';
 import 'notifications_deleted.dart';
+import 'notifications_settings.dart';
 
 
 
@@ -104,20 +105,15 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
 
                     Container(
                       margin: const EdgeInsets.only(right: 30),
-                      child: InkWell(
-
-                        onTap: () {
-
-                          _showToast("cog");
-                        },
-                        child:Text(
-                          "cog",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: novalexxa_text_color,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400),
+                      child:IconButton(
+                        icon: const Icon(Icons.settings,
+                          size: 25,
                         ),
+                        color: novalexxa_text_color,
+                        onPressed: () {
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
+
+                        },
                       ),
                     ),
                   ],
@@ -160,9 +156,9 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
                   ],
                 ),
 
-                _buildBottomButtonSection()
+                _buildBottomButtonSection(),
 
-
+                SizedBox(height: 25,)
 
 
               ],
@@ -211,7 +207,7 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
               Container(
                 margin: EdgeInsets.only(left: 0.0, right: 0.0, top: 15,bottom: 0),
                 child: Text(
-                    _messageFullText,
+                    _messageFullText+_messageFullText,
                   style: TextStyle(
                       color:novalexxa_text_color,
                       fontSize: 15,
@@ -291,7 +287,7 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
 
       child: Container(
         margin:  EdgeInsets.only(left: 10, right: 30,bottom: 0,top: 20),
-        padding:  EdgeInsets.only(left: 30, right:30,bottom: 0,top: 0),
+        padding:  EdgeInsets.only(left: 15, right:15,bottom: 0,top: 0),
         //width: 80,
         height: 45,
         decoration: BoxDecoration(
@@ -311,15 +307,10 @@ class _NotificationsDetailsScreenState extends State<NotificationsDetailsScreen>
         ),
         //   height: 150,
         child: Center(
-          child:  Text(
-            "trash-alt",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PT-Sans',
-              fontSize: 15,
-              fontWeight: FontWeight.normal,
-              color:novalexxa_color,
-            ),
+          child: Icon(
+            Icons.delete,
+            color: novalexxa_color,
+            size: 25.0,
           ),
         ),
       ),

@@ -34,7 +34,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   bool _pushSettingItem2=false;
 
   double _switchButtonWidth=45;
-  double _switchButtonHeight=30;
+  double _switchButtonHeight=27;
   double _buttonToggleSize=20;
 
 
@@ -64,14 +64,47 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
             SizedBox(
               height: 55,
             ),
-            Text(
-              "Notifications",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: novalexxa_text_color,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500),
+
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                Container(
+                  margin: new EdgeInsets.only(left: 30),
+                  child: InkResponse(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: novalexxa_text_color,
+                      size: 30.0,
+                    ),
+                  ),
+                ),
+
+                Expanded(
+                    child: Container(
+                      margin: new EdgeInsets.only(right: 10),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Notifications Settings",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: novalexxa_text_color,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                    )
+                ),
+
+
+              ],
             ),
+
+
+
             Expanded(child:
 
             Column(

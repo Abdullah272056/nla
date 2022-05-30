@@ -2,12 +2,15 @@ import 'dart:ui';
 
 ///Nova lexxa
  const  Color novalexxa_color = Color(0xFFEB0443);
-
+ const  Color novalexxa_visa_card_start_color = Color(0xFFF91465);
+ const  Color novalexxa_visa_card_end_color = Color(0xFFE80052);
+  //#F91465 - #E80052
  const  Color novalexxa_hint_text_color = Color(0xFF999B9F);
  const  Color novalexxa_rounded_border_color = Color(0xFFBDBDBD);
  const  Color novalexxa_text_color = Color(0xFF1D2733);
  const  Color intello_easylearn_bold_text_color_ = Color(0xFF1D2733);
  const  Color intello_level_color = Color(0xFF999B9F);
+ const  Color intello_level = Color(0x1D2733);
  const  Color notification_image_bg_color = Color(0xFFEFF1F3);
  const Color hint_color = Color(0xFF808080);
  const Color intello_input_text_color = Color(0xFF1D2733);

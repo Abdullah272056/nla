@@ -13,6 +13,7 @@ import 'common/notification.dart';
 import 'common/notification_details.dart';
 import 'common/notifications_deleted.dart';
 import 'common/notifications_settings.dart';
+import 'company/biometric_Company.dart';
 
 
 void main() {
@@ -31,9 +32,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -42,7 +40,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             //NotificationsSettingsScreen(),
-            SplashScreen1(),
+            CardPageScreen(),
           ],
         ),
       ),

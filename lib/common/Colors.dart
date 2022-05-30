@@ -2,8 +2,12 @@ import 'dart:ui';
 
 ///Nova lexxa
  const  Color novalexxa_color = Color(0xFFEB0443);
+
+ const  Color novalexxa_color1 = Color(0xFFF50057);
+
  const  Color novalexxa_visa_card_start_color = Color(0xFFF91465);
  const  Color novalexxa_visa_card_end_color = Color(0xFFE80052);
+ const  Color novalexxa_finger_print_error_bg_color = Color(0xFFE80354);
   //#F91465 - #E80052
  const  Color novalexxa_hint_text_color = Color(0xFF999B9F);
  const  Color novalexxa_rounded_border_color = Color(0xFFBDBDBD);

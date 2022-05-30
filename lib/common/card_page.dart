@@ -307,7 +307,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
 
                           BlurryContainer(
                             child: Text(""),
-                            blur: 5,
+                            blur: 4.5,
                             height: 163,
                             width: 316,
                             elevation: 0,
@@ -315,6 +315,15 @@ class _CardPageScreenState extends State<CardPageScreen> {
                             padding: const EdgeInsets.all(8),
                             borderRadius: const BorderRadius.all(Radius.circular(15)),
                           ),
+                          Container(
+                            child: Center(
+                              child: Icon(
+                                Icons.lock_rounded,
+                                color: Colors.white,
+                                size: 50.0,
+                              ),
+                            ),
+                          )
 
 
                         ],
@@ -959,4 +968,6 @@ class _CardPageScreenState extends State<CardPageScreen> {
         textColor: Colors.black,
         fontSize: 16.0);
   }
+
+
 }

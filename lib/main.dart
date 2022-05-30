@@ -6,7 +6,9 @@ import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'Particular/scan_done_particular.dart';
 import 'common/card_page.dart';
 import 'common/customer_services.dart';
+import 'common/finger_print_done.dart';
 import 'common/home_page.dart';
+import 'common/login_by_pin.dart';
 import 'common/navigation_bar_page.dart';
 import 'common/no_notifications.dart';
 import 'common/notification.dart';
@@ -38,9 +40,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
-          children: [
+          children: const [
             //NotificationsSettingsScreen(),
-            CardPageScreen(),
+            LogInByPinScreen(),
           ],
         ),
       ),

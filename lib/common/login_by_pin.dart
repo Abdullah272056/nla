@@ -1,33 +1,24 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/Particular/particular_information.dart';
+
 import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class CreateConfirmPinParticularScreen extends StatefulWidget {
-  const CreateConfirmPinParticularScreen({Key? key}) : super(key: key);
+
+class LogInByPinScreen extends StatefulWidget {
+  const LogInByPinScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateConfirmPinParticularScreen> createState() => _CreateConfirmPinParticularScreenState();
+  State<LogInByPinScreen> createState() => _LogInByPinScreenState();
 }
 
-class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParticularScreen> {
+class _LogInByPinScreenState extends State<LogInByPinScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -45,85 +36,84 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    LinearPercentIndicator(
-                      // width: MediaQuery.of(context).size.width - 80,
-                      animation: true,
-                      lineHeight: 20.0,
-                      animationDuration: 1000,
-                      percent: 1.0,
-                      center: Text("100%"),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      fillColor:Colors.white,
-                      backgroundColor: novalexxa_indicator_unselected_color,
-                      progressColor: novalexxa_color,
+
+                    Align(
+                      alignment: Alignment.topRight,
+                      child:Container(
+                        margin: const EdgeInsets.only(left: 20.0, right: 25.0),
+                        child: Icon(
+                          Icons.info_outline,
+                          color: intello_input_text_color,
+                          size: 30.0,
+                        ),
+                      ),
                     ),
+
                     SizedBox(
-                      height: 40,
+                      height: 30,
                     ),
 
                     Wrap(
                       children: [
+
                         Container(
-                          margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 10),
+                          margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 20),
                           child:Align(alignment: Alignment.center,
-                            child:Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    spreadRadius: 1,
-                                    blurRadius: 10,
-                                    offset: Offset(0, 2), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Image.asset(
-                                "assets/images/logo_icon.png",
-                                width: 110,
-                                height: 110,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
+                            child:_buildTrashAltButton(),
                           ),
                         ),
 
                         Align(alignment: Alignment.center,
                           child:Text(
-                            "Novalexxxa",
+                            "Pin Login",
                             style: TextStyle(
                                 color: novalexxa_text_color,
-                                fontSize: 28,
+                                fontSize: 38,
                                 decoration: TextDecoration.none,
-                                fontWeight: FontWeight.normal),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-
-
-
 
                       ],
                     ),
 
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 40,left: 10,bottom: 0),
+                      margin:EdgeInsets.only(right: 10.0,top: 5,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topCenter,
                         child: Text(
-                          "Create confirm pin for future transaction and account security purpose",
+                          "Enter your PIN to access",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: novalexxa_text_color,
-                              fontSize: 15,
+                              color: novalexxa_hint_text_color,
+                              fontSize: 13,
                               fontWeight: FontWeight.w400),
                         ),),
                     ),
 
                     SizedBox(
-                      height: 24,
+                      height: 50,
                     ),
+
                     _buildTextFieldOTPView(
                       hintText: 'Enter 6 digit Number',
                       obscureText: false,
-                     // prefixedIcon: const Icon(Icons.phone, color: Colors.appRed),
+                    ),
+
+                    Container(
+                      margin:EdgeInsets.only(right: 10.0,top: 33,left: 10,bottom: 0),
+                      child: Align(alignment: Alignment.topCenter,
+                        child: InkWell(
+
+                          child: Text(
+                            "I don’t remember my PIN",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: intello_input_text_color,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
+                          ),
+
+                        ),),
                     ),
 
 
@@ -136,6 +126,36 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     );
   }
 
+  Widget _buildTrashAltButton() {
+    return Container(
+      margin:  EdgeInsets.only(left: 10, right: 10,bottom: 0,top: 10),
+      padding:  EdgeInsets.only(left: 10, right:10,bottom: 10,top: 10),
+      height: 77,
+      width: 77,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(.35),
+            blurRadius: 20.0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: const Offset(
+              2.0, // Move to right 10  horizontally
+              1.0, // Move to bottom 10 Vertically
+            ),
+          )
+        ],
+      ),
+      //   height: 150,
+      child: Center(
+        child: Image.asset(
+          "assets/images/logo.png",
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
 
   Widget _buildTextFieldOTPView({
     required bool obscureText,
@@ -152,19 +172,15 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
         fieldStyle: FieldStyle.box,
        // contentPadding: EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
         fieldWidth:45,
-        spaceBetween:0,
+
         style: TextStyle(
           fontSize: 18,
           color: novalexxa_text_color,
         ),
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
-        // textInputAction: TextInputAction.search,
-        // onSubmitted: (value) {
-        //   print("search");
-        // },
         onCompleted: (pin) {
-        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinCompanyScreen()));
 
 
           //_otpTxt = pin;

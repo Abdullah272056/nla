@@ -7,6 +7,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/email_verification_particular.dart';
@@ -195,6 +196,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
           color: novalexxa_text_color,
         ),
         keyboardType: TextInputType.number,
+        inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
           Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForCompanyScreen()));
 

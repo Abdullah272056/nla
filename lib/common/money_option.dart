@@ -11,6 +11,8 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/request_money_page.dart';
+import 'package:nova_lexxa/common/send_money_page.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -139,7 +141,8 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
               Expanded(child:
               InkResponse(
                 onTap: (){
-                  _showToast("Working...");
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyPageScreen()));
+
                 },
                 child: cardItemDesign(marginLeft: 20,marginRight: 10,bg_image_link: "assets/images/send_to_pay_friend_card_bg.png",
                     icon_link: "assets/images/send_to_pay_friend_icon.png",item_name_text: "Send to\nPay Friend"
@@ -152,7 +155,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
               Expanded(child:
               InkResponse(
                 onTap: (){
-                  _showToast("Working...");
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyPageScreen()));
                 },
                 child: cardItemDesign(marginLeft: 10,marginRight: 20,bg_image_link: "assets/images/request_money_card_bg.png",
                     icon_link: "assets/images/request_money_icoon.png",item_name_text: "Request\nMoney"

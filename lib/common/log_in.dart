@@ -66,7 +66,6 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ),
 
-
                     Container(
                       margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topLeft,
@@ -93,7 +92,6 @@ class _LogInScreenState extends State<LogInScreen> {
                               fontWeight: FontWeight.w400),
                         ),),
                     ),
-
 
                     SizedBox(
                       height: 50,

@@ -9,12 +9,14 @@ import 'common/customer_services.dart';
 import 'common/finger_print_done.dart';
 import 'common/home_page.dart';
 import 'common/login_by_pin.dart';
+import 'common/money_option.dart';
 import 'common/navigation_bar_page.dart';
 import 'common/no_notifications.dart';
 import 'common/notification.dart';
 import 'common/notification_details.dart';
 import 'common/notifications_deleted.dart';
 import 'common/notifications_settings.dart';
+import 'common/send_money_amount_page.dart';
 import 'common/send_money_page.dart';
 import 'common/transaction_details.dart';
 import 'company/biometric_Company.dart';
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: const [
             //NotificationsSettingsScreen(),
-            SendMoneyPageScreen(),
+            SendMoneyAmountPageScreen(),
           ],
         ),
       ),

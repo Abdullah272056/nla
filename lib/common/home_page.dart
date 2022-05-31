@@ -11,6 +11,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -442,15 +443,25 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      "Details",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: novalexxa_hint_text_color,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    child:InkWell(
+                      onTap: (){
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>TransactionDetailsScreen()));
+                      },
+                      child:const Text(
+                        "Details",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: novalexxa_hint_text_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+
+                    )
+
+
                   ),
+
+
                 ],
                 ),
                 SizedBox(

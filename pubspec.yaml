@@ -104,6 +104,9 @@ dependencies:
   #switch button
   flutter_switch: ^0.3.2
   blurrycontainer: ^1.0.2
+  #date picker
+  syncfusion_flutter_datepicker: ^20.1.58
+  date_time_picker: ^2.1.0
 
 
 

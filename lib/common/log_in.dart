@@ -30,9 +30,11 @@ class _LogInScreenState extends State<LogInScreen> {
         child: Column(
 
           children: [
+
             SizedBox(
               height: 55,
             ),
+
             Padding(
                 padding:
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
@@ -149,43 +151,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           Flex(direction: Axis.horizontal,
                           children: [
                             Expanded(child: _buildLogInButton(),),
-
-                            Container(
-                              margin:  EdgeInsets.only(left: 5, right: 15,bottom: 0,top: 0),
-                              width: 50,
-                              height: 50,
-                              decoration: new BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(7),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(.25),
-                                    blurRadius: 20.0, // soften the shadow
-                                    spreadRadius: 0.0, //extend the shadow
-                                    offset: Offset(
-                                      2.0, // Move to right 10  horizontally
-                                      1.0, // Move to bottom 10 Vertically
-                                    ),
-                                  )
-                                ],
-                              ),
-                              //   height: 150,
-                              child: Container(
-                                margin: EdgeInsets.only(right: 10.0,top: 10,bottom: 10,left: 10),
-                                // height: double.infinity,
-                                // width: double.infinity,
-                                color: Colors.white,
-                                child: Image.asset(
-                                  "assets/images/fingerprint_icon.png",
-                                  width: 20,
-                                  height: 20,
-                                  fit: BoxFit.fill,
-                                ),
-                              ) ,
-                            ),
-
-
-
+                            _buildFingerPrintButton()
 
 
                           ],
@@ -338,6 +304,41 @@ class _LogInScreenState extends State<LogInScreen> {
           ),
         ),
       ),
+    );
+  }
+  Widget _buildFingerPrintButton() {
+    return   Container(
+      margin:  EdgeInsets.only(left: 5, right: 15,bottom: 0,top: 0),
+      width: 50,
+      height: 50,
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(7),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(.25),
+            blurRadius: 20.0, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: Offset(
+              2.0, // Move to right 10  horizontally
+              1.0, // Move to bottom 10 Vertically
+            ),
+          )
+        ],
+      ),
+      //   height: 150,
+      child: Container(
+        margin: EdgeInsets.only(right: 10.0,top: 10,bottom: 10,left: 10),
+        // height: double.infinity,
+        // width: double.infinity,
+        color: Colors.white,
+        child: Image.asset(
+          "assets/images/fingerprint_icon.png",
+          width: 20,
+          height: 20,
+          fit: BoxFit.fill,
+        ),
+      ) ,
     );
   }
 

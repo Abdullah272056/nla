@@ -15,6 +15,8 @@ import 'common/notification.dart';
 import 'common/notification_details.dart';
 import 'common/notifications_deleted.dart';
 import 'common/notifications_settings.dart';
+import 'common/send_money_page.dart';
+import 'common/transaction_details.dart';
 import 'company/biometric_Company.dart';
 
 
@@ -42,7 +44,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: const [
             //NotificationsSettingsScreen(),
-            LogInByPinScreen(),
+            SendMoneyPageScreen(),
           ],
         ),
       ),

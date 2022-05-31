@@ -11,6 +11,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/send_money_amount_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -66,7 +67,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 10),
+                      margin: new EdgeInsets.only(right: 60),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -151,120 +152,131 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   }
 
   Widget recentContactBottomListItemDesign(){
-    return Container(
-      margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
-      height: 48,
-      child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
-        child:  Column(
-          children: [
-            Expanded(child: Row(
-              children: [
+    return InkResponse(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen()));
+      },
+      child:  Container(
+        margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
+        height: 48,
+        child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
+          child:  Column(
+            children: [
+              Expanded(child: Row(
+                children: [
 
-                Align(
-                  alignment: Alignment.topLeft,
+                  Align(
+                    alignment: Alignment.topLeft,
 
-                  child: Container(
-                    width: 40,
-                    height: 40,
+                    child: Container(
+                      width: 40,
+                      height: 40,
 
 
-                    margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
-                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(27.5),
-                      child: Container(
-                          height: 55,
-                          width: 55,
-                          color:hint_color,
-                          child: FadeInImage.assetNetwork(
-                            fit: BoxFit.fill,
-                            placeholder: 'assets/images/empty.jpg',
-                            image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                            imageErrorBuilder: (context, url, error) =>
-                                Image.asset(
-                                  'assets/images/empty.jpg',
-                                  fit: BoxFit.fill,
-                                ),
-                          )),
+                      margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
+                      // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(27.5),
+                        child: Container(
+                            height: 55,
+                            width: 55,
+                            color:hint_color,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: 'assets/images/empty.jpg',
+                              image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+                              imageErrorBuilder: (context, url, error) =>
+                                  Image.asset(
+                                    'assets/images/empty.jpg',
+                                    fit: BoxFit.fill,
+                                  ),
+                            )),
+                      ),
+
                     ),
 
+
                   ),
+                  Expanded(child:Text(
+                    "Tech Italy",
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 16,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w500),
+                  ),),
 
+                  SizedBox(width: 10,)
 
+                ],
+              ),),
+              Align(alignment:Alignment.bottomRight,
+                child:  Container(
+                  margin: EdgeInsets.only(left: 50,right: 15),
+                  height: 1.5,
+                  color:notification_image_bg_color ,
                 ),
-                Expanded(child:Text(
-                  "Tech Italy",
-                  style: TextStyle(
-                      color: novalexxa_text_color,
-                      fontSize: 16,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.w500),
-                ),),
+              )
 
-                SizedBox(width: 10,)
-
-              ],
-            ),),
-           Align(alignment:Alignment.bottomRight,
-           child:  Container(
-             margin: EdgeInsets.only(left: 50,right: 15),
-             height: 1.5,
-             color:notification_image_bg_color ,
-           ),
-           )
-
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
-
+  // Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
   Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight}) {
-    return  Container(
-      margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),
-      child: Flex(direction: Axis.vertical,
-        children: [
-          Container(
-            width: 61,
-            height: 61,
+    return  InkResponse(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen()));
 
-            // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(31),
-              child: Container(
-                  height: 55,
-                  width: 55,
-                  color:hint_color,
-                  child: FadeInImage.assetNetwork(
-                    fit: BoxFit.fill,
-                    placeholder: 'assets/images/empty.jpg',
-                    image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                    imageErrorBuilder: (context, url, error) =>
-                        Image.asset(
-                          'assets/images/empty.jpg',
-                          fit: BoxFit.fill,
-                        ),
-                  )),
+      },
+      child:Container(
+        margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),
+        child: Flex(direction: Axis.vertical,
+          children: [
+            Container(
+              width: 61,
+              height: 61,
+
+              // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(31),
+                child: Container(
+                    height: 55,
+                    width: 55,
+                    color:hint_color,
+                    child: FadeInImage.assetNetwork(
+                      fit: BoxFit.fill,
+                      placeholder: 'assets/images/empty.jpg',
+                      image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+                      imageErrorBuilder: (context, url, error) =>
+                          Image.asset(
+                            'assets/images/empty.jpg',
+                            fit: BoxFit.fill,
+                          ),
+                    )),
+              ),
+
             ),
 
-          ),
-
-          Container(
-              margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
-              child:  Text(
-                "Harry",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500),
-              )
-          ),
-        ],
-      ),
+            Container(
+                margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
+                child:  Text(
+                  "Harry",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500),
+                )
+            ),
+          ],
+        ),
 
 
-      /* add child content here */
+        /* add child content here */
+      ) ,
     );
   }
 

@@ -24,14 +24,14 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'customer_services.dart';
 import 'notification.dart';
 
-class SendMoneyAmountPageScreen extends StatefulWidget {
-  const SendMoneyAmountPageScreen({Key? key}) : super(key: key);
+class RequestMoneyAmountPageScreen extends StatefulWidget {
+  const RequestMoneyAmountPageScreen({Key? key}) : super(key: key);
 
   @override
-  State<SendMoneyAmountPageScreen> createState() => _SendMoneyAmountPageScreenState();
+  State<RequestMoneyAmountPageScreen> createState() => _RequestMoneyAmountPageScreenState();
 }
 
-class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
+class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScreen> {
   TextEditingController? _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -44,8 +44,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
             child: Column(
 
               children: [
-                Expanded(child:
-                Stack(
+                Expanded(child: Stack(
                   children: [
                     //bg
                     Container(
@@ -91,7 +90,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Send Money",
+                                      "Request Money",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -133,7 +132,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Send Money to",
+                            "Request Money to",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: intello_level_color,
@@ -155,8 +154,9 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
 
                         Align(alignment: Alignment.topCenter,
-                          child: userInputSearchField(_searchController!, '00', TextInputType.text),
+                          child: userInputSearchField(_searchController!, '00 €', TextInputType.text),
                         ),
+                        SizedBox(height: 50,),
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
                           child: _buildContinueButton(),
                         ),)
@@ -169,16 +169,16 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                       ],
                     )
                   ],
-                )
-                )
+                ))
 
               ],
             ),
           ),
         ],
       )
-
-
+      
+      
+      
 
     );
   }
@@ -195,7 +195,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
         padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
         child: Row(
           children: [
-            Expanded(child:  Column(
+            Expanded(child:Column(
               children: [
                 TextField(
                   textAlign: TextAlign.center,
@@ -222,32 +222,9 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                   ),
 
                 ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child:  Text(
-                    "Current balance is 42€",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: intello_level_color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
 
               ],
             ),),
-            IconButton(
-              icon: Image.asset(
-                "assets/images/information.png",
-                height: 20,
-                width: 20,
-                fit: BoxFit.fill,
-              ),
-              // color: Colors.white,
-              onPressed: () {},
-            )
-
-
           ],
         )
         

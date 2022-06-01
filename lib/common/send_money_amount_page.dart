@@ -41,7 +41,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
       " hidden in the middle of text.";
 
-  double _currentBalance=42;
+  double _currentBalance=1050;
   int _inputAmountGatterThanStatus=0;
 
 

@@ -12,6 +12,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/send_money_congrats.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -27,26 +28,26 @@ import 'notification.dart';
 
 class SendMoneySwipeToPayPageScreen extends StatefulWidget {
 
-  double inputBalance,currentBalance;
+  String inputBalance,message;
 
 
   SendMoneySwipeToPayPageScreen({
     required this.inputBalance,
-    required this.currentBalance
+    required this.message
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
   State<SendMoneySwipeToPayPageScreen> createState() => _SendMoneySwipeToPayPageScreenState(
       this.inputBalance,
-      this.currentBalance);
+      this.message);
 }
 
 class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageScreen> {
 
 
-  double _inputBalance,_currentBalance;
-  _SendMoneySwipeToPayPageScreenState(this._inputBalance, this._currentBalance);
+  String _inputBalance,_message;
+  _SendMoneySwipeToPayPageScreenState(this._inputBalance, this._message);
 
 
   TextEditingController? _sendMoneyAmountController = TextEditingController();
@@ -247,10 +248,6 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
             ),
 
             ),
-
-
-
-
           ],
         )
         
@@ -321,6 +318,26 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
               _slide_button_color=slide_button_end_color;
               _buttonLeftRightStatus=2;
 
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    settings: RouteSettings(name: "Foo"),
+                    builder: (BuildContext context) => SendMoneyCongratsScreen(
+                      receiverName: "Simon Lewis",
+                      sendAmount: _inputBalance.toString(),
+                    ),),
+              );
+
+              // Navigator.pushReplacement<void, void>(
+              //   context,
+              //   MaterialPageRoute<void>(
+              //     builder: (BuildContext context) => SendMoneyCongratsScreen(
+              //       receiverName: "Simon Lewis",
+              //       sendAmount: _inputBalance.toString(),
+              //     ),
+              //   ),
+              // );
+
               // result = 'Button is on the right';
             } else {
               _button_bg_color=slide_button_start_bg_color;
@@ -349,7 +366,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
             padding: EdgeInsets.only(left: 10.0, top: 20,bottom: 20, right: 10),
             child: Align(
               alignment: Alignment.topLeft,
-              child: Text(_inputBalance.toString()+"€"+"dftghjbkdfvh \nshdgfvh \nsdhvgh",
+              child: Text(_message,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     color: novalexxa_text_color,

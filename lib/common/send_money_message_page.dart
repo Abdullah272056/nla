@@ -12,6 +12,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -47,7 +48,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
   _SendMoneyMessagePageScreenState(this._inputBalance, this._currentBalance);
 
 
-  TextEditingController? _sendMoneyAmountController = TextEditingController();
+  TextEditingController? _sendMoneyMessageController = TextEditingController();
   String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
       "but the majority have suffered alteration in some form, by injected humour, or "
       "randomised words which don't look even slightly believable. If you are going to "
@@ -55,7 +56,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
       " hidden in the middle of text.";
 
 
-  TextEditingController? _userMessage = TextEditingController();
+  //TextEditingController? _userMessage = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +196,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        userInputMessage(_userMessage!, 'Enter your message', TextInputType.text,),
+                        userInputMessage(_sendMoneyMessageController!, 'Enter your message', TextInputType.text,),
 
 
 
@@ -407,39 +408,59 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
 
   Widget _buildContinueButton() {
-    return Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-            ),
-            borderRadius: BorderRadius.circular(8.0)
-        ),
-        height: 65,
-        alignment: Alignment.center,
-        child:  Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Continue",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'PT-Sans',
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(width: 10,),
-            Icon(
-              Icons.arrow_forward,
-              color: Colors.white,
-              size: 25.0,
-            ),
-          ],
-        )
+    return InkResponse(
+      onTap: (){
+        String messageTxt = _sendMoneyMessageController!.text;
+        if (messageTxt.isEmpty) {
+          Fluttertoast.cancel();
+          _showToast("amountTxt can't empty");
+          return;
+        }
 
+
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
+          inputBalance: _inputBalance.toString(),
+          message: messageTxt,
+
+        )));
+
+      },
+      child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+              borderRadius: BorderRadius.circular(8.0)
+          ),
+          height: 65,
+          alignment: Alignment.center,
+          child:  Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Continue",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'PT-Sans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(width: 10,),
+              Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+                size: 25.0,
+              ),
+            ],
+          )
+
+      ),
     );
+
+
   }
 
   _showToast(String message) {

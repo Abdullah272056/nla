@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
+import 'common/money_option.dart';
 import 'common/send_money_amount_page.dart';
-import 'common/send_money_message_page.dart';
-import 'common/send_money_swipe_to_pay_page.dart';
+import 'common/send_money_congrats.dart';
 
 
 
@@ -31,12 +31,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
-          children:  [
+          children: const [
             //NotificationsSettingsScreen(),
-            SendMoneySwipeToPayPageScreen(
-              inputBalance: 40.0,
-              currentBalance: 40.0,
-            ),
+            SendMoneyAmountPageScreen(),
           ],
         ),
       ),

@@ -3,6 +3,11 @@ import 'dart:ui';
 ///Nova lexxa
  const  Color novalexxa_color = Color(0xFFEB0443);
 
+ const  Color slide_button_start_bg_color = Color(0xFFFEE5EE);
+ const  Color slide_button_end_bg_color = Color(0xFFE5FBF2);
+ const  Color slide_button_end_color = Color(0xFF04D883);
+ const  Color slide_button_start_color = Color(0xFFF50057);
+
  const  Color novalexxa_color1 = Color(0xFFF50057);
  const  Color date_selection_color = Color(0xFFA91148);
 

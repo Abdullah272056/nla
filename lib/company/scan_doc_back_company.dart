@@ -15,7 +15,7 @@ import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
 
-import '../common/Colors.dart';
+import '../common/static/Colors.dart';
 
 class ScanDocBackCompanyScreen extends StatefulWidget {
   const ScanDocBackCompanyScreen({Key? key}) : super(key: key);

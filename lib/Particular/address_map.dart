@@ -4,7 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/Particular/registration_for_particular.dart';
-import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 class AddressMapScreen extends StatefulWidget {

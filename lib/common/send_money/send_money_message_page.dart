@@ -11,8 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/send_money_swipe_to_pay_page.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -22,28 +22,30 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'customer_services.dart';
-import 'notification.dart';
+import '../customer_services.dart';
+import '../notification/notification.dart';
 
-class RequestMoneyMessagePageScreen extends StatefulWidget {
+class SendMoneyMessagePageScreen extends StatefulWidget {
 
-  double inputBalance;
+  double inputBalance,currentBalance;
 
 
-  RequestMoneyMessagePageScreen({
+  SendMoneyMessagePageScreen({
     required this.inputBalance,
+    required this.currentBalance
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<RequestMoneyMessagePageScreen> createState() => _RequestMoneyMessagePageScreenState(this.inputBalance);
+  State<SendMoneyMessagePageScreen> createState() => _SendMoneyMessagePageScreenState(this.inputBalance,
+      this.currentBalance);
 }
 
-class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageScreen> {
+class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen> {
 
 
-  double _inputBalance;
-  _RequestMoneyMessagePageScreenState(this._inputBalance,);
+  double _inputBalance,_currentBalance;
+  _SendMoneyMessagePageScreenState(this._inputBalance, this._currentBalance);
 
 
   TextEditingController? _sendMoneyMessageController = TextEditingController();
@@ -114,7 +116,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Request Money",
+                                      "Send Money",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -158,7 +160,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Request Money to",
+                            "Send Money to",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: intello_level_color,
@@ -190,7 +192,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
-                                fontSize: 15,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -228,7 +230,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 25,bottom: 25, right: 10),
+        padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
         child: Row(
           children: [
 
@@ -236,23 +238,129 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
               onTap: (){
                 Navigator.of(context).pop();
               },
-            child:Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                _inputBalance.toString()+"€",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: novalexxa_text_color,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600),
+            child:Column(
+              children: [
+
+
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    _inputBalance.toString()+"€",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(height: 5,),
+
+                Align(
+                  alignment: Alignment.topCenter,
+                  child:  Text(
+
+                    "Current balance is "+_currentBalance.toString()+"€",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: intello_level_color,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+
+              ],
+            ) ,
+
+            ),
+
+            ),
+
+            IconButton(
+              icon: Image.asset(
+                "assets/images/information.png",
+                height: 20,
+                width: 20,
+                fit: BoxFit.fill,
               ),
-            ),
+              // color: Colors.white,
+              onPressed: () {
+                showDialog(context: context,
+                    barrierDismissible:false,
+                    builder: (BuildContext context){
+                      return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:BorderRadius.circular(10.0)),
+                        child:Wrap(
+                          children: [
+                            Container(
+                              padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                              child: Column(
 
-            ),
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: InkResponse(
+                                            onTap: (){
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Icon(
+                                              Icons.cancel_outlined,
+                                              size: 25,
+                                            ),
+                                          )
 
-            ),
+                                      ))
+
+                                    ],
+                                  ),
+
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+
+                                  Image.asset(
+                                    "assets/images/information.png",
+                                    height: 30,
+                                    width: 30,
+                                    fit: BoxFit.fill,
+                                    color: novalexxa_color1,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text("Lorem Ipsum Title",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color:novalexxa_text_color,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+
+                                  Text(_alertMessage,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color:novalexxa_text_color,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal),
+                                  ),
 
 
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                );
+
+              },
+            )
 
 
           ],
@@ -310,11 +418,10 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
         }
 
 
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
-        //   inputBalance: _inputBalance.toString(),
-        //   message: messageTxt,
-        //
-        // )));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
+          inputBalance: _inputBalance.toString(),
+          message: messageTxt,
+        )));
 
       },
       child: Container(

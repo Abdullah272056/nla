@@ -11,8 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/send_money_congrats.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/request_money/request_money_message_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -21,49 +21,19 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:slidable_button/slidable_button.dart';
 
-import 'customer_services.dart';
-import 'notification.dart';
+import '../customer_services.dart';
+import '../notification/notification.dart';
 
-class SendMoneySwipeToPayPageScreen extends StatefulWidget {
-
-  String inputBalance,message;
-
-
-  SendMoneySwipeToPayPageScreen({
-    required this.inputBalance,
-    required this.message
-});
-  // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
+class RequestMoneyAmountPageScreen extends StatefulWidget {
+  const RequestMoneyAmountPageScreen({Key? key}) : super(key: key);
 
   @override
-  State<SendMoneySwipeToPayPageScreen> createState() => _SendMoneySwipeToPayPageScreenState(
-      this.inputBalance,
-      this.message);
+  State<RequestMoneyAmountPageScreen> createState() => _RequestMoneyAmountPageScreenState();
 }
 
-class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageScreen> {
-
-
-  String _inputBalance,_message;
-  _SendMoneySwipeToPayPageScreenState(this._inputBalance, this._message);
-
-
-  TextEditingController? _sendMoneyAmountController = TextEditingController();
-  String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
-      "but the majority have suffered alteration in some form, by injected humour, or "
-      "randomised words which don't look even slightly believable. If you are going to "
-      "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
-      " hidden in the middle of text.";
-
-  Color _button_bg_color=slide_button_start_bg_color;
-  Color _slide_button_color=slide_button_start_color;
-  int _buttonLeftRightStatus=1;
-
-
-  TextEditingController? _userMessage = TextEditingController();
-
+class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScreen> {
+  TextEditingController? _requestMoneyAmountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,8 +45,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
             child: Column(
 
               children: [
-                Expanded(child:
-                Stack(
+                Expanded(child: Stack(
                   children: [
                     //bg
                     Container(
@@ -122,7 +91,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Send Money",
+                                      "Request Money",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -135,8 +104,6 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
 
                           ],
                         ),
-
-                        //image section
                         Align(alignment: Alignment.topCenter,
                           child: Container(
                             width: 90,
@@ -166,7 +133,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Send Money to",
+                            "Request Money to",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: intello_level_color,
@@ -186,43 +153,65 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
                           ),
                         ),
 
-                        //amount section
+
                         Align(alignment: Alignment.topCenter,
-                          child: userAmountSection(),
+                          child: userInputSearchField(_requestMoneyAmountController!, '00 €', TextInputType.text),
                         ),
-
-                        //message section
-                        userMessageSection(),
-
-                        SizedBox(height: 40,),
-                        Align(alignment: Alignment.center,
-                        child:Row(
-                          children: [
-                            Expanded(child: userSlideButtonSection() )
-                          ],
-                        ),
+                        SizedBox(height: 50,),
 
 
-                        )
+                        Expanded(child:  Align(alignment: Alignment.bottomCenter,
+                          child: InkResponse(
+                            onTap: (){
+                              String amountTxt = _requestMoneyAmountController!.text;
+
+                              if (amountTxt.isEmpty) {
+                                Fluttertoast.cancel();
+                                _showToast("amount can't empty");
+                                return;
+                              }
+                              if (double.parse(amountTxt)<=0) {
+                                Fluttertoast.cancel();
+                                _showToast("please input valid amount!");
+                                return;
+                              }
+
+
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyMessagePageScreen(
+                                inputBalance:double.parse(amountTxt),
+                              )));
+                            },
+                            child: _buildContinueButton(),
+                          ),
+                        ),)
+
+                        // Expanded(child:  Align(alignment: Alignment.bottomCenter,
+                        //   child: _buildContinueButton(),
+                        // ),)
+
+
+
+
+
 
                       ],
                     )
                   ],
-                )
-                )
+                ))
 
               ],
             ),
           ),
         ],
       )
-
-
+      
+      
+      
 
     );
   }
 
-  Widget userAmountSection() {
+  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
 
       alignment: Alignment.center,
@@ -231,23 +220,39 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 25,bottom: 25, right: 10),
+        padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
         child: Row(
           children: [
+            Expanded(child:Column(
+              children: [
+                TextField(
+                  textAlign: TextAlign.center,
+                  controller: userInput,
+                  textInputAction: TextInputAction.search,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  cursorColor:intello_input_text_color,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
+                  style: TextStyle(
+                      color: novalexxa_text_color,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600),
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
 
-            Expanded(child:  Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                _inputBalance.toString()+"€",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: novalexxa_text_color,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
+                    hintText: hintTitle,
+                    hintStyle:  TextStyle(fontSize: 22,
+                        color:novalexxa_hint_text_color,
+                        // color: Colors.intello_hint_color,
+                        fontStyle: FontStyle.normal),
+                  ),
 
-            ),
+                ),
+
+              ],
+            ),),
           ],
         )
         
@@ -255,134 +260,6 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
       ),
     );
   }
-
-  Widget userSlideButtonSection() {
-    return Container(
-      height: 64,
-      margin: EdgeInsets.only(left: 40,right: 40,top: 0,bottom: 0),
-      decoration: BoxDecoration(
-          color: _button_bg_color,
-          borderRadius: BorderRadius.all(Radius.circular(32))
-      ),
-
-      padding: EdgeInsets.only(left: 10,right: 10,top: 0,bottom: 0),
-      child: SlidableButton(
-        height: 50,
-        //  buttonWidth: 54.0,
-        // color: ,
-        buttonColor: _slide_button_color,
-        dismissible: false,
-        label: Center(
-            child:Wrap(
-              children: [
-                if(_buttonLeftRightStatus==1)...[
-                  Text('Swipe\nto pay',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.center,
-                  )
-                ]
-                else...[
-                  Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 30.0,
-                  ),
-                ]
-              ],
-            )
-
-
-
-        ),
-        child: Padding(
-          padding: EdgeInsets.only(left: 20,right: 20,top: 0,bottom: 0),
-          child: Center(
-            child:Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(3))
-              ),
-              height: 8,
-              //width: 200,
-
-            ),
-          ),
-        ),
-        onChanged: (position) {
-          setState(() {
-            if (position == SlidableButtonPosition.right) {
-              _button_bg_color=slide_button_end_bg_color;
-              _slide_button_color=slide_button_end_color;
-              _buttonLeftRightStatus=2;
-
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    settings: RouteSettings(name: "Foo"),
-                    builder: (BuildContext context) => SendMoneyCongratsScreen(
-                      receiverName: "Simon Lewis",
-                      sendAmount: _inputBalance.toString(),
-                    ),),
-              );
-
-              // Navigator.pushReplacement<void, void>(
-              //   context,
-              //   MaterialPageRoute<void>(
-              //     builder: (BuildContext context) => SendMoneyCongratsScreen(
-              //       receiverName: "Simon Lewis",
-              //       sendAmount: _inputBalance.toString(),
-              //     ),
-              //   ),
-              // );
-
-              // result = 'Button is on the right';
-            } else {
-              _button_bg_color=slide_button_start_bg_color;
-              _slide_button_color=slide_button_start_color;
-              _buttonLeftRightStatus=1;
-              //result = 'Button is on the left';
-            }
-          });
-        },
-      ),
-    );
-  }
-
-  Widget userMessageSection() {
-    return ConstrainedBox(
-      constraints: new BoxConstraints(
-        minHeight: 100.0,
-
-      ),
-      child: Container(
-        margin: new EdgeInsets.only(left: 30,right: 30,top: 30),
-        decoration: BoxDecoration(
-            color:search_send_money_box_color,
-            borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-            padding: EdgeInsets.only(left: 10.0, top: 20,bottom: 20, right: 10),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(_message,
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                    color: novalexxa_text_color,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500),
-              ),
-            )
-
-
-        ),
-      ),
-    );
-
-  }
-
-
 
 
 
@@ -397,7 +274,41 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
         fontSize: 16.0);
   }
 
+  Widget _buildContinueButton() {
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(8.0)
+      ),
+      height: 65,
+      alignment: Alignment.center,
+      child:  Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Continue",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(width: 10,),
+          Icon(
+            Icons.arrow_forward,
+            color: Colors.white,
+            size: 25.0,
+          ),
+        ],
+      )
 
+    );
+  }
 
 }
 

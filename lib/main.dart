@@ -1,11 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
-import 'common/money_option.dart';
-import 'common/send_money_amount_page.dart';
-import 'common/send_money_congrats.dart';
+import 'common/customer_services.dart';
+import 'common/navigation_page/money_option.dart';
+
 
 
 
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: const [
             //NotificationsSettingsScreen(),
-            MoneyOptionScreen(),
+            CustomerServicesScreen(),
           ],
         ),
       ),

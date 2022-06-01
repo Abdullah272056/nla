@@ -11,8 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/send_money_message_page.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/send_money/send_money_message_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -22,8 +22,8 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'customer_services.dart';
-import 'notification.dart';
+import '../customer_services.dart';
+import '../notification/notification.dart';
 
 class SendMoneyAmountPageScreen extends StatefulWidget {
   const SendMoneyAmountPageScreen({Key? key}) : super(key: key);

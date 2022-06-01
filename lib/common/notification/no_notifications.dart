@@ -4,7 +4,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import '../common/Colors.dart';
+import '../static/Colors.dart';
+
 import 'notifications_settings.dart';
 
 

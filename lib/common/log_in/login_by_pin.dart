@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';

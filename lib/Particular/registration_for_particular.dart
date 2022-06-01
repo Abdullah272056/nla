@@ -5,8 +5,8 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/log_in.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'confirm_number_particular.dart';

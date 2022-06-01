@@ -4,7 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 
-import '../common/Colors.dart';
+import '../common/static/Colors.dart';
 import 'create_pin_Company.dart';
 
 

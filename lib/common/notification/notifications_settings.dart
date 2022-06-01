@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import '../common/Colors.dart';
-import 'no_notifications.dart';
+
+import '../static/Colors.dart';
+
 
 
 class NotificationsSettingsScreen extends StatefulWidget {

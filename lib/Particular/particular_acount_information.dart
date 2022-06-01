@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/Particular/scan_doc_front_particular.dart';
-import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/log_in.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'confirm_number_particular.dart';

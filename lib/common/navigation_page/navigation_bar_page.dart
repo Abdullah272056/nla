@@ -3,8 +3,8 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/material.dart';
 
 
-import 'Colors.dart';
-import 'card_page.dart';
+import '../static/Colors.dart';
+import '../cart/card_page.dart';
 import 'home_page.dart';
 import 'money_option.dart';
 

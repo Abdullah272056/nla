@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/request_money_amount_page.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/send_money/send_money_amount_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -21,17 +21,17 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'customer_services.dart';
-import 'notification.dart';
+import '../customer_services.dart';
+import '../notification/notification.dart';
 
-class RequestMoneyPageScreen extends StatefulWidget {
-  const RequestMoneyPageScreen({Key? key}) : super(key: key);
+class SendMoneyPageScreen extends StatefulWidget {
+  const SendMoneyPageScreen({Key? key}) : super(key: key);
 
   @override
-  State<RequestMoneyPageScreen> createState() => _RequestMoneyPageScreenScreenState();
+  State<SendMoneyPageScreen> createState() => _SendMoneyPageScreenState();
 }
 
-class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
+class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   TextEditingController? _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "Request Money",
+                          "Send Money",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: novalexxa_text_color,
@@ -154,9 +154,9 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
   Widget recentContactBottomListItemDesign(){
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen()));
       },
-      child: Container(
+      child:  Container(
         margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
         height: 48,
         child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
@@ -224,14 +224,14 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       ),
     );
   }
-
+  // Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
   Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight}) {
     return  InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen()));
 
       },
-      child: Container(
+      child:Container(
         margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),
         child: Flex(direction: Axis.vertical,
           children: [
@@ -276,8 +276,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
 
         /* add child content here */
-      ),
-
+      ) ,
     );
   }
 

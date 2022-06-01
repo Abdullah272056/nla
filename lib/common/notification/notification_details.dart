@@ -11,7 +11,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -20,8 +20,9 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'home_page.dart';
-import 'navigation_bar_page.dart';
+import '../navigation_page/home_page.dart';
+import '../navigation_page/navigation_bar_page.dart';
+
 import 'notifications_deleted.dart';
 import 'notifications_settings.dart';
 

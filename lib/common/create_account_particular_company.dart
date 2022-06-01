@@ -14,7 +14,7 @@ import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'Colors.dart';
+import 'static/Colors.dart';
 
 class CreateAccountParticularAndCompanyScreen extends StatefulWidget {
   const CreateAccountParticularAndCompanyScreen({Key? key}) : super(key: key);

@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nova_lexxa/common/Colors.dart';
+import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
 import 'package:page_transition/page_transition.dart';
 

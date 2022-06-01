@@ -124,13 +124,14 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-         Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricParticularScreen()));
+       //  Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricParticularScreen()));
 
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(7))),
+
         child: Ink(
 
           decoration: BoxDecoration(

@@ -184,7 +184,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                         Align(alignment: Alignment.topCenter,
                           child: userAmountSection(),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 30,),
                         //message section
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
@@ -192,7 +192,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
-                                fontSize: 20,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
@@ -413,7 +413,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
         String messageTxt = _sendMoneyMessageController!.text;
         if (messageTxt.isEmpty) {
           Fluttertoast.cancel();
-          _showToast("amountTxt can't empty");
+          _showToast("message can't empty");
           return;
         }
 
@@ -421,7 +421,6 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
         Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
           inputBalance: _inputBalance.toString(),
           message: messageTxt,
-
         )));
 
       },

@@ -229,7 +229,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                               if (amountTxt.isEmpty) {
                                 Fluttertoast.cancel();
-                                _showToast("amountTxt can't empty");
+                                _showToast("amount can't empty");
                                 return;
                               }
                               if (double.parse(amountTxt)<=0) {

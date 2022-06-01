@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: const [
             //NotificationsSettingsScreen(),
-            SendMoneyAmountPageScreen(),
+            MoneyOptionScreen(),
           ],
         ),
       ),

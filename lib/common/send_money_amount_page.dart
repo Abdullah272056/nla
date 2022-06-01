@@ -34,6 +34,13 @@ class SendMoneyAmountPageScreen extends StatefulWidget {
 class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
   TextEditingController? _searchController = TextEditingController();
   @override
+  String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
+      "but the majority have suffered alteration in some form, by injected humour, or "
+      "randomised words which don't look even slightly believable. If you are going to "
+      "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
+      " hidden in the middle of text.";
+
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white ,
@@ -244,7 +251,83 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                 fit: BoxFit.fill,
               ),
               // color: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                showDialog(context: context,
+                    barrierDismissible:false,
+                    builder: (BuildContext context){
+                      return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius:BorderRadius.circular(10.0)),
+                        child:Wrap(
+                          children: [
+                            Container(
+                              padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                              child: Column(
+
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: InkResponse(
+                                            onTap: (){
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Icon(
+                                              Icons.cancel_outlined,
+                                              size: 25,
+                                            ),
+                                          )
+
+                                      ))
+
+                                    ],
+                                  ),
+
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+
+                                  Image.asset(
+                                    "assets/images/information.png",
+                                    height: 30,
+                                    width: 30,
+                                    fit: BoxFit.fill,
+                                    color: novalexxa_color1,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text("Lorem Ipsum Title",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color:novalexxa_text_color,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+
+                                  Text(_alertMessage,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color:novalexxa_text_color,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+
+
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    }
+                );
+
+              },
             )
 
 

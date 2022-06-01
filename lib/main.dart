@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'common/send_money_amount_page.dart';
+import 'common/send_money_message_page.dart';
 
 
 

@@ -12,7 +12,6 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/Colors.dart';
-import 'package:nova_lexxa/common/send_money_message_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -25,26 +24,40 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'customer_services.dart';
 import 'notification.dart';
 
-class SendMoneyAmountPageScreen extends StatefulWidget {
-  const SendMoneyAmountPageScreen({Key? key}) : super(key: key);
+class SendMoneyMessagePageScreen extends StatefulWidget {
+
+  double inputBalance,currentBalance;
+
+
+  SendMoneyMessagePageScreen({
+    required this.inputBalance,
+    required this.currentBalance
+});
+  // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<SendMoneyAmountPageScreen> createState() => _SendMoneyAmountPageScreenState();
+  State<SendMoneyMessagePageScreen> createState() => _SendMoneyMessagePageScreenState(this.inputBalance,
+      this.currentBalance);
 }
 
-class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
+class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen> {
+
+
+  double _inputBalance,_currentBalance;
+  _SendMoneyMessagePageScreenState(this._inputBalance, this._currentBalance);
+
+
   TextEditingController? _sendMoneyAmountController = TextEditingController();
-  @override
   String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
       "but the majority have suffered alteration in some form, by injected humour, or "
       "randomised words which don't look even slightly believable. If you are going to "
       "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
       " hidden in the middle of text.";
 
-  double _currentBalance=42;
-  int _inputAmountGatterThanStatus=0;
 
+  TextEditingController? _userMessage = TextEditingController();
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white ,
@@ -115,6 +128,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                           ],
                         ),
+
+                        //image section
                         Align(alignment: Alignment.topCenter,
                           child: Container(
                             width: 90,
@@ -164,98 +179,29 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           ),
                         ),
 
-
+                        //amount section
                         Align(alignment: Alignment.topCenter,
-                          child: userInputSearchField(_sendMoneyAmountController!, '00', TextInputType.text),
+                          child: userAmountSection(),
                         ),
-
-                        if(_inputAmountGatterThanStatus==1)...{
-                          DelayedWidget(
-
-                            delayDuration: Duration(milliseconds: 0),// Not required
-                            animationDuration: Duration(milliseconds: 700),// Not required
-                            animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-                            child:Container(
-                              margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(child: Text("Your current balance is not enough",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color:novalexxa_text_color,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal),
-                                  ),),
-
-                                  Container(
-                                      padding: new EdgeInsets.only(left: 15,right: 15),
-                                      margin: new EdgeInsets.only(left: 17,right: 0),
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                          ),
-                                          borderRadius: BorderRadius.circular(18.0)
-                                      ),
-                                      height: 36,
-                                      alignment: Alignment.center,
-                                      child:Text(
-                                        "Top up my account",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'PT-Sans',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white,
-                                        ),
-                                      )
-
-                                  )
-                                ],
-
-                              ),
-                            ),
-                          )
-
-                        },
+                        SizedBox(height: 20,),
+                        //message section
+                        Align(alignment: Alignment.topCenter,
+                          child:  Text(
+                            "Add custom Message to Recipient",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: novalexxa_text_color,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        userInputMessage(_userMessage!, 'Enter your message', TextInputType.text,),
 
 
 
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
-                          child: InkResponse(
-                            onTap: (){
-                              String amountTxt = _sendMoneyAmountController!.text;
-
-                              if (amountTxt.isEmpty) {
-                                Fluttertoast.cancel();
-                                _showToast("amountTxt can't empty");
-                                return;
-                              }
-                              if (double.parse(amountTxt)<=0) {
-                                Fluttertoast.cancel();
-                                _showToast("please input valid amount!");
-                                return;
-                              }
-                              if (double.parse(amountTxt)>_currentBalance) {
-                                Fluttertoast.cancel();
-                                _showToast("your current balance is not enough!");
-                                return;
-                              }
-
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyMessagePageScreen(
-                                currentBalance:_currentBalance ,
-                                inputBalance:double.parse(amountTxt),
-                              )));
-                            },
-                            child: _buildContinueButton(),
-                          ),
+                          child: _buildContinueButton(),
                         ),)
-
-
-
-
-
 
                       ],
                     )
@@ -274,7 +220,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     );
   }
 
-  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userAmountSection() {
     return Container(
 
       alignment: Alignment.center,
@@ -283,50 +229,31 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
+        padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
         child: Row(
           children: [
-            Expanded(child:  Column(
+
+            Expanded(child:  InkResponse(
+              onTap: (){
+                Navigator.of(context).pop();
+              },
+            child:Column(
               children: [
-                TextField(
-                  textAlign: TextAlign.center,
-                  controller: userInput,
-                  textInputAction: TextInputAction.search,
-                  autocorrect: false,
-                  enableSuggestions: false,
-                  cursorColor:intello_input_text_color,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                  style: TextStyle(
-                      color: novalexxa_text_color,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w600),
-                  onChanged: (text) {
-                    if(double.parse(text)>_currentBalance){
-                      setState(() {
-                        _inputAmountGatterThanStatus=1;
-                      });
 
-                     // _showToast("not possible");
-                    }else{
-                      setState(() {
-                        _inputAmountGatterThanStatus=0;
-                      });
-                    }
 
-                  },
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-
-                    hintText: hintTitle,
-                    hintStyle:  TextStyle(fontSize: 22,
-                        color:novalexxa_hint_text_color,
-                        // color: Colors.intello_hint_color,
-                        fontStyle: FontStyle.normal),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    _inputBalance.toString()+"€",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600),
                   ),
-
                 ),
+                SizedBox(height: 5,),
+
                 Align(
                   alignment: Alignment.topCenter,
                   child:  Text(
@@ -341,7 +268,11 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                 ),
 
               ],
-            ),),
+            ) ,
+
+            ),
+
+            ),
 
             IconButton(
               icon: Image.asset(
@@ -439,7 +370,77 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     );
   }
 
+  Widget userInputMessage(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
+    return  Container(
+      margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
+      decoration: BoxDecoration(
+          color:search_send_money_box_color,
 
+          borderRadius: BorderRadius.circular(10)),
+      child:  Padding(
+          padding: const EdgeInsets.only(left: 25.0, top: 0,bottom: 0, right: 20),
+          child: TextField(
+            minLines: 6,
+            maxLines: 30,
+            keyboardType: TextInputType.multiline,
+            controller: _controller,
+            autocorrect: false,
+            enableSuggestions: false,
+            cursorColor:intello_input_text_color,
+            style: TextStyle(
+                color:intello_input_text_color,
+                fontSize: 17,
+            ),
+            autofocus: false,
+
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: hintTitle,
+              hintStyle: const TextStyle(fontSize: 15, color:hint_color, fontStyle: FontStyle.normal),
+            ),
+
+          )
+
+      ),
+    );
+  }
+
+
+  Widget _buildContinueButton() {
+    return Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(8.0)
+        ),
+        height: 65,
+        alignment: Alignment.center,
+        child:  Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Continue",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'PT-Sans',
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(width: 10,),
+            Icon(
+              Icons.arrow_forward,
+              color: Colors.white,
+              size: 25.0,
+            ),
+          ],
+        )
+
+    );
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -451,43 +452,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
         textColor: Colors.black,
         fontSize: 16.0);
   }
-  // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
 
-  Widget _buildContinueButton() {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8.0)
-      ),
-      height: 65,
-      alignment: Alignment.center,
-      child:  Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            "Continue",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'PT-Sans',
-              fontSize: 20,
-              fontWeight: FontWeight.normal,
-              color: Colors.white,
-            ),
-          ),
-          SizedBox(width: 10,),
-          Icon(
-            Icons.arrow_forward,
-            color: Colors.white,
-            size: 25.0,
-          ),
-        ],
-      )
 
-    );
-  }
 
 }
 

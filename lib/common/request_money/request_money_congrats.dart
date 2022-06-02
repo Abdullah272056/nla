@@ -6,26 +6,27 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import '../navigation_page/home_page.dart';
 import '../navigation_page/money_option.dart';
 import '../navigation_page/navigation_bar_page.dart';
 import '../static/Colors.dart';
 
 
-class SendMoneyCongratsScreen extends StatefulWidget {
+class RequestMoneyCongratsScreen extends StatefulWidget {
 
   String sendAmount,receiverName;
-  SendMoneyCongratsScreen({required this.sendAmount, required this.receiverName});
+  RequestMoneyCongratsScreen({required this.sendAmount, required this.receiverName});
 
   @override
-  State<SendMoneyCongratsScreen> createState() => _SendMoneyCongratsScreenState(this.sendAmount, this.receiverName);
+  State<RequestMoneyCongratsScreen> createState() => _RequestMoneyCongratsScreenState(this.sendAmount, this.receiverName);
 }
 
-class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
+class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen> {
 
   String _sendAmount,_receiverName;
 
 
-  _SendMoneyCongratsScreenState(
+  _RequestMoneyCongratsScreenState(
       this._sendAmount, this._receiverName); //image upload
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
@@ -71,21 +72,10 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                         fontWeight: FontWeight.bold),
                   ),
 
+
                   Container(
                     margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
-                    child:Text(
-                      "You send $_sendAmount to",
 
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          height: 1.5,
-                          color: novalexxa_text_color,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
                     child:Text(
                       _receiverName,
 
@@ -95,6 +85,20 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                           color: novalexxa_text_color,
                           fontSize: 22,
                           fontWeight: FontWeight.w600),
+                    ),
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
+                    child:Text(
+                      "received your request",
+
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          height: 1.5,
+                          color: intello_level_color,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
 
@@ -125,10 +129,8 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-
           Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
           Navigator.pushReplacement(context, route);
-
 
         },
         style: ElevatedButton.styleFrom(
@@ -150,7 +152,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
             height: 50,
             alignment: Alignment.center,
             child:  Text(
-              "Send More Money",
+              "Send More Requests",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'PT-Sans',

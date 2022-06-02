@@ -79,9 +79,27 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
   String _darkOrLightToggleButtonImageLink="";
   @override
   void initState() {
-    _tabcontroller = TabController(length: 5, vsync: this);
     super.initState();
+    _tabcontroller = TabController(length: 5, vsync: this,initialIndex:_selectedTabIndex,);
+
+
+   // _onItemTapped(_selectedTabIndex);
   }
+  //
+  // @override
+  // @mustCallSuper
+  // initState() {
+  //   super.initState();
+  //   setState(() {
+  //     // Route route = MaterialPageRoute(builder: (context) => SplashScreen2());
+  //     // Navigator.pushReplacement(context, route);
+  //
+  //
+  //   });
+  //
+  //
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {

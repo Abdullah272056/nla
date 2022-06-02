@@ -166,7 +166,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
 
                         Align(alignment: Alignment.topCenter,
-                          child: userInputSearchField(_sendMoneyAmountController!, '00', TextInputType.text),
+                          child: userInputAmountField(_sendMoneyAmountController!, '00', TextInputType.text),
                         ),
 
                         if(_inputAmountGatterThanStatus==1)...{
@@ -274,7 +274,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     );
   }
 
-  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputAmountField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
 
       alignment: Alignment.center,

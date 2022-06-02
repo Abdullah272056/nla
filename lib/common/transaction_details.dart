@@ -51,6 +51,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                 const SizedBox(
                   height: 55,
                 ),
+
                 Flex(
                   direction: Axis.horizontal,
                   children: [
@@ -67,8 +68,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                         ),
                       ),
                     ),
-
-
 
                     Expanded(
                         child: Container(
@@ -103,6 +102,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     ),
                   ],
                 ),
+
                 Container(
                   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                   height: 290,

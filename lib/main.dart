@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'common/customer_services.dart';
 import 'common/navigation_page/money_option.dart';
+import 'common/navigation_page/navigation_bar_page.dart';
+import 'common/pay_nfc.dart';
 
 
 
@@ -30,9 +33,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body: Stack(
-          children: const [
-            //NotificationsSettingsScreen(),
-            CustomerServicesScreen(),
+          children:  [
+            //NavigationBarScreen(2,MoneyOptionScreen())
+            PayNFCScreen(),
           ],
         ),
       ),

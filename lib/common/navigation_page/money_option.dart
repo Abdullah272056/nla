@@ -21,6 +21,9 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../pay_nfc.dart';
+import '../schedule_a_payment.dart';
+
 
 
 class MoneyOptionScreen extends StatefulWidget {
@@ -185,7 +188,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                     onTap: (){
-                      _showToast("Working...");
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>PayNFCScreen()));
                     },
                     child: cardItemDesign(marginLeft: 10,marginRight: 20,bg_image_link: "assets/images/pay_with_nfc_card_bg.png",
                         icon_link: "assets/images/pay_with_nfc_icon.png",item_name_text: "Pay With\nNFC"
@@ -216,7 +219,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                     onTap: (){
-                      _showToast("Working...");
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>SchedulePaymentScreen()));
                     },
                     child: cardItemDesign(marginLeft: 10,marginRight: 20,bg_image_link: "assets/images/schedule_card_item_bg.png",
                         icon_link: "assets/images/schedule_payment_icon.png",item_name_text: "Schedule\na Payment"

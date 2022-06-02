@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
+import 'package:nova_lexxa/common/pay_nfc_scan.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
@@ -33,8 +34,6 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
   }
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -114,52 +113,52 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
                         fit: BoxFit.fill,
                         color: Colors.white,
                       ),
+                      InkResponse(
+                        onTap: (){
+                          Route route = MaterialPageRoute(builder: (context) => PayNFCScanScreen());
+                          Navigator.pushReplacement(context, route);
+                        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>PayNFCScanScreen()));
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(child: Container(
 
-                      Row(
-                        children: [
-                          Expanded(child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(.19),
+                                  borderRadius: BorderRadius.all(Radius.circular(15))
+                              ),
+                              padding:EdgeInsets.only(left: 30.0, right: 30.0,top: 20,bottom: 20),
+                              margin:EdgeInsets.only(left: 20.0, right: 20.0,top: 90,bottom: 18),
+                              child: Column(
 
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(.19),
-                                borderRadius: BorderRadius.all(Radius.circular(15))
-                            ),
-                            padding:EdgeInsets.only(left: 30.0, right: 30.0,top: 20,bottom: 20),
-                            margin:EdgeInsets.only(left: 20.0, right: 20.0,top: 90,bottom: 18),
-                            child: Column(
-
-                              children: [
-
-
-                                Image.asset(
-                                  "assets/images/information.png",
-                                  height: 30,
-                                  width: 30,
-                                  fit: BoxFit.fill,
-                                  color: Colors.white,
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
+                                children: [
 
 
+                                  Image.asset(
+                                    "assets/images/information.png",
+                                    height: 30,
+                                    width: 30,
+                                    fit: BoxFit.fill,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
 
-                                Text("Your NFC is disabled,\nopen your phone setting and active\nthe NFC to make payment",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color:Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal),
-                                ),
+                                  Text("Your NFC is disabled,\nopen your phone setting and active\nthe NFC to make payment",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color:Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal),
+                                  ),
 
-
-                              ],
-                            ),
-                          ))
-                        ],
-                      ),
-
-
-
+                                ],
+                              ),
+                            ))
+                          ],
+                        ),
+                      )
                     ],
                   )),
 
@@ -180,6 +179,7 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
 
 
   }
+
 
 
 }

@@ -7,6 +7,7 @@ import 'common/customer_services.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
 import 'common/pay_nfc.dart';
+import 'common/pay_nfc_scan.dart';
 
 
 

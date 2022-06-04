@@ -1,19 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
-
-import 'common/customer_services.dart';
-import 'common/navigation_page/money_option.dart';
-import 'common/navigation_page/navigation_bar_page.dart';
-import 'common/pay_nfc.dart';
-import 'common/pay_nfc_scan.dart';
 import 'common/pay_with_qr_code.dart';
 import 'common/qr_demo.dart';
-import 'common/schedule_a_payment.dart';
-
-
-
 
 void main() {
   runApp( MyApp());
@@ -39,7 +28,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children:  [
             //NavigationBarScreen(2,MoneyOptionScreen())
-            MyHome(),
+            PayWithQRCodeScreen(),
           ],
         ),
       ),

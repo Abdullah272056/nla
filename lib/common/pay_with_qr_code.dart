@@ -1,8 +1,10 @@
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -30,14 +32,17 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
 int _particular_company_selected_status=1;
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
+  Barcode? _result;
   QRViewController? controller;
+
+  String _scannedQRCode="";
 
   @override
   void reassemble() {
     super.reassemble();
     if (Platform.isAndroid) {
-      controller!.pauseCamera();
+      controller!.resumeCamera();
+     // controller!.pauseCamera();
     } else if (Platform.isIOS) {
       controller!.resumeCamera();
     }
@@ -77,7 +82,7 @@ int _particular_company_selected_status=1;
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "Schedule a Payment",
+                        "Pay with QR Code",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color:novalexxa_text_color,
@@ -100,17 +105,57 @@ int _particular_company_selected_status=1;
             child:   scanMessageSection(),
           ),
 
+          Expanded(
+              child:Center(
+            child: Container(
+              width: 250,
+              height: 250,
+              child: _buildQrView(context),
+            ),
+          )
+          ),
+
 
 
 
           const SizedBox(
-            height: 50,
+            height: 20,
           ),
 
 
 
           Container(
-            child: _buildNextButton(),
+            child: _buildScanQRCodeButton(),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              // if (_result != null)
+              //   Text(
+              //       'Barcode Type: ${describeEnum(_result!.format)}   Data: ${_result!.code}')
+              // else
+              //   const Text('Scan a code'),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.all(8),
+                    child: InkResponse(
+                      onTap: () async {
+                        await controller?.resumeCamera();
+                      },
+                      child: const Text('Retry',
+                          style: TextStyle(fontSize: 18)),
+                    ),
+                  )
+                ],
+              ),
+            ],
           ),
 
           const SizedBox(height: 25,),
@@ -162,12 +207,16 @@ int _particular_company_selected_status=1;
   }
 
 
-  Widget _buildNextButton() {
+  Widget _buildScanQRCodeButton() {
     return Container(
-      margin: const EdgeInsets.only(left: 50.0, right: 50.0),
+      margin:EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-
+          if(_scannedQRCode.isNotEmpty){
+            _showToast(_scannedQRCode);
+          }else{
+            _showToast("please scan valid QR code!");
+          }
 
         },
         style: ElevatedButton.styleFrom(
@@ -204,6 +253,55 @@ int _particular_company_selected_status=1;
   }
 
 
+  Widget _buildQrView(BuildContext context){
+    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
+    var scanArea = (MediaQuery.of(context).size.width < 400 ||
+        MediaQuery.of(context).size.height < 400)
+        ? 250.0
+        : 300.0;
+    // To ensure the Scanner view is properly sizes after rotation
+    // we need to listen for Flutter SizeChanged notification and update controller
+    return QRView(
+      key: qrKey,
+      onQRViewCreated: _onQRViewCreated,
+      overlay: QrScannerOverlayShape(
+          borderColor: Colors.red,
+          borderRadius: 0,
+          borderLength: 20,
+          borderWidth: 5,
+          overlayColor: Colors.white,
+          cutOutSize: scanArea),
+      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+    );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      this.controller = controller;
+    });
+    controller.scannedDataStream.listen((scanData) {
+      setState(() async {
+        await controller.pauseCamera();
+        _result = scanData;
+        _scannedQRCode={_result!.code}.toString();
+      });
+    });
+  }
+
+  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
+    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
+    if (!p) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('no Permission')),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -216,20 +314,7 @@ int _particular_company_selected_status=1;
         fontSize: 16.0);
   }
 
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
-  }
 
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
 }
 
 

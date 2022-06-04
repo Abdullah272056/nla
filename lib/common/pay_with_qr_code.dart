@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -10,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/common/qr_invalid.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -29,13 +31,16 @@ class PayWithQRCodeScreen extends StatefulWidget {
 class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
-int _particular_company_selected_status=1;
+
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? _result;
   QRViewController? controller;
 
   String _scannedQRCode="";
+
+
+  int scanQrStatus=1;
 
   @override
   void reassemble() {
@@ -51,7 +56,7 @@ int _particular_company_selected_status=1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor:Colors.white ,
+     backgroundColor:scanQrStatus==1?Colors.white:Colors.black,
       body:Column(
         children: [
 
@@ -59,6 +64,8 @@ int _particular_company_selected_status=1;
           SizedBox(
             height: 55,
           ),
+
+
           Flex(
             direction: Axis.horizontal,
             children: [
@@ -70,7 +77,7 @@ int _particular_company_selected_status=1;
                   },
                   child: Icon(
                     Icons.arrow_back,
-                    color:novalexxa_text_color,
+                    color:scanQrStatus==1?novalexxa_text_color:Colors.white,
                     size: 25.0,
                   ),
                 ),
@@ -85,7 +92,7 @@ int _particular_company_selected_status=1;
                         "Pay with QR Code",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            color:novalexxa_text_color,
+                            color:scanQrStatus==1?novalexxa_text_color:Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
@@ -96,14 +103,17 @@ int _particular_company_selected_status=1;
             ],
           ),
 
+
           SizedBox(
             height: 50,
           ),
 
-          Container(
-            margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
-            child:   scanMessageSection(),
-          ),
+          if(scanQrStatus==1)...{
+            Container(
+              margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+              child:   scanMessageSection(),
+            ),
+          },
 
           Expanded(
               child:Center(
@@ -122,41 +132,47 @@ int _particular_company_selected_status=1;
             height: 20,
           ),
 
-
-
-          Container(
-            child: _buildScanQRCodeButton(),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
+          if(scanQrStatus==1)...{
+            Container(
+              child: _buildScanQRCodeButton(),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
               // if (_result != null)
-              //   Text(
-              //       'Barcode Type: ${describeEnum(_result!.format)}   Data: ${_result!.code}')
-              // else
-              //   const Text('Scan a code'),
-
+                //   Text(
+                //       'Barcode Type: ${describeEnum(_result!.format)}   Data: ${_result!.code}')
+                // else
+                //   const Text('Scan a code'),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.all(8),
-                    child: InkResponse(
-                      onTap: () async {
-                        await controller?.resumeCamera();
-                      },
-                      child: const Text('Retry',
-                          style: TextStyle(fontSize: 18)),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.all(8),
+                      child: InkResponse(
+                        onTap: () async {
+                          await controller?.resumeCamera();
+                          _scannedQRCode="";
+                        },
+                        child: const Text('Retry',
+                            style: TextStyle(fontSize: 18)),
+                      ),
+                    )
+                  ],
+                ),
+
+              ],
+            ),
+          }
+          else...{
+            _buildLoadingView(),
+          },
+
+
 
           const SizedBox(height: 25,),
 
@@ -206,6 +222,40 @@ int _particular_company_selected_status=1;
     );
   }
 
+  Widget _buildLoadingView() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          child:  CircularProgressIndicator(
+            backgroundColor: Colors.white,
+            color: hint_color,
+            strokeWidth: 5,
+
+          ),
+
+          height: 55,
+          width: 55,
+
+        ),
+        SizedBox(height: 15,),
+        Text(
+          "Scanning...",
+          //textAlign: TextAlign.center,
+
+          style: TextStyle(
+              color:Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.normal),
+        )
+
+
+
+
+      ],
+
+    );
+  }
 
   Widget _buildScanQRCodeButton() {
     return Container(
@@ -213,7 +263,16 @@ int _particular_company_selected_status=1;
       child: ElevatedButton(
         onPressed: () {
           if(_scannedQRCode.isNotEmpty){
-            _showToast(_scannedQRCode);
+            setState(() {
+              if(scanQrStatus==1){
+                scanQrStatus=2;
+                _delay();
+              }else{
+                scanQrStatus=1;
+              }
+              _showToast(_scannedQRCode);
+            });
+
           }else{
             _showToast("please scan valid QR code!");
           }
@@ -251,7 +310,16 @@ int _particular_company_selected_status=1;
       ),
     );
   }
+  _delay(){
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        scanQrStatus=1;
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>QRInvalidScreen()));
 
+      });
+
+    });
+  }
 
   Widget _buildQrView(BuildContext context){
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'common/pay_with_qr_code.dart';
 import 'common/qr_demo.dart';
+import 'common/qr_invalid.dart';
 
 void main() {
   runApp( MyApp());

@@ -98,6 +98,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                           ],
                         ),
+
                         Align(alignment: Alignment.topCenter,
                           child: Container(
                             width: 90,
@@ -124,6 +125,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                           ),
                         ),
+
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(

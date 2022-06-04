@@ -2,7 +2,6 @@
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/scan_doc_front_particular.dart';

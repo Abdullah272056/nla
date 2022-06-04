@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'common/navigation_page/money_option.dart';
-import 'common/navigation_page/navigation_bar_page.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
+
 
 
 void main() {
@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children:  [
-            NavigationBarScreen(2,MoneyOptionScreen())
-           // PayWithQRCodeScreen(),
+          //  NavigationBarScreen(2,MoneyOptionScreen())
+            SplashScreen1(),
           ],
         ),
       ),

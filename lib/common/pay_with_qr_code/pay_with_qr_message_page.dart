@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
+import 'package:nova_lexxa/common/pay_with_qr_code/pay_qr_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
@@ -416,7 +417,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
         }
 
 
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>PayQRMoneySwipeToPayPageScreen(
         //   inputBalance: _inputBalance.toString(),
         //   message: messageTxt,
         // )));

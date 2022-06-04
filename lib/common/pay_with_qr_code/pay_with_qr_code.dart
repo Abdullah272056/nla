@@ -7,7 +7,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/common/pay_with_qr_code/qr_invalid.dart';
+import 'package:nova_lexxa/common/pay_with_qr_code/pay_with_qr_amount_page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../static/Colors.dart';
@@ -261,7 +261,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
               }else{
                 scanQrStatus=1;
               }
-              _showToast(_scannedQRCode);
+              //_showToast(_scannedQRCode);
             });
 
           }else{
@@ -305,7 +305,11 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
     Timer(Duration(seconds: 2), () {
       setState(() {
         scanQrStatus=1;
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>QRInvalidScreen()));
+        //if success then
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRAmountPageScreen()));
+
+        // if failed
+        //Navigator.push(context,MaterialPageRoute(builder: (context)=>QRInvalidScreen()));
 
       });
 

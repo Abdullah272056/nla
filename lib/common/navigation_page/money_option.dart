@@ -22,6 +22,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../pay_nfc/pay_nfc.dart';
+import '../pay_with_qr_code/pay_with_qr_code.dart';
 import '../schedule_a_payment/schedule_a_payment.dart';
 
 
@@ -175,7 +176,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                   onTap: (){
-                    _showToast("Working...");
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRCodeScreen()));
                   },
                   child: cardItemDesign(marginLeft: 20,marginRight: 10,bg_image_link: "assets/images/pay_with_qr_code_card_bg.png",
                       icon_link: "assets/images/pay_with_qr_code_icon.png",item_name_text: "Pay With\nQR Code"

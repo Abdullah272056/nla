@@ -1,11 +1,9 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flag/flag_enum.dart';
-import 'package:flag/flag_widget.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 

@@ -5,13 +5,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/Particular/scan_face_particular.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
+
 import 'package:nova_lexxa/company/scan_done_company.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
 

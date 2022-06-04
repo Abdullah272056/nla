@@ -1,33 +1,15 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/pay_with_qr_code/pay_with_qr_send_money_congrats.dart';
+import 'package:nova_lexxa/common/money_option/pay_with_qr_code/pay_with_qr_send_money_congrats.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:nova_lexxa/common/send_money/send_money_congrats.dart';
-import 'package:nova_lexxa/common/transaction_details.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+
 import 'package:slidable_button/slidable_button.dart';
 
-import '../customer_services.dart';
-import '../navigation_page/money_option.dart';
-import '../navigation_page/navigation_bar_page.dart';
-import '../notification/notification.dart';
+import '../../navigation_page/money_option.dart';
+import '../../navigation_page/navigation_bar_page.dart';
+
 
 class PayQRMoneySwipeToPayPageScreen extends StatefulWidget {
 

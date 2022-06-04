@@ -1,54 +1,36 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/request_money/request_money_congrats.dart';
+import 'package:nova_lexxa/common/money_option/send_money/send_money_congrats.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:nova_lexxa/common/send_money/send_money_congrats.dart';
-import 'package:nova_lexxa/common/transaction_details.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+
 import 'package:slidable_button/slidable_button.dart';
 
-import '../customer_services.dart';
-import '../notification/notification.dart';
 
-class RequestMoneySwipeToPayPageScreen extends StatefulWidget {
+
+class SendMoneySwipeToPayPageScreen extends StatefulWidget {
 
   String inputBalance,message;
 
 
-  RequestMoneySwipeToPayPageScreen({
+  SendMoneySwipeToPayPageScreen({
     required this.inputBalance,
     required this.message
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<RequestMoneySwipeToPayPageScreen> createState() => _RequestMoneySwipeToPayPageScreenState(
+  State<SendMoneySwipeToPayPageScreen> createState() => _SendMoneySwipeToPayPageScreenState(
       this.inputBalance,
       this.message);
 }
 
-class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPayPageScreen> {
+class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageScreen> {
 
 
   String _inputBalance,_message;
-  _RequestMoneySwipeToPayPageScreenState(this._inputBalance, this._message);
+  _SendMoneySwipeToPayPageScreenState(this._inputBalance, this._message);
 
 
   TextEditingController? _sendMoneyAmountController = TextEditingController();
@@ -123,7 +105,7 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Request Money",
+                                      "Send Money",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -167,7 +149,7 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Request Money to",
+                            "Send Money to",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: intello_level_color,
@@ -319,20 +301,28 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
               _slide_button_color=slide_button_end_color;
               _buttonLeftRightStatus=2;
 
-
-              Navigator.pushReplacement<void, void>(
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => RequestMoneyCongratsScreen(
-                    receiverName: "Simon Lewis",
-                    sendAmount: _inputBalance.toString(),
-                  ),
-                ),
+                MaterialPageRoute(
+                    settings: RouteSettings(name: "Foo"),
+                    builder: (BuildContext context) => SendMoneyCongratsScreen(
+                      receiverName: "Simon Lewis",
+                      sendAmount: _inputBalance.toString(),
+                    ),),
               );
 
+              // Navigator.pushReplacement<void, void>(
+              //   context,
+              //   MaterialPageRoute<void>(
+              //     builder: (BuildContext context) => SendMoneyCongratsScreen(
+              //       receiverName: "Simon Lewis",
+              //       sendAmount: _inputBalance.toString(),
+              //     ),
+              //   ),
+              // );
+
               // result = 'Button is on the right';
-            }
-            else {
+            } else {
               _button_bg_color=slide_button_start_bg_color;
               _slide_button_color=slide_button_start_color;
               _buttonLeftRightStatus=1;

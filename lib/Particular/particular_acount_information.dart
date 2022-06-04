@@ -5,14 +5,10 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/Particular/scan_doc_front_particular.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'confirm_number_particular.dart';
-import 'create_password_particular.dart';
 
 class ParticularAccountInformationScreen extends StatefulWidget {
   const ParticularAccountInformationScreen({Key? key}) : super(key: key);

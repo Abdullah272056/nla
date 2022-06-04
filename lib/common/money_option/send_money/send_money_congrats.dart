@@ -5,10 +5,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
-import '../navigation_page/money_option.dart';
-import '../navigation_page/navigation_bar_page.dart';
-import '../static/Colors.dart';
+
+import '../../navigation_page/money_option.dart';
+import '../../navigation_page/navigation_bar_page.dart';
+import '../../static/Colors.dart';
+
 
 
 class SendMoneyCongratsScreen extends StatefulWidget {

@@ -7,10 +7,12 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/common/pay_with_qr_code/pay_with_qr_amount_page.dart';
+import 'package:nova_lexxa/common/money_option/pay_with_qr_code/pay_with_qr_amount_page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../static/Colors.dart';
+import '../../static/Colors.dart';
+
+
 
 class PayWithQRCodeScreen extends StatefulWidget {
   const PayWithQRCodeScreen({Key? key}) : super(key: key);

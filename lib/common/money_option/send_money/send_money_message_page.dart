@@ -1,52 +1,35 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nova_lexxa/Particular/particular_information.dart';
-import 'package:nova_lexxa/common/pay_with_qr_code/pay_qr_money_swipe_to_pay_page.dart';
+import 'package:nova_lexxa/common/money_option/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:nova_lexxa/common/send_money/send_money_swipe_to_pay_page.dart';
-import 'package:nova_lexxa/common/transaction_details.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../customer_services.dart';
-import '../notification/notification.dart';
 
-class PayWithQRMessagePageScreen extends StatefulWidget {
+
+
+class SendMoneyMessagePageScreen extends StatefulWidget {
 
   double inputBalance,currentBalance;
 
 
-  PayWithQRMessagePageScreen({
+  SendMoneyMessagePageScreen({
     required this.inputBalance,
     required this.currentBalance
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<PayWithQRMessagePageScreen> createState() => _PayWithQRMessagePageScreenState(this.inputBalance,
+  State<SendMoneyMessagePageScreen> createState() => _SendMoneyMessagePageScreenState(this.inputBalance,
       this.currentBalance);
 }
 
-class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen> {
+class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen> {
 
 
   double _inputBalance,_currentBalance;
-  _PayWithQRMessagePageScreenState(this._inputBalance, this._currentBalance);
+  _SendMoneyMessagePageScreenState(this._inputBalance, this._currentBalance);
 
 
   TextEditingController? _sendMoneyMessageController = TextEditingController();
@@ -117,7 +100,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                                   child: Align(
                                     alignment: Alignment.center,
                                     child: Text(
-                                      "Pay With QR",
+                                      "Send Money",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -413,14 +396,16 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
       onTap: (){
         String messageTxt = _sendMoneyMessageController!.text;
         if (messageTxt.isEmpty) {
-          messageTxt="";
+          Fluttertoast.cancel();
+          _showToast("message can't empty");
+          return;
         }
 
 
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>PayQRMoneySwipeToPayPageScreen(
-        //   inputBalance: _inputBalance.toString(),
-        //   message: messageTxt,
-        // )));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
+          inputBalance: _inputBalance.toString(),
+          message: messageTxt,
+        )));
 
       },
       child: Container(

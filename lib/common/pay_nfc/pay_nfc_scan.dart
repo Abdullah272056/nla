@@ -10,8 +10,8 @@ import 'package:nova_lexxa/common/navigation_page/home_page.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'navigation_page/money_option.dart';
-import 'navigation_page/navigation_bar_page.dart';
+import '../navigation_page/money_option.dart';
+import '../navigation_page/navigation_bar_page.dart';
 
 
 

@@ -21,8 +21,8 @@ import 'package:otp_text_field/style.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../pay_nfc.dart';
-import '../schedule_a_payment.dart';
+import '../pay_nfc/pay_nfc.dart';
+import '../schedule_a_payment/schedule_a_payment.dart';
 
 
 

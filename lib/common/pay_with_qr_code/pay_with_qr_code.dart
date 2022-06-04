@@ -1,6 +1,5 @@
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -8,18 +7,10 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
-import 'package:nova_lexxa/common/qr_invalid.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:nova_lexxa/common/pay_with_qr_code/qr_invalid.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:scan/scan.dart';
 
-import '../common/static/Colors.dart';
+import '../static/Colors.dart';
 
 class PayWithQRCodeScreen extends StatefulWidget {
   const PayWithQRCodeScreen({Key? key}) : super(key: key);

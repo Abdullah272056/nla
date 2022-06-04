@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
-import 'package:nova_lexxa/common/pay_nfc_scan.dart';
+import 'package:nova_lexxa/common/pay_nfc/pay_nfc_scan.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';

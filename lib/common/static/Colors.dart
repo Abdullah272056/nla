@@ -32,6 +32,7 @@ const  Color novalexxa_end_bg_color = Color(0xFFE80354);
 const Color notification_image_bg_color = Color(0xFFEFF1F3);
 
  const Color hint_color = Color(0xFF808080);
+ const Color select_country_search_box_border_color = Color(0xFFEBEBEB);
  const Color intello_input_text_color = Color(0xFF1D2733);
  const Color add_address_button_start_color = Color(0xFFF50057);
  const Color add_address_button_end_color = Color(0xFFEB0443);

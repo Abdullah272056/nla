@@ -194,7 +194,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                       ),
                     ),
 
-                    userInputCountry(_birthDayController!),
+                    userInputCountry(),
                     Container( color: novalexxa_hint_text_color,
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
                       height: .5,
@@ -278,7 +278,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
     );
   }
 
-  Widget userInputCountry(TextEditingController userInput) {
+  Widget userInputCountry() {
     return InkResponse(
       onTap: (){
         _getCountryDataList();

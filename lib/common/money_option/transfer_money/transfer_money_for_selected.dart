@@ -3,6 +3,7 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular.dart';
 
 import '../../static/Colors.dart';
 
@@ -240,9 +241,9 @@ int _particular_company_selected_status=1;
         onPressed: () {
           if(_particular_company_selected_status==1){
             Fluttertoast.cancel();
-            _showToast("1");
+           // _showToast("1");
 
-           // Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
+           Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen()));
           }
           else{
             Fluttertoast.cancel();

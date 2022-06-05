@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
+import 'common/notification/notification.dart';
+
 
 
 void main() {
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children:  [
           //  NavigationBarScreen(2,MoneyOptionScreen())
-            SplashScreen1(),
+            NotificationsScreen(),
           ],
         ),
       ),

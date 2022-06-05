@@ -11,6 +11,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
+import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -208,7 +209,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   textAlign: TextAlign.center,
 
                   style: TextStyle(
-                      color: novalexxa_text_color,
+                      color: slide_button_end_color,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
                 ),
@@ -318,11 +319,11 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               Align(
                 alignment: Alignment.centerLeft,
                 child:   Text(
-                  "250.00",
+                  "382.24",
                   textAlign: TextAlign.left,
 
                   style: TextStyle(
-                      color: novalexxa_text_color,
+                      color: slide_button_end_color,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
                 ),
@@ -344,6 +345,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
             ],
           )),
+
           Align(
             alignment: Alignment.centerRight,
             child: Column(
@@ -377,7 +379,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                 InkResponse(
                   onTap: (){
-                    _showToast('fgb');
+                    _getCountryDataList();
 
                   },
                   child: Row(
@@ -443,7 +445,15 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           InkResponse(
-            onTap: (){},
+            onTap: (){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
+                  ),),
+              );
+            },
             child: Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
@@ -518,7 +528,15 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         children: [
 
           InkResponse(
-            onTap: (){},
+            onTap: (){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
+                  ),),
+              );
+            },
             child: Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
@@ -590,7 +608,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         children: [
 
           InkResponse(
-            onTap: (){},
+            onTap: (){
+              _showToast("Working");
+            },
             child:  Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
@@ -666,6 +686,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         textColor: Colors.black,
         fontSize: 16.0);
   }
+
 
   _getCountryDataList() async {
     try {

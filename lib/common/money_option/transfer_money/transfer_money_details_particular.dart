@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
+import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular2.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -332,7 +333,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
       child: ElevatedButton(
         onPressed: () {
 
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen2()));
 
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 

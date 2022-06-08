@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
-import 'Particular/particular_information.dart';
-import 'common/money_option/transfer_money/transfer_money_congrats.dart';
-import 'common/money_option/transfer_money/transfer_money_details_particular.dart';
-import 'common/money_option/transfer_money/transfer_money_details_particular2.dart';
-import 'common/money_option/transfer_money/transfer_money_for_selected.dart';
-import 'common/navigation_page/money_option.dart';
-import 'common/notification/notification.dart';
+import 'common/call_contact/contact_support.dart';
+import 'common/call_contact/customer_services.dart';
 
+import 'common/call_contact/customer_service_details.dart';
+import 'common/call_contact/email_us.dart';
+import 'common/navigation_page/home_page.dart';
 
 
 void main() {
@@ -37,7 +35,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children:  [
           //  NavigationBarScreen(2,MoneyOptionScreen())
-            MoneyOptionScreen(),
+            ContactSupportScreen(),
           ],
         ),
       ),

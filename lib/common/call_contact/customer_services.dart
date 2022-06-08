@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
+import 'customer_service_details.dart';
+
 
 class CustomerServicesScreen extends StatefulWidget {
   const CustomerServicesScreen({Key? key}) : super(key: key);
@@ -370,45 +372,50 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
     );
   }
   Widget _buildCurrencyRatesItem() {
-    return Container(
-      padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
-      margin: EdgeInsets.only(
-        top: 0.0,
-      ),
-      child: Column(
-        children: [
-          Flex(
-            direction: Axis.horizontal,
-            children: [
-              Expanded(
-                  child: Container(
-                    margin: new EdgeInsets.only(right:00),
-                    child: Text(
-                      "What it the rate currency in IT ?",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: novalexxa_text_color,
-                          height: 1.2,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )),
-              Container(
-                margin: const EdgeInsets.only(right:20),
-                child:Icon(
-                  Icons.arrow_forward_ios,
-                  color:novalexxa_text_color,
-                  size: 19,
+    return InkResponse(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>CustomerServicesDetailScreen("What it the rate currency in IT ?")));
+      },
+      child:Container(
+        padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
+        margin: EdgeInsets.only(
+          top: 0.0,
+        ),
+        child: Column(
+          children: [
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                Expanded(
+                    child: Container(
+                      margin: new EdgeInsets.only(right:00),
+                      child: Text(
+                        "What it the rate currency in IT ?",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: novalexxa_text_color,
+                            height: 1.2,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )),
+                Container(
+                  margin: const EdgeInsets.only(right:20),
+                  child:Icon(
+                    Icons.arrow_forward_ios,
+                    color:novalexxa_text_color,
+                    size: 19,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 0, top: 15, right: 0, bottom: 0),
-            height: 1,
-            color: novalexxa_customer_services_list_divider_color,
-          )
-        ],
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 0, top: 15, right: 0, bottom: 0),
+              height: 1,
+              color: novalexxa_customer_services_list_divider_color,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -472,89 +479,101 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   }
 
   Widget _buildTopQuestionItem() {
-    return Container(
-      padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
-      margin: EdgeInsets.only(
-        top: 0.0,
-      ),
-      child: Column(
-        children: [
-          Flex(
-            direction: Axis.horizontal,
-            children: [
-              Expanded(
-                  child: Container(
-                    margin: new EdgeInsets.only(right:00),
-                    child: Text(
-                      "Cras egestas leo eget augue mollis, id vulputate velit suscipit?",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: novalexxa_text_color,
-                          height: 1.2,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )),
-              Container(
-                margin: const EdgeInsets.only(right:20),
-                child:Icon(
-                  Icons.arrow_forward_ios,
-                  color:novalexxa_text_color,
-                  size: 19,
+    return InkResponse(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>
+            CustomerServicesDetailScreen("Cras egestas leo eget augue mollis, id vulputate velit suscipit?")));
+
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
+        margin: EdgeInsets.only(
+          top: 0.0,
+        ),
+        child: Column(
+          children: [
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                Expanded(
+                    child: Container(
+                      margin: new EdgeInsets.only(right:00),
+                      child: Text(
+                        "Cras egestas leo eget augue mollis, id vulputate velit suscipit?",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: novalexxa_text_color,
+                            height: 1.2,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )),
+                Container(
+                  margin: const EdgeInsets.only(right:20),
+                  child:Icon(
+                    Icons.arrow_forward_ios,
+                    color:novalexxa_text_color,
+                    size: 19,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 0, top: 15, right: 0, bottom: 0),
-            height: 1,
-            color: novalexxa_customer_services_list_divider_color,
-          )
-        ],
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 0, top: 15, right: 0, bottom: 0),
+              height: 1,
+              color: novalexxa_customer_services_list_divider_color,
+            )
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildAllQuestionItem() {
-    return Container(
-      padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
-      margin: EdgeInsets.only(
-        top: 0.0,
-      ),
-      child: Column(
-        children: [
-          Flex(
-            direction: Axis.horizontal,
-            children: [
-              Expanded(
-                  child: Container(
-                    margin: new EdgeInsets.only(right:00),
-                    child: Text(
-                      "Sed posuere purus sit amet fringilla?",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          color: novalexxa_text_color,
-                          height: 1.2,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )),
-              Container(
-                margin: const EdgeInsets.only(right:20),
-                child:Icon(
-                  Icons.arrow_forward_ios,
-                  color:novalexxa_text_color,
-                  size: 19,
+    return InkResponse(
+      onTap: (){
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>CustomerServicesDetailScreen("Sed posuere purus sit amet fringilla?")));
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
+        margin: EdgeInsets.only(
+          top: 0.0,
+        ),
+        child: Column(
+          children: [
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                Expanded(
+                    child: Container(
+                      margin: new EdgeInsets.only(right:00),
+                      child: Text(
+                        "Sed posuere purus sit amet fringilla?",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            color: novalexxa_text_color,
+                            height: 1.2,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    )),
+                Container(
+                  margin: const EdgeInsets.only(right:20),
+                  child:Icon(
+                    Icons.arrow_forward_ios,
+                    color:novalexxa_text_color,
+                    size: 19,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Container(
-            margin: const EdgeInsets.only(left: 0, top: 15, right: 0, bottom: 0),
-            height: 1,
-            color: novalexxa_customer_services_list_divider_color,
-          )
-        ],
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 0, top: 15, right: 0, bottom: 0),
+              height: 1,
+              color: novalexxa_customer_services_list_divider_color,
+            )
+          ],
+        ),
       ),
     );
   }

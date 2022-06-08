@@ -6,7 +6,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 
 
-import '../customer_services.dart';
+import '../call_contact/customer_services.dart';
 import '../notification/notification.dart';
 
 class HomePageScreen extends StatefulWidget {

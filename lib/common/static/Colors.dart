@@ -21,12 +21,14 @@ const  Color novalexxa_end_bg_color = Color(0xFFE80354);
  const  Color novalexxa_visa_card_start_color = Color(0xFFF91465);
  const  Color novalexxa_visa_card_end_color = Color(0xFFE80052);
  const  Color novalexxa_finger_print_error_bg_color = Color(0xFFE80354);
-  //#F91465 - #E80052
+
  const  Color novalexxa_hint_text_color = Color(0xFF999B9F);
  const  Color novalexxa_rounded_border_color = Color(0xFFBDBDBD);
  const  Color novalexxa_text_color = Color(0xFF1D2733);
+ const  Color novalexxa_faqs_text_color = Color(0xFF24272C);
  const  Color intello_easylearn_bold_text_color_ = Color(0xFF1D2733);
  const  Color intello_level_color = Color(0xFF999B9F);
+ const  Color contact_with_us_box_color = Color(0xFFFFFEFE);
  const  Color intello_level = Color(0x1D2733);
  const  Color list_item_divider_color = Color(0xFFBBBBBB);
 const Color notification_image_bg_color = Color(0xFFEFF1F3);

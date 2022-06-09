@@ -446,7 +446,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
     return InkWell(
       onTap: (){
        // Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
-
+        Navigator.of(context).pop();
       },
       child: Container(
 

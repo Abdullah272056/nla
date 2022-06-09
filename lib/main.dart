@@ -8,7 +8,11 @@ import 'common/call_contact/customer_services.dart';
 
 import 'common/call_contact/customer_service_details.dart';
 import 'common/call_contact/email_us.dart';
+
 import 'common/navigation_page/home_page.dart';
+import 'common/navigation_page/money_option.dart';
+import 'common/navigation_page/navigation_bar_page.dart';
+
 
 
 void main() {
@@ -34,8 +38,8 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children:  [
-          //  NavigationBarScreen(2,MoneyOptionScreen())
-            ContactSupportScreen(),
+           NavigationBarScreen(2,MoneyOptionScreen())
+           //SplashScreen1(),
           ],
         ),
       ),

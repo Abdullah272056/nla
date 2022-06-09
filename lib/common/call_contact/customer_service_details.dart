@@ -7,6 +7,8 @@ import 'package:nova_lexxa/Particular/registration_for_particular.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
+import 'contact_support.dart';
+
 class CustomerServicesDetailScreen extends StatefulWidget {
   String serviceName;
 
@@ -218,7 +220,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
       child: ElevatedButton(
         onPressed: () {
 
-      //    Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpForParticularScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>ContactSupportScreen()));
 
 
         },
@@ -294,8 +296,6 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
       ),
     );
   }
-
-
 
   //You can create a function with your desirable animation
 

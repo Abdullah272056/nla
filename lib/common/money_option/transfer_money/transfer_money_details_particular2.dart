@@ -12,6 +12,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
+import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_From_mobile.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -609,7 +610,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
           InkResponse(
             onTap: (){
-              _showToast("Working");
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => TransferMoneyDetailForParticularFromMobileScreen(
+                  ),),
+              );
             },
             child:  Container(
 

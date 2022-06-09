@@ -13,6 +13,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
 
 import '../../../static/Colors.dart';
+import 'add_credit_cart.dart';
 
 
 
@@ -183,11 +184,11 @@ int _particular_company_selected_status=1;
           //   _showToast("please select document image!");
           // }
           // else{
-          //   Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen()));
+
           //   //_showToast("Ok");
           // }
 
-
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
 
 
         },

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 
 import '../static/Colors.dart';
-import '../cart/card_page.dart';
+
+import 'cart/card_page.dart';
 import 'home_page.dart';
 import 'money_option.dart';
 

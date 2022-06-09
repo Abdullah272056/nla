@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:nova_lexxa/common/money_option/send_money/top_up_account/top_up_amount_page.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_From_mobile.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -160,13 +161,12 @@ class _TopUpScreenScreenState extends State<TopUpScreenScreen> {
         children: [
           InkResponse(
             onTap: (){
-              // Navigator.pushReplacement(
-              //   context,
-              //   MaterialPageRoute(
-              //     settings: RouteSettings(name: "Foo"),
-              //     builder: (BuildContext context) => TransferMoneyCongratsScreen(
-              //     ),),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => TopUpAmountPageScreen(
+                  ),),
+              );
             },
             child: Container(
 

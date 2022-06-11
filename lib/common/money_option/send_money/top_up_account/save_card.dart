@@ -39,6 +39,8 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
   String _alertMessageForSave="Many desktop publishing packages and web page editors now use Lorem Ipsum as "
       "their default model text and a search.";
+  String _alertMessageForDelete="Many desktop publishing packages and web page editors now"
+      " use Lorem Ipsum as their default model text and a search.";
 
 
   @override
@@ -242,7 +244,77 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
                     onPressed: (BuildContext context) {
 
                       setState(() {
-                       // _showToast(index.toString() +"Delete");
+                        showDialog(context: context,
+                            barrierDismissible:false,
+                            builder: (BuildContext context){
+                              return Dialog(
+
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:BorderRadius.circular(10.0)),
+                                child:Wrap(
+                                  children: [
+                                    Container(
+                                      padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 0,bottom: 0),
+                                      child: Column(
+
+                                        children: [
+
+
+                                          SizedBox(
+                                            height: 45,
+                                          ),
+
+                                          Image.asset(
+                                            "assets/images/information.png",
+                                            height: 30,
+                                            width: 30,
+                                            fit: BoxFit.fill,
+                                            color: novalexxa_color1,
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Text("Confirm card deletion ?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color:novalexxa_text_color,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+
+                                          Text(_alertMessageForDelete,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                color:novalexxa_text_color,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal),
+                                          ),
+                                          SizedBox(
+                                            height: 35,
+                                          ),
+                                          Row(
+                                            children: [
+                                              Expanded(child: _buildAlertCancelButton(),),
+                                              Expanded(child: _buildAlertYesDeleteButton(),),
+                                            ],
+                                          ),
+
+
+                                          SizedBox(
+                                            height: 45,
+                                          ),
+
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                        );
                       });
 
                     },
@@ -400,7 +472,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
               ),
               child: Container(
 
-                height: 46,
+                height: 50,
                 alignment: Alignment.center,
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.center ,
@@ -444,7 +516,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
         Navigator.of(context).pop();
       },
       child: Container(
-        height: 50,
+        height: 45,
         margin: const EdgeInsets.only(left: 15.0, right: 15.0),
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
@@ -456,6 +528,73 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
         child: Center(
           child: Text(
             "Back",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+
+    );
+  }
+
+  Widget _buildAlertYesDeleteButton() {
+    return InkResponse(
+      onTap: (){
+        // Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+        // Navigator.pushReplacement(context, route);
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        height: 45,
+        margin: const EdgeInsets.only(left: 10.0, right: 5.0),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(7.0)
+        ),
+        child: Center(
+          child: Text(
+            "Yes Delete!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 16,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+
+    );
+  }
+  Widget _buildAlertCancelButton() {
+    return InkResponse(
+      onTap: (){
+        // Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+        // Navigator.pushReplacement(context, route);
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        height: 45,
+        margin: const EdgeInsets.only(left: 5.0, right:10.0),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(7.0)
+        ),
+        child: Center(
+          child: Text(
+            "Cancel",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',

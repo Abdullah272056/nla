@@ -349,7 +349,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
               }
               _card_expire_date=value;
 
-              List<int> expiryDate = CardUtils.getExpiryDate(value!);
+              List<int> expiryDate = CardUtils.getExpiryDate(value);
               _paymentCard.month = expiryDate[0];
               _paymentCardExpiryMonth=expiryDate[0];
               _paymentCardExpirYear=expiryDate[1];

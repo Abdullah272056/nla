@@ -458,6 +458,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     ;
   }
+
   Widget _buildNotificationItemForList(int index) {
     return Container(
       margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),

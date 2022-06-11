@@ -103,11 +103,16 @@ int _particular_company_selected_status=1;
                 //image section
                 Expanded(
                   child: Container(
-                    width: 200, // custom wrap size
-                    height: 200,
+                    width: 282, // custom wrap size
+                    height: 207,
                     margin: const EdgeInsets.only(left:10, top: 00, right: 10, bottom: 00),
                     child: Center(
-                      child: Text("Image"),
+                      child: Image.asset(
+                        "assets/images/no_credit_card.png",
+                        width: 282, // custom wrap size
+                        height: 207,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),

@@ -41,6 +41,13 @@ const Color notification_image_bg_color = Color(0xFFEFF1F3);
 
  const Color loging_loading_bg_color = Color(0xFFF50057);
 
+ //card action bg color
+const Color hide_action_bg_color = Color(0xFF09CEF1);
+const Color delete_action_bg_color = Color(0xFFF50057);
+
+const Color add_new_card_button_border_color = Color(0xFFB0BEC5);
+const Color add_new_card_button_bg_color = Color(0xFFF9F9FC);
+
 
  const Color scan_text_box_color = Color(0xFFF9F9FC);
  const Color search_send_money_box_color = Color(0xFFF9F9FC);

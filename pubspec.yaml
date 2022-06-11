@@ -111,6 +111,8 @@ dependencies:
   slidable_button: ^1.3.1
   #qr code scanner
   qr_code_scanner: ^1.0.0
+  #dot border
+  dotted_border: ^2.0.0+2
 
 
 

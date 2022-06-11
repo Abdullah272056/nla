@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'common/money_option/send_money/top_up_account/add_credit_cart.dart';
+import 'common/money_option/send_money/top_up_account/no_credit_cart.dart';
+import 'common/money_option/send_money/top_up_account/save_card.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
 
@@ -35,7 +37,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children:  [
             // NavigationBarScreen(2,MoneyOptionScreen())
-            AddCreditCardScreen(),
+            SaveCardsScreen(),
           //  TopUpScreenScreen(),
           ],
         ),

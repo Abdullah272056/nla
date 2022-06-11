@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_message_page.dart';
+import 'package:nova_lexxa/common/money_option/send_money/top_up_account/select_top_up.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+
+import '../../log_in/login_loading_page.dart';
 
 
 class SendMoneyAmountPageScreen extends StatefulWidget {
@@ -156,51 +159,57 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                         if(_inputAmountGatterThanStatus==1)...{
                           DelayedWidget(
-
+                          // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
                             delayDuration: Duration(milliseconds: 0),// Not required
                             animationDuration: Duration(milliseconds: 700),// Not required
                             animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-                            child:Container(
-                              margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(child: Text("Your current balance is not enough",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color:novalexxa_text_color,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal),
-                                  ),),
+                            child:InkResponse(
+                              onTap: (){
 
-                                  Container(
-                                      padding: new EdgeInsets.only(left: 15,right: 15),
-                                      margin: new EdgeInsets.only(left: 17,right: 0),
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                          ),
-                                          borderRadius: BorderRadius.circular(18.0)
-                                      ),
-                                      height: 36,
-                                      alignment: Alignment.center,
-                                      child:Text(
-                                        "Top up my account",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'PT-Sans',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white,
-                                        ),
-                                      )
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
+                              },
+                             child: Container(
+                               margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
+                               child: Row(
+                                 mainAxisAlignment: MainAxisAlignment.center,
+                                 children: [
+                                   Expanded(child: Text("Your current balance is not enough",
+                                     textAlign: TextAlign.center,
+                                     style: TextStyle(
+                                         color:novalexxa_text_color,
+                                         fontSize: 12,
+                                         fontWeight: FontWeight.normal),
+                                   ),),
 
-                                  )
-                                ],
+                                   Container(
+                                       padding: new EdgeInsets.only(left: 15,right: 15),
+                                       margin: new EdgeInsets.only(left: 17,right: 0),
+                                       decoration: BoxDecoration(
+                                           gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+                                             begin: Alignment.centerLeft,
+                                             end: Alignment.centerRight,
+                                           ),
+                                           borderRadius: BorderRadius.circular(18.0)
+                                       ),
+                                       height: 36,
+                                       alignment: Alignment.center,
+                                       child:Text(
+                                         "Top up my account",
+                                         textAlign: TextAlign.center,
+                                         style: TextStyle(
+                                           fontFamily: 'PT-Sans',
+                                           fontSize: 12,
+                                           fontWeight: FontWeight.normal,
+                                           color: Colors.white,
+                                         ),
+                                       )
 
-                              ),
-                            ),
+                                   )
+                                 ],
+
+                               ),
+                             ),
+                            )
                           )
 
                         },

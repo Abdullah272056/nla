@@ -308,6 +308,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
       ],
     );
   }
+
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {

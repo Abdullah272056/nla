@@ -9,11 +9,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/common/money_option/send_money/top_up_account/payment_card.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
 
 import '../../../static/Colors.dart';
+import 'card input format/input_formatters.dart';
 
 
 
@@ -29,15 +31,17 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
 
   TextEditingController? _nameOnCardController = TextEditingController();
   TextEditingController? _cardNumberController = TextEditingController();
-  TextEditingController? _expiryDatgeController = TextEditingController();
+  TextEditingController? _expiryDateController = TextEditingController();
   TextEditingController? _cvvController = TextEditingController();
 
-  String _cvvName="Cvv";
-  String select_your_cvv="Cvv";
 
+  static String select_your_cvv="***";
+  String _cvvName=select_your_cvv;
   String _card_number="**** **** **** ****";
-  String _card_holder_name="Simon Lewis";
-  String _card_expire_date="02/20";
+
+  static String _cardHolderNameEmpty='-----------';
+  String _card_holder_name=_cardHolderNameEmpty;
+  String _card_expire_date="mm/yy";
   bool isChecked = false;
 
   int _cardFrontBackStatus=1;
@@ -47,7 +51,9 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       " ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute rure dolor in reprehenderit "
       "in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\n\nLorem ipsum dolor sit amet, occaecat cupidatat "
       "R Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.";
-
+  var _paymentCard = PaymentCard();
+  var _paymentCardExpiryMonth;
+  var _paymentCardExpirYear;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +68,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 SizedBox(
                   height: 55,
                 ),
+
                 Flex(
                   direction: Axis.horizontal,
                   children: [
@@ -114,7 +121,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         _cardFrontBackStatus=2;
                       });
                     },
-                    child: _buildCardFrontSection1(),
+                    child: _buildCardFrontSection(),
                   )
 
                 ]
@@ -125,7 +132,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                         _cardFrontBackStatus=1;
                       });
                     },
-                    child: _buildCardBackSection1(),
+                    child: _buildCardBackSection(),
                   )
 
                 ],
@@ -142,14 +149,17 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                     child:Column(
                       children: [
                         SizedBox(height: 20,),
-                        userInputField(_nameOnCardController!, 'Name on Card', TextInputType.text),
+                        userInputNameOnCardField(_nameOnCardController!, 'Name on Card', TextInputType.text),
                         SizedBox(height: 20,),
                         userInputCardNumberField(_cardNumberController!, 'Card Number', TextInputType.number),
                         SizedBox(height: 20,),
+                        ////////////////////
+
+
                         Row(
                           children: [
-                            Expanded(child:  userInputField(_expiryDatgeController!, 'Expiry Date', TextInputType.text),),
-                            Expanded(child:   userInputEmail(_cvvController!, 'Cvv', TextInputType.text),),
+                            Expanded(child:  userInputExpiryDateField(_expiryDateController!, 'Expiry Date', TextInputType.number),),
+                            Expanded(child:   userInputCvv(_cvvController!, 'Cvv', TextInputType.number),),
                           ],
                         ),
 
@@ -182,7 +192,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-  Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputCvv(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
 
@@ -195,16 +205,31 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
           enableSuggestions: false,
           cursorColor: novalexxa_text_color,
           autofocus: false,
+          maxLength: 3,
+          onChanged: (text){
+            setState(() {
+              if(text.isEmpty){
+                _cvvName=select_your_cvv;
+                return;
+              }
+              else{
+                _cvvName=text;
+              }
+
+            });
+          },
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+          ],
           decoration: InputDecoration(
             // border: InputBorder.,
-
+            counterText: "",
             focusedBorder:UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
             enabledBorder:UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
-
             suffixIconConstraints: BoxConstraints(
               minHeight: 15,
               minWidth: 15,
@@ -244,52 +269,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-  Widget saveThisCardCheckBox() {
-    return Container(
-      height: 55,
-      alignment: Alignment.center,
-      margin:  EdgeInsets.only(left: 0.0, right: 10.0,top: 20,bottom: 10),
-      child: Padding(
-        padding: EdgeInsets.only(left: 0.0, top: 0, bottom: 0, right: 10),
-        child: Flex(
-          direction: Axis.horizontal,
-          children: [
-
-            Theme(
-              data: Theme.of(context).copyWith(
-                unselectedWidgetColor:hint_color,
-              ),
-              child: Checkbox(
-                checkColor: Colors.white,
-
-                activeColor: novalexxa_color1,
-
-                //fillColor: MaterialStateProperty.resolveWith(Colors.black38),
-                value: isChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isChecked = value!;
-                  });
-                },
-              ),
-            ),
-
-            Expanded(
-                child: Text("Save this card for future payments",
-                    style: TextStyle(
-                        color:novalexxa_text_color,
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal))),
-
-
-
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget userInputField(TextEditingController userInputController, String hintTitle, TextInputType keyboardType) {
+  Widget userInputNameOnCardField(TextEditingController userInputController, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
 
@@ -301,6 +281,82 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
           autocorrect: false,
           enableSuggestions: false,
           cursorColor: novalexxa_text_color,
+          autofocus: false,
+          maxLength: 18,
+
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]"))
+          ],
+          onChanged: (text){
+            setState(() {
+              userInputController.value = userInputController.value.copyWith(text: text.toUpperCase());
+              if(text.isEmpty){
+                _card_holder_name=_cardHolderNameEmpty;
+                return;
+              }
+              else{
+                _card_holder_name=text.toUpperCase() ;
+              }
+
+            });
+          },
+          decoration: InputDecoration(
+            // border: InputBorder.none,
+            counterText: "",
+            suffixIconConstraints: BoxConstraints(
+              minHeight: 15,
+              minWidth: 15,
+            ),
+            focusedBorder:UnderlineInputBorder(
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
+            ),
+
+            hintText: hintTitle,
+            hintStyle: const TextStyle(fontSize: 17, color: hint_color, fontStyle: FontStyle.normal),
+          ),
+          keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+
+  Widget userInputExpiryDateField(TextEditingController userInputController, String hintTitle, TextInputType keyboardType) {
+    return Container(
+      height: 55,
+
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        child: TextField(
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            new LengthLimitingTextInputFormatter(4),
+            new CardMonthInputFormatter()
+          ],
+          controller: userInputController,
+          textInputAction: TextInputAction.next,
+          autocorrect: false,
+          enableSuggestions: false,
+          cursorColor: novalexxa_text_color,
+          onChanged: (value){
+
+            setState(() {
+              if(value.length<0){
+                _card_expire_date=value;
+                return;
+              }
+              _card_expire_date=value;
+
+              List<int> expiryDate = CardUtils.getExpiryDate(value!);
+              _paymentCard.month = expiryDate[0];
+              _paymentCardExpiryMonth=expiryDate[0];
+              _paymentCardExpirYear=expiryDate[1];
+              _paymentCard.year = expiryDate[1];
+            });
+
+          },
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
@@ -448,8 +504,8 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
 
 
 
-             // _card_number=text;
-             // _cardFrontBackStatus=2;
+              // _card_number=text;
+              // _cardFrontBackStatus=2;
             });
           },
           keyboardType: keyboardType,
@@ -457,6 +513,52 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       ),
     );
   }
+
+  Widget saveThisCardCheckBox() {
+    return Container(
+      height: 55,
+      alignment: Alignment.center,
+      margin:  EdgeInsets.only(left: 0.0, right: 10.0,top: 20,bottom: 10),
+      child: Padding(
+        padding: EdgeInsets.only(left: 0.0, top: 0, bottom: 0, right: 10),
+        child: Flex(
+          direction: Axis.horizontal,
+          children: [
+
+            Theme(
+              data: Theme.of(context).copyWith(
+                unselectedWidgetColor:hint_color,
+              ),
+              child: Checkbox(
+                checkColor: Colors.white,
+
+                activeColor: novalexxa_color1,
+
+                //fillColor: MaterialStateProperty.resolveWith(Colors.black38),
+                value: isChecked,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isChecked = value!;
+                  });
+                },
+              ),
+            ),
+
+            Expanded(
+                child: Text("Save this card for future payments",
+                    style: TextStyle(
+                        color:novalexxa_text_color,
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal))),
+
+
+
+          ],
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildCardSection(int cardFrontBackStatus) {
     return Column(
@@ -490,7 +592,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
 
 
                     },
-                    child: _buildCardFrontSection(),
+                    child: _buildCardFrontSide(),
                   )
                 ),
               ),
@@ -506,7 +608,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
 
 
                     },
-                    child: _buildCardBackSection(),
+                    child: _buildCardBackSide(),
                     )
 
                 ),
@@ -534,98 +636,98 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-  Widget _buildCardFrontSection1() {
-    return Column(
-      children: [
-        Flex(
-          direction: Axis.horizontal,
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                  right: 00, top: 30, left: 00, bottom: 10),
-              height: 163,
-              width: 19,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  "assets/images/card_left_side.png",
-                  height: 137,
-                  width: 19,
-                ),
-              ),
-            ),
-
-            Expanded(
-              child:Center(
-                  child:_buildCardFrontSection()
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                  right: 00, top: 30, left: 00, bottom: 10),
-              height: 163,
-              width: 19,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Image.asset(
-                  "assets/images/card_right_side.png",
-                  height: 137,
-                  width: 19,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-  Widget _buildCardBackSection1() {
-    return Column(
-      children: [
-        Flex(
-          direction: Axis.horizontal,
-          children: [
-            Container(
-              margin: EdgeInsets.only(
-                  right: 00, top: 30, left: 00, bottom: 10),
-              height: 163,
-              width: 19,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  "assets/images/card_left_side.png",
-                  height: 137,
-                  width: 19,
-                ),
-              ),
-            ),
-
-            Expanded(
-              child:Center(
-                  child:_buildCardBackSection()
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(
-                  right: 00, top: 30, left: 00, bottom: 10),
-              height: 163,
-              width: 19,
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Image.asset(
-                  "assets/images/card_right_side.png",
-                  height: 137,
-                  width: 19,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Widget _buildCardFrontSection() {
+    return Column(
+      children: [
+        Flex(
+          direction: Axis.horizontal,
+          children: [
+            Container(
+              margin: EdgeInsets.only(
+                  right: 00, top: 30, left: 00, bottom: 10),
+              height: 163,
+              width: 19,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset(
+                  "assets/images/card_left_side.png",
+                  height: 137,
+                  width: 19,
+                ),
+              ),
+            ),
+
+            Expanded(
+              child:Center(
+                  child:_buildCardFrontSide()
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                  right: 00, top: 30, left: 00, bottom: 10),
+              height: 163,
+              width: 19,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Image.asset(
+                  "assets/images/card_right_side.png",
+                  height: 137,
+                  width: 19,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+  Widget _buildCardBackSection() {
+    return Column(
+      children: [
+        Flex(
+          direction: Axis.horizontal,
+          children: [
+            Container(
+              margin: EdgeInsets.only(
+                  right: 00, top: 30, left: 00, bottom: 10),
+              height: 163,
+              width: 19,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset(
+                  "assets/images/card_left_side.png",
+                  height: 137,
+                  width: 19,
+                ),
+              ),
+            ),
+
+            Expanded(
+              child:Center(
+                  child:_buildCardBackSide()
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(
+                  right: 00, top: 30, left: 00, bottom: 10),
+              height: 163,
+              width: 19,
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Image.asset(
+                  "assets/images/card_right_side.png",
+                  height: 137,
+                  width: 19,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCardFrontSide() {
     return Container(
         margin: EdgeInsets.only(
             right: 10, top: 30, left: 10, bottom: 10),
@@ -838,7 +940,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-  Widget _buildCardBackSection() {
+  Widget _buildCardBackSide() {
     return Container(
         margin: EdgeInsets.only(
             right: 10, top: 30, left: 10, bottom: 10),
@@ -884,7 +986,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                          TextAlign.center,
                          style: TextStyle(
                              color: Colors.white,
-                             fontSize: 11,
+                             fontSize: 8,
                              fontWeight:
                              FontWeight
                                  .w500),
@@ -912,9 +1014,38 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                           right:10,
                           top: 7,
                           left: 10,
-                          bottom: 00),
-                      height: 25,
-                      color: Colors.white54,
+                          bottom: 00
+                      ),
+                      padding: EdgeInsets.only(
+                          right:10,
+
+                      ),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                              'assets/images/cvv_bg.png'),
+                          fit: BoxFit.fill,
+                        ),
+                      //  shape: BoxShape.circle,
+                      ),
+                      height: 28,
+                      child:Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          _cvvName,
+                          //textAlign: TextAlign.center,
+
+
+                          style: TextStyle(
+                              color:novalexxa_text_color,
+                              letterSpacing: 2.0,
+                              fontSize: 16,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ),
+
+                      // color: Colors.white54,
                     ))
                   ],
                 ),
@@ -958,6 +1089,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
+          _showToast(_paymentCard.month.toString());
           // if( imageFile==null){
           //   _showToast("please select document image!");
           // }

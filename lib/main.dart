@@ -3,19 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
-import 'common/call_contact/contact_support.dart';
-import 'common/call_contact/customer_services.dart';
-
-import 'common/call_contact/customer_service_details.dart';
-import 'common/call_contact/email_us.dart';
-
 import 'common/money_option/send_money/top_up_account/add_credit_cart.dart';
-import 'common/money_option/send_money/top_up_account/no_credit_cart.dart';
-import 'common/money_option/send_money/top_up_account/select_top_up.dart';
-import 'common/money_option/send_money/top_up_account/top_up_amount_page.dart';
-import 'common/navigation_page/home_page.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
+
+
 
 
 
@@ -42,7 +34,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Stack(
           children:  [
-          //NavigationBarScreen(2,MoneyOptionScreen())
+            // NavigationBarScreen(2,MoneyOptionScreen())
             AddCreditCardScreen(),
           //  TopUpScreenScreen(),
           ],

@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 import 'package:nova_lexxa/common/money_option/send_money/top_up_account/payment_card.dart';
+import 'package:nova_lexxa/common/money_option/send_money/top_up_account/save_card.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:scan/scan.dart';
@@ -1089,7 +1090,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-          _showToast(_paymentCard.month.toString());
+         // _showToast(_paymentCard.month.toString());
           // if( imageFile==null){
           //   _showToast("please select document image!");
           // }
@@ -1098,7 +1099,7 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
           //   //_showToast("Ok");
           // }
 
-
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen()));
 
 
         },

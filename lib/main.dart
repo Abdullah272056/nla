@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children:  [
             // NavigationBarScreen(2,MoneyOptionScreen())
-            SaveCardsScreen(),
+            SplashScreen1(),
           //  TopUpScreenScreen(),
           ],
         ),

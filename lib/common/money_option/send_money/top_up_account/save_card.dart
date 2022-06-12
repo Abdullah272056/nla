@@ -575,6 +575,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
     );
   }
+
   Widget _buildAlertCancelButton() {
     return InkResponse(
       onTap: (){
@@ -586,7 +587,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
         height: 45,
         margin: const EdgeInsets.only(left: 5.0, right:10.0),
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+            gradient: LinearGradient(colors: [novalexxa_hint_text_color, novalexxa_hint_text_color],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),

@@ -23,16 +23,10 @@ class PayWithQRCodeScreen extends StatefulWidget {
 
 class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   String countryName="en",countryIcon="icon_country.png";
-
-
-
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? _result;
   QRViewController? controller;
-
   String _scannedQRCode="";
-
-
   int scanQrStatus=1;
 
   @override
@@ -250,7 +244,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
     );
   }
 
-  Widget _buildScanQRCodeButton() {
+  Widget  _buildScanQRCodeButton() {
     return Container(
       margin:EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
@@ -303,6 +297,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
       ),
     );
   }
+
   _delay(){
     Timer(Duration(seconds: 2), () {
       setState(() {

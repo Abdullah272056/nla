@@ -482,7 +482,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         onTap: (){
           setState(() {
 
-            _showToast(index.toString());
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsDetailsScreen("12")));
+
           });
 
         },

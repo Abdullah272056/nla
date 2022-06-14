@@ -8,20 +8,30 @@ import 'message_verification_particular.dart';
 
 class ConfirmNumberForParticularScreen extends StatefulWidget {
 
-  String phoneNumber;
+  String phoneNumber,userId;
   ConfirmNumberForParticularScreen(
-      this.phoneNumber);
+      this.userId,
+      this.phoneNumber
+
+      );
 
 
   @override
-  State<ConfirmNumberForParticularScreen> createState() => _ConfirmNumberForParticularScreenState(this.phoneNumber);
+  State<ConfirmNumberForParticularScreen> createState() => _ConfirmNumberForParticularScreenState(
+      this.userId,
+      this.phoneNumber
+  );
 }
 
 class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParticularScreen> with SingleTickerProviderStateMixin{
   String _phoneNumber;
+  String _userId;
 
 
-  _ConfirmNumberForParticularScreenState(this._phoneNumber);
+  _ConfirmNumberForParticularScreenState(
+      this._userId,
+      this._phoneNumber,
+      );
 
   String countryName="en",countryIcon="icon_country.png";
 
@@ -182,7 +192,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
       child: ElevatedButton(
         onPressed: () {
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationParticularScreen(_userId)));
 
         },
         style: ElevatedButton.styleFrom(

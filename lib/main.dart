@@ -13,6 +13,7 @@ import 'common/money_option/send_money/top_up_account/no_credit_cart.dart';
 import 'common/money_option/send_money/top_up_account/save_card.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
+import 'company/registration_for_company.dart';
 import 'finger_print_auth.dart';
 
 
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: FingerPrintInputForLoginScreen(),
+        body: SignUpForCompanyScreen(),
       ),
     );
   }

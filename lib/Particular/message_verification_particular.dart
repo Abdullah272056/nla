@@ -1,8 +1,12 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -10,16 +14,22 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
 import 'email_verification_particular.dart';
 
 class MessageVerificationParticularScreen extends StatefulWidget {
-  const MessageVerificationParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  MessageVerificationParticularScreen(this.userId);
 
   @override
-  State<MessageVerificationParticularScreen> createState() => _MessageVerificationParticularScreenState();
+  State<MessageVerificationParticularScreen> createState() => _MessageVerificationParticularScreenState(this.userId);
 }
 
 class _MessageVerificationParticularScreenState extends State<MessageVerificationParticularScreen> {
+  String _userId;
+  _MessageVerificationParticularScreenState(this._userId);
+
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -185,7 +195,8 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
+          _userSendCodeWithEmail();
+
           //_otpTxt = pin;
          // _showToast(pin);
         },
@@ -198,6 +209,89 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
     );
   }
 
+  _userSendCodeWithEmail() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await put(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_EMAIL_SEND_CODE$_userId/'),
+              );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen(_userId)));
+
+          }
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+  // _userVerify(
+  //     {
+  //       required String otp,
+  //       required String userId,
+  //     }) async {
+  //   try {
+  //     final result = await InternetAddress.lookup('example.com');
+  //     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //       showLoadingDialog(context,"Sending...");
+  //       try {
+  //         Response response =
+  //         await post(Uri.parse('$BASE_URL_API$SUB_URL_API_Email_verify'),
+  //             body: {
+  //               'user_id': userId,
+  //               'code': otp,
+  //             });
+  //         Navigator.of(context).pop();
+  //         if (response.statusCode == 200) {
+  //           _showToast("successfully verified");
+  //           var data = jsonDecode(response.body.toString());
+  //           saveUserInfo(data["data"]);
+  //           Navigator.pushAndRemoveUntil(
+  //             context,
+  //             MaterialPageRoute(
+  //               //builder: (BuildContext context) => NavigationBarScreen(0,HomeScreen(1)),
+  //             ),
+  //                 (route) => false,
+  //           );
+  //
+  //         }
+  //         else if (response.statusCode == 400) {
+  //           var data = jsonDecode(response.body.toString());
+  //           _showToast(data['message']);
+  //         }
+  //         else {
+  //           // var data = jsonDecode(response.body.toString());
+  //           // _showToast(data['message']);
+  //         }
+  //       } catch (e) {
+  //         Navigator.of(context).pop();
+  //         print(e.toString());
+  //       }
+  //     }
+  //   } on SocketException catch (_) {
+  //     Fluttertoast.cancel();
+  //     _showToast("No Internet Connection!");
+  //   }
+  // }
 
   Widget _buildLogInButton() {
     return Container(

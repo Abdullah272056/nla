@@ -1,8 +1,12 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/Particular/particular_information.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
@@ -10,15 +14,21 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
+
 class EmailVerificationParticularScreen extends StatefulWidget {
-  const EmailVerificationParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  EmailVerificationParticularScreen(this.userId);
 
   @override
-  State<EmailVerificationParticularScreen> createState() => _EmailVerificationParticularScreenState();
+  State<EmailVerificationParticularScreen> createState() => _EmailVerificationParticularScreenState(this.userId);
 }
 
 class _EmailVerificationParticularScreenState extends State<EmailVerificationParticularScreen> {
-
+  String _userId;
+  _EmailVerificationParticularScreenState(this._userId);
+  String _otpTxt="";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -173,11 +183,10 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
+        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
+          _otpTxt = pin;
+          _userVerify(userId: _userId,otp:_otpTxt );
 
-
-          //_otpTxt = pin;
-         // _showToast(pin);
         },
         onChanged: (value) {
           if (value.length < 6) {
@@ -188,8 +197,48 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
     );
   }
 
+  _userVerify(
+      {
+        required String otp,
+        required String userId,
+      }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response = await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_EMAIL_VERIFY'),
+              body: {
+                'user_id': userId,
+                'code': otp,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("successfully verified");
+            var data = jsonDecode(response.body.toString());
+         //   saveUserInfo(data["data"]);
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
 
 
+          }
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(

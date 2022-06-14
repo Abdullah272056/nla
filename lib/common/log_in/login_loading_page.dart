@@ -1,17 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../navigation_page/navigation_bar_page.dart';
-
 
 class LoginLoadingScreen extends StatefulWidget {
   const LoginLoadingScreen({Key? key}) : super(key: key);
@@ -37,6 +29,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
     });
 
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +60,6 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
 
   }
-
 
   Widget _buildLoginSuccess() {
     return Column(
@@ -103,7 +95,6 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
     );
   }
-
 
   Widget _buildLoginSuccess2() {
     return Column(
@@ -195,8 +186,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
     );
   }
-  
-  
+
   Widget _buildLoadingView() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -241,6 +231,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
     });
   }
+
   _delay2(){
     Timer(Duration(seconds: 2), () {
       setState(() {

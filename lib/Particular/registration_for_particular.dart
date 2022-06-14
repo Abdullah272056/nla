@@ -1,14 +1,20 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
 import '../common/static/toast.dart';
 import 'confirm_number_particular.dart';
 
@@ -36,6 +42,14 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
   String _countryName="Select your country";
   String select_your_country="Select your country";
+  String _countryNameId = "0";
+
+  //String _countryCode="IT";
+  String _countryCode = "IT";
+
+
+  //var homeSearchResultData;
+  List _countryList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -391,7 +405,11 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){
-
+        setState(() {
+          // _countryName="Bangladesh";
+          // _countryCode=FlagsCode.BD;
+          _getCountryDataList();
+        });
       },
       child: Container(
         height: 52,
@@ -417,7 +435,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                 )),
               },
 
-              Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+              Flag.fromString(_countryCode, height: 18, width: 22, fit: BoxFit.fill)
             ],
           ),
 
@@ -479,13 +497,11 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           String emailTxt = _emailController!.text;
           String phoneNumberTxt = _phoneController!.text;
           String promoCodeTxt = _promoCodeController!.text;
-          String countryNameId = _countryController!.text;
 
 
-          if(_inputValidation(email: emailTxt,phone: phoneNumberTxt,countryNameId: countryNameId,promoCode: promoCodeTxt)==false){
 
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen(phoneNumberTxt)));
-
+          if(_inputValidation(email: emailTxt,phone: phoneNumberTxt,countryNameId: _countryNameId,promoCode: promoCodeTxt)==false){
+            _userRegistration(email: emailTxt,mobile:phoneNumberTxt,countryId: _countryNameId,promoCode: promoCodeTxt);
           }
 
 
@@ -523,11 +539,170 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
-  _inputValidation(
-      {required String email,
+  _getCountryDataList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$GET_COUNTRY_LIST'),
+          );
+          Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _countryList = data["data"];
+              _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showAlertDialog(BuildContext context, List _countryListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your country",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _countryList == null ? 0 : _countryList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              _countryName = _countryListData[index]['country_name'].toString();
+                              _countryCode = _countryListData[index]['country_code_name']
+                                  .toString();
+                              _countryNameId = _countryListData[index]['country_id'].toString();
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Flag.fromString(
+                                        _countryListData[index]
+                                        ['country_code_name']
+                                            .toString(),
+                                        height: 25,
+                                        width: 25),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _countryListData[index]['country_name']
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  _inputValidation({
+    required String email,
         required String phone,
         required String promoCode,
-        required String countryNameId}) {
+        required String countryNameId
+  }) {
 
 
     if (email.isEmpty) {
@@ -549,11 +724,11 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
       return;
     }
 
-    // if (countryNameId.isEmpty || countryNameId == "0") {
-    //   Fluttertoast.cancel();
-    //   validation_showToast("Country name can't empty");
-    //   return;
-    // }
+    if (countryNameId.isEmpty || countryNameId == "0") {
+      Fluttertoast.cancel();
+      validation_showToast("Country name can't empty");
+      return;
+    }
 
     // if (promoCode.isEmpty) {
     //   Fluttertoast.cancel();
@@ -564,16 +739,81 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     return false;
   }
 
-  _showToast(String message) {
+  _userRegistration({
+        required String email,
+        required String mobile,
+        required String countryId,
+        required String promoCode,
+      }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Creating...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_REGISTRATION'),
+              body: {
+
+                'email': email,
+                'phone_number': mobile,
+                'country_id': countryId,
+                'promo_code': promoCode,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen(
+                 data["data"]["id"].toString(),
+                  data["data"]["phone_number"].toString(),
+
+
+              )));
+
+            });
+          }
+
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+
+  _showToast(String message){
+
     Fluttertoast.showToast(
         msg: message,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
+
   }
 
 }
+
+
 

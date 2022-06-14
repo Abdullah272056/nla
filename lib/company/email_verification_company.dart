@@ -14,15 +14,18 @@ import 'company_information.dart';
 
 
 class EmailVerificationCompanyScreen extends StatefulWidget {
-  const EmailVerificationCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  EmailVerificationCompanyScreen(this.userId);
 
   @override
-  State<EmailVerificationCompanyScreen> createState() => _EmailVerificationCompanyScreenState();
+  State<EmailVerificationCompanyScreen> createState() => _EmailVerificationCompanyScreenState(this.userId);
 }
 
 class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompanyScreen> {
-  String countryName="en",countryIcon="icon_country.png";
+  String _userId;
+  _EmailVerificationCompanyScreenState(this._userId);
 
+  String countryName="en",countryIcon="icon_country.png";
 
   String _genderDropDownSelectedValue = "English";
   final List<String> _countryNameList = ["English", "French", "Spanish","Italian",

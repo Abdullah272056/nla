@@ -7,13 +7,29 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'message_verification_company.dart';
 
 class ConfirmNumberForCompanyScreen extends StatefulWidget {
-  const ConfirmNumberForCompanyScreen({Key? key}) : super(key: key);
+  String phoneNumber,userId;
+  ConfirmNumberForCompanyScreen(
+      this.userId,
+      this.phoneNumber
+
+      );
 
   @override
-  State<ConfirmNumberForCompanyScreen> createState() => _ConfirmNumberForCompanyScreenState();
+  State<ConfirmNumberForCompanyScreen> createState() => _ConfirmNumberForCompanyScreenState(  this.userId,
+      this.phoneNumber);
 }
 
 class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyScreen> with SingleTickerProviderStateMixin{
+  String _phoneNumber;
+  String _userId;
+
+
+  _ConfirmNumberForCompanyScreenState(
+      this._userId,
+      this._phoneNumber,
+      );
+
+
   String countryName="en",countryIcon="icon_country.png";
 
   late AnimationController controller;
@@ -140,7 +156,7 @@ class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyS
                   height: 5,
                 ),
                 Text(
-                  "+1 (800) 1234 567",
+                  _phoneNumber,
                   textAlign: TextAlign.center,
 
                   style: TextStyle(
@@ -175,8 +191,7 @@ class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyS
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationCompanyScreen()));
-
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationCompanyScreen(_userId)));
 
         },
         style: ElevatedButton.styleFrom(

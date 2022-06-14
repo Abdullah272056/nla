@@ -1,8 +1,12 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -10,17 +14,26 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../Particular/email_verification_particular.dart';
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
 import 'email_verification_company.dart';
 
 
 class MessageVerificationCompanyScreen extends StatefulWidget {
-  const MessageVerificationCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  MessageVerificationCompanyScreen(this.userId);
 
   @override
-  State<MessageVerificationCompanyScreen> createState() => _MessageVerificationCompanyScreenState();
+  State<MessageVerificationCompanyScreen> createState() => _MessageVerificationCompanyScreenState(this.userId);
 }
 
 class _MessageVerificationCompanyScreenState extends State<MessageVerificationCompanyScreen> {
+  String _userId;
+  _MessageVerificationCompanyScreenState(this._userId);
+
+
+
   String countryName="en",countryIcon="icon_country.png";
 
 
@@ -186,8 +199,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationCompanyScreen()));
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
+          _userSendCodeWithEmail();
           //_otpTxt = pin;
         // _showToast(pin);
         },
@@ -201,59 +213,42 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
   }
 
 
-  Widget _buildLogInButton() {
-    return Container(
-      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-      child: ElevatedButton(
-        onPressed: () {
-          if(_particular_company_selected_status==1){
 
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
+
+  _userSendCodeWithEmail() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await put(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_EMAIL_SEND_CODE_COMPANY$_userId/'),
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationCompanyScreen(_userId)));
+
           }
-          else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForCompanyScreen()));
-
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
           }
-
-          _showToast(_particular_company_selected_status.toString());
-           Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationCompanyScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
-
-        },
-        style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7))),
-        child: Ink(
-
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(7.0)
-          ),
-          child: Container(
-
-            height: 50,
-            alignment: Alignment.center,
-            child:  Text(
-              "Login",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'PT-Sans',
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

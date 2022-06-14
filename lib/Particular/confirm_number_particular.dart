@@ -7,13 +7,22 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'message_verification_particular.dart';
 
 class ConfirmNumberForParticularScreen extends StatefulWidget {
-  const ConfirmNumberForParticularScreen({Key? key}) : super(key: key);
+
+  String phoneNumber;
+  ConfirmNumberForParticularScreen(
+      this.phoneNumber);
+
 
   @override
-  State<ConfirmNumberForParticularScreen> createState() => _ConfirmNumberForParticularScreenState();
+  State<ConfirmNumberForParticularScreen> createState() => _ConfirmNumberForParticularScreenState(this.phoneNumber);
 }
 
 class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParticularScreen> with SingleTickerProviderStateMixin{
+  String _phoneNumber;
+
+
+  _ConfirmNumberForParticularScreenState(this._phoneNumber);
+
   String countryName="en",countryIcon="icon_country.png";
 
   late AnimationController controller;
@@ -137,7 +146,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
                   height: 5,
                 ),
                 Text(
-                  "+1 (800) 1234 567",
+                  _phoneNumber,
                   textAlign: TextAlign.center,
 
                   style: TextStyle(

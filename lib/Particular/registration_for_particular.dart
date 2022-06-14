@@ -9,6 +9,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../common/static/toast.dart';
 import 'confirm_number_particular.dart';
 
 class SignUpForParticularScreen extends StatefulWidget {
@@ -119,7 +120,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         ),),
                     ),
 
-
                     SizedBox(
                       height: 30,
                     ),
@@ -140,7 +140,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       height: 0,
                     ),
                     userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
-
 
                     SizedBox(
                       height: 20,
@@ -163,7 +162,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                     SizedBox(
                       height: 20,
                     ),
-
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
@@ -200,7 +198,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                     SizedBox(
                       height: 0,
                     ),
-                    userPromoCode(_promoCodeController!, 'Prome code', TextInputType.text),
+                    userPromoCode(_promoCodeController!, 'Promo code', TextInputType.text),
                     SizedBox(
                       height: 35,
                     ),
@@ -253,7 +251,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         ],
                       ),
                     )
-
                   ],
                 ))
 
@@ -479,9 +476,18 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-          //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+          String emailTxt = _emailController!.text;
+          String phoneNumberTxt = _phoneController!.text;
+          String promoCodeTxt = _promoCodeController!.text;
+          String countryNameId = _countryController!.text;
+
+
+          if(_inputValidation(email: emailTxt,phone: phoneNumberTxt,countryNameId: countryNameId,promoCode: promoCodeTxt)==false){
+
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen(phoneNumberTxt)));
+
+          }
+
 
         },
         style: ElevatedButton.styleFrom(
@@ -515,6 +521,47 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         ),
       ),
     );
+  }
+
+  _inputValidation(
+      {required String email,
+        required String phone,
+        required String promoCode,
+        required String countryNameId}) {
+
+
+    if (email.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("email can't empty");
+      return;
+    }
+    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
+      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+    )
+        .hasMatch(email)) {
+      validation_showToast("Enter valid email");
+      return;
+    }
+
+    if (phone.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("phoneNumber can't empty");
+      return;
+    }
+
+    // if (countryNameId.isEmpty || countryNameId == "0") {
+    //   Fluttertoast.cancel();
+    //   validation_showToast("Country name can't empty");
+    //   return;
+    // }
+
+    // if (promoCode.isEmpty) {
+    //   Fluttertoast.cancel();
+    //   validation_showToast("promoCode can't empty");
+    //   return;
+    // }
+
+    return false;
   }
 
   _showToast(String message) {

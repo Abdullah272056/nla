@@ -184,12 +184,17 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                         ),
                       ),
                     ),
-                    if(_particular_company_selected_status==1)...[
-                      _buildParticularSelectedSection(),
 
-                    ]else...{
-                      _buildCompanySelectedSection(),
-                    },
+
+                    // if(_particular_company_selected_status==1)...[
+                    //   _buildParticularSelectedSection(),
+                    //
+                    // ]else...{
+                    //   _buildCompanySelectedSection(),
+                    // },
+
+                    _buildCompanySelectedSection(),
+
                     Container( color: novalexxa_hint_text_color,
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                       height: .5,
@@ -349,83 +354,83 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     );
   }
 
-  Widget _buildParticularSelectedSection() {
-    return Container(
-      margin: const EdgeInsets.only(left: 00.0, right: 00.0),
-      child:Flex(
-        direction: Axis.horizontal,
-        children: [
-          Container(
-              margin:EdgeInsets.only(right:00.0,top: 00,left: 00,
-                bottom: 10,
-              ),
-              child:InkResponse(
-                onTap: (){
-                  setState(() {
-                    _particular_company_selected_status=2;
-                  });
-                },
-                child: Image.asset(
-                  "assets/images/female_unselected.png",
-                  width: 35,
-                  height: 35,
-                  fit: BoxFit.fill,
-                ),
-              )
-          ),
-          Container(
-            margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
-            child: Align(alignment: Alignment.topLeft,
-              child: Text(
-                "Male",
-                textAlign: TextAlign.center,
-
-                style: TextStyle(
-                    color: novalexxa_text_color,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
-
-
-          Container(
-              margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
-                bottom: 10,
-              ),
-              child:InkResponse(
-                onTap: (){
-                  setState(() {
-                    _particular_company_selected_status=1;
-                  });
-
-                },
-                child:  Image.asset(
-                  "assets/images/male_selected.png",
-                  width: 35,
-                  height: 35,
-                  fit: BoxFit.fill,
-                ),
-              )
-          ),
-          Container(
-            margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
-            child: Align(alignment: Alignment.topLeft,
-              child: Text(
-                "Female",
-                textAlign: TextAlign.center,
-
-                style: TextStyle(
-                    color: novalexxa_text_color,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildParticularSelectedSection() {
+  //   return Container(
+  //     margin: const EdgeInsets.only(left: 00.0, right: 00.0),
+  //     child:Flex(
+  //       direction: Axis.horizontal,
+  //       children: [
+  //         Container(
+  //             margin:EdgeInsets.only(right:00.0,top: 00,left: 00,
+  //               bottom: 10,
+  //             ),
+  //             child:InkResponse(
+  //               onTap: (){
+  //                 setState(() {
+  //                   _particular_company_selected_status=2;
+  //                 });
+  //               },
+  //               child: Image.asset(
+  //                 "assets/images/female_unselected.png",
+  //                 width: 35,
+  //                 height: 35,
+  //                 fit: BoxFit.fill,
+  //               ),
+  //             )
+  //         ),
+  //         Container(
+  //           margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
+  //           child: Align(alignment: Alignment.topLeft,
+  //             child: Text(
+  //               "Male",
+  //               textAlign: TextAlign.center,
+  //
+  //               style: TextStyle(
+  //                   color: novalexxa_text_color,
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.w500),
+  //             ),
+  //           ),
+  //         ),
+  //
+  //
+  //         Container(
+  //             margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
+  //               bottom: 10,
+  //             ),
+  //             child:InkResponse(
+  //               onTap: (){
+  //                 setState(() {
+  //                   _particular_company_selected_status=1;
+  //                 });
+  //
+  //               },
+  //               child:  Image.asset(
+  //                 "assets/images/male_selected.png",
+  //                 width: 35,
+  //                 height: 35,
+  //                 fit: BoxFit.fill,
+  //               ),
+  //             )
+  //         ),
+  //         Container(
+  //           margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
+  //           child: Align(alignment: Alignment.topLeft,
+  //             child: Text(
+  //               "Female",
+  //               textAlign: TextAlign.center,
+  //
+  //               style: TextStyle(
+  //                   color: novalexxa_text_color,
+  //                   fontSize: 20,
+  //                   fontWeight: FontWeight.w500),
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildCompanySelectedSection() {
     return Container(
@@ -442,12 +447,14 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 onTap: (){
                   // _showToast("company");
                   setState(() {
-                    _particular_company_selected_status=2;
+                    _particular_company_selected_status=1;
                   });
 
                 },
-                child: Image.asset(
-                  "assets/images/female_unselected.png",
+                child: Image.asset(_particular_company_selected_status==1?
+                "assets/images/male_selected_icon.png":
+                  "assets/images/male_unselected_icon.png",
+                  //"assets/images/female_unselected.png",
 
                   width: 35,
                   height: 35,
@@ -457,6 +464,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
 
           ),
+
           Container(
             margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
             child: Align(alignment: Alignment.topLeft,
@@ -471,6 +479,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
               ),
             ),
           ),
+
           Container(
               margin:EdgeInsets.only(right:00.0,top: 00,left: 20,
                 bottom: 10,
@@ -479,12 +488,12 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 onTap: (){
                   //_showToast("particular");
                   setState(() {
-                    _particular_company_selected_status=1;
+                    _particular_company_selected_status=2;
                   });
 
                 },
-                child: Image.asset(
-                  "assets/images/male_selected.png",
+                child: Image.asset(_particular_company_selected_status==2?
+                "assets/images/female_selected_icon.png":"assets/images/female_unselected.png",
 
                   width: 35,
                   height: 35,
@@ -493,6 +502,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
               )
 
           ),
+
           Container(
             margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 0),
             child: Align(alignment: Alignment.topLeft,

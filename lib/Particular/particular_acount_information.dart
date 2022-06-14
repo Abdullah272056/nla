@@ -250,14 +250,14 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
             ),
 
             suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
+              minHeight: 12,
+              minWidth: 17,
             ),
             suffixIcon: Image(
               image: AssetImage(
-                "assets/images/icon_user.png"
+                "assets/images/icon_id.png"
               ),
-              height: 18,
+              height: 15,
               width: 18,
               fit: BoxFit.fill,
             ),

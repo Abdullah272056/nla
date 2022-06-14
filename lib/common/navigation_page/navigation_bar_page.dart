@@ -82,9 +82,10 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
     super.initState();
     _tabcontroller = TabController(length: 5, vsync: this,initialIndex:_selectedTabIndex,);
 
+    // _onItemTapped(_selectedTabIndex);
 
-   // _onItemTapped(_selectedTabIndex);
   }
+
   //
   // @override
   // @mustCallSuper

@@ -10,6 +10,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../common/static/toast.dart';
 import 'confirm_number_particular.dart';
 
 class AddInformationForParticularScreen extends StatefulWidget {
@@ -299,9 +300,14 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
       child: ElevatedButton(
         onPressed: () {
 
-          //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+          String nameTxt = _nameController!.text;
+          String surNameTxt = _surnameController!.text;
+          String birthDayTxt = _birthDayController!.text;
+
+          if(_inputValidation(name: nameTxt,surname: surNameTxt,birthday: birthDayTxt)==false){
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+          }
+
 
         },
         style: ElevatedButton.styleFrom(
@@ -335,6 +341,32 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
         ),
       ),
     );
+  }
+
+  _inputValidation(
+      {required String name,
+        required String surname,
+        required String birthday,
+       }) {
+    if (name.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("name can't empty");
+      return;
+    }
+    if (surname.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("surname can't empty");
+      return;
+    }
+
+    // if (birthday.isEmpty) {
+    //   Fluttertoast.cancel();
+    //   validation_showToast("birthday can't empty");
+    //   return;
+    // }
+
+
+    return false;
   }
 
   _showToast(String message) {

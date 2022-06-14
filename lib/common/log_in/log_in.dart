@@ -304,6 +304,7 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
+
   Widget _buildFingerPrintButton() {
     return   Container(
       margin:  EdgeInsets.only(left: 5, right: 15,bottom: 0,top: 0),

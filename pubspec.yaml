@@ -113,6 +113,8 @@ dependencies:
   qr_code_scanner: ^1.0.0
   #dot border
   dotted_border: ^2.0.0+2
+  #finger print
+  local_auth: ^1.1.10
 
 
 

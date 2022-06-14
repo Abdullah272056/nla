@@ -14,16 +14,17 @@ import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../navigation_page/navigation_bar_page.dart';
+import 'finger_print_login_loading_page.dart';
 
 
-class FingerPrintDoneScreen extends StatefulWidget {
-  const FingerPrintDoneScreen({Key? key}) : super(key: key);
+class FingerPrintInputForLoginScreen extends StatefulWidget {
+  const FingerPrintInputForLoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<FingerPrintDoneScreen> createState() => _FingerPrintDoneScreenState();
+  State<FingerPrintInputForLoginScreen> createState() => _FingerPrintInputForLoginScreenState();
 }
 
-class _FingerPrintDoneScreenState extends State<FingerPrintDoneScreen> {
+class _FingerPrintInputForLoginScreenState extends State<FingerPrintInputForLoginScreen> {
 
   int loging_status=1;
   final auth = LocalAuthentication();
@@ -70,7 +71,7 @@ class _FingerPrintDoneScreenState extends State<FingerPrintDoneScreen> {
       //  _showToast("match");
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) =>  HomePageScreen()),
+          MaterialPageRoute(builder: (context) =>  FingerPrintLoginLoadingScreen()),
         );
       }else{
        // _showToast("not match");

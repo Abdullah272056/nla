@@ -14,13 +14,19 @@ import 'biometric_Company.dart';
 
 
 class ScanDoneCompanyScreen extends StatefulWidget {
-  const ScanDoneCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanDoneCompanyScreen(this.userId);
+
+
 
   @override
-  State<ScanDoneCompanyScreen> createState() => _ScanDoneCompanyScreenState();
+  State<ScanDoneCompanyScreen> createState() => _ScanDoneCompanyScreenState(this.userId);
 }
 
 class _ScanDoneCompanyScreenState extends State<ScanDoneCompanyScreen> {
+  String _userId;
+  _ScanDoneCompanyScreenState(this._userId);
+
 
   //image upload
   PickedFile? _imageFile;
@@ -115,7 +121,7 @@ class _ScanDoneCompanyScreenState extends State<ScanDoneCompanyScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-    Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricCompanyScreen()));
+    Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricCompanyScreen(_userId)));
 
         },
         style: ElevatedButton.styleFrom(
@@ -176,6 +182,8 @@ class _ScanDoneCompanyScreenState extends State<ScanDoneCompanyScreen> {
 
     });
   }
+
+
 
 }
 

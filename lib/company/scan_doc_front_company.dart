@@ -14,13 +14,17 @@ import 'package:scan/scan.dart';
 import '../common/static/Colors.dart';
 
 class ScanDocFrontCompanyScreen extends StatefulWidget {
-  const ScanDocFrontCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanDocFrontCompanyScreen(this.userId);
 
   @override
-  State<ScanDocFrontCompanyScreen> createState() => _ScanDocFrontCompanyScreenState();
+  State<ScanDocFrontCompanyScreen> createState() => _ScanDocFrontCompanyScreenState(this.userId);
 }
 
 class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
+  String _userId;
+  _ScanDocFrontCompanyScreenState(this._userId);
+
   String countryName="en",countryIcon="icon_country.png";
 
 int _particular_company_selected_status=1;
@@ -177,7 +181,7 @@ int _particular_company_selected_status=1;
             _showToast("please select document image!");
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackCompanyScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackCompanyScreen(_userId)));
             //_showToast("Ok");
           }
 

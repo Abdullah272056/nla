@@ -20,6 +20,8 @@ String SUB_URL_API_COMPANY_REGISTRATION = "api/company-registration/";
 String SUB_URL_API_EMAIL_SEND_CODE_COMPANY = "api/company-email-otp-resend/";
 String SUB_URL_API_COMPANY_EMAIL_VERIFY = "api/company-email-verify/";
 String SUB_URL_API_COMPANY_INFO_CREATE = "api/company-info-create/";
+String SUB_URL_API_COMPANY_ACCOUNT_INFO_CREATE = "api/company-account-info/";
+String SUB_URL_API_COMPANY_CREATE_PASSWORD = "api/company-password/";
 
 
 

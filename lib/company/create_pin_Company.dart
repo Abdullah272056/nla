@@ -14,13 +14,17 @@ import 'create_confirm_pin_company.dart';
 
 
 class CreatePinCompanyScreen extends StatefulWidget {
-  const CreatePinCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  CreatePinCompanyScreen(this.userId);
 
   @override
-  State<CreatePinCompanyScreen> createState() => _CreatePinCompanyScreenState();
+  State<CreatePinCompanyScreen> createState() => _CreatePinCompanyScreenState(this.userId);
 }
 
 class _CreatePinCompanyScreenState extends State<CreatePinCompanyScreen> {
+  String _userId;
+  _CreatePinCompanyScreenState(this._userId);
+
 
   @override
   Widget build(BuildContext context) {

@@ -14,16 +14,21 @@ import 'package:scan/scan.dart';
 import '../common/static/Colors.dart';
 
 class ScanDocBackCompanyScreen extends StatefulWidget {
-  const ScanDocBackCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanDocBackCompanyScreen(this.userId);
+
 
   @override
-  State<ScanDocBackCompanyScreen> createState() => _ScanDocBackCompanyScreenState();
+  State<ScanDocBackCompanyScreen> createState() => _ScanDocBackCompanyScreenState(this.userId);
 }
 
 class _ScanDocBackCompanyScreenState extends State<ScanDocBackCompanyScreen> {
-  String countryName="en",countryIcon="icon_country.png";
+  String _userId;
+  _ScanDocBackCompanyScreenState(this._userId);
 
-int _particular_company_selected_status=1;
+
+  String countryName="en",countryIcon="icon_country.png";
+  int _particular_company_selected_status=1;
   ScanController controller = ScanController();
   String qrcode = 'Unknown';
 
@@ -177,7 +182,7 @@ int _particular_company_selected_status=1;
             _showToast("please select document image!");
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDoneCompanyScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDoneCompanyScreen(_userId)));
           }
 
 

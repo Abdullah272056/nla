@@ -115,6 +115,7 @@ dependencies:
   dotted_border: ^2.0.0+2
   #finger print
   local_auth: ^1.1.10
+  permission_handler: ^9.2.0
 
 
 

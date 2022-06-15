@@ -1,12 +1,20 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/scan_doc_front_company.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
+import '../common/static/toast.dart';
 
 
 class CompanyAccountScreen extends StatefulWidget {
@@ -246,10 +254,16 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
+          String companyIdTxt = _companyIDController!.text;
+          String responsibleNameTxt = _responsibleNameController!.text;
+          String responsibleSurNameTxt = _responsibleSurnameController!.text;
 
-          //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>const ScanDocFrontCompanyScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+
+          if(_inputValidation( companyId:companyIdTxt,responsibleName:responsibleNameTxt,responsibleSurName:responsibleSurNameTxt)==false){
+            _sendCompanyAccountInfo( companyId:companyIdTxt,responsibleName:responsibleNameTxt,responsibleSurName:responsibleSurNameTxt);
+          }
+
+       //   Navigator.push(context,MaterialPageRoute(builder: (context)=>const ScanDocFrontCompanyScreen()));
 
         },
         style: ElevatedButton.styleFrom(
@@ -285,6 +299,80 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
     );
   }
 
+  _inputValidation({
+    required String companyId,
+    required String responsibleName,
+    required String responsibleSurName,
+  }) {
+
+    if (companyId.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("Company Id can't empty");
+      return;
+    }
+
+    if (responsibleName.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("Responsible Name can't empty");
+      return;
+    }
+    if (responsibleSurName.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("Responsible SurName can't empty");
+      return;
+    }
+
+
+    return false;
+  }
+
+  _sendCompanyAccountInfo({
+    required String companyId,
+    required String responsibleName,
+    required String responsibleSurName,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_COMPANY_ACCOUNT_INFO_CREATE'),
+              body: {
+                'user_id': _userId,
+                'company_id': companyId,
+                'responsible_name': responsibleName,
+                'responsible_surname': responsibleSurName,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 201) {
+            _showToast("success");
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontCompanyScreen(_userId)));
+
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -292,7 +380,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 

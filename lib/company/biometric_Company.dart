@@ -14,13 +14,17 @@ import 'create_password_company.dart';
 
 
 class BiometricCompanyScreen extends StatefulWidget {
-  const BiometricCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  BiometricCompanyScreen(this.userId);
+
 
   @override
-  State<BiometricCompanyScreen> createState() => _BiometricCompanyScreenState();
+  State<BiometricCompanyScreen> createState() => _BiometricCompanyScreenState(this.userId);
 }
 
 class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
+  String _userId;
+  _BiometricCompanyScreenState(this._userId);
 
   //image upload
   PickedFile? _imageFile;
@@ -150,7 +154,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
         onPressed: () {
 
 
-         Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordCompanyScreen()));
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordCompanyScreen(_userId)));
 
           // if( imageFile==null){
           //   _showToast("please select document image!");
@@ -199,7 +203,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
   Widget _buildMayBeLaterButton() {
     return InkWell(
       onTap: (){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordCompanyScreen()));
+      Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordCompanyScreen(_userId)));
 
       },
       child: Container(
@@ -309,6 +313,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
       ],
     );
   }
+
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {

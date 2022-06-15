@@ -443,7 +443,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
             setState(() {
               //_showToast("success");
               var data = jsonDecode(response.body);
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>CompanyAccountScreen( data["data"]["user_id"].toString())));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>CompanyAccountScreen(_userId)));
             });
           }
 

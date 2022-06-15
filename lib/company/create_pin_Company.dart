@@ -158,10 +158,10 @@ class _CreatePinCompanyScreenState extends State<CreatePinCompanyScreen> {
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinCompanyScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinCompanyScreen(_userId,pin)));
 
 
-          //_otpTxt = pin;
+
          // _showToast(pin);
         },
         onChanged: (value) {

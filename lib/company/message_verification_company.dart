@@ -144,21 +144,30 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                               fontWeight: FontWeight.w400),
                         ),),
                     ),
+                    //
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                      margin:EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topCenter,
-                        child: Text(
-                          "Resend Code",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: novalexxa_hint_text_color,
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400),
-                        ),),
+                        child: InkResponse(
+                          onTap: (){
+                            _userReSendCodeWithPhoneNumber();
+                          },
+                          child: Text(
+                            "Resend Code",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: novalexxa_hint_text_color,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        )
+                      ),
                     ),
+
                     SizedBox(
-                      height: 24,
+                      height: 30,
                     ),
+
                     _buildTextFieldOTPView(
                       hintText: 'Enter 6 digit Number',
                       obscureText: false,
@@ -199,7 +208,9 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          _userSendCodeWithEmail();
+          _userVerify(userId: _userId,otp:pin );
+
+
           //_otpTxt = pin;
         // _showToast(pin);
         },
@@ -214,7 +225,38 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
 
 
 
+  _userReSendCodeWithPhoneNumber() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_PHONE_NUMBER_RESEND_CODE'),
+              body: {
+                'user_id': _userId,
+              }
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("Check your phone number");
 
+          }
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
   _userSendCodeWithEmail() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -256,10 +298,49 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 
+  _userVerify(
+      {
+        required String otp,
+        required String userId,
+      }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response = await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_PHONE_VERIFY'),
+              body: {
+                'user_id': userId,
+                'code': otp,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("successfully verified");
+            _userSendCodeWithEmail();
+
+          }
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
 }
 

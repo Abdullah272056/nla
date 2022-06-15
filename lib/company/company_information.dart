@@ -1,24 +1,36 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
+import '../common/static/toast.dart';
 import 'company_account.dart';
+import 'confirm_number_company.dart';
 
 
 class AddInformationForCompanyScreen extends StatefulWidget {
-  const AddInformationForCompanyScreen({Key? key}) : super(key: key);
+  String userId;
+  AddInformationForCompanyScreen(this.userId);
+
+
 
   @override
-  State<AddInformationForCompanyScreen> createState() => _AddInformationForCompanyScreenState();
+  State<AddInformationForCompanyScreen> createState() => _AddInformationForCompanyScreenState(this.userId);
 }
 
 class _AddInformationForCompanyScreenState extends State<AddInformationForCompanyScreen> {
-
+  String _userId;
+  _AddInformationForCompanyScreenState(this._userId);
 
   TextEditingController? _companyNameController = TextEditingController();
   TextEditingController? _SectorofActivitiesController = TextEditingController();
@@ -315,10 +327,14 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
+          String nameTxt = _companyNameController!.text;
+          String activityTxt = _SectorofActivitiesController!.text;
+          String zipCodeTxt = _zipCodeController!.text;
+          String addressTxt = _addressController!.text;
 
-          //_showToast(_particular_company_selected_status.toString());
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CompanyAccountScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+          if(_inputValidation(name:nameTxt,activities:activityTxt,address:addressTxt,  zipCode: zipCodeTxt )==false){
+            _sendCompanyInfo(name:nameTxt,activities:activityTxt, zipCode: zipCodeTxt,address: addressTxt );
+          }
 
         },
         style: ElevatedButton.styleFrom(
@@ -361,9 +377,93 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
+
+  _inputValidation({
+    required String name,
+    required String activities,
+    required String address,
+    required String zipCode
+  }) {
+
+    if (name.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("name can't empty");
+      return;
+    }
+
+    if (activities.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("activities can't empty");
+      return;
+    }
+    if (address.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("address can't empty");
+      return;
+    }
+    if (zipCode.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("zipCode can't empty");
+      return;
+    }
+
+    return false;
+  }
+
+
+  _sendCompanyInfo({
+    required String name,
+    required String activities,
+    required String address,
+    required String zipCode
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_COMPANY_INFO_CREATE'),
+              body: {
+
+                'user_id': _userId,
+                'company_name': name,
+                'sector_of_activities': activities,
+                'company_address': address,
+                'zip_code': zipCode,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 201) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>CompanyAccountScreen( data["data"]["user_id"].toString())));
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
 
 }
 

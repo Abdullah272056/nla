@@ -1,8 +1,12 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -10,8 +14,10 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../Particular/particular_information.dart';
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
 import 'company_information.dart';
-
 
 class EmailVerificationCompanyScreen extends StatefulWidget {
   String userId;
@@ -24,7 +30,7 @@ class EmailVerificationCompanyScreen extends StatefulWidget {
 class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompanyScreen> {
   String _userId;
   _EmailVerificationCompanyScreenState(this._userId);
-
+  String _otpTxt="";
   String countryName="en",countryIcon="icon_country.png";
 
   String _genderDropDownSelectedValue = "English";
@@ -190,11 +196,11 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForCompanyScreen()));
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForCompanyScreen()));
 
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationParticularScreen()));
-          //_otpTxt = pin;
-         // _showToast(pin);
+          _otpTxt = pin;
+          _userVerify(userId: _userId,otp:_otpTxt );
+
         },
         onChanged: (value) {
           if (value.length < 6) {
@@ -258,6 +264,47 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
     );
   }
 
+  _userVerify(
+      {
+        required String otp,
+        required String userId,
+      }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response = await post(Uri.parse('$BASE_URL_API$SUB_URL_API_COMPANY_EMAIL_VERIFY'),
+              body: {
+                'user_id': userId,
+                'code': otp,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("successfully verified");
+            var data = jsonDecode(response.body.toString());
+
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForCompanyScreen(data["data"]["id"].toString())));
+
+          }
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -266,7 +313,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 

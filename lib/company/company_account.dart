@@ -10,14 +10,16 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 
 class CompanyAccountScreen extends StatefulWidget {
-  const CompanyAccountScreen({Key? key}) : super(key: key);
+  String userId;
+  CompanyAccountScreen(this.userId);
 
   @override
-  State<CompanyAccountScreen> createState() => _CompanyAccountScreenState();
+  State<CompanyAccountScreen> createState() => _CompanyAccountScreenState(this.userId);
 }
 
 class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
-
+  String _userId;
+  _CompanyAccountScreenState(this._userId);
 
   TextEditingController? _companyIDController = TextEditingController();
   TextEditingController? _responsibleNameController = TextEditingController();

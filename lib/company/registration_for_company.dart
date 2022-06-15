@@ -440,17 +440,9 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
           String phoneNumberTxt = _phoneController!.text;
           String promoCodeTxt = _promoCodeController!.text;
 
-
-
           if(_inputValidation(email: emailTxt,phone: phoneNumberTxt,countryNameId: _countryNameId,promoCode: promoCodeTxt)==false){
             _userRegistration(email: emailTxt,mobile:phoneNumberTxt,countryId: _countryNameId,promoCode: promoCodeTxt);
           }
-
-
-          //_showToast(_particular_company_selected_status.toString());
-          //Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForCompanyScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
-
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,

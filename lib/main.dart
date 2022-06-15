@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SignUpForCompanyScreen(),
+        body: SplashScreen1(),
       ),
     );
   }

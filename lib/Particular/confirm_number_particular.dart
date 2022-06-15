@@ -1,9 +1,17 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
+import 'email_verification_particular.dart';
 import 'message_verification_particular.dart';
 
 class ConfirmNumberForParticularScreen extends StatefulWidget {
@@ -191,8 +199,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationParticularScreen(_userId)));
+          _userSendCodeWithPhoneNumber();
 
         },
         style: ElevatedButton.styleFrom(
@@ -254,4 +261,46 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
   }
   //You can create a function with your desirable animation
 
+  _userSendCodeWithPhoneNumber() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_PHONE_NUMBER_SEND_CODE'),
+              body: {
+                'user_id': _userId,
+              }
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>MessageVerificationParticularScreen(_userId)));
+          }
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 }

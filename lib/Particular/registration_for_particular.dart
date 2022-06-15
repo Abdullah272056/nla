@@ -758,7 +758,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                 'phone_number': mobile,
                 'country_id': countryId,
                 'promo_code': promoCode,
-              });
+              }
+              );
           Navigator.of(context).pop();
           if (response.statusCode == 200) {
             _showToast("success");

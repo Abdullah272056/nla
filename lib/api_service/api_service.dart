@@ -14,6 +14,12 @@ String SUB_URL_API_PERSONAL_REGISTRATION = "api/personal-registration-email-or-p
 String SUB_URL_API_EMAIL_SEND_CODE = "api/personal-email-otp-resend/";
 String SUB_URL_API_PERSONAL_EMAIL_VERIFY = "api/personal-email-verify/";
 
+//phone number verify
+String SUB_URL_API_PHONE_NUMBER_SEND_CODE = "api/phone-number-otp-send/";
+String SUB_URL_API_PHONE_NUMBER_RESEND_CODE = "api/phone-number-otp-resend/";
+String SUB_URL_API_PERSONAL_PHONE_VERIFY = "api/phone-number-otp-verify/";
+
+
 
 //particular registration
 String SUB_URL_API_COMPANY_REGISTRATION = "api/company-registration/";

@@ -2,6 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../api_service/sharePreferenceDataSaveName.dart';
+import '../common/log_in/log_in.dart';
 
 
 class SplashScreen1 extends StatefulWidget {
@@ -12,7 +16,29 @@ class SplashScreen1 extends StatefulWidget {
 }
 
 class _SplashScreen1State extends State<SplashScreen1> {
+  String _userId = "";
 
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          Route route = MaterialPageRoute(builder: (context) => LogInScreen());
+          Navigator.pushReplacement(context, route);
+
+        });
+      }
+      else{
+
+      }
+
+    });
+
+
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -157,5 +183,20 @@ class _SplashScreen1State extends State<SplashScreen1> {
 
 
   }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+       // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
 
 }

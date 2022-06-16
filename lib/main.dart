@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 
 import 'Particular/biometric_particular.dart';
-import 'Particular/create_password_particular.dart';
 import 'Particular/particular_information.dart';
 import 'Particular/particular_information2.dart';
 import 'common/log_in/finger_print_done.dart';
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body:CreatePasswordParticularScreen("4")
+        body:SplashScreen1()
 
         //AddInformationForParticularScreen("43"),
       ),

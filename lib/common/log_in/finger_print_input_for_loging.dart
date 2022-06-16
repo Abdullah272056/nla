@@ -12,6 +12,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../navigation_page/navigation_bar_page.dart';
 import 'finger_print_login_loading_page.dart';
@@ -315,6 +316,10 @@ class _FingerPrintInputForLoginScreenState extends State<FingerPrintInputForLogi
 
     );
   }
+
+
+
+
 
 
   _showToast(String message) {

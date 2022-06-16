@@ -3,7 +3,9 @@ import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../static/Colors.dart';
 import 'finger_print_input_for_loging.dart';
 import 'login_loading_page.dart';
@@ -22,7 +24,21 @@ class _LogInScreenState extends State<LogInScreen> {
   int _particular_company_selected_status=1;
   TextEditingController? _emailController = TextEditingController();
   TextEditingController? _passwordController = TextEditingController();
+
+  String _userId = "";
+  String _finger_print_permission_status = "";
+
   bool _isObscure = true;
+
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -307,9 +323,15 @@ class _LogInScreenState extends State<LogInScreen> {
   }
 
   Widget _buildFingerPrintButton() {
-    return   InkResponse(
+    return   InkWell(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>FingerPrintInputForLoginScreen()));
+        if(_userId!=""&&_finger_print_permission_status=="1"){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>FingerPrintInputForLoginScreen()));
+        }
+        else{
+          _showToast("Finger print is not available at this moment!");
+        }
+
 
       },
       child:Container(
@@ -355,10 +377,27 @@ class _LogInScreenState extends State<LogInScreen> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.white,
+        backgroundColor: Colors.hint_color,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        _finger_print_permission_status = sharedPreferences.getString(pref_user_finger_print_permission_status)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+
 
 }
 

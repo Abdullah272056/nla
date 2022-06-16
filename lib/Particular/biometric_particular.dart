@@ -8,7 +8,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../api_service/sharePreferenceDataSaveName.dart';
 import '../common/static/Colors.dart';
 import 'create_password_particular.dart';
 
@@ -151,7 +153,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-
+          saveFingerPrintStatus('1');
           Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen(_userId)));
 
           // if( imageFile==null){
@@ -201,6 +203,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
   Widget _buildMayBeLaterButton() {
     return InkWell(
       onTap: (){
+        saveFingerPrintStatus('');
         Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen(_userId)));
 
       },
@@ -233,202 +236,15 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
         fontSize: 16.0);
   }
 
-  Widget _buildImageSection() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const SizedBox(
-          height: 20,
-        ),
-        Stack(
-          children: [
-            InkResponse(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(65.0),
-                child: Container(
-                    height: 130,
-                    width: 130,
-                    color: Colors.black26,
-                    child: FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      placeholder: 'assets/images/default_image.png',
-                      image: _imageLink,
-                      imageErrorBuilder: (context, url, error) => Image.asset(
-                        'assets/images/default_image.png',
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-              ),
-              onTap: () {
-                // if (_imageLink.isNotEmpty) {
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) =>
-                //               ProfileFullScreenImage(_imageLink)));
-                // }
-              },
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: 90,
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 90,
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          showModalBottomSheet(context: context, builder: ( (builder) =>_buildImageUploadBottomSheet()));
 
-                        },
-                        icon: Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                          size: 27,
-                        ))
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-        // Text(
-        //   _nameValue,
-        //   style: const TextStyle(
-        //     fontSize: 22,
-        //     //fontSize: MediaQuery.of(context).size.height / 25,
-        //     fontWeight: FontWeight.normal,
-        //     color: Colors.white,
-        //   ),
-        // ),
-        SizedBox(
-          height: 20,
-        ),
-      ],
-    );
-  }
-
-  void takeImage(ImageSource source)async{
-    final pickedFile= await _picker.getImage(source: source);
-    setState(() {
-      _imageFile=pickedFile!;
-      imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
-
-     // _imageUpload(img64);
-
-    });
-  }
-
-  _imageUpload(String image64) async {
+  void saveFingerPrintStatus(String fingerPrintStatus) async {
     try {
-      final result = await InternetAddress.lookup('example.com');
-      // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //   _showLoadingDialog(context,"Uploading...");
-      //   try {
-      //     Response response = await put(Uri.parse('$BASE_URL_API$SUB_URL_FOR_IMAGE_UPLOAD_API$_userId/'),
-      //         headers: {
-      //           "Authorization": "Token $_accessToken",
-      //         },
-      //         body: {
-      //           'profile_image': image64,
-      //
-      //         });
-      //     Navigator.of(context).pop();
-      //
-      //
-      //     if (response.statusCode==200) {
-      //       _showToast("Update Successfully");
-      //       setState(() {
-      //         var data = jsonDecode(response.body);
-      //         _imageLink = data['data']["user_image"].toString();
-      //         saveUserImage(data['data']["user_image"].toString());
-      //
-      //       });
-      //
-      //
-      //     }
-      //     else {
-      //       _showToast("Failed! try again");
-      //     }
-      //
-      //   } catch (e) {
-      //
-      //     print(e.toString());
-      //
-      //   }
-      // }
-    } on SocketException catch (e) {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setString(pref_user_finger_print_permission_status,fingerPrintStatus);
 
+    } catch (e) {
+      //code
     }
-  }
-
-  Widget _buildImageUploadBottomSheet() {
-    return Container(
-      height: 100,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-      child: Column(
-        children: [
-          Text("Choose",
-              style: const TextStyle(
-                fontFamily: 'PT-Sans',
-                fontSize: 18,
-                // color: Colors.black,
-              )
-          ),
-          SizedBox(height: 20,),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(child: TextButton.icon(     // <-- TextButton
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  takeImage(ImageSource.camera);
-                },
-                icon: Icon(
-                  Icons.camera,
-                  size: 30.0,
-                ),
-                label: Text('Camera',
-                    style: const TextStyle(
-                      fontFamily: 'PT-Sans',
-                      fontSize: 18,
-                      // color: Colors.black,
-                    )
-                ),
-              ),),
-              Expanded(child: TextButton.icon(     // <-- TextButton
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  takeImage(ImageSource.gallery);
-                },
-                icon: Icon(
-                  Icons.image,
-                  size: 30.0,
-                ),
-                label: Text('Gallery',style: const TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize: 18,
-                  // color: Colors.black,
-                ),),
-              ),)
-
-
-
-
-            ],
-          )
-        ],
-      ),
-
-    );
   }
 
 }

@@ -5,12 +5,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../api_service/api_service.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../navigation_page/navigation_bar_page.dart';
+import '../static/toast.dart';
 
 
 class FingerPrintLoginLoadingScreen extends StatefulWidget {
@@ -24,18 +30,26 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
 
   int loging_status=1;
 
+  String _userId = "";
+  String _finger_print_permission_status = "";
+
   @override
   @mustCallSuper
   initState() {
     super.initState();
-    Timer(Duration(milliseconds: 2500), () {
-      setState(() {
-        loging_status=2;
-        _delay();
-      });
+
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=""&&_finger_print_permission_status=="1"){
+        setState(() {
+          _userLoginWithFingerPrint();
+        });
+
+      }
+      else{
+        showToast("Finger print is not available at this moment!");
+      }
 
     });
-
   }
   @override
   Widget build(BuildContext context) {
@@ -247,5 +261,64 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
 
     });
   }
+
+  _userLoginWithFingerPrint() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //_showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_LOGIN_FINGERPRINT$_userId/'),
+          );
+          //Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              saveUserInfo(data);
+              loging_status=2;
+              _delay();
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        _finger_print_permission_status = sharedPreferences.getString(pref_user_finger_print_permission_status)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+void saveUserInfo(var userInfo) async {
+  try {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    sharedPreferences.setString(pref_user_id, userInfo['data']['id'].toString());
+    sharedPreferences.setString(pref_user_uuid, userInfo['data']['uuid'].toString());
+  } catch (e) {
+    //code
+  }
+
+}
+
 
 }

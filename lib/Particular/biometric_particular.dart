@@ -13,13 +13,16 @@ import '../common/static/Colors.dart';
 import 'create_password_particular.dart';
 
 class BiometricParticularScreen extends StatefulWidget {
-  const BiometricParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  BiometricParticularScreen(this.userId);
 
   @override
-  State<BiometricParticularScreen> createState() => _BiometricParticularScreenState();
+  State<BiometricParticularScreen> createState() => _BiometricParticularScreenState(this.userId);
 }
 
 class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
+  String _userId;
+  _BiometricParticularScreenState(this._userId);
 
   //image upload
   PickedFile? _imageFile;
@@ -149,7 +152,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
         onPressed: () {
 
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen(_userId)));
 
           // if( imageFile==null){
           //   _showToast("please select document image!");
@@ -198,7 +201,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
   Widget _buildMayBeLaterButton() {
     return InkWell(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePasswordParticularScreen(_userId)));
 
       },
       child: Container(

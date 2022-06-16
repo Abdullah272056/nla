@@ -17,14 +17,16 @@ import '../common/static/Colors.dart';
 import 'biometric_particular.dart';
 
 class ScanDoneParticularScreen extends StatefulWidget {
-  const ScanDoneParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanDoneParticularScreen(this.userId);
 
   @override
-  State<ScanDoneParticularScreen> createState() => _ScanDoneParticularScreenState();
+  State<ScanDoneParticularScreen> createState() => _ScanDoneParticularScreenState(this.userId);
 }
 
 class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
-
+  String _userId;
+  _ScanDoneParticularScreenState(this._userId);
   //image upload
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
@@ -118,7 +120,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-         Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricParticularScreen()));
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>BiometricParticularScreen(_userId)));
 
         },
         style: ElevatedButton.styleFrom(

@@ -42,7 +42,9 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: AddInformationForParticularScreen("43"),
+        body:SplashScreen1()
+
+        //AddInformationForParticularScreen("43"),
       ),
     );
   }

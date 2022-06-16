@@ -186,7 +186,7 @@ class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScr
             _showToast("please select document image!");
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen(_userId)));
             //_showToast("Ok");
           }
 

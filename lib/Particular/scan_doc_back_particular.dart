@@ -17,13 +17,18 @@ import 'package:scan/scan.dart';
 import '../common/static/Colors.dart';
 
 class ScanDocBackParticularScreen extends StatefulWidget {
-  const ScanDocBackParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanDocBackParticularScreen(this.userId);
 
   @override
-  State<ScanDocBackParticularScreen> createState() => _ScanDocBackParticularScreenState();
+  State<ScanDocBackParticularScreen> createState() => _ScanDocBackParticularScreenState(this.userId);
 }
 
 class _ScanDocBackParticularScreenState extends State<ScanDocBackParticularScreen> {
+  String _userId;
+  _ScanDocBackParticularScreenState(this._userId);
+
+
   String countryName="en",countryIcon="icon_country.png";
 
 int _particular_company_selected_status=1;
@@ -180,11 +185,8 @@ int _particular_company_selected_status=1;
             _showToast("please select document image!");
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanFaceParticularScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanFaceParticularScreen(_userId)));
           }
-
-
-
 
         },
         style: ElevatedButton.styleFrom(

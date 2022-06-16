@@ -561,7 +561,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
           Response response =
           await put(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_INFO_CREATE2$_userId/'),
               body: {
-                'nationality': nationality,
+                'nationalitys': nationality,
                 'country_id': placeOfBirth,
                 'gender': genderId,
               });
@@ -818,7 +818,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                             setState(() {
                               Navigator.of(context).pop();
 
-                              _nationality = _countryListData[index]['country_name'].toString();
+                              _nationality = _countryListData[index]['nationalitys'].toString();
                               _nationalityCountryCode = _countryListData[index]['country_code_name']
                                   .toString();
                               _nationalityCountryNameId = _countryListData[index]['country_id'].toString();
@@ -844,7 +844,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                                     ),
                                     Expanded(
                                       child: Text(
-                                        _countryListData[index]['country_name']
+                                        _countryListData[index]['nationalitys']
                                             .toString(),
                                         style: TextStyle(
                                           fontSize: 17,

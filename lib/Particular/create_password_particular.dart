@@ -7,16 +7,18 @@ import 'create_pin_particular.dart';
 
 
 class CreatePasswordParticularScreen extends StatefulWidget {
-  const CreatePasswordParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  CreatePasswordParticularScreen(this.userId);
 
   @override
-  State<CreatePasswordParticularScreen> createState() => _CreatePasswordParticularScreenState();
+  State<CreatePasswordParticularScreen> createState() => _CreatePasswordParticularScreenState(this.userId);
 }
 
 class _CreatePasswordParticularScreenState extends State<CreatePasswordParticularScreen> {
+  String _userId;
+  _CreatePasswordParticularScreenState(this._userId);
+
   String countryName="en",countryIcon="icon_country.png";
-
-
   TextEditingController? _confirmPasswordController = TextEditingController();
   TextEditingController? _passwordController = TextEditingController();
   bool _isObscure = true;

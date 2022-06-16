@@ -17,14 +17,16 @@ import 'package:scan/scan.dart';
 import '../common/static/Colors.dart';
 
 class ScanFaceParticularScreen extends StatefulWidget {
-  const ScanFaceParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanFaceParticularScreen(this.userId);
 
   @override
-  State<ScanFaceParticularScreen> createState() => _ScanFaceParticularScreenState();
+  State<ScanFaceParticularScreen> createState() => _ScanFaceParticularScreenState(this.userId);
 }
 
 class _ScanFaceParticularScreenState extends State<ScanFaceParticularScreen> {
-
+  String _userId;
+  _ScanFaceParticularScreenState(this._userId);
 
 
   //image upload
@@ -177,7 +179,7 @@ class _ScanFaceParticularScreenState extends State<ScanFaceParticularScreen> {
             _showToast("please add your face image!");
           }
           else{
-             Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDoneParticularScreen()));
+             Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDoneParticularScreen(_userId)));
 
           }
 

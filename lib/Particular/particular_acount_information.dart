@@ -456,7 +456,6 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
-
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -509,7 +508,6 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
-
   _getCountryDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -539,6 +537,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
       showToast("No Internet Connection!");
     }
   }
+
   void _showAlertDialog(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -766,5 +765,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
         textColor: Colors.black,
         fontSize: 16.0);
   }
+
+
 }
 

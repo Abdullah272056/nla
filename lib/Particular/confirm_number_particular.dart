@@ -300,7 +300,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 }

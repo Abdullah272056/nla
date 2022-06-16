@@ -1,8 +1,15 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
+import '../api_service/api_service.dart';
 import '../common/static/Colors.dart';
+import '../common/static/loding_dialog.dart';
+import '../common/static/toast.dart';
 import 'create_pin_particular.dart';
 
 
@@ -266,7 +273,16 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePinParticularScreen()));
+          String newPasswordTxt = _passwordController!.text;
+          String confirmPasswordTxt = _confirmPasswordController!.text;
+
+
+          if(_inputValidation(newPassword:newPasswordTxt,confirmPassword:confirmPasswordTxt  )==false){
+            _sendPasswordInfo(newPassword:newPasswordTxt,confirmPassword:confirmPasswordTxt  );
+          }
+
+
+
 
         },
         style: ElevatedButton.styleFrom(
@@ -302,6 +318,86 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
     );
   }
 
+  _inputValidation({
+    required String newPassword,
+    required String confirmPassword,
+  }) {
+
+    if (newPassword.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("new password can't empty");
+      return;
+    }
+
+    if (newPassword.length<8) {
+      Fluttertoast.cancel();
+      validation_showToast("new password must be 8 digit");
+      return;
+    }
+
+    if (confirmPassword.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("confirm password can't empty");
+      return;
+    }
+
+
+    if (newPassword!=confirmPassword) {
+      Fluttertoast.cancel();
+      validation_showToast("new password and confirm password does not match");
+      return;
+    }
+
+    return false;
+  }
+  _sendPasswordInfo({
+    required String newPassword,
+    required String confirmPassword,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_CREATE_PASSWORD'),
+              body: {
+
+                'user_id': _userId,
+                'new_password': newPassword,
+                'confirm_password': confirmPassword,
+
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 201) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePinParticularScreen()));
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -309,7 +405,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 

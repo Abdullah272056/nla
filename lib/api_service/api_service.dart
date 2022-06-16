@@ -17,13 +17,13 @@ String SUB_URL_API_PERSONAL_INFO_CREATE = "api/personal-registration/";
 String SUB_URL_API_PERSONAL_INFO_CREATE2 = "api/personal-info/";
 String SUB_URL_API_PERSONAL_ACCOUNT_INFO_CREATE= "api/personal-account-info/";
 String SUB_URL_API_PERSONAL_CREATE_PASSWORD = "api/personal-password/";
+String SUB_URL_API_PERSONAL_CREATE_PIN = "api/company-transaction-pin/";
 
 
 //phone number verify
 String SUB_URL_API_PHONE_NUMBER_SEND_CODE = "api/phone-number-otp-send/";
 String SUB_URL_API_PHONE_NUMBER_RESEND_CODE = "api/phone-number-otp-resend/";
 String SUB_URL_API_PERSONAL_PHONE_VERIFY = "api/phone-number-otp-verify/";
-
 
 
 //Company registration

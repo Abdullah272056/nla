@@ -350,6 +350,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
 
     return false;
   }
+
   _sendPasswordInfo({
     required String newPassword,
     required String confirmPassword,
@@ -377,7 +378,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
               //_showToast("success");
               var data = jsonDecode(response.body);
 
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePinParticularScreen()));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>CreatePinParticularScreen(_userId)));
             });
           }
 

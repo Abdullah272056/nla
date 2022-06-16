@@ -12,13 +12,18 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'create_confirm_pin_particular.dart';
 
 class CreatePinParticularScreen extends StatefulWidget {
-  const CreatePinParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  CreatePinParticularScreen(this.userId);
 
   @override
-  State<CreatePinParticularScreen> createState() => _CreatePinParticularScreenState();
+  State<CreatePinParticularScreen> createState() => _CreatePinParticularScreenState(this.userId);
+
 }
 
 class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
+
+  String _userId;
+  _CreatePinParticularScreenState(this._userId);
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +157,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen(_userId,pin)));
 
 
           //_otpTxt = pin;

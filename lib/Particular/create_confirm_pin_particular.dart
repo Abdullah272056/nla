@@ -1,21 +1,39 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../api_service/api_service.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
+import '../common/navigation_page/home_page.dart';
+import '../common/navigation_page/navigation_bar_page.dart';
+import '../common/static/loding_dialog.dart';
 
 class CreateConfirmPinParticularScreen extends StatefulWidget {
-  const CreateConfirmPinParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  String newPin;
+  CreateConfirmPinParticularScreen(this.userId,this.newPin);
+
 
   @override
-  State<CreateConfirmPinParticularScreen> createState() => _CreateConfirmPinParticularScreenState();
+  State<CreateConfirmPinParticularScreen> createState() => _CreateConfirmPinParticularScreenState(this.userId,this.newPin);
 }
 
 class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParticularScreen> {
+  String _userId;
+  String _newPin;
+  _CreateConfirmPinParticularScreenState(this._userId,this._newPin);
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +169,16 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
         // onSubmitted: (value) {
         //   print("search");
         // },
-        onCompleted: (pin) {
+        onCompleted: (confirmPin) {
+
+
+          if(_newPin!=confirmPin){
+            _showToast("new pin and confirm pin does not match");
+          }else{
+            // call api
+            _sendPersonalPin(newPin:_newPin,confirmPin: confirmPin );
+          }
+
         //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
 
 
@@ -167,8 +194,68 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     );
   }
 
+  _sendPersonalPin({
+    required String newPin,
+    required String confirmPin,
 
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_CREATE_PIN'),
+              body: {
+                'user_id': _userId,
+                'new_pin': newPin,
+                'confirm_pin': confirmPin,
 
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 201) {
+            _showToast("success");
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              saveUserId(_userId);
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+                ), (route) => false,
+              );
+
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+  void saveUserId(String userId) async {
+    try {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      sharedPreferences.setString(pref_user_id,userId);
+
+    } catch (e) {
+      //code
+    }
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -177,7 +264,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 

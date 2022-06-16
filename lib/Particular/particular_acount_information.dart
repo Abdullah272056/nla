@@ -14,6 +14,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
 import '../common/static/toast.dart';
 
 
@@ -466,9 +467,10 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                       dateOfExpire:_dateOfExpiry, dateOfIssue: _dateOfIssue
           )==false){
 
-            // _sendPersonalInfo(nationality:_nationalityCountryNameId,
-            //     genderId:_particular_gender_selected_status.toString(),
-            //     placeOfBirth:_placeOFBirthCountryNameId);
+
+            _sendPersonalAccountInfo(country_id:_countryNameId,date_of_expiry: _dateOfExpiry,
+                date_of_issue: _dateOfIssue,passport_or_nid_no: passportORNIDTxt);
+
           }
 
          // Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen()));
@@ -506,18 +508,6 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
       ),
     );
   }
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
-
 
 
   _getCountryDataList() async {
@@ -677,6 +667,55 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  _sendPersonalAccountInfo({
+    required String passport_or_nid_no,
+    required String date_of_issue,
+    required String date_of_expiry,
+    required String country_id,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_ACCOUNT_INFO_CREATE'),
+              body: {
+                'passport_or_nid_no': passport_or_nid_no,
+                'date_of_issue': date_of_issue,
+                'date_of_expiry': date_of_expiry,
+                'user_id': _userId,
+                'country_id': country_id,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 201) {
+            // _showToast("success");
+            setState(() {
+              //_showToast("success");
+
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen(_userId)));
+
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
 
   _inputValidation(
       { required String passportNo,
@@ -717,6 +756,15 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     return false;
   }
 
-
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        fontSize: 16.0);
+  }
 }
 

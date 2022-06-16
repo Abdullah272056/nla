@@ -17,16 +17,22 @@ import 'package:scan/scan.dart';
 import '../common/static/Colors.dart';
 
 class ScanDocFrontParticularScreen extends StatefulWidget {
-  const ScanDocFrontParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  ScanDocFrontParticularScreen(this.userId);
 
   @override
-  State<ScanDocFrontParticularScreen> createState() => _ScanDocFrontParticularScreenState();
+  State<ScanDocFrontParticularScreen> createState() => _ScanDocFrontParticularScreenState(this.userId);
 }
 
 class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScreen> {
+  String _userId;
+  _ScanDocFrontParticularScreenState(this._userId);
+
+
+
   String countryName="en",countryIcon="icon_country.png";
 
-int _particular_company_selected_status=1;
+  int _particular_company_selected_status=1;
   ScanController controller = ScanController();
   String qrcode = 'Unknown';
 

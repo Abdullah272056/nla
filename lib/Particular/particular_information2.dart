@@ -342,8 +342,6 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
             _sendPersonalInfo(nationality:_nationalityCountryNameId,
                 genderId:_particular_gender_selected_status.toString(),
                 placeOfBirth:_placeOFBirthCountryNameId);
-
-
           }
 
 
@@ -575,7 +573,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
             setState(() {
               //_showToast("success");
               var data = jsonDecode(response.body);
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>ParticularAccountInformationScreen()));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>ParticularAccountInformationScreen(_userId)));
 
             });
           }

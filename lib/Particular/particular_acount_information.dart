@@ -1,33 +1,59 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/Particular/scan_doc_front_particular.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/toast.dart';
+
 
 class ParticularAccountInformationScreen extends StatefulWidget {
-  const ParticularAccountInformationScreen({Key? key}) : super(key: key);
+  String userId;
+  ParticularAccountInformationScreen(this.userId);
 
   @override
-  State<ParticularAccountInformationScreen> createState() => _ParticularAccountInformationScreenState();
+  State<ParticularAccountInformationScreen> createState() => _ParticularAccountInformationScreenState(this.userId);
 }
 
 class _ParticularAccountInformationScreenState extends State<ParticularAccountInformationScreen> {
 
-  TextEditingController? _nameController = TextEditingController();
+  String _userId;
+  _ParticularAccountInformationScreenState(this._userId);
+
+
+  TextEditingController? _passwordOrNidController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();
   TextEditingController? _birthDayController = TextEditingController();
   TextEditingController? _countryController = TextEditingController();
 
+
+
+  late DateTime _myDate;
+  String _dateOfIssue="select date";
+  String _select_your_dateOfIssue="select date";
+
+  String _dateOfExpiry="select date";
+  String _select_your_dateOfExpiry="select date";
+
+
+
+  List _countryList = [];
+
   String _countryName="Select your country";
   String select_your_country="Select your country";
-
-
-
+  String _countryCode = "BD";
+ // String _placeOFBirthCountryCode="IT";
+  String _countryNameId="0";
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +161,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                       height: 0,
                     ),
 
-                    userInputPassportNoOrIDCard(_nameController!, 'Passport No or ID Card', TextInputType.text),
+                    userInputPassportNoOrIDCard(_passwordOrNidController!, 'Passport No or ID Card', TextInputType.number),
 
                     SizedBox(
                       height: 20,
@@ -156,7 +182,13 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                       ),
                     ),
 
+
                     userInputDateOfIssue(_birthDayController!, 'select date', TextInputType.datetime),
+                    Container( color: novalexxa_hint_text_color,
+                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+                      height: .5,
+                    ),
+
 
                     SizedBox(
                       height: 20,
@@ -175,6 +207,11 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                     ),
 
                     userInputDateOfExpire(_birthDayController!, 'select date', TextInputType.datetime),
+                    Container( color: novalexxa_hint_text_color,
+                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+                      height: .5,
+                    ),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -264,7 +301,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: hint_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -275,7 +312,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
   Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){
-
+        _getCountryDataList();
       },
       child: Container(
         height: 52,
@@ -300,8 +337,8 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                         fontWeight: FontWeight.normal)
                 )),
               },
-
-              Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+              Flag.fromString(_countryCode, height: 18, width: 22, fit: BoxFit.fill)
+            //  Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
             ],
           ),
 
@@ -311,105 +348,130 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
   }
 
   Widget userInputDateOfIssue(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
+    return InkResponse(
+      onTap: () async {
+        _myDate = (await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        ))!;
 
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.,
+        setState(() {
+          _dateOfIssue = _myDate.toString();
+          _dateOfIssue = DateFormat('yyyy-MM-dd').format(_myDate);
+        });
 
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
+      },
+      child: SizedBox(
+        height: 52,
 
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            suffixIcon: Image(
-              image: AssetImage(
-                  "assets/images/icon_calendar.png"
+        child: Padding(
+          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          child:Flex(direction: Axis.horizontal,
+            children: [
+              if(_dateOfIssue==_select_your_dateOfIssue)...{
+                Expanded(child: Text(_dateOfIssue,
+                    style: TextStyle(
+                        color: hint_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              }
+              else...{
+                Expanded(child: Text(_dateOfIssue,
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              },
+              Image.asset(
+                "assets/images/icon_calendar.png",
+                width: 18,
+                height: 18,
+                fit: BoxFit.fill,
               ),
-              height: 18,
-              width: 18,
-              fit: BoxFit.fill,
-            ),
-
-
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+              // Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+            ],
           ),
-          keyboardType: keyboardType,
+
         ),
       ),
     );
   }
+
   Widget userInputDateOfExpire(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-      height: 55,
+    return InkResponse(
+      onTap: () async {
+        _myDate = (await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        ))!;
 
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.,
+        setState(() {
+          _dateOfExpiry = _myDate.toString();
+          _dateOfExpiry = DateFormat('yyyy-MM-dd').format(_myDate);
+        });
 
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
+      },
+      child: SizedBox(
+        height: 52,
 
-            suffixIconConstraints: BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            suffixIcon: Image(
-              image: AssetImage(
-                  "assets/images/icon_calendar.png"
+        child: Padding(
+          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          child:Flex(direction: Axis.horizontal,
+            children: [
+              if(_dateOfExpiry==_select_your_dateOfExpiry)...{
+                Expanded(child: Text(_dateOfExpiry,
+                    style: TextStyle(
+                        color: hint_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              }
+              else...{
+                Expanded(child: Text(_dateOfExpiry,
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal)
+                )),
+              },
+              Image.asset(
+                "assets/images/icon_calendar.png",
+                width: 18,
+                height: 18,
+                fit: BoxFit.fill,
               ),
-              height: 18,
-              width: 18,
-              fit: BoxFit.fill,
-            ),
-
-
-
-            hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+              // Flag.fromCode(FlagsCode.BD, height: 18, width: 22, fit: BoxFit.fill)
+            ],
           ),
-          keyboardType: keyboardType,
+
         ),
       ),
     );
   }
+
 
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
+          String passportORNIDTxt = _passwordOrNidController!.text;
+          if(_inputValidation(countryId:_countryNameId,passportNo: passportORNIDTxt,
+                      dateOfExpire:_dateOfExpiry, dateOfIssue: _dateOfIssue
+          )==false){
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+            // _sendPersonalInfo(nationality:_nationalityCountryNameId,
+            //     genderId:_particular_gender_selected_status.toString(),
+            //     placeOfBirth:_placeOFBirthCountryNameId);
+          }
+
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontParticularScreen()));
 
         },
         style: ElevatedButton.styleFrom(
@@ -455,6 +517,206 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
+
+
+  _getCountryDataList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$GET_COUNTRY_LIST'),
+          );
+          Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _countryList = data["data"];
+              _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showAlertDialog(BuildContext context, List _countryListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your country",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _countryList == null ? 0 : _countryList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              _countryName = _countryListData[index]['country_name'].toString();
+                              _countryCode = _countryListData[index]['country_code_name']
+                                  .toString();
+                              _countryNameId = _countryListData[index]['country_id'].toString();
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Flag.fromString(
+                                        _countryListData[index]
+                                        ['country_code_name']
+                                            .toString(),
+                                        height: 25,
+                                        width: 25),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _countryListData[index]['country_name']
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+
+  _inputValidation(
+      { required String passportNo,
+        required String dateOfIssue,
+        required String dateOfExpire,
+        required String countryId,
+      }) {
+    if (passportNo.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("passport or NID can't empty");
+      return;
+    }
+
+    if (_dateOfIssue=="select date") {
+      Fluttertoast.cancel();
+      validation_showToast("date of issue can't empty");
+      return;
+    }
+    if (_dateOfExpiry=="select date") {
+      Fluttertoast.cancel();
+      validation_showToast("date of expire can't empty");
+      return;
+    }
+    if (countryId=="0") {
+      Fluttertoast.cancel();
+      validation_showToast("please select your country");
+      return;
+    }
+
+
+    // if (genderId!="1"||genderId!="2") {
+    //   Fluttertoast.cancel();
+    //   validation_showToast("please select gender");
+    //   return;
+    // }
+
+
+    return false;
+  }
+
 
 }
 

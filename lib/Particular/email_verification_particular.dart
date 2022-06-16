@@ -217,7 +217,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
             _showToast("successfully verified");
             var data = jsonDecode(response.body.toString());
          //   saveUserInfo(data["data"]);
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen(_userId)));
 
 
           }

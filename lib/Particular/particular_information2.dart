@@ -13,14 +13,16 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'confirm_number_particular.dart';
 
 class AddInformationForParticular2Screen extends StatefulWidget {
-  const AddInformationForParticular2Screen({Key? key}) : super(key: key);
+  String userId;
+  AddInformationForParticular2Screen(this.userId);
 
   @override
-  State<AddInformationForParticular2Screen> createState() => _AddInformationForParticularScreen2State();
+  State<AddInformationForParticular2Screen> createState() => _AddInformationForParticularScreen2State(this.userId);
 }
 
 class _AddInformationForParticularScreen2State extends State<AddInformationForParticular2Screen> {
-
+  String _userId;
+  _AddInformationForParticularScreen2State(this._userId);
 
   TextEditingController? _nameController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();

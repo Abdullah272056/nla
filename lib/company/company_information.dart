@@ -277,8 +277,6 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
-
-
   Widget userInputBirthDay(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){

@@ -13,6 +13,8 @@ String GET_COUNTRY_LIST= "api/country-info/";
 String SUB_URL_API_PERSONAL_REGISTRATION = "api/personal-registration-email-or-phone/";
 String SUB_URL_API_EMAIL_SEND_CODE = "api/personal-email-otp-resend/";
 String SUB_URL_API_PERSONAL_EMAIL_VERIFY = "api/personal-email-verify/";
+String SUB_URL_API_PERSONAL_INFO_CREATE = "api/personal-registration/";
+
 
 //phone number verify
 String SUB_URL_API_PHONE_NUMBER_SEND_CODE = "api/phone-number-otp-send/";
@@ -21,7 +23,7 @@ String SUB_URL_API_PERSONAL_PHONE_VERIFY = "api/phone-number-otp-verify/";
 
 
 
-//particular registration
+//Company registration
 String SUB_URL_API_COMPANY_REGISTRATION = "api/company-registration/";
 String SUB_URL_API_EMAIL_SEND_CODE_COMPANY = "api/company-email-otp-resend/";
 String SUB_URL_API_COMPANY_EMAIL_VERIFY = "api/company-email-verify/";

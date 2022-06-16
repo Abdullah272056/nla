@@ -1,33 +1,46 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
 import '../common/static/toast.dart';
 import 'confirm_number_particular.dart';
 
 class AddInformationForParticularScreen extends StatefulWidget {
-  const AddInformationForParticularScreen({Key? key}) : super(key: key);
+  String userId;
+  AddInformationForParticularScreen(this.userId);
 
   @override
-  State<AddInformationForParticularScreen> createState() => _AddInformationForParticularScreenState();
+  State<AddInformationForParticularScreen> createState() => _AddInformationForParticularScreenState(this.userId);
 }
 
 class _AddInformationForParticularScreenState extends State<AddInformationForParticularScreen> {
-
+  String _userId;
+  _AddInformationForParticularScreenState(this._userId);
 
   TextEditingController? _nameController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();
   TextEditingController? _birthDayController = TextEditingController();
-  String _countryBirthDay="Enter Birthday";
+  String _particularBirthDate="Enter Birthday";
   String select_your_country="Enter Birthday";
+
+  late DateTime _myDate;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -167,6 +180,11 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       ),
                     ),
 
+                    const SizedBox(
+                      height: 10,
+                    ),
+
+
                     userInputBirthDay(_birthDayController!, 'BirthDay', TextInputType.datetime),
                     Container( color: novalexxa_hint_text_color,
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
@@ -253,7 +271,18 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
 
   Widget userInputBirthDay(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
-      onTap: (){
+      onTap: () async {
+        _myDate = (await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        ))!;
+
+        setState(() {
+          _particularBirthDate = _myDate.toString();
+          _particularBirthDate = DateFormat('yyyy-MM-dd').format(_myDate);
+        });
 
       },
       child: SizedBox(
@@ -263,8 +292,8 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
           padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
           child:Flex(direction: Axis.horizontal,
             children: [
-              if(_countryBirthDay==select_your_country)...{
-                Expanded(child: Text(_countryBirthDay,
+              if(_particularBirthDate==select_your_country)...{
+                Expanded(child: Text(_particularBirthDate,
                     style: TextStyle(
                         color: hint_color,
                         fontSize: 18,
@@ -272,7 +301,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                 )),
               }
               else...{
-                Expanded(child: Text(_countryBirthDay,
+                Expanded(child: Text(_particularBirthDate,
                     style: TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 18,
@@ -302,10 +331,12 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
 
           String nameTxt = _nameController!.text;
           String surNameTxt = _surnameController!.text;
-          String birthDayTxt = _birthDayController!.text;
 
-          if(_inputValidation(name: nameTxt,surname: surNameTxt,birthday: birthDayTxt)==false){
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+
+          if(_inputValidation(name: nameTxt,surname: surNameTxt,birthday: _particularBirthDate)==false){
+            _sendPersonalInfo(name:nameTxt,surname: surNameTxt,birthday: _particularBirthDate );
+           // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen()));
+
           }
 
 
@@ -343,8 +374,9 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
+
   _inputValidation(
-      {required String name,
+      { required String name,
         required String surname,
         required String birthday,
        }) {
@@ -359,14 +391,66 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
       return;
     }
 
-    // if (birthday.isEmpty) {
-    //   Fluttertoast.cancel();
-    //   validation_showToast("birthday can't empty");
-    //   return;
-    // }
+    if (birthday.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("birth date can't empty");
+      return;
+    }
+    if (birthday==select_your_country) {
+       Fluttertoast.cancel();
+       validation_showToast("birth date can't empty");
+       return;
+    }
 
 
     return false;
+  }
+
+  _sendPersonalInfo({
+    required String name,
+    required String surname,
+    required String birthday,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await put(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_INFO_CREATE$_userId/'),
+              body: {
+                'name': name,
+                'surname': surname,
+                'birthday': birthday,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticular2Screen(_userId)));
+
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
 
   _showToast(String message) {
@@ -376,9 +460,12 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
+
+
+
 
 }
 

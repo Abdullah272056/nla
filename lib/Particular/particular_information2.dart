@@ -1,15 +1,22 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/Particular/particular_acount_information.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/log_in/log_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../api_service/api_service.dart';
+import '../common/static/loding_dialog.dart';
+import '../common/static/toast.dart';
 import 'confirm_number_particular.dart';
 
 class AddInformationForParticular2Screen extends StatefulWidget {
@@ -30,15 +37,25 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
 
   String _nationality="Nationality";
   String select_your__nationality="Nationality";
-  FlagsCode _nationalityCountryFlagCode=FlagsCode.IT;
+  String _nationalityCountryCode="IT";
+  String _nationalityCountryNameId="0";
+
 
   String _placeOFBirth="Place of Birth";
   String select_your_place_of_birth="Place of Birth";
-  FlagsCode _placeOFBirthCountryFlagCode=FlagsCode.IT;
+  String _placeOFBirthCountryCode="IT";
+  String _placeOFBirthCountryNameId="0";
 
 
-  int _particular_company_selected_status=1;
+  int _particular_gender_selected_status=1;
 
+  //String _countryCode="IT";
+  String _countryCode = "IT";
+  List _countryList = [];
+
+  String _countryName="Select your country";
+  String select_your_country="Select your country";
+  String _countryNameId = "0";
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +254,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   Widget userInputNationality(TextEditingController userInput, ) {
     return InkResponse(
       onTap: (){
-
+        _getCountryDataListForNationality();
       },
       child: Container(
         height: 52,
@@ -263,8 +280,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                         fontWeight: FontWeight.normal)
                 )),
               },
+              Flag.fromString(_nationalityCountryCode, height: 18, width: 22, fit: BoxFit.fill)
 
-              Flag.fromCode(_nationalityCountryFlagCode, height: 18, width: 22, fit: BoxFit.fill)
             ],
           ),
 
@@ -276,7 +293,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   Widget userInputPlaceOfBirth(TextEditingController userInput,) {
     return InkResponse(
       onTap: (){
-
+        _getCountryDataList();
       },
       child: Container(
         height: 52,
@@ -302,8 +319,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                         fontWeight: FontWeight.normal)
                 )),
               },
+              Flag.fromString(_placeOFBirthCountryCode, height: 18, width: 22, fit: BoxFit.fill)
 
-              Flag.fromCode(_placeOFBirthCountryFlagCode, height: 18, width: 22, fit: BoxFit.fill)
             ],
           ),
 
@@ -318,9 +335,17 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
       child: ElevatedButton(
         onPressed: () {
 
-          //_showToast(_particular_company_selected_status.toString());
-         Navigator.push(context,MaterialPageRoute(builder: (context)=>ParticularAccountInformationScreen()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+          if(_inputValidation(nationality:_nationalityCountryNameId,
+              genderId:_particular_gender_selected_status.toString(),
+              placeOfBirth:_placeOFBirthCountryNameId )==false){
+
+            _sendPersonalInfo(nationality:_nationalityCountryNameId,
+                genderId:_particular_gender_selected_status.toString(),
+                placeOfBirth:_placeOFBirthCountryNameId);
+
+
+          }
+
 
         },
         style: ElevatedButton.styleFrom(
@@ -449,11 +474,11 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 onTap: (){
                   // _showToast("company");
                   setState(() {
-                    _particular_company_selected_status=1;
+                    _particular_gender_selected_status=1;
                   });
 
                 },
-                child: Image.asset(_particular_company_selected_status==1?
+                child: Image.asset(_particular_gender_selected_status==1?
                 "assets/images/male_selected_icon.png":
                   "assets/images/male_unselected_icon.png",
                   //"assets/images/female_unselected.png",
@@ -490,11 +515,11 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                 onTap: (){
                   //_showToast("particular");
                   setState(() {
-                    _particular_company_selected_status=2;
+                    _particular_gender_selected_status=2;
                   });
 
                 },
-                child: Image.asset(_particular_company_selected_status==2?
+                child: Image.asset(_particular_gender_selected_status==2?
                 "assets/images/female_selected_icon.png":"assets/images/female_unselected.png",
 
                   width: 35,
@@ -524,6 +549,81 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     );
   }
 
+
+  _sendPersonalInfo({
+    required String nationality,
+    required String placeOfBirth,
+    required String genderId,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await put(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_INFO_CREATE2$_userId/'),
+              body: {
+                'nationality': nationality,
+                'country_id': placeOfBirth,
+                'gender': genderId,
+              });
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>ParticularAccountInformationScreen()));
+
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+  _inputValidation(
+      { required String nationality,
+        required String placeOfBirth,
+        required String genderId,
+      }) {
+    if (nationality=="0") {
+      Fluttertoast.cancel();
+      validation_showToast("nationality can't empty");
+      return;
+    }
+    if (placeOfBirth=="0") {
+      Fluttertoast.cancel();
+      validation_showToast("place of birth can't empty");
+      return;
+    }
+
+    // if (genderId!="1"||genderId!="2") {
+    //   Fluttertoast.cancel();
+    //   validation_showToast("please select gender");
+    //   return;
+    // }
+
+
+    return false;
+  }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -531,8 +631,286 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
+  }
+
+
+  _getCountryDataList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$GET_COUNTRY_LIST'),
+          );
+          Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _countryList = data["data"];
+              _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+   void _showAlertDialog(BuildContext context, List _countryListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your country",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _countryList == null ? 0 : _countryList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              _placeOFBirth = _countryListData[index]['country_name'].toString();
+                              _placeOFBirthCountryCode = _countryListData[index]['country_code_name']
+                                  .toString();
+                              _placeOFBirthCountryNameId = _countryListData[index]['country_id'].toString();
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Flag.fromString(
+                                        _countryListData[index]
+                                        ['country_code_name']
+                                            .toString(),
+                                        height: 25,
+                                        width: 25),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _countryListData[index]['country_name']
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+  _getCountryDataListForNationality() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$GET_COUNTRY_LIST'),
+          );
+          Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _countryList = data["data"];
+              _showAlertDialogForNationality(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showAlertDialogForNationality(BuildContext context, List _countryListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your Nationality",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _countryList == null ? 0 : _countryList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+
+                              _nationality = _countryListData[index]['country_name'].toString();
+                              _nationalityCountryCode = _countryListData[index]['country_code_name']
+                                  .toString();
+                              _nationalityCountryNameId = _countryListData[index]['country_id'].toString();
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Flag.fromString(
+                                        _countryListData[index]
+                                        ['country_code_name']
+                                            .toString(),
+                                        height: 25,
+                                        width: 25),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _countryListData[index]['country_name']
+                                            .toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+   void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
   }
 
 }

@@ -51,6 +51,8 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
 
     });
   }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -256,7 +258,13 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
   _delay2(){
     Timer(Duration(milliseconds: 1500), () {
       setState(() {
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationBarScreen(0,HomePageScreen())));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+          ),
+              (route) => false,
+        );
       });
 
     });

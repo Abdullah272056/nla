@@ -14,18 +14,15 @@ class LoginLoadingScreen extends StatefulWidget {
 
 class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
-  int loging_status=1;
+  int loging_status=2;
 
   @override
   @mustCallSuper
   initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () {
-      setState(() {
-        loging_status=2;
-        _delay();
-      });
-
+    setState(() {
+      loging_status=2;
+      _delay();
     });
 
   }
@@ -235,7 +232,13 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
   _delay2(){
     Timer(Duration(seconds: 2), () {
       setState(() {
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationBarScreen(0,HomePageScreen())));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+          ),
+              (route) => false,
+        );
       });
 
     });

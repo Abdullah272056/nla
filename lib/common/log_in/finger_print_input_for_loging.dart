@@ -317,11 +317,6 @@ class _FingerPrintInputForLoginScreenState extends State<FingerPrintInputForLogi
     );
   }
 
-
-
-
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

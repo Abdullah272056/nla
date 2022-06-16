@@ -37,6 +37,8 @@ String SUB_URL_API_COMPANY_CREATE_PIN = "api/company-transaction-pin/";
 
 //common login
 String SUB_URL_API_LOGIN_FINGERPRINT = "api/login-with-fingerprint/";
+String SUB_URL_API_LOGIN_EMAIL_PASSWORD = "api/login/";
+String SUB_URL_API_RECENTLY_CONTACT_LIST = "api/core/recently-contacts/";
 
 
 

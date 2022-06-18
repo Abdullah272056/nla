@@ -43,8 +43,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body:SplashScreen1()
-
-        //AddInformationForParticularScreen("43"),
       ),
     );
   }

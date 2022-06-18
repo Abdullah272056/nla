@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,30 +8,50 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
+import '../../../api_service/api_service.dart';
+import '../../static/toast.dart';
+
 
 
 
 class SendMoneyMessagePageScreen extends StatefulWidget {
-
+  String receiverId;
+  String currencyId;
+  String receiverName;
   double inputBalance,currentBalance;
 
 
   SendMoneyMessagePageScreen({
     required this.inputBalance,
-    required this.currentBalance
+    required this.currentBalance,
+    required this.receiverId,
+    required this.receiverName,
+    required this.currencyId,
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
-  State<SendMoneyMessagePageScreen> createState() => _SendMoneyMessagePageScreenState(this.inputBalance,
-      this.currentBalance);
+  State<SendMoneyMessagePageScreen> createState() => _SendMoneyMessagePageScreenState(
+    this.inputBalance,
+     this.currentBalance,
+     this.receiverId,
+     this.receiverName,
+     this.currencyId,);
 }
 
 class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen> {
 
 
   double _inputBalance,_currentBalance;
-  _SendMoneyMessagePageScreenState(this._inputBalance, this._currentBalance);
+  String _receiverId;
+  String _receiverName;
+  String _currencyId;
+
+  _SendMoneyMessagePageScreenState(
+      this._inputBalance, this._currentBalance,
+      this._receiverId,  this._receiverName,
+      this._currencyId,
+      );
 
 
   TextEditingController? _sendMoneyMessageController = TextEditingController();
@@ -155,7 +177,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -396,16 +418,20 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
       onTap: (){
         String messageTxt = _sendMoneyMessageController!.text;
         if (messageTxt.isEmpty) {
-          Fluttertoast.cancel();
-          _showToast("message can't empty");
-          return;
+          messageTxt="";
+
+          // Fluttertoast.cancel();
+          // _showToast("message can't empty");
+          // return;
         }
-
-
         Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneySwipeToPayPageScreen(
           inputBalance: _inputBalance.toString(),
           message: messageTxt,
+          receiverId:_receiverId,
+          currencyId: _currencyId,
+          receiverName: _receiverName,
         )));
+
 
       },
       child: Container(
@@ -442,9 +468,50 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
       ),
     );
-
-
   }
+
+
+
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
 
   _showToast(String message) {
     Fluttertoast.showToast(

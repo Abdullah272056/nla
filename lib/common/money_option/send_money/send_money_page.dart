@@ -14,8 +14,6 @@ import '../../../api_service/api_service.dart';
 import '../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../static/toast.dart';
 
-
-
 class SendMoneyPageScreen extends StatefulWidget {
   const SendMoneyPageScreen({Key? key}) : super(key: key);
 
@@ -168,7 +166,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   Widget recentContactBottomListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(response["id"].toString(),response["username"].toString())));
       },
       child:  Container(
         margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
@@ -238,11 +236,14 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
       ),
     );
   }
+
   // Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
+
   Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight,required var response}) {
     return  InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
+            response["id"].toString(),response["username"].toString())));
 
       },
       child:Container(
@@ -426,7 +427,6 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
       },
     );
   }
-
 
 }
 

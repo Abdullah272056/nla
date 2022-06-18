@@ -299,9 +299,6 @@ class _LogInScreenState extends State<LogInScreen> {
           if(_inputValidation(email:emailTxt,Password: passwordTxt )==false){
             _userLogIn(email:emailTxt, password: passwordTxt);
           }
-
-
-
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -412,7 +409,6 @@ class _LogInScreenState extends State<LogInScreen> {
 
             Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
 
-
           }
           else if (response.statusCode == 400) {
             var data = jsonDecode(response.body);
@@ -440,6 +436,7 @@ class _LogInScreenState extends State<LogInScreen> {
       _showToast("No Internet Connection!");
     }
   }
+
 
   void saveUserInfo(var userInfo) async {
     try {

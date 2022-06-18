@@ -1,25 +1,57 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_message_page.dart';
 import 'package:nova_lexxa/common/money_option/send_money/top_up_account/select_top_up.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../log_in/login_loading_page.dart';
+import '../../static/toast.dart';
 
 
 class SendMoneyAmountPageScreen extends StatefulWidget {
-  const SendMoneyAmountPageScreen({Key? key}) : super(key: key);
+  String receiverId;
+  String receiverName;
+  SendMoneyAmountPageScreen(this.receiverId,this.receiverName);
 
   @override
-  State<SendMoneyAmountPageScreen> createState() => _SendMoneyAmountPageScreenState();
+  State<SendMoneyAmountPageScreen> createState() => _SendMoneyAmountPageScreenState(this.receiverId,this.receiverName);
 }
 
 class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
+  String _receiverId;
+  String _receiverName;
+  _SendMoneyAmountPageScreenState(this._receiverId,this._receiverName);
+
+
   TextEditingController? _sendMoneyAmountController = TextEditingController();
+  String _userId = "";
+  String _currencyId = "1";
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getCurrentBalanced();
+        });
+      }
+      else{
+      }
+    });
+  }
+
   @override
   String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
       "but the majority have suffered alteration in some form, by injected humour, or "
@@ -27,7 +59,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
       " hidden in the middle of text.";
 
-  double _currentBalance=1050;
+  double _currentBalance=0.00;
   int _inputAmountGatterThanStatus=0;
 
 
@@ -143,7 +175,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -240,6 +272,9 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                               Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyMessagePageScreen(
                                 currentBalance:_currentBalance ,
                                 inputBalance:double.parse(amountTxt),
+                                currencyId:_currencyId,
+                                receiverId: _receiverId,
+                                receiverName: _receiverName,
                               )));
                             },
                             child: _buildContinueButton(),
@@ -481,6 +516,93 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       )
 
     );
+  }
+
+  _getCurrentBalanced() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await post(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_MONEY_BALANCED_CHECKED'),
+            body: {
+              'user_id':_userId,
+              'currency_id':_currencyId,
+            }
+          );
+          Navigator.of(context).pop();
+           //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currentBalance=double.parse(data["amount"].toString());
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
   }
 
 }

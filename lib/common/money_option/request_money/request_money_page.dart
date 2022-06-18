@@ -1,9 +1,18 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/request_money/request_money_amount_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
+import '../../static/toast.dart';
 
 class RequestMoneyPageScreen extends StatefulWidget {
   const RequestMoneyPageScreen({Key? key}) : super(key: key);
@@ -14,6 +23,26 @@ class RequestMoneyPageScreen extends StatefulWidget {
 
 class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
   TextEditingController? _searchController = TextEditingController();
+  String _userId = "";
+
+  List _recentlyContactUserList = [];
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getRecentlyContactList();
+
+        });
+      }
+      else{
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,16 +124,17 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
                 // physics: const NeverScrollableScrollPhysics(),
                 //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                itemCount: 10,
+                itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+                _recentlyContactUserList.length,
                 itemBuilder: (context, index) {
                   if(index==0){
-                    return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0);                          }
+                    return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
                   //length
-                  if(index==9){
-                    return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30);
+                  if(index==_recentlyContactUserList.length-1){
+                    return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
                   }
                   else{
-                    return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0);
+                    return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
                   }
                 },
                 scrollDirection: Axis.horizontal,
@@ -114,13 +144,14 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
             Container(
               margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
               child:ListView.builder(
-                itemCount: 10,
+                itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+                _recentlyContactUserList.length,
                 padding: EdgeInsets.zero,
                 // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return recentContactBottomListItemDesign();
+                  return recentContactBottomListItemDesign(response:_recentlyContactUserList[index]);
                 },
               ),
             ),
@@ -132,12 +163,14 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     );
   }
 
-  Widget recentContactBottomListItemDesign(){
+  Widget recentContactBottomListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
+            response["id"].toString(),response["username"].toString()
+        )));
       },
-      child: Container(
+      child:  Container(
         margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
         height: 48,
         child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
@@ -179,7 +212,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
                   ),
                   Expanded(child:Text(
-                    "Tech Italy",
+                    response["username"].toString(),
                     style: TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 16,
@@ -206,10 +239,12 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     );
   }
 
-  Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight}) {
+  Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight,required var response}) {
     return  InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
+            response["id"].toString(),response["username"].toString()
+        )));
 
       },
       child: Container(
@@ -244,7 +279,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
             Container(
                 margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
                 child:  Text(
-                  "Harry",
+                  response["username"].toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.black,
@@ -257,7 +292,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
 
         /* add child content here */
-      ),
+      ) ,
 
     );
   }
@@ -301,6 +336,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     );
   }
 
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -311,6 +347,90 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
         textColor: Colors.black,
         fontSize: 16.0);
   }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+  _getRecentlyContactList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_RECENTLY_CONTACT_LIST'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _recentlyContactUserList = data["data"];
+              // _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
 
 }
 

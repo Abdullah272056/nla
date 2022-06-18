@@ -9,26 +9,44 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 
 class RequestMoneyMessagePageScreen extends StatefulWidget {
 
+  String receiverId;
+  String currencyId;
+  String receiverName;
   double inputBalance;
-
 
   RequestMoneyMessagePageScreen({
     required this.inputBalance,
-});
+    required this.receiverId,
+    required this.receiverName,
+    required this.currencyId,
+  });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
 
 
   @override
-  State<RequestMoneyMessagePageScreen> createState() => _RequestMoneyMessagePageScreenState(this.inputBalance);
+  State<RequestMoneyMessagePageScreen> createState() => _RequestMoneyMessagePageScreenState(
+     this.inputBalance,
+     this.receiverId,
+     this.receiverName,
+     this.currencyId,
+  );
 }
 
 class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageScreen> {
 
 
+  String _receiverId;
+  String _currencyId;
+  String _receiverName;
   double _inputBalance;
-  _RequestMoneyMessagePageScreenState(this._inputBalance,);
 
+  _RequestMoneyMessagePageScreenState(
+     this._inputBalance,
+     this._receiverId,
+     this._receiverName,
+     this._currencyId,
+  );
 
   TextEditingController? _sendMoneyMessageController = TextEditingController();
   String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
@@ -155,7 +173,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -290,15 +308,20 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
       onTap: (){
         String messageTxt = _sendMoneyMessageController!.text;
         if (messageTxt.isEmpty) {
-          Fluttertoast.cancel();
-          _showToast("message can't empty");
-          return;
+          messageTxt="";
+
+          // Fluttertoast.cancel();
+          // _showToast("message can't empty");
+          // return;
         }
 
 
         Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneySwipeToPayPageScreen(
           inputBalance: _inputBalance.toString(),
           message: messageTxt,
+          receiverId:_receiverId,
+          currencyId: _currencyId,
+          receiverName: _receiverName,
 
         )));
 

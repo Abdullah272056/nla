@@ -243,7 +243,8 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
     return  InkResponse(
       onTap: (){
         Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
-            response["id"].toString(),response["username"].toString())));
+            response["id"].toString(),response["username"].toString()
+        )));
 
       },
       child:Container(

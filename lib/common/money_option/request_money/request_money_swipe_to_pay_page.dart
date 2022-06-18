@@ -1,36 +1,62 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/request_money/request_money_congrats.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:slidable_button/slidable_button.dart';
+
+import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
+import '../../static/toast.dart';
 
 
 
 class RequestMoneySwipeToPayPageScreen extends StatefulWidget {
-
+  String receiverId;
+  String currencyId;
+  String receiverName;
   String inputBalance,message;
 
 
   RequestMoneySwipeToPayPageScreen({
     required this.inputBalance,
-    required this.message
+    required this.message,
+    required this.receiverId,
+    required this.receiverName,
+    required this.currencyId,
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
+
+
   @override
   State<RequestMoneySwipeToPayPageScreen> createState() => _RequestMoneySwipeToPayPageScreenState(
-      this.inputBalance,
-      this.message);
+    this.inputBalance,
+    this.message,
+    this.receiverId,
+    this.receiverName,
+    this.currencyId,
+  );
 }
 
 class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPayPageScreen> {
 
-
+  String _receiverId;
+  String _currencyId;
+  String _receiverName;
   String _inputBalance,_message;
-  _RequestMoneySwipeToPayPageScreenState(this._inputBalance, this._message);
+
+  _RequestMoneySwipeToPayPageScreenState(
+      this._inputBalance, this._message,
+      this._receiverId,this._receiverName,
+      this._currencyId
+      );
 
 
   TextEditingController? _sendMoneyAmountController = TextEditingController();
@@ -43,9 +69,21 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
   Color _button_bg_color=slide_button_start_bg_color;
   Color _slide_button_color=slide_button_start_color;
   int _buttonLeftRightStatus=1;
-
+  String _userId = "";
 
   TextEditingController? _userMessage = TextEditingController();
+
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref();
+
+    //     .then((_) {
+    //
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +198,7 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -175,7 +213,9 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
                         ),
 
                         //message section
-                        userMessageSection(),
+                        if(_message!="")...[
+                          userMessageSection(),
+                        ],
 
                         SizedBox(height: 40,),
                         Align(alignment: Alignment.center,
@@ -301,16 +341,8 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
               _slide_button_color=slide_button_end_color;
               _buttonLeftRightStatus=2;
 
+              _requestAmountBalanced();
 
-              Navigator.pushReplacement<void, void>(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => RequestMoneyCongratsScreen(
-                    receiverName: "Simon Lewis",
-                    sendAmount: _inputBalance.toString(),
-                  ),
-                ),
-              );
 
               // result = 'Button is on the right';
             }
@@ -357,9 +389,114 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
 
   }
 
+  _requestAmountBalanced() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Sending...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_REQUEST_MONEY'),
+              body: {
+                'user_id':_userId,
+                'receiver':_receiverId,
+                'currency_id':_currencyId,
+                'request_amount':_inputBalance,
+                'add_custom_message':_message,
 
+                // 'user_id':_userId,
+                // 'receiver':"2",
+                // 'currency_id':"2",
+                // 'request_amount':"5",
+                // 'add_custom_message':"test",
+              }
+          );
 
+          Navigator.of(context).pop();
+          //_showToast(response.statusCode.toString());
+          if (response.statusCode == 201) {
+            setState(() {
+              //  var data = jsonDecode(response.body);
 
+              Navigator.pushReplacement<void, void>(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => RequestMoneyCongratsScreen(
+                    receiverName: "Simon Lewis",
+                    sendAmount: _inputBalance.toString(),
+                  ),
+                ),
+              );
+
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          }
+          else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+          showToast("No !");
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(

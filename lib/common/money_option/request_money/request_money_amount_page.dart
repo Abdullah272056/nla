@@ -10,13 +10,22 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 
 
 class RequestMoneyAmountPageScreen extends StatefulWidget {
-  const RequestMoneyAmountPageScreen({Key? key}) : super(key: key);
+  String receiverId;
+  String receiverName;
+  RequestMoneyAmountPageScreen(this.receiverId,this.receiverName);
 
   @override
-  State<RequestMoneyAmountPageScreen> createState() => _RequestMoneyAmountPageScreenState();
+  State<RequestMoneyAmountPageScreen> createState() => _RequestMoneyAmountPageScreenState(this.receiverId,this.receiverName);
 }
 
 class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScreen> {
+
+  String _receiverId;
+  String _receiverName;
+  _RequestMoneyAmountPageScreenState(this._receiverId,this._receiverName);
+
+  String _currencyId = "1";
+
   TextEditingController? _requestMoneyAmountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -128,7 +137,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -163,6 +172,9 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
 
                               Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyMessagePageScreen(
                                 inputBalance:double.parse(amountTxt),
+                                currencyId:_currencyId,
+                                receiverId: _receiverId,
+                                receiverName: _receiverName,
                               )));
                             },
                             child: _buildContinueButton(),

@@ -1,9 +1,18 @@
 
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../api_service/api_service.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../static/toast.dart';
 import 'customer_service_details.dart';
 
 
@@ -25,6 +34,9 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   var AllTabColor,currencyRatesTabColor,privacyPolicyTabColor,customerServiceTabColor;
   int tab_status = 1;
   int list_grid_status = 1;
+  String _userId = "";
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +349,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
     );
   }
 
-  ///Currency Rates data section
+  //Currency Rates data section
   Widget _currencyRatesDataSection() {
     return SingleChildScrollView(
       child: Column(
@@ -421,7 +433,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   }
 
 
-  ///All data section
+  //All data section
   Widget _allTabDataSection() {
     return SingleChildScrollView(
       child: Column(
@@ -626,6 +638,8 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
       ),
     );
   }
+
+
 
 }
 

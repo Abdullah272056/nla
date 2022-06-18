@@ -41,4 +41,7 @@
   //request money
   String SUB_URL_API_REQUEST_MONEY = "api/core/request-money/";
 
+  //contact support
+  String SUB_URL_API_SPEAK_WITH_US_LIST= "api/core/speak-with-us-list/";
+
 

@@ -422,7 +422,7 @@ class _RequestMoneySwipeToPayPageScreenState extends State<RequestMoneySwipeToPa
                 context,
                 MaterialPageRoute<void>(
                   builder: (BuildContext context) => RequestMoneyCongratsScreen(
-                    receiverName: "Simon Lewis",
+                    receiverName: _receiverName,
                     sendAmount: _inputBalance.toString(),
                   ),
                 ),

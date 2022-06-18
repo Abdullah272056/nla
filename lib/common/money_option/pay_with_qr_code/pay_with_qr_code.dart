@@ -32,12 +32,15 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   @override
   void reassemble() {
     super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.resumeCamera();
-     // controller!.pauseCamera();
-    } else if (Platform.isIOS) {
-      controller!.resumeCamera();
-    }
+
+    controller!.resumeCamera();
+
+    // if (Platform.isAndroid) {
+    //   controller!.resumeCamera();
+    //   controller!.pauseCamera();
+    // } else if (Platform.isIOS) {
+    //   controller!.resumeCamera();
+    // }
   }
 
   @override
@@ -111,9 +114,6 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
             ),
           )
           ),
-
-
-
 
           const SizedBox(
             height: 20,

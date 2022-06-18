@@ -7,8 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
-
-
 class QRInvalidScreen extends StatefulWidget {
 
   @override

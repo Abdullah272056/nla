@@ -14,9 +14,6 @@ import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_det
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-
-
-
 class TopUpScreenScreen extends StatefulWidget {
   const TopUpScreenScreen({Key? key}) : super(key: key);
 
@@ -147,11 +144,6 @@ class _TopUpScreenScreenState extends State<TopUpScreenScreen> {
     );
   }
 
-
-
-
-
-
   Widget _buildSelectCreditCartItem({required String iconLink}) {
     return Container(
       margin: const EdgeInsets.only(left:15.0, right: 0.0),
@@ -230,7 +222,6 @@ class _TopUpScreenScreenState extends State<TopUpScreenScreen> {
       ),
     );
   }
-
 
   Widget _buildSelectMobileMoneyItem({required String iconLink}) {
     return Container(
@@ -313,11 +304,6 @@ class _TopUpScreenScreenState extends State<TopUpScreenScreen> {
     );
   }
 
-
-
-
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -329,7 +315,7 @@ class _TopUpScreenScreenState extends State<TopUpScreenScreen> {
         fontSize: 16.0);
   }
 
-
-
 }
+
+
 

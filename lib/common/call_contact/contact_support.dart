@@ -1,13 +1,21 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../api_service/api_service.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../notification/notification_details.dart';
 import '../notification/notifications_settings.dart';
+import '../static/toast.dart';
 import 'email_us.dart';
 
 class ContactSupportScreen extends StatefulWidget {
@@ -18,8 +26,25 @@ class ContactSupportScreen extends StatefulWidget {
 }
 
 class _ContactSupportScreenState extends State<ContactSupportScreen> {
-  @override
+  String _userId = "";
 
+  List _speakWithUsList = [];
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getSpeakUserlist();
+        });
+      }
+      else{
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -700,9 +725,104 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 ],
               ),
             ),
-            
             Row(
               children: [
+
+
+                Expanded(
+                  child:  Container(
+                    margin: EdgeInsets.only(right: 5, top: 10, left: 18, bottom: 10),
+                    height: 40,
+                    decoration: new BoxDecoration(
+                      color:contact_with_us_box_color,
+                      border: Border.all(width: 2,color:novalexxa_customer_services_tab_border_color),
+                      boxShadow: [BoxShadow(
+
+                        color:Colors.grey.withOpacity(.25),
+                        //  blurRadius: 20.0, // soften the shadow
+                        blurRadius:20, // soften the shadow
+                        spreadRadius: 0.0, //extend the shadow
+                        offset:Offset(
+                          2.0, // Move to right 10  horizontally
+                          1.0, // Move to bottom 10 Vertically
+                        ),
+                      )],
+                      borderRadius: new BorderRadius.all(Radius.circular(20)),
+
+                      shape: BoxShape.rectangle,
+                    ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flag.fromString("IT", height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
+                        SizedBox(width: 8,),
+                        Text(
+                          "+1 (800) 658379",
+                          style: TextStyle(
+                              color: novalexxa_text_color,
+                              fontSize: 12,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+
+                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+
+                  ),
+
+                ),
+                Expanded(
+                  child:  Container(
+                    margin: EdgeInsets.only(right:18, top: 10, left: 5, bottom: 10),
+                    height: 40,
+                    decoration: new BoxDecoration(
+                      color:contact_with_us_box_color,
+                      border: Border.all(width: 2,color:novalexxa_customer_services_tab_border_color),
+                      boxShadow: [BoxShadow(
+
+                        color:Colors.grey.withOpacity(.25),
+                        //  blurRadius: 20.0, // soften the shadow
+                        blurRadius:20, // soften the shadow
+                        spreadRadius: 0.0, //extend the shadow
+                        offset:Offset(
+                          2.0, // Move to right 10  horizontally
+                          1.0, // Move to bottom 10 Vertically
+                        ),
+                      )],
+                      borderRadius: new BorderRadius.all(Radius.circular(20)),
+                      shape: BoxShape.rectangle,
+                    ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flag.fromString("IT", height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
+                        SizedBox(width: 8,),
+                        Text(
+                          "+1 (800) 658379",
+                          style: TextStyle(
+                              color: novalexxa_text_color,
+                              fontSize: 12,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
+                    ),
+
+
+                  ),
+
+                ),
+              ],
+            ),
+            Row(
+              children: [
+
+
                 Expanded(
                   child:  Container(
                   margin: EdgeInsets.only(right: 5, top: 10, left: 18, bottom: 21),
@@ -744,7 +864,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   ),
 
                   // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                  
+
                 ),
 
                 ),
@@ -792,7 +912,8 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
                 ),
               ],
-            )
+            ),
+
 
 
 
@@ -815,6 +936,91 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         backgroundColor: Colors.white,
         textColor: Colors.black,
         fontSize: 16.0);
+  }
+
+  _getSpeakUserlist() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_SPEAK_WITH_US_LIST'),
+
+          );
+          Navigator.of(context).pop();
+         // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+               var data = jsonDecode(response.body);
+               _speakWithUsList=data["data"];
+               _showToast(_speakWithUsList.length.toString());
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
   }
 
 }

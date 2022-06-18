@@ -37,6 +37,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
   TextEditingController? _sendMoneyAmountController = TextEditingController();
   String _userId = "";
   String _currencyId = "1";
+
   @override
   @mustCallSuper
   initState() {
@@ -61,7 +62,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
   double _currentBalance=0.00;
   int _inputAmountGatterThanStatus=0;
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,7 +95,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                         const SizedBox(
                           height: 55,
                         ),
-
 
                         Flex(
                           direction: Axis.horizontal,
@@ -184,7 +183,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           ),
                         ),
 
-
                         Align(alignment: Alignment.topCenter,
                           child: userInputAmountField(_sendMoneyAmountController!, '00', TextInputType.text),
                         ),
@@ -246,8 +244,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                         },
 
-
-
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
                           child: InkResponse(
                             onTap: (){
@@ -280,11 +276,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                             child: _buildContinueButton(),
                           ),
                         ),)
-
-
-
-
-
 
                       ],
                     )
@@ -468,8 +459,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     );
   }
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -589,7 +578,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       },
     );
   }
-
 
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

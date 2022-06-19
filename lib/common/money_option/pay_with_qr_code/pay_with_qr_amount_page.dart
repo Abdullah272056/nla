@@ -347,14 +347,33 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                 ),
                 Align(
                   alignment: Alignment.topCenter,
-                  child:  Text(
-
-                    "Current balance is "+_currentBalance.toString()+_currencySymbol,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: intello_level_color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                    InkWell(
+                      child:  Wrap(
+                        children: [
+                          Text(
+                            "Current balance is "+_currentBalance.toString()+_currencySymbol,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: intello_level_color,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            color: intello_level_color,
+                            size: 15.0,
+                          ),
+                        ],
+                      ),
+                      onTap: (){
+                        //_getUserCurrencyTypeList();
+                      },
+                    )
+                    ],
                   ),
                 ),
 
@@ -457,8 +476,6 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
     );
   }
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -469,6 +486,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
         textColor: Colors.black,
         fontSize: 16.0);
   }
+
   // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
 
   Widget _buildContinueButton() {
@@ -506,6 +524,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
 
     );
   }
+
 
 
   _getCurrentBalanced() async {

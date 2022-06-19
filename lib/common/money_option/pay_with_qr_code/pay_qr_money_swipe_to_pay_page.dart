@@ -1,14 +1,21 @@
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/pay_with_qr_code/pay_with_qr_send_money_congrats.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:slidable_button/slidable_button.dart';
 
+import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../navigation_page/money_option.dart';
 import '../../navigation_page/navigation_bar_page.dart';
+import '../../static/toast.dart';
 
 
 class PayQRMoneySwipeToPayPageScreen extends StatefulWidget {
@@ -63,6 +70,18 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
 
 
   TextEditingController? _userMessage = TextEditingController();
+  String _userId = "";
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref();
+
+    //     .then((_) {
+    //
+    // });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -339,18 +358,12 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
               _slide_button_color=slide_button_end_color;
               _buttonLeftRightStatus=2;
 
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    settings: RouteSettings(name: "Foo"),
-                    builder: (BuildContext context) => PayWithQRSendMoneyCongratsScreen(
-                      receiverName: "Anna Lain",
-                      sendAmount: _inputBalance.toString(),
-                    ),),
-              );
-
+              if(_userId!=""){
+                _sendAmountBalanced();
+              }
 
             } else {
+
               _button_bg_color=slide_button_start_bg_color;
               _slide_button_color=slide_button_start_color;
               _buttonLeftRightStatus=1;
@@ -409,7 +422,92 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
   }
 
 
+  _sendAmountBalanced() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Sending...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_QR_CODE_MONEY_SEND'),
+              body: {
+                'user_id':_userId,
+                'receiver':_receiverId,
+                'currency_id':_currencyId,
+                'send_amount':_inputBalance,
+              }
+          );
+          Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 201) {
+            setState(() {
+              //  var data = jsonDecode(response.body);
 
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => PayWithQRSendMoneyCongratsScreen(
+                    receiverName:_receiverName,
+                    sendAmount: _inputBalance.toString(),
+                  ),),
+              );
+
+            });
+          }
+          else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          showToast("failed!");
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -422,6 +520,19 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
         fontSize: 16.0);
   }
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 
 
 }

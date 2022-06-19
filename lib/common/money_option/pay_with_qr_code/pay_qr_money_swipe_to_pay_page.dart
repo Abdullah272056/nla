@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -23,12 +24,14 @@ class PayQRMoneySwipeToPayPageScreen extends StatefulWidget {
   String inputBalance;
   String receiverId;
   String currencyId;
+  String currencySymbol;
   String receiverName;
   PayQRMoneySwipeToPayPageScreen({
     required this.inputBalance,
     required this.receiverId,
     required this.receiverName,
     required this.currencyId,
+    required this.currencySymbol,
   });
 
 
@@ -41,6 +44,7 @@ class PayQRMoneySwipeToPayPageScreen extends StatefulWidget {
      this.receiverId,
      this.receiverName,
      this.currencyId,
+     this.currencySymbol,
   );
 }
 
@@ -48,12 +52,14 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
   String _inputBalance;
   String _receiverId;
   String _currencyId;
+  String _currencySymbol;
   String _receiverName;
   _PayQRMoneySwipeToPayPageScreenState(
      this._inputBalance,
      this._receiverId,
      this._receiverName,
      this._currencyId,
+     this._currencySymbol,
   );
 
 
@@ -275,7 +281,7 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
                 Expanded(child:  Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                    _inputBalance.toString()+"€ to "+ _receiverName,
+                    _inputBalance.toString()+_currencySymbol+" to "+ _receiverName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: novalexxa_text_color,
@@ -449,7 +455,7 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
                   settings: RouteSettings(name: "Foo"),
                   builder: (BuildContext context) => PayWithQRSendMoneyCongratsScreen(
                     receiverName:_receiverName,
-                    sendAmount: _inputBalance.toString(),
+                    sendAmount: _inputBalance.toString()+_currencySymbol,
                   ),),
               );
 
@@ -457,6 +463,8 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
           }
           else {
             Fluttertoast.cancel();
+            var data = jsonDecode(response.body);
+            _showToast(data["message"].toString());
           }
         } catch (e) {
           showToast("failed!");

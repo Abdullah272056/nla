@@ -17,13 +17,15 @@ import '../../static/toast.dart';
 class SendMoneyMessagePageScreen extends StatefulWidget {
   String receiverId;
   String currencyId;
+  String currencySymbol;
   String receiverName;
-  double inputBalance,currentBalance;
+  String inputBalance,currentBalance;
 
 
   SendMoneyMessagePageScreen({
     required this.inputBalance,
     required this.currentBalance,
+    required this.currencySymbol,
     required this.receiverId,
     required this.receiverName,
     required this.currencyId,
@@ -34,6 +36,7 @@ class SendMoneyMessagePageScreen extends StatefulWidget {
   State<SendMoneyMessagePageScreen> createState() => _SendMoneyMessagePageScreenState(
     this.inputBalance,
      this.currentBalance,
+     this.currencySymbol,
      this.receiverId,
      this.receiverName,
      this.currencyId,);
@@ -42,15 +45,15 @@ class SendMoneyMessagePageScreen extends StatefulWidget {
 class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen> {
 
 
-  double _inputBalance,_currentBalance;
+  String _inputBalance,_currentBalance,_currencySymbol;
   String _receiverId;
   String _receiverName;
   String _currencyId;
 
   _SendMoneyMessagePageScreenState(
       this._inputBalance, this._currentBalance,
-      this._receiverId,  this._receiverName,
-      this._currencyId,
+      this._currencySymbol,this._receiverId,
+      this._receiverName, this._currencyId,
       );
 
 
@@ -251,7 +254,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                 Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                    _inputBalance.toString()+"€",
+                    _inputBalance.toString()+_currencySymbol,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: novalexxa_text_color,
@@ -265,7 +268,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                   alignment: Alignment.topCenter,
                   child:  Text(
 
-                    "Current balance is "+_currentBalance.toString()+"€",
+                    "Current balance is "+_currentBalance.toString()+_currencySymbol,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: intello_level_color,
@@ -430,6 +433,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
           receiverId:_receiverId,
           currencyId: _currencyId,
           receiverName: _receiverName,
+          currencySymbol: _currencySymbol,
         )));
 
 

@@ -10,8 +10,6 @@ import 'common/call_contact/customer_services.dart';
 import 'common/log_in/finger_print_done.dart';
 import 'common/log_in/finger_print_input_for_loging.dart';
 import 'common/log_in/login_by_pin.dart';
-import 'common/money_option/pay_with_qr_code/pay_with_qr_amount_page.dart';
-import 'common/money_option/pay_with_qr_code/pay_with_qr_code.dart';
 import 'common/money_option/send_money/top_up_account/add_credit_cart.dart';
 import 'common/money_option/send_money/top_up_account/no_credit_cart.dart';
 import 'common/money_option/send_money/top_up_account/save_card.dart';
@@ -42,7 +40,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body:PayWithQRAmountPageScreen("3","Adf")
+        body:SplashScreen1()
       // body:PayWithQRCodeScreen()
       ),
     );

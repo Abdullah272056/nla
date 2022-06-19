@@ -272,6 +272,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                                 receiverName: _receiverName,
                                 currencyId:_currencyId,
                                 receiverId: _receiverId,
+                                currencySymbol: _currencySymbol,
                               )));
                             },
                             child: _buildContinueButton(),

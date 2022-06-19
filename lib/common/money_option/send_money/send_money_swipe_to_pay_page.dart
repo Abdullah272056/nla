@@ -20,9 +20,8 @@ import '../../static/toast.dart';
 
 class SendMoneySwipeToPayPageScreen extends StatefulWidget {
   String receiverId;
-  String currencyId;
+  String currencyId,currencySymbol;
   String receiverName;
-
   String inputBalance,message;
 
 
@@ -32,6 +31,7 @@ class SendMoneySwipeToPayPageScreen extends StatefulWidget {
     required this.receiverId,
     required this.receiverName,
     required this.currencyId,
+    required this.currencySymbol,
 });
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
@@ -42,12 +42,13 @@ class SendMoneySwipeToPayPageScreen extends StatefulWidget {
       this.receiverId,
       this.receiverName,
       this.currencyId,
+      this.currencySymbol,
   );
 }
 
 class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageScreen> {
   String _receiverId;
-  String _currencyId;
+  String _currencyId,_currencySymbol;
   String _receiverName;
   String _inputBalance,_message;
 
@@ -55,7 +56,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
   _SendMoneySwipeToPayPageScreenState(
       this._inputBalance, this._message,
       this._receiverId,this._receiverName,
-      this._currencyId
+      this._currencyId, this._currencySymbol,
       );
 
 
@@ -260,7 +261,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
             Expanded(child:  Align(
               alignment: Alignment.topCenter,
               child: Text(
-                _inputBalance.toString()+"€",
+                _inputBalance.toString()+_currencySymbol,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: novalexxa_text_color,
@@ -432,7 +433,7 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
                     settings: RouteSettings(name: "Foo"),
                     builder: (BuildContext context) => SendMoneyCongratsScreen(
                       receiverName: _receiverName,
-                      sendAmount: _inputBalance.toString(),
+                      sendAmount: _inputBalance.toString()+_currencySymbol,
                     ),),
               );
 
@@ -441,6 +442,9 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
           }
           else {
             Fluttertoast.cancel();
+            var data = jsonDecode(response.body);
+            _showToast(data["message"].toString());
+
           }
         } catch (e) {
           showToast("No !");

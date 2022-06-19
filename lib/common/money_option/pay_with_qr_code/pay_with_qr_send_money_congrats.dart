@@ -27,9 +27,7 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
 
   _PayWithQRSendMoneyCongratsScreenState(
       this._sendAmount, this._receiverName); //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
+
   File? imageFile;
 
  // String _sendAmount="30",_receiverName="Simon Lewis";
@@ -178,18 +176,6 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
   }
 
 
-  void takeImage(ImageSource source)async{
-    final pickedFile= await _picker.getImage(source: source);
-    setState(() {
-      _imageFile=pickedFile!;
-      imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
-
-     // _imageUpload(img64);
-
-    });
-  }
 
 }
 

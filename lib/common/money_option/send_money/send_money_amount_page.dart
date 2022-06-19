@@ -36,7 +36,22 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
   TextEditingController? _sendMoneyAmountController = TextEditingController();
   String _userId = "";
-  String _currencyId = "1";
+  String _currencyId = "0";
+  //
+  // @override
+  // @mustCallSuper
+  // initState() {
+  //   super.initState();
+  //   loadUserIdFromSharePref().then((_) {
+  //     if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+  //       setState(() {
+  //         _getCurrentBalanced();
+  //       });
+  //     }
+  //     else{
+  //     }
+  //   });
+  // }
 
   @override
   @mustCallSuper
@@ -45,7 +60,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     loadUserIdFromSharePref().then((_) {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
-          _getCurrentBalanced();
+          _getUserCurrencyTypeList1();
+          // _getCurrentBalanced();
         });
       }
       else{
@@ -53,7 +69,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     });
   }
 
-  @override
+
   String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
       "but the majority have suffered alteration in some form, by injected humour, or "
       "randomised words which don't look even slightly believable. If you are going to "
@@ -62,6 +78,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
   double _currentBalance=0.00;
   int _inputAmountGatterThanStatus=0;
+  String _currencySymbol = "";
+  List _currencyTypeList = [];
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -264,13 +282,19 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                 _showToast("your current balance is not enough!");
                                 return;
                               }
+                              if (_currencyId==""||_currencyId.isEmpty) {
+                                Fluttertoast.cancel();
+                                _showToast("select currency!");
+                                return;
+                              }
 
                               Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyMessagePageScreen(
-                                currentBalance:_currentBalance ,
-                                inputBalance:double.parse(amountTxt),
+                                currentBalance:_currentBalance.toString(),
+                                inputBalance:double.parse(amountTxt).toString(),
                                 currencyId:_currencyId,
                                 receiverId: _receiverId,
                                 receiverName: _receiverName,
+                                currencySymbol: _currencySymbol,
                               )));
                             },
                             child: _buildContinueButton(),
@@ -303,158 +327,177 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
-        child: Row(
-          children: [
-            Expanded(child:  Column(
-              children: [
-                TextField(
-                  textAlign: TextAlign.center,
-                  controller: userInput,
-                  textInputAction: TextInputAction.search,
-                  autocorrect: false,
-                  enableSuggestions: false,
-                  cursorColor:intello_input_text_color,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                  style: TextStyle(
-                      color: novalexxa_text_color,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w600),
-                  onChanged: (text) {
-                    if(double.parse(text)>_currentBalance){
-                      setState(() {
-                        _inputAmountGatterThanStatus=1;
-                      });
-
-                     // _showToast("not possible");
-                    }else{
-                      setState(() {
-                        _inputAmountGatterThanStatus=0;
-                      });
-                    }
-
-                  },
-                  autofocus: false,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-
-                    hintText: hintTitle,
-                    hintStyle:  TextStyle(fontSize: 22,
-                        color:novalexxa_hint_text_color,
-                        // color: Colors.intello_hint_color,
-                        fontStyle: FontStyle.normal),
-                  ),
-
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child:  Text(
-
-                    "Current balance is "+_currentBalance.toString()+"€",
+          padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
+          child: Row(
+            children: [
+              Expanded(child:  Column(
+                children: [
+                  TextField(
                     textAlign: TextAlign.center,
+                    controller: userInput,
+                    textInputAction: TextInputAction.search,
+                    autocorrect: false,
+                    enableSuggestions: false,
+                    cursorColor:intello_input_text_color,
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
                     style: TextStyle(
-                        color: intello_level_color,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
+                        color: novalexxa_text_color,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w600),
+                    onChanged: (text) {
+                      if(double.parse(text)>_currentBalance){
+                        setState(() {
+                          _inputAmountGatterThanStatus=1;
+                        });
+
+                        // _showToast("not possible");
+                      }else{
+                        setState(() {
+                          _inputAmountGatterThanStatus=0;
+                        });
+                      }
+
+                    },
+                    autofocus: false,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+
+                      hintText: hintTitle,
+                      hintStyle:  TextStyle(fontSize: 22,
+                          color:novalexxa_hint_text_color,
+                          // color: Colors.intello_hint_color,
+                          fontStyle: FontStyle.normal),
+                    ),
+
                   ),
-                ),
-
-              ],
-            ),),
-
-            IconButton(
-              icon: Image.asset(
-                "assets/images/information.png",
-                height: 20,
-                width: 20,
-                fit: BoxFit.fill,
-              ),
-              // color: Colors.white,
-              onPressed: () {
-                showDialog(context: context,
-                    barrierDismissible:false,
-                    builder: (BuildContext context){
-                      return Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius:BorderRadius.circular(10.0)),
-                        child:Wrap(
-                          children: [
-                            Container(
-                              padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-                              child: Column(
-
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: InkResponse(
-                                            onTap: (){
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: Icon(
-                                              Icons.cancel_outlined,
-                                              size: 25,
-                                            ),
-                                          )
-
-                                      ))
-
-                                    ],
-                                  ),
-
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-
-                                  Image.asset(
-                                    "assets/images/information.png",
-                                    height: 30,
-                                    width: 30,
-                                    fit: BoxFit.fill,
-                                    color: novalexxa_color1,
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  Text("Lorem Ipsum Title",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color:novalexxa_text_color,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-
-                                  Text(_alertMessage,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        color:novalexxa_text_color,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-
-
-                                ],
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          child:  Wrap(
+                            children: [
+                              Text(
+                                "Current balance is "+_currentBalance.toString()+_currencySymbol,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: intello_level_color,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500),
                               ),
-                            )
-                          ],
-                        ),
-                      );
-                    }
-                );
+                              Icon(
+                                Icons.arrow_drop_down,
+                                color: intello_level_color,
+                                size: 15.0,
+                              ),
+                            ],
+                          ),
+                          onTap: (){
+                            _getUserCurrencyTypeList();
+                          },
+                        )
+                      ],
+                    ),
+                  ),
 
-              },
-            )
+                ],
+              ),),
+
+              IconButton(
+                icon: Image.asset(
+                  "assets/images/information.png",
+                  height: 20,
+                  width: 20,
+                  fit: BoxFit.fill,
+                ),
+                // color: Colors.white,
+                onPressed: () {
+                  showDialog(context: context,
+                      barrierDismissible:false,
+                      builder: (BuildContext context){
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:BorderRadius.circular(10.0)),
+                          child:Wrap(
+                            children: [
+                              Container(
+                                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                                child: Column(
+
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: InkResponse(
+                                              onTap: (){
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: Icon(
+                                                Icons.cancel_outlined,
+                                                size: 25,
+                                              ),
+                                            )
+
+                                        ))
+
+                                      ],
+                                    ),
+
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+
+                                    Image.asset(
+                                      "assets/images/information.png",
+                                      height: 30,
+                                      width: 30,
+                                      fit: BoxFit.fill,
+                                      color: novalexxa_color1,
+                                    ),
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Text("Lorem Ipsum Title",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color:novalexxa_text_color,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+
+                                    Text(_alertMessage,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color:novalexxa_text_color,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.normal),
+                                    ),
 
 
-          ],
-        )
-        
-        
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                  );
+
+                },
+              )
+
+
+            ],
+          )
+
+
       ),
     );
   }
@@ -592,6 +635,192 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     }
 
   }
+
+
+  _getUserCurrencyTypeList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeList = data["data"];
+              _showAlertDialog(context, _currencyTypeList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  _getUserCurrencyTypeList1() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeList = data["data"];
+              if(_currencyTypeList.length>0){
+                _currentBalance=double.parse(_currencyTypeList[0]['current_balance'].toString());
+                _currencySymbol= _currencyTypeList[0]['currency_information']['currency_symbol'].toString();
+                _currencyId=_currencyTypeList[0]['currency_information']['country_id'].toString();
+              }
+
+
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showAlertDialog(BuildContext context, List _currencyTypeListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your Currency",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _currencyTypeListData == null ? 0 : _currencyTypeListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+
+                              _currentBalance=double.parse(_currencyTypeListData[index]['current_balance'].toString());
+                              _currencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _currencyId=_currencyTypeListData[index]['currency_information']['country_id'].toString();
+
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      _currencyTypeListData[index]['currency_information']['currency_name'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      " - ",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      _currencyTypeListData[index]['current_balance']
+                                          .toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+
+                                      _currencyTypeListData[index]['currency_information']['currency_symbol'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Roboto',
+                                      ),
+
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 
 }
 

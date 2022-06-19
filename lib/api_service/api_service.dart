@@ -43,5 +43,9 @@
 
   //contact support
   String SUB_URL_API_SPEAK_WITH_US_LIST= "api/core/speak-with-us-list/";
+  //send money qr code
+  String SUB_URL_API_QR_CODE_EMAIL_CHECKED= "api/core/qr-code-email-checked/";
+
+  String SUB_URL_API_QR_CODE_MONEY_SEND= "api/core/qr-code-money-send/";
 
 

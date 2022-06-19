@@ -14,23 +14,40 @@ import '../../navigation_page/navigation_bar_page.dart';
 class PayQRMoneySwipeToPayPageScreen extends StatefulWidget {
 
   String inputBalance;
-
+  String receiverId;
+  String currencyId;
+  String receiverName;
   PayQRMoneySwipeToPayPageScreen({
     required this.inputBalance,
+    required this.receiverId,
+    required this.receiverName,
+    required this.currencyId,
+  });
 
-});
+
+
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
   State<PayQRMoneySwipeToPayPageScreen> createState() => _PayQRMoneySwipeToPayPageScreenState(
-      this.inputBalance);
+      this.inputBalance,
+     this.receiverId,
+     this.receiverName,
+     this.currencyId,
+  );
 }
 
 class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPageScreen> {
-
-
   String _inputBalance;
-  _PayQRMoneySwipeToPayPageScreenState(this._inputBalance);
+  String _receiverId;
+  String _currencyId;
+  String _receiverName;
+  _PayQRMoneySwipeToPayPageScreenState(
+     this._inputBalance,
+     this._receiverId,
+     this._receiverName,
+     this._currencyId,
+  );
 
 
   TextEditingController? _sendMoneyAmountController = TextEditingController();
@@ -150,7 +167,7 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -239,7 +256,7 @@ class _PayQRMoneySwipeToPayPageScreenState extends State<PayQRMoneySwipeToPayPag
                 Expanded(child:  Align(
                   alignment: Alignment.topCenter,
                   child: Text(
-                    _inputBalance.toString()+"€ to "+ "Anna Lain",
+                    _inputBalance.toString()+"€ to "+ _receiverName,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: novalexxa_text_color,

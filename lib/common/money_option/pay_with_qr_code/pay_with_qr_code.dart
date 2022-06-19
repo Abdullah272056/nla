@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -7,10 +8,13 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/pay_with_qr_code/pay_with_qr_amount_page.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import '../../../api_service/api_service.dart';
 import '../../static/Colors.dart';
+import '../../static/loding_dialog.dart';
 
 
 
@@ -253,7 +257,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
             setState(() {
               if(scanQrStatus==1){
                 scanQrStatus=2;
-                _delay();
+                _sendQrCodeData(email: _scannedQRCode);
               }else{
                 scanQrStatus=1;
               }
@@ -303,7 +307,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
       setState(() {
         scanQrStatus=1;
         //if success then
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRAmountPageScreen()));
+        //Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRAmountPageScreen()));
 
         // if failed
         //Navigator.push(context,MaterialPageRoute(builder: (context)=>QRInvalidScreen()));
@@ -343,7 +347,9 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
       setState(() async {
         await controller.pauseCamera();
         _result = scanData;
-        _scannedQRCode={_result!.code}.toString();
+        _scannedQRCode='${_result!.code}';
+
+
       });
     });
   }
@@ -372,6 +378,49 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
         backgroundColor: Colors.white,
         textColor: Colors.black,
         fontSize: 16.0);
+  }
+
+  _sendQrCodeData({
+    required String email,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+
+        scanQrStatus=2;
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_QR_CODE_EMAIL_CHECKED'),
+              body: {
+                'email': email,
+              });
+          scanQrStatus=1;
+          //_showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            _showToast("success");
+            setState(() {
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRAmountPageScreen(
+                  data["data"]["id"].toString(),data["data"]["username"].toString())));
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      scanQrStatus=1;
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
   }
 
 

@@ -1,21 +1,36 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/pay_with_qr_code/pay_qr_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
+import '../../static/toast.dart';
 
 
 class PayWithQRAmountPageScreen extends StatefulWidget {
-  const PayWithQRAmountPageScreen({Key? key}) : super(key: key);
+  String receiverId;
+  String receiverName;
+  PayWithQRAmountPageScreen(this.receiverId,this.receiverName);
 
   @override
-  State<PayWithQRAmountPageScreen> createState() => _PayWithQRAmountPageScreenState();
+  State<PayWithQRAmountPageScreen> createState() => _PayWithQRAmountPageScreenState(this.receiverId,this.receiverName);
 }
 
 class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
+  String _receiverId;
+  String _receiverName;
+  _PayWithQRAmountPageScreenState(this._receiverId,this._receiverName);
+
   TextEditingController? _sendMoneyAmountController = TextEditingController();
   @override
   String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
@@ -24,9 +39,27 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
       "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
       " hidden in the middle of text.";
 
-  double _currentBalance=1050;
+  double _currentBalance=0.00;
   int _inputAmountGatterThanStatus=0;
+  String _currencyId="1";
+  String _userId = "";
+  String _currencySymbol = "";
 
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getCurrentBalanced();
+        });
+      }
+      else{
+      }
+    });
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +171,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                         SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
-                            "Anna Lain",
+                            _receiverName,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: novalexxa_text_color,
@@ -228,6 +261,9 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
 
                               Navigator.push(context,MaterialPageRoute(builder: (context)=>PayQRMoneySwipeToPayPageScreen(
                                 inputBalance:amountTxt.toString(),
+                                receiverName: _receiverName,
+                                currencyId:_currencyId,
+                                receiverId: _receiverId,
                               )));
                             },
                             child: _buildContinueButton(),
@@ -313,7 +349,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                   alignment: Alignment.topCenter,
                   child:  Text(
 
-                    "Current balance is "+_currentBalance.toString()+"€",
+                    "Current balance is "+_currentBalance.toString()+_currencySymbol,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: intello_level_color,
@@ -469,6 +505,94 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
       )
 
     );
+  }
+
+
+  _getCurrentBalanced() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_MONEY_BALANCED_CHECKED'),
+              body: {
+                'user_id':_userId,
+                'currency_id':_currencyId,
+              }
+          );
+          Navigator.of(context).pop();
+          //showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currentBalance=double.parse(data["amount"].toString());
+              _currencySymbol=data["data"]["currency_symbol"].toString();
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
   }
 
 }

@@ -127,6 +127,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  currency_formatter:
+    dependency: "direct main"
+    description:
+      name: currency_formatter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.1"
   curved_navigation_bar:
     dependency: "direct main"
     description:
@@ -412,6 +419,13 @@ packages:
     dependency: transitive
     description:
       name: lints
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
+  lists:
+    dependency: transitive
+    description:
+      name: lists
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
@@ -826,6 +840,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
+  unicode:
+    dependency: "direct main"
+    description:
+      name: unicode
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.1"
   universal_io:
     dependency: transitive
     description:

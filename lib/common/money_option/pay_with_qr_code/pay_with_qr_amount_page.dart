@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../api_service/api_service.dart';
 import '../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../static/toast.dart';
-
+import 'package:unicode/unicode.dart' as unicode;
 
 class PayWithQRAmountPageScreen extends StatefulWidget {
   String receiverId;
@@ -41,9 +41,10 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
 
   double _currentBalance=0.00;
   int _inputAmountGatterThanStatus=0;
-  String _currencyId="1";
+  String _currencyId="";
   String _userId = "";
   String _currencySymbol = "";
+  List _currencyTypeList = [];
 
 
   @override
@@ -53,7 +54,8 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
     loadUserIdFromSharePref().then((_) {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
-          _getCurrentBalanced();
+          _getUserCurrencyTypeList1();
+         // _getCurrentBalanced();
         });
       }
       else{
@@ -258,6 +260,12 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                                 _showToast("your current balance is not enough!");
                                 return;
                               }
+                              if (_currencyId==""||_currencyId.isEmpty) {
+                                Fluttertoast.cancel();
+                                _showToast("select currency!");
+                                return;
+                              }
+
 
                               Navigator.push(context,MaterialPageRoute(builder: (context)=>PayQRMoneySwipeToPayPageScreen(
                                 inputBalance:amountTxt.toString(),
@@ -370,7 +378,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                         ],
                       ),
                       onTap: (){
-                        //_getUserCurrencyTypeList();
+                        _getUserCurrencyTypeList();
                       },
                     )
                     ],
@@ -525,7 +533,190 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
     );
   }
 
+  _getUserCurrencyTypeList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+         // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeList = data["data"];
+              _showAlertDialog(context, _currencyTypeList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  _getUserCurrencyTypeList1() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+         // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeList = data["data"];
+              if(_currencyTypeList.length>0){
+                _currentBalance=double.parse(_currencyTypeList[0]['current_balance'].toString());
+                _currencySymbol= _currencyTypeList[0]['currency_information']['currency_symbol'].toString();
+                _currencyId=_currencyTypeList[0]['currency_information']['country_id'].toString();
+              }
 
+
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showAlertDialog(BuildContext context, List _currencyTypeListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your Currency",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _currencyTypeListData == null ? 0 : _currencyTypeListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+
+                              _currentBalance=double.parse(_currencyTypeListData[index]['current_balance'].toString());
+                              _currencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _currencyId=_currencyTypeListData[index]['currency_information']['country_id'].toString();
+
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      _currencyTypeListData[index]['currency_information']['currency_name'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      " - ",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      _currencyTypeListData[index]['current_balance']
+                                          .toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+
+                                      _currencyTypeListData[index]['currency_information']['currency_symbol'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Roboto',
+                                      ),
+
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   _getCurrentBalanced() async {
     try {

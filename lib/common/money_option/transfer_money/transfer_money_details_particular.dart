@@ -15,6 +15,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../static/toast.dart';
 
 
 class TransferMoneyDetailForParticularScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
 
   TextEditingController? _nameController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();
-  TextEditingController? _birthDayController = TextEditingController();
+  TextEditingController? _emailController = TextEditingController();
   String _countryBirthDay="Enter Birthday";
   String select_your_country="Enter Birthday";
 
@@ -176,8 +177,25 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                         ),
                       ),
                     ),
-
                     userInputName(_surnameController!, 'Surname', TextInputType.text),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text("Email",
+                            style: TextStyle(
+                                color: novalexxa_hint_text_color,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400)
+                        ),
+                      ),
+                    ),
+                    userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
+
                     //country
                     SizedBox(
                       height: 20,
@@ -327,15 +345,66 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
     );
   }
 
+  Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+    return Container(
+      height: 55,
+
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+        child: TextField(
+          controller: userInput,
+          textInputAction: TextInputAction.next,
+          autocorrect: false,
+          enableSuggestions: false,
+          cursorColor: novalexxa_text_color,
+          autofocus: false,
+          decoration: InputDecoration(
+            // border: InputBorder.,
+
+            focusedBorder:UnderlineInputBorder(
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            ),
+            enabledBorder:UnderlineInputBorder(
+              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
+            ),
+
+            suffixIconConstraints: BoxConstraints(
+              minHeight: 15,
+              minWidth: 15,
+            ),
+            suffixIcon:  Icon(
+              Icons.email,
+              color:hint_color,
+              size: 22.0,
+            ),
+
+
+            hintText: hintTitle,
+            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+          ),
+          keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
         onPressed: () {
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen2()));
+          String emailTxt = _emailController!.text;
+          String nameTxt = _nameController!.text;
+          String surNameTxt = _surnameController!.text;
 
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+          if(_inputValidation(email: emailTxt,surname:surNameTxt,name:nameTxt,countryNameId: _countryNameId)==false){
+
+           // _userRegistration(email: emailTxt,mobile:phoneNumberTxt,countryId: _countryNameId,promoCode: promoCodeTxt);
+
+          }
+
+         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen2()));
 
         },
         style: ElevatedButton.styleFrom(
@@ -584,6 +653,46 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
         ),
       ),
     );
+  }
+
+
+  _inputValidation({
+    required String email,
+    required String name,
+    required String surname,
+    required String countryNameId
+
+  }) {
+    if (name.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("name can't empty");
+      return;
+    }
+    if (surname.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("surname can't empty");
+      return;
+    }
+
+    if (email.isEmpty) {
+      Fluttertoast.cancel();
+      validation_showToast("email can't empty");
+      return;
+    }
+    if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
+      //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
+    )
+        .hasMatch(email)) {
+      validation_showToast("Enter valid email");
+      return;
+    }
+    if (countryNameId.isEmpty || countryNameId == "0") {
+      Fluttertoast.cancel();
+      validation_showToast("Country name can't empty");
+      return;
+    }
+
+    return false;
   }
 
 }

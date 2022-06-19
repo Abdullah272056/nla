@@ -678,8 +678,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                                       maxLines: 1,
                                     ),
                                     Text(
-                                      _currencyTypeListData[index]['current_balance']
-                                          .toString(),
+                                      "\$"+_currencyTypeListData[index]['current_balance'],
                                       style: TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,

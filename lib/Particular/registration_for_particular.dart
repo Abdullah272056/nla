@@ -499,7 +499,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           String promoCodeTxt = _promoCodeController!.text;
 
 
-
           if(_inputValidation(email: emailTxt,phone: phoneNumberTxt,countryNameId: _countryNameId,promoCode: promoCodeTxt)==false){
             _userRegistration(email: emailTxt,mobile:phoneNumberTxt,countryId: _countryNameId,promoCode: promoCodeTxt);
           }
@@ -568,6 +567,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
       showToast("No Internet Connection!");
     }
   }
+
   void _showAlertDialog(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -656,7 +656,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
       },
     );
   }
-
 
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
@@ -800,7 +799,6 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   }
 
 
-
   _showToast(String message){
 
     Fluttertoast.showToast(
@@ -813,6 +811,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         fontSize: 16.0);
 
   }
+
+
 
 }
 

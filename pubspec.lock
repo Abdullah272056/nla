@@ -653,13 +653,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.3"
-  scan:
-    dependency: "direct main"
-    description:
-      name: scan
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.6.0"
   shared_preferences:
     dependency: "direct main"
     description:

@@ -10,7 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:scan/scan.dart';
+
 
 import '../../../static/Colors.dart';
 import 'add_credit_cart.dart';
@@ -28,7 +28,7 @@ class _NoCreditCardScreenState extends State<NoCreditCardScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
 int _particular_company_selected_status=1;
-  ScanController controller = ScanController();
+
   String qrcode = 'Unknown';
 
   //image upload

@@ -12,7 +12,7 @@ import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:scan/scan.dart';
+
 
 import '../common/static/Colors.dart';
 
@@ -33,7 +33,7 @@ class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScr
   String countryName="en",countryIcon="icon_country.png";
 
   int _particular_company_selected_status=1;
-  ScanController controller = ScanController();
+
   String qrcode = 'Unknown';
 
   //image upload

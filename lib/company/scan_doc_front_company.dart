@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:nova_lexxa/company/scan_doc_back_company.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:scan/scan.dart';
+
 
 import '../common/static/Colors.dart';
 
@@ -28,8 +28,8 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
 int _particular_company_selected_status=1;
-  ScanController controller = ScanController();
-  String qrcode = 'Unknown';
+
+
 
   //image upload
   PickedFile? _imageFile;

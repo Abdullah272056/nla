@@ -30,17 +30,18 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   int scanQrStatus=1;
 
   @override
-  void reassemble() {
+  Future<void> reassemble() async {
     super.reassemble();
 
-    controller!.resumeCamera();
+   // controller!.resumeCamera();
 
-    // if (Platform.isAndroid) {
-    //   controller!.resumeCamera();
-    //   controller!.pauseCamera();
-    // } else if (Platform.isIOS) {
-    //   controller!.resumeCamera();
-    // }
+    if (Platform.isAndroid) {
+      await controller?.resumeCamera();
+      _scannedQRCode="";
+    //  controller!.pauseCamera();
+    } else if (Platform.isIOS) {
+      controller!.resumeCamera();
+    }
   }
 
   @override
@@ -168,7 +169,6 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
       ),
     );
   }
-
 
   Widget scanMessageSection() {
     return Container(

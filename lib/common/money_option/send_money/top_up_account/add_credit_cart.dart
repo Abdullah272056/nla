@@ -13,7 +13,7 @@ import 'package:nova_lexxa/common/money_option/send_money/top_up_account/payment
 import 'package:nova_lexxa/common/money_option/send_money/top_up_account/save_card.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:scan/scan.dart';
+
 
 import '../../../static/Colors.dart';
 import 'card input format/input_formatters.dart';

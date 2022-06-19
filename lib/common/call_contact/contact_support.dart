@@ -638,6 +638,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   Widget _build_speak_with_us_section() {
     return Container(
       // padding: EdgeInsets.only(right: 10, top: 10, left: 10, bottom: 10),
+
         margin: EdgeInsets.only(right: 20, top: 20, left: 20, bottom: 10),
         decoration: new BoxDecoration(
           color:contact_with_us_box_color,
@@ -720,201 +721,30 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ],
                   ),),
 
-                  SizedBox(width: 10,)
+                  SizedBox(height: 10,)
 
                 ],
               ),
             ),
-            Row(
-              children: [
 
-
-                Expanded(
-                  child:  Container(
-                    margin: EdgeInsets.only(right: 5, top: 10, left: 18, bottom: 10),
-                    height: 40,
-                    decoration: new BoxDecoration(
-                      color:contact_with_us_box_color,
-                      border: Border.all(width: 2,color:novalexxa_customer_services_tab_border_color),
-                      boxShadow: [BoxShadow(
-
-                        color:Colors.grey.withOpacity(.25),
-                        //  blurRadius: 20.0, // soften the shadow
-                        blurRadius:20, // soften the shadow
-                        spreadRadius: 0.0, //extend the shadow
-                        offset:Offset(
-                          2.0, // Move to right 10  horizontally
-                          1.0, // Move to bottom 10 Vertically
-                        ),
-                      )],
-                      borderRadius: new BorderRadius.all(Radius.circular(20)),
-
-                      shape: BoxShape.rectangle,
-                    ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flag.fromString("IT", height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
-                        SizedBox(width: 8,),
-                        Text(
-                          "+1 (800) 658379",
-                          style: TextStyle(
-                              color: novalexxa_text_color,
-                              fontSize: 12,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-
-                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-
+            Container(
+              margin:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+              child: GridView.builder(
+                  itemCount: _speakWithUsList==null||_speakWithUsList.length<=0?0:
+                  _speakWithUsList.length,
+                  shrinkWrap: true,
+                  padding:const EdgeInsets.only(left:0, top: 00, right: 0, bottom: 0),
+                  physics: ClampingScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      // crossAxisSpacing: 10.0,
+                      // mainAxisSpacing: 10.0,
+                      mainAxisExtent: 52
                   ),
-
-                ),
-                Expanded(
-                  child:  Container(
-                    margin: EdgeInsets.only(right:18, top: 10, left: 5, bottom: 10),
-                    height: 40,
-                    decoration: new BoxDecoration(
-                      color:contact_with_us_box_color,
-                      border: Border.all(width: 2,color:novalexxa_customer_services_tab_border_color),
-                      boxShadow: [BoxShadow(
-
-                        color:Colors.grey.withOpacity(.25),
-                        //  blurRadius: 20.0, // soften the shadow
-                        blurRadius:20, // soften the shadow
-                        spreadRadius: 0.0, //extend the shadow
-                        offset:Offset(
-                          2.0, // Move to right 10  horizontally
-                          1.0, // Move to bottom 10 Vertically
-                        ),
-                      )],
-                      borderRadius: new BorderRadius.all(Radius.circular(20)),
-                      shape: BoxShape.rectangle,
-                    ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flag.fromString("IT", height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
-                        SizedBox(width: 8,),
-                        Text(
-                          "+1 (800) 658379",
-                          style: TextStyle(
-                              color: novalexxa_text_color,
-                              fontSize: 12,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-
-
-                  ),
-
-                ),
-              ],
-            ),
-            Row(
-              children: [
-
-
-                Expanded(
-                  child:  Container(
-                  margin: EdgeInsets.only(right: 5, top: 10, left: 18, bottom: 21),
-                  height: 40,
-                  decoration: new BoxDecoration(
-                    color:contact_with_us_box_color,
-                    border: Border.all(width: 2,color:novalexxa_customer_services_tab_border_color),
-                    boxShadow: [BoxShadow(
-
-                      color:Colors.grey.withOpacity(.25),
-                      //  blurRadius: 20.0, // soften the shadow
-                      blurRadius:20, // soften the shadow
-                      spreadRadius: 0.0, //extend the shadow
-                      offset:Offset(
-                        2.0, // Move to right 10  horizontally
-                        1.0, // Move to bottom 10 Vertically
-                      ),
-                    )],
-                    borderRadius: new BorderRadius.all(Radius.circular(20)),
-
-                    shape: BoxShape.rectangle,
-                  ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                      Flag.fromString("IT", height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
-                      SizedBox(width: 8,),
-                      Text(
-                        "+1 (800) 658379",
-                        style: TextStyle(
-                            color: novalexxa_text_color,
-                            fontSize: 12,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ],
-                  ),
-
-                  // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-
-                ),
-
-                ),
-                Expanded(
-                  child:  Container(
-                    margin: EdgeInsets.only(right:18, top: 10, left: 5, bottom: 21),
-                    height: 40,
-                    decoration: new BoxDecoration(
-                      color:contact_with_us_box_color,
-                      border: Border.all(width: 2,color:novalexxa_customer_services_tab_border_color),
-                      boxShadow: [BoxShadow(
-
-                        color:Colors.grey.withOpacity(.25),
-                        //  blurRadius: 20.0, // soften the shadow
-                        blurRadius:20, // soften the shadow
-                        spreadRadius: 0.0, //extend the shadow
-                        offset:Offset(
-                          2.0, // Move to right 10  horizontally
-                          1.0, // Move to bottom 10 Vertically
-                        ),
-                      )],
-                      borderRadius: new BorderRadius.all(Radius.circular(20)),
-                      shape: BoxShape.rectangle,
-                    ),
-
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flag.fromString("IT", height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
-                        SizedBox(width: 8,),
-                        Text(
-                          "+1 (800) 658379",
-                          style: TextStyle(
-                              color: novalexxa_text_color,
-                              fontSize: 12,
-                              decoration: TextDecoration.none,
-                              fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    ),
-
-
-                  ),
-
-                ),
-              ],
-            ),
-
-
+                  itemBuilder: (BuildContext context, int index) {
+                    return _build_speak_with_us_sectionNumberListItem(_speakWithUsList[index]);
+                  }),
+            )
 
 
 
@@ -922,6 +752,55 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         )
 
 
+
+    );
+  }
+
+  Widget _build_speak_with_us_sectionNumberListItem(var response) {
+    return  Container(
+      margin: EdgeInsets.only(right: 5,  left: 10, bottom: 10),
+      height: 40,
+      decoration: new BoxDecoration(
+        color:contact_with_us_box_color,
+        border: Border.all(width: 1,color:novalexxa_customer_services_tab_border_color),
+        boxShadow: [BoxShadow(
+
+          color:Colors.grey.withOpacity(.25),
+          //  blurRadius: 20.0, // soften the shadow
+          blurRadius:20, // soften the shadow
+          spreadRadius: 0.0, //extend the shadow
+          offset:Offset(
+            2.0, // Move to right 10  horizontally
+            1.0, // Move to bottom 10 Vertically
+          ),
+        )],
+        borderRadius: new BorderRadius.all(Radius.circular(20)),
+
+        shape: BoxShape.rectangle,
+      ),
+
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if(response["country_info"]["country_code_name"].toString()!="" &&
+              response["country_info"]["country_code_name"].toString()!="null")...[
+            Flag.fromString(response["country_info"]["country_code_name"], height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
+          ],
+
+          SizedBox(width: 8,),
+          Text(
+            response["phone_number"].toString(),
+            style: TextStyle(
+                color: novalexxa_text_color,
+                fontSize: 12,
+                decoration: TextDecoration.none,
+                fontWeight: FontWeight.w500),
+          )
+        ],
+      ),
+
+      // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
 
     );
   }

@@ -162,13 +162,13 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
           Expanded(child: Align(alignment: Alignment.topRight,
           child: InkWell(
             onTap: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyDetailForParticularScreen2(
-                  ),),
-              );
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(
+              //     settings: RouteSettings(name: "Foo"),
+              //     builder: (BuildContext context) => TransferMoneyDetailForParticularScreen2(
+              //     ),),
+              // );
             },
             child: Container(
               height: 24,

@@ -697,7 +697,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   }
 
   _inputValidation({
-    required String email,
+        required String email,
         required String phone,
         required String promoCode,
         required String countryNameId

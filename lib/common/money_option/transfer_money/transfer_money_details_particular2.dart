@@ -7,6 +7,7 @@ import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -15,23 +16,38 @@ import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_con
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_From_mobile.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
+import '../../static/loding_dialog.dart';
+import '../../static/toast.dart';
 
 
 class TransferMoneyDetailForParticularScreen2 extends StatefulWidget {
-  const TransferMoneyDetailForParticularScreen2({Key? key}) : super(key: key);
+  String name,surName,countryId;
+  var response;
+
+
+  TransferMoneyDetailForParticularScreen2({
+    required  this.name,required this.surName, required this.countryId,required this.response
+      }
+     );
 
   @override
-  State<TransferMoneyDetailForParticularScreen2> createState() => _TransferMoneyDetailForParticularScreen2State();
+  State<TransferMoneyDetailForParticularScreen2> createState() => _TransferMoneyDetailForParticularScreen2State(this.name, this.surName, this.countryId, this.response);
 }
 
 class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyDetailForParticularScreen2> {
 
+  String _receiverInputName,_receiverInputSurName,_receiverInputCountryId;
+  var _receiverResponse;
+  _TransferMoneyDetailForParticularScreen2State(
+      this._receiverInputName, this._receiverInputSurName, this._receiverInputCountryId, this._receiverResponse);
 
-  TextEditingController? _nameController = TextEditingController();
-  TextEditingController? _surnameController = TextEditingController();
-  TextEditingController? _birthDayController = TextEditingController();
+
+  TextEditingController? _transferMoneyAmountController = TextEditingController();
+
   String _countryBirthDay="Enter Birthday";
   String select_your_country="Enter Birthday";
 
@@ -42,9 +58,58 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   String _countryName = "Select your country";
   String _countryNameId = "0";
   String _countryCode = "IT";
-  List _countryList = [];
+
+  String _transferFee = "0.00";
+
+
   TextEditingController? _searchController = TextEditingController();
 
+  String _userTransferMoneyTxt="";
+  //receiver info
+  String _receiverId = "";
+  List _currencyTypeListForRecever = [];
+  String _receiverCountryName="";
+  String _receiverCurrencyName="";
+  String _receiverCurrencySymbol="";
+  String _receiverCountryCode = "";
+  String _receiverReceivedMoney = "0.00";
+  String _exchangeRate = "0.0";
+
+
+  //sender info
+  String _userId = "";
+  String _currencyId = "0";
+  List _currencyTypeListForSender = [];
+  String _senderCountryName="";
+  String _senderCountryNameId="";
+  String _senderCurrencyName="";
+  String _senderCurrencySymbol="";
+  String _senderCountryCode = "";
+
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _receiverId= _receiverResponse["data"]["id"].toString();
+          _getUserCurrencyTypeListForSender1();
+          _getUserCurrencyTypeListForReceiver1(_receiverId);
+          // _getCurrentBalanced();
+        });
+      }
+      else{
+      }
+
+      if(_senderCurrencyName!=""&&_receiverCurrencyName!=""){
+        _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+      }
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +227,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   }
 
 
-
+// sender info
   Widget _buildSelectDeliveryMethodItemBankDeposit2() {
     return Container(
       height: 100,
@@ -202,25 +267,69 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                 ),
               ),
 
-              SizedBox(height: 5,),
+
               Align(
                 alignment: Alignment.centerLeft,
-                child:   Text(
-                  "250.00",
-                  textAlign: TextAlign.center,
-
+                child: TextField(
+                  textAlign: TextAlign.left,
+                  controller: _transferMoneyAmountController,
+                  textInputAction: TextInputAction.search,
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  cursorColor:slide_button_end_color,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
                   style: TextStyle(
                       color: slide_button_end_color,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
+                  onChanged: (text) {
+                    _userTransferMoneyTxt=text;
+                    // if(double.parse(text)>_currentBalance){
+                    //   setState(() {
+                    //     _inputAmountGatterThanStatus=1;
+                    //   });
+                    //
+                    //   // _showToast("not possible");
+                    // }
+                    // else{
+                    //   setState(() {
+                    //     _inputAmountGatterThanStatus=0;
+                    //   });
+                    // }
+                    if(_userTransferMoneyTxt!=""){
+                      if(_senderCountryNameId!=""){
+                        _getTransferFees(countryId: _senderCountryNameId,userId: _userId,amount: _userTransferMoneyTxt);
+                        _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+                        _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+                      //  _getMoneyConvert(amount:_userTransferMoneyTxt,from: _receiverCurrencyName,to: _senderCurrencyName );
+
+                      }
+                    }else{
+                      _transferFee="0.0";
+                    }
+
+                  },
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+
+                    hintText: "0.00",
+                    hintStyle:  TextStyle(fontSize: 20,
+                        color:novalexxa_hint_text_color,
+                        // color: Colors.intello_hint_color,
+                        fontStyle: FontStyle.normal),
+                  ),
+
                 ),
+
               ),
 
-              SizedBox(height: 5,),
+
               Align(
                 alignment: Alignment.centerLeft,
                 child:   Text(
-                  "Transfer Fees: 3.8 €",
+                  "Transfer Fees: $_transferFee $_senderCurrencyName",
                   textAlign: TextAlign.center,
 
                   style: TextStyle(
@@ -232,45 +341,51 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
             ],
           )),
-          Expanded(child:Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          Expanded(child:InkWell(
+            onTap: (){
+              _getUserCurrencyTypeListForSender();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
 
-            children: [
+              children: [
 
-              Container(
-                margin: const EdgeInsets.only(left: 00.0, right: 10.0),
-                child:  Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                Container(
+                  margin: const EdgeInsets.only(left: 00.0, right: 10.0),
+                  child:  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _senderCountryName,
+                        style: TextStyle(
+                            color: intello_level_color,
+                            fontSize: 11,
+                            fontWeight: FontWeight.normal),
+                      ),
 
-
-                    Text(
-                      "Italy",
-                      style: TextStyle(
-                          color: intello_level_color,
-                          fontSize: 11,
-                          fontWeight: FontWeight.normal),
-                    ),
-
-                    SizedBox(height: 5,),
-                    Text(
-                      "Euro €",
-                      style: TextStyle(
-                          color: novalexxa_text_color,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
+                      SizedBox(height: 5,),
+                      Text(
+                        "$_senderCurrencyName $_senderCurrencySymbol",
+                        style: TextStyle(
+                            color: novalexxa_text_color,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
 
-              ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: Flag.fromString(_countryCode, height: 28, width: 32, fit: BoxFit.fill ),
-              )
+                if(_senderCountryCode.isNotEmpty&&_senderCountryCode!=null)...{
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(5.0),
+                    child: Flag.fromString(_senderCountryCode, height: 28, width: 32, fit: BoxFit.fill ),
+                  )
+                }
 
-            ],
+
+              ],
+            ),
           ),)
         ],
       ),
@@ -306,7 +421,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               Align(
                 alignment: Alignment.centerLeft,
                 child:  Text(
-                  _switchButtonStatus==true? "James will receive?":'James will receive Exactly?',
+                  _switchButtonStatus==true? "$_receiverInputName will receive?":'$_receiverInputName will receive Exactly?',
                   textAlign: TextAlign.left,
 
                   style: TextStyle(
@@ -320,7 +435,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               Align(
                 alignment: Alignment.centerLeft,
                 child:   Text(
-                  "382.24",
+                  _receiverReceivedMoney,
+
                   textAlign: TextAlign.left,
 
                   style: TextStyle(
@@ -333,8 +449,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               SizedBox(height: 5,),
               Align(
                 alignment: Alignment.centerLeft,
-                child:   Text(
-                  "Exchange Rate: 1 € = 1.53 CAD",
+                child:Text(
+
+                  "Exchange Rate: 1 $_senderCurrencyName = $_exchangeRate $_receiverCurrencyName",
                   textAlign: TextAlign.left,
 
                   style: TextStyle(
@@ -380,7 +497,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                 InkResponse(
                   onTap: (){
-                    _getCountryDataList();
+                    _getUserCurrencyTypeListForReceiver(_receiverId);
 
                   },
                   child: Row(
@@ -397,7 +514,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
 
                             Text(
-                              "Italy",
+                              _receiverCountryName,
                               style: TextStyle(
                                   color: intello_level_color,
                                   fontSize: 11,
@@ -406,7 +523,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                             SizedBox(height: 5,),
                             Text(
-                              "Euro €",
+                              "$_receiverCurrencyName $_receiverCurrencySymbol",
                               style: TextStyle(
                                   color: novalexxa_text_color,
                                   fontSize: 14,
@@ -415,11 +532,18 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                           ],
                         ),
                       ),
+                      //
+                      // ClipRRect(
+                      //   borderRadius: BorderRadius.circular(5.0),
+                      //   child: Flag.fromString(_receiverCountryCode, height: 28, width: 32, fit: BoxFit.fill ),
+                      // ),
 
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(5.0),
-                        child: Flag.fromString(_countryCode, height: 28, width: 32, fit: BoxFit.fill ),
-                      ),
+                      if(_receiverCountryCode.isNotEmpty&&_receiverCountryCode!=null)...{
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(5.0),
+                          child: Flag.fromString(_receiverCountryCode, height: 28, width: 32, fit: BoxFit.fill ),
+                        )
+                      },
                       Icon(
                         Icons.arrow_drop_down_outlined,
                         color: novalexxa_text_color,
@@ -447,6 +571,22 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         children: [
           InkResponse(
             onTap: (){
+              _transferMoney(
+                exchangeRate: _exchangeRate,
+                receiverCurrencyId: "",
+                receiverEmail: "",
+                receiverName:"",
+                receiverSurname: "",
+                receiverUserCountryId:"",
+                receiverUserId: "",
+                receiverUserReceivedMoney: "",
+                senderCurrencyId: "",
+                senderUserCountryId: "",
+                senderUserId: "",
+                senderUserSendAmount: "",
+                transferFees: ""
+              );
+
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -610,7 +750,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
           InkResponse(
             onTap: (){
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   settings: RouteSettings(name: "Foo"),
@@ -680,9 +820,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     );
   }
 
-
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -694,131 +831,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         fontSize: 16.0);
   }
 
-
-  _getCountryDataList() async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
-        try {
-          var response = await get(
-            Uri.parse('$BASE_URL_API$GET_COUNTRY_LIST'),
-          );
-          Navigator.of(context).pop();
-          if (response.statusCode == 200) {
-            setState(() {
-              var data = jsonDecode(response.body);
-              _countryList = data["data"];
-              _showAlertDialog(context, _countryList);
-            });
-          } else {
-            Fluttertoast.cancel();
-          }
-        } catch (e) {
-          Fluttertoast.cancel();
-        }
-      }
-    } on SocketException catch (e) {
-      Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
-    }
-  }
-
-  void _showAlertDialog(BuildContext context, List _countryListData) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
-          child: Container(
-            // color: Colors.green,
-            margin: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 20, bottom: 20),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
-                    "Select your country",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: novalexxa_text_color,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    softWrap: false,
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
-                  ),
-                ),
-                userInputSearchField(_searchController!, 'Search country or currency', TextInputType.text),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: _countryList == null ? 0 : _countryList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkResponse(
-                          onTap: () {
-                            setState(() {
-                              Navigator.of(context).pop();
-                              _countryName = _countryListData[index]
-                              ['country_name']
-                                  .toString();
-                              _countryCode = _countryListData[index]
-                              ['country_code_name']
-                                  .toString();
-                              _countryNameId = _countryListData[index]
-                              ['country_id']
-                                  .toString();
-                            });
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 10, bottom: 10),
-                            child: Column(
-                              children: [
-                                Flex(
-                                  direction: Axis.horizontal,
-                                  children: [
-                                    Flag.fromString(
-                                        _countryListData[index]
-                                        ['country_code_name']
-                                            .toString(),
-                                        height: 25,
-                                        width: 25),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        _countryListData[index]['country_name']
-                                            .toString(),
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                        softWrap: false,
-                                        overflow: TextOverflow.clip,
-                                        maxLines: 1,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
@@ -898,6 +910,688 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
       ),
     );
   }
+
+  //sender
+  _getUserCurrencyTypeListForReceiver(String receiverId) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$receiverId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+
+              var data = jsonDecode(response.body);
+              _currencyTypeListForRecever = data["data"];
+              _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  _getUserCurrencyTypeListForReceiver1(String receiverId) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$receiverId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeListForRecever = data["data"];
+              if(_currencyTypeListForRecever.length>0){
+
+
+                _receiverCurrencyName=_currencyTypeListForRecever[0]['currency_information']['currency_name'].toString();
+                _receiverCurrencySymbol= _currencyTypeListForRecever[0]['currency_information']['currency_symbol'].toString();
+                _receiverCountryName=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_name"].toString();
+                _receiverCountryCode=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_code_name"].toString();
+                if(_senderCurrencyName!=""&&_receiverCurrencyName!=""){
+                  _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+                }
+              }
+
+
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showCountryAlertDialogForReceiver(BuildContext context, List _currencyTypeListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your country",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_text_color,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                userInputSearchField(_searchController!, 'Search country or currency', TextInputType.text),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _currencyTypeListData == null ? 0 : _currencyTypeListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+
+                              _receiverCurrencyName=_currencyTypeListData[index]['currency_information']['currency_name'].toString();
+                              _receiverCurrencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _receiverCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
+                              _receiverCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
+                              if(_userTransferMoneyTxt.isNotEmpty){
+                                _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+                               // _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+                              }
+
+                              _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Flag.fromString(
+                                        _currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString(), height: 25, width: 25),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  //get receiver
+  _getUserCurrencyTypeListForSender() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeListForSender = data["data"];
+              _showCountryAlertDialogForSender(context, _currencyTypeListForSender);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  _getUserCurrencyTypeListForSender1() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _currencyTypeListForSender = data["data"];
+              if(_currencyTypeListForSender.length>0){
+                _senderCurrencyName=_currencyTypeListForSender[0]['currency_information']['currency_name'].toString();
+                _senderCurrencySymbol= _currencyTypeListForSender[0]['currency_information']['currency_symbol'].toString();
+                _senderCountryName=_currencyTypeListForSender[0]['currency_information']['country_info']["country_name"].toString();
+                _senderCountryCode=_currencyTypeListForSender[0]['currency_information']['country_info']["country_code_name"].toString();
+                _senderCountryNameId=_currencyTypeListForSender[0]['currency_information']['country_info']["country_id"].toString();
+                if(_senderCurrencyName!=""&&_receiverCurrencyName!=""){
+                  _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+                }
+              }
+
+
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showCountryAlertDialogForSender(BuildContext context, List _currencyTypeListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your country",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_text_color,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                userInputSearchField(_searchController!, 'Search country or currency', TextInputType.text),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _currencyTypeListData == null ? 0 : _currencyTypeListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              _senderCurrencyName=_currencyTypeListData[index]['currency_information']['currency_name'].toString();
+                              _senderCurrencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _senderCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
+                              _senderCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
+                              _senderCountryNameId=_currencyTypeListData[index]['currency_information']['country_info']["country_id"].toString();
+                              if(_userTransferMoneyTxt.isNotEmpty){
+                                _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+
+                              }
+                              _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    Flag.fromString(
+                                        _currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString(), height: 25, width: 25),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+//transfer fees api
+  _getTransferFees({
+    required String userId,
+    required String countryId,
+    required String amount,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY_TRANSFER_FEES'),
+              body: {
+                'user_id': userId,
+                'country_id': countryId,
+                'amount': amount,
+              });
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _transferFee=data["transfer_fees"].toString();
+
+            });
+          }
+
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+
+        } catch (e) {
+
+       //   _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+  _getMoneyConvert({
+    required String from,
+    required String to,
+    required String amount,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY_CONVERT'),
+              body: {
+                'from': from,
+                'to': to,
+                'amount': amount,
+              });
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _receiverReceivedMoney=data["data"]["result"][to].toString();
+            //  _transferFee=data["transfer_fees"].toString();
+
+            });
+          }
+
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+
+        } catch (e) {
+
+       //   _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+  _getExchangeRate({
+    required String from,
+    required String to,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY_CONVERT'),
+              body: {
+                'from': from,
+                'to': to,
+                'amount': "1",
+              });
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _exchangeRate=data["data"]["result"]["rate"].toString();
+              //  _transferFee=data["transfer_fees"].toString();
+
+            });
+          }
+
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+
+        } catch (e) {
+
+          //   _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+  _transferMoney({
+    required String senderUserId,
+    required String senderUserSendAmount,
+    required String transferFees,
+    required String senderUserCountryId,
+    required String senderCurrencyId,
+    required String receiverUserId,
+    required String receiverName,
+    required String receiverSurname,
+    required String receiverEmail,
+    required String receiverCurrencyId,
+    required String receiverUserCountryId,
+    required String receiverUserReceivedMoney,
+    required String exchangeRate,
+
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Creating...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_REGISTRATION'),
+              body: {
+
+                'sender_user_id': senderUserId,
+                'sender_user_send_amount': senderUserSendAmount,
+                'transfer_fees': transferFees,
+                'sender_user_country_id': senderUserCountryId,
+                'sender_currency_id': senderCurrencyId,
+                'receiver_user_id': receiverUserId,
+                'receiver_name': receiverName,
+                'receiver_surname': receiverSurname,
+                'receiver_email': receiverEmail,
+                'receiver_currency_id': receiverCurrencyId,
+                'receiver_user_country_id': receiverUserCountryId,
+                'receiver_user_received_money': receiverUserReceivedMoney,
+                'exchange_rate': exchangeRate,
+
+              }
+          );
+          Navigator.of(context).pop();
+          _showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+
+              // Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen(
+              //   data["data"]["id"].toString(),
+              //   data["data"]["phone_number"].toString(),
+              //
+              //
+              // )));
+
+            });
+          }
+
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+  void _showAlertDialogForSender(BuildContext context, List _currencyTypeListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your Currency",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _currencyTypeListData == null ? 0 : _currencyTypeListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+
+                              _senderCurrencyName=_currencyTypeListForSender[index]['currency_information']['currency_name'].toString();
+                              _senderCurrencySymbol= _currencyTypeListForSender[index]['currency_information']['currency_symbol'].toString();
+                              _senderCountryName=_currencyTypeListForSender[index]['currency_information']['country_info']["country_name"].toString();
+                              _senderCountryCode=_currencyTypeListForSender[index]['currency_information']['country_info']["country_code_name"].toString();
+
+
+
+                              // _currentBalance=double.parse(_currencyTypeListData[index]['current_balance'].toString());
+                              // _currencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              // _currencyId=_currencyTypeListData[index]['currency_information']['country_id'].toString();
+
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      _currencyTypeListData[index]['currency_information']['currency_name'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      " - ",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+                                      _currencyTypeListData[index]['current_balance']
+                                          .toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    ),
+                                    Text(
+
+                                      _currencyTypeListData[index]['currency_information']['currency_symbol'].toString(),
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Roboto',
+                                      ),
+
+                                      softWrap: false,
+                                      overflow: TextOverflow.clip,
+                                      maxLines: 1,
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 
 }
 

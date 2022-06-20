@@ -15,6 +15,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../static/loding_dialog.dart';
 import '../../static/toast.dart';
 
 
@@ -40,6 +41,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
   String _countryCode = "IT";
   List _countryList = [];
   TextEditingController? _searchController = TextEditingController();
+  String emailTxt="",nameTxt="",surNameTxt="";
 
   @override
   Widget build(BuildContext context) {
@@ -394,18 +396,13 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
       child: ElevatedButton(
         onPressed: () {
 
-          String emailTxt = _emailController!.text;
-          String nameTxt = _nameController!.text;
-          String surNameTxt = _surnameController!.text;
+           emailTxt = _emailController!.text;
+           nameTxt = _nameController!.text;
+           surNameTxt = _surnameController!.text;
 
           if(_inputValidation(email: emailTxt,surname:surNameTxt,name:nameTxt,countryNameId: _countryNameId)==false){
-
-           // _userRegistration(email: emailTxt,mobile:phoneNumberTxt,countryId: _countryNameId,promoCode: promoCodeTxt);
-
+            _sendReceiverPersonalEmail(email: emailTxt);
           }
-
-         // Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen2()));
-
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -440,6 +437,53 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
     );
   }
 
+  _sendReceiverPersonalEmail({
+    required String email,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY_RECEIVER_USER_INFO'),
+              body: {
+                'receiver_email': email,
+              });
+          Navigator.of(context).pop();
+        //  _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            //_showToast("success");
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen2(
+                name: nameTxt,surName: surNameTxt,countryId: _countryNameId,response: data,
+
+              )));
+
+            });
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -447,7 +491,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 

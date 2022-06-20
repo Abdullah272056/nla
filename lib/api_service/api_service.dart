@@ -49,6 +49,7 @@
   String SUB_URL_API_QR_CODE_MONEY_SEND= "api/core/qr-code-money-send/";
   String SUB_URL_API_USER_CURRENCY_TYPE_LIST= "api/core/user-currency-type-info/";
   String SUB_URL_API_EMAIL_TOPIC_LIST = "api/core/topic-info/";
+  String SUB_URL_API_EMAIL_SEND = "api/core/send-message/";
 
   //transfer money
   String SUB_URL_API_TRANSFER_MONEY_RECEIVER_USER_INFO = "api/core/transfer-money-receiver-user-info/";

@@ -14,6 +14,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../static/loding_dialog.dart';
 import '../static/toast.dart';
 
 
@@ -105,10 +106,8 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                   child: Padding(
                       padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
                       child:Align(alignment: Alignment.topCenter,
-                        child: _buildDropDownMenu2(),
+                        child: _buildDropDownMenu(),
                       )
-
-
                   ),
                 ),
                 if(_customTopic==1)...{
@@ -325,14 +324,14 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.red,
         textColor: Colors.black,
         fontSize: 16.0);
   }
 
 
 
-  Widget _buildDropDownMenu2() {
+  Widget _buildDropDownMenu() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         customButton: Container(
@@ -341,7 +340,8 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         hint: Text('hooseNumber'),
         items: _emailUsTopicList.map((item) {
           return DropdownMenuItem(
-            value: item['topic_name'].toString(),
+            value: item["topic_name"],
+            // value: item['topic_name'].toString(),
             child: _buildDropDownItemDesign(item)
 
            // Text(item['topic_name'].toString()),
@@ -358,8 +358,9 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         ),
         dropdownElevation: 8,
         offset: const Offset(0, 0),
-        onChanged: (newVal) {
+        onChanged: (var newVal) {
           setState(() {
+           // _showToast(baj.);
             dropdownvalue = newVal;
           });
         },
@@ -370,7 +371,6 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
   Widget _buildDropDownItemDesign(var response) {
     return Container(
-
       height: 55,
       child: Column(
         children: [
@@ -390,7 +390,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             ],
           )),
           Container(color: select_country_search_box_border_color,
-          height: 1,
+            height: 1,
           )
         ],
       ),
@@ -402,8 +402,13 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-
-          Navigator.of(context).pop();
+          _sendEmail(
+            user_id: _userId,
+            send_message: "asdfgb",
+            topic_id: "1"
+          );
+         // _showToast("");
+         // Navigator.of(context).pop();
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -545,6 +550,58 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
       },
     );
   }
+  _sendEmail(
+      {
+        required String topic_id,
+        required String user_id,
+        required String send_message,
+      }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_EMAIL_SEND'),
+              body: {
+                'topic_id': topic_id,
+                'user_id': user_id,
+                'send_message': send_message,
+              });
+          Navigator.of(context).pop();
+          _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            var data = jsonDecode(response.body.toString());
+
+          }
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body);
+            _showToast(data['message']);
+          }
+
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
 
 }
 
+class baj{
+  String name;
+  String id;
+  baj(this.name, this.id);
+
+
+}

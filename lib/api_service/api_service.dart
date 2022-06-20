@@ -6,7 +6,7 @@
   String BASE_URL_API = "http://3.249.53.197:8000/";
   String GET_COUNTRY_LIST= "api/country-info/";
 
-//particular registration
+  //particular registration
   String SUB_URL_API_PERSONAL_REGISTRATION = "api/personal-registration-email-or-phone/";
   String SUB_URL_API_EMAIL_SEND_CODE = "api/personal-email-otp-resend/";
   String SUB_URL_API_PERSONAL_EMAIL_VERIFY = "api/personal-email-verify/";
@@ -16,12 +16,12 @@
   String SUB_URL_API_PERSONAL_CREATE_PASSWORD = "api/personal-password/";
   String SUB_URL_API_PERSONAL_CREATE_PIN = "api/company-transaction-pin/";
 
-//phone number verify
+  //phone number verify
   String SUB_URL_API_PHONE_NUMBER_SEND_CODE = "api/phone-number-otp-send/";
   String SUB_URL_API_PHONE_NUMBER_RESEND_CODE = "api/phone-number-otp-resend/";
   String SUB_URL_API_PERSONAL_PHONE_VERIFY = "api/phone-number-otp-verify/";
 
-//Company registration
+  //Company registration
   String SUB_URL_API_COMPANY_REGISTRATION = "api/company-registration/";
   String SUB_URL_API_EMAIL_SEND_CODE_COMPANY = "api/company-email-otp-resend/";
   String SUB_URL_API_COMPANY_EMAIL_VERIFY = "api/company-email-verify/";
@@ -48,6 +48,7 @@
   String SUB_URL_API_QR_CODE_EMAIL_CHECKED= "api/core/qr-code-email-checked/";
   String SUB_URL_API_QR_CODE_MONEY_SEND= "api/core/qr-code-money-send/";
   String SUB_URL_API_USER_CURRENCY_TYPE_LIST= "api/core/user-currency-type-info/";
+  String SUB_URL_API_EMAIL_TOPIC_LIST = "api/core/topic-info/";
 
   //transfer money
   String SUB_URL_API_TRANSFER_MONEY_RECEIVER_USER_INFO = "api/core/transfer-money-receiver-user-info/";
@@ -57,6 +58,9 @@
 
   //notification
   String SUB_URL_API_NOTIFICATION_LIST = "api/core/user-notification/3/";
+
+
+
 
 
 

@@ -1,16 +1,27 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../api_service/api_service.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../static/toast.dart';
 
 
 
 
 class EmailUsPageScreen extends StatefulWidget {
+
+
 
   @override
   State<EmailUsPageScreen> createState() => _EmailUsPageScreenState();
@@ -21,9 +32,26 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
   TextEditingController? _sendMoneyMessageController = TextEditingController();
   TextEditingController? _sendTopicController = TextEditingController();
    int _customTopic=0;
+  List _emailUsTopicList = [];
 
   String topicName="Select Topic";
+  String _userId = "";
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getEmailTopicList();
 
+        });
+      }
+      else{
+      }
+    });
+  }
+  var dropdownvalue;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +93,8 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                   ],
                 ),
 
+
+
                 Container(
 
                   alignment: Alignment.center,
@@ -75,7 +105,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                   child: Padding(
                       padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
                       child:Align(alignment: Alignment.topCenter,
-                        child: _buildDropDownMenu(),
+                        child: _buildDropDownMenu2(),
                       )
 
 
@@ -203,7 +233,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
         Expanded(child:Center(
           child: Text(
-              topicName
+              dropdownvalue==null?"Select Topic":dropdownvalue.toString()
           ),)
         ),
 
@@ -300,29 +330,25 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         fontSize: 16.0);
   }
 
-  Widget _buildDropDownMenu() {
+
+
+  Widget _buildDropDownMenu2() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-
         customButton: Container(
           child:userTopicDropDownSection(),
         ),
-        // openWithLongPress: true,
-        customItemsIndexes: const [4],
+        hint: Text('hooseNumber'),
+        items: _emailUsTopicList.map((item) {
+          return DropdownMenuItem(
+            value: item['topic_name'].toString(),
+            child: _buildDropDownItemDesign(item)
+
+           // Text(item['topic_name'].toString()),
+          );
+        }).toList(),
         customItemsHeight: 8,
         itemHeight: 55.0,
-        items: [
-          ...MenuItems.firstItems.map(
-                (item) =>
-                DropdownMenuItem<MenuItem>(
-                  value: item,
-                  child: _buildDropDownItemDesign(item),
-                ),
-          ),
-          const DropdownMenuItem<Divider>(enabled: false, child: Divider()),
-        ],
-
-       // itemHeight: 40,
         itemPadding: const EdgeInsets.only(left: 10, right: 10),
         //dropdownWidth: 160,
         dropdownPadding: const EdgeInsets.symmetric(vertical: 0),
@@ -332,46 +358,17 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         ),
         dropdownElevation: 8,
         offset: const Offset(0, 0),
-
-
-        onChanged: (value) {
-          switch (value as MenuItem) {
-            case MenuItems.CustomTopic:
-              setState(() {
-                topicName="Custom Topic";
-                _customTopic=1;
-              });
-
-              //Do something
-              break;
-            case MenuItems.Topic1:
-              setState(() {
-                topicName="Topic 1";
-                _customTopic=0;
-              });
-              //Do something
-              break;
-            case MenuItems.Topic2:
-              setState(() {
-                topicName="Topic 2";
-                _customTopic=0;
-              });
-              break;
-            case MenuItems.Topic3:
-              setState(() {
-                topicName="Topic 3";
-                _customTopic=0;
-              });
-              break;
-          }
-          // MenuItems.onChanged(context, value as MenuItem);
+        onChanged: (newVal) {
+          setState(() {
+            dropdownvalue = newVal;
+          });
         },
-
+        value: dropdownvalue,
       ),
     );
   }
 
-   Widget _buildDropDownItemDesign(MenuItem item) {
+  Widget _buildDropDownItemDesign(var response) {
     return Container(
 
       height: 55,
@@ -383,7 +380,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
               Align(
                 alignment: Alignment.centerLeft,
                 child:  Text(
-                  item.text,
+                  response["topic_name"],
                   style: const TextStyle(
                     color: intello_input_text_color,
                     fontSize: 16,
@@ -466,21 +463,88 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
     );
   }
 
+  _getEmailTopicList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_EMAIL_TOPIC_LIST'),
+
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _emailUsTopicList=data["data"];
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
 }
 
-class MenuItem {
-  final String text;
-  const MenuItem({
-    required this.text,
-  });
-}
-
-class MenuItems {
-  static const List<MenuItem> firstItems = [CustomTopic, Topic1, Topic2,Topic3];
-
-  static const CustomTopic = MenuItem(text: 'Custom Topic',);
-  static const Topic1 = MenuItem(text: 'Topic 1',);
-  static const Topic2 = MenuItem(text: 'Topic 2', );
-  static const Topic3 = MenuItem(text: 'Topic 3',);
-
-}

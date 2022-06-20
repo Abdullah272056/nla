@@ -670,12 +670,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
           );
           Navigator.of(context).pop();
-           showToast(response.statusCode.toString());
+           //showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
               var data = jsonDecode(response.body);
               _chatWithUsList=data["data"];
-              _showToast(_chatWithUsList.length.toString());
+             // _showToast(_chatWithUsList.length.toString());
               // _currentBalance=double.parse(data["amount"].toString());
             });
           } else {

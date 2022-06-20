@@ -29,6 +29,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   String _userId = "";
 
   List _speakWithUsList = [];
+  List _chatWithUsList = [];
   @override
   @mustCallSuper
   initState() {
@@ -37,6 +38,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
           _getSpeakUserlist();
+          _getChatUserList();
         });
       }
       else{
@@ -334,288 +336,24 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            Container(
-                              margin: EdgeInsets.only(right: 4, top: 14, left: 14, bottom: 20),
-                              child:   Flex(
-                                direction: Axis.vertical,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
-                                    width: 60,
-                                    height: 60,
-                                    decoration: new BoxDecoration(
-                                      border: Border.all(width: 2,color: Colors.white),
-                                      boxShadow: [BoxShadow(
-
-                                        color:Colors.grey.withOpacity(.25),
-                                        //  blurRadius: 20.0, // soften the shadow
-                                        blurRadius:20, // soften the shadow
-                                        spreadRadius: 0.0, //extend the shadow
-                                        offset:Offset(
-                                          2.0, // Move to right 10  horizontally
-                                          1.0, // Move to bottom 10 Vertically
-                                        ),
-                                      )],
-                                      borderRadius: new BorderRadius.all(Radius.circular(30.0)),
-                                      shape: BoxShape.rectangle,
-                                    ),
-
-                                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-
-                                      child: Container(
-                                          height: 60,
-                                          width: 60,
-                                          color: hint_color,
-                                          child: FadeInImage.assetNetwork(
-                                            fit: BoxFit.fill,
-                                            placeholder: 'assets/images/empty.jpg',
-                                            image:
-                                            "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                                            imageErrorBuilder: (context, url, error) =>
-                                                Image.asset(
-                                                  'assets/images/empty.jpg',
-                                                  fit: BoxFit.fill,
-                                                ),
-                                          )),
-                                    ),
-                                  ),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
-                                      child: Text(
-                                        "Mario Rossio",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
-                                      child: Text(
-                                        "Available",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: novalexxa_hint_text_color,
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                ],
-                              ),
-                            ),
 
                             Container(
-                              margin: EdgeInsets.only(right: 4, top: 4, left: 10, bottom: 4),
-                              child:   Flex(
-                                direction: Axis.vertical,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
-                                    width: 60,
-                                    height: 60,
-                                    decoration: new BoxDecoration(
-                                      border: Border.all(width: 2,color: Colors.white),
-                                      boxShadow: [BoxShadow(
+                                margin: const EdgeInsets.only(top: 0),
+                                height:130.0,
 
-                                        color:Colors.grey.withOpacity(.25),
-                                        //  blurRadius: 20.0, // soften the shadow
-                                        blurRadius:20, // soften the shadow
-                                        spreadRadius: 0.0, //extend the shadow
-                                        offset:Offset(
-                                          2.0, // Move to right 10  horizontally
-                                          1.0, // Move to bottom 10 Vertically
-                                        ),
-                                      )],
-                                      borderRadius: new BorderRadius.all(Radius.circular(30.0)),
-                                      shape: BoxShape.rectangle,
-                                    ),
+                                // child: _buildRecentlyAddedCourseItem(),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
 
-                                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-
-                                      child: Container(
-                                          height: 60,
-                                          width: 60,
-                                          color: hint_color,
-                                          child: FadeInImage.assetNetwork(
-                                            fit: BoxFit.fill,
-                                            placeholder: 'assets/images/empty.jpg',
-                                            image:
-                                            "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                                            imageErrorBuilder: (context, url, error) =>
-                                                Image.asset(
-                                                  'assets/images/empty.jpg',
-                                                  fit: BoxFit.fill,
-                                                ),
-                                          )),
-                                    ),
-                                  ),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
-                                      child: Text(
-                                        "Mario Rossio",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
-                                      child: Text(
-                                        "Available",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: novalexxa_hint_text_color,
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              margin: EdgeInsets.only(right: 4, top: 4, left: 10, bottom: 4),
-                              child:   Flex(
-                                direction: Axis.vertical,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
-                                    width: 60,
-                                    height: 60,
-                                    decoration: new BoxDecoration(
-                                      border: Border.all(width: 2,color: Colors.white),
-                                      boxShadow: [BoxShadow(
-
-                                        color:Colors.grey.withOpacity(.25),
-                                        //  blurRadius: 20.0, // soften the shadow
-                                        blurRadius:20, // soften the shadow
-                                        spreadRadius: 0.0, //extend the shadow
-                                        offset:Offset(
-                                          2.0, // Move to right 10  horizontally
-                                          1.0, // Move to bottom 10 Vertically
-                                        ),
-                                      )],
-                                      borderRadius: new BorderRadius.all(Radius.circular(30.0)),
-                                      shape: BoxShape.rectangle,
-                                    ),
-
-                                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-
-                                      child: Container(
-                                          height: 60,
-                                          width: 60,
-                                          color: hint_color,
-                                          child: FadeInImage.assetNetwork(
-                                            fit: BoxFit.fill,
-                                            placeholder: 'assets/images/empty.jpg',
-                                            image:
-                                            "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                                            imageErrorBuilder: (context, url, error) =>
-                                                Image.asset(
-                                                  'assets/images/empty.jpg',
-                                                  fit: BoxFit.fill,
-                                                ),
-                                          )),
-                                    ),
-                                  ),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
-                                      child: Text(
-                                        "Mario Rossio",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
-                                      child: Text(
-                                        "Available",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: novalexxa_hint_text_color,
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                ],
-                              ),
-                            ),
-
-                            Container(
-                              margin: EdgeInsets.only(right: 14, top: 4, left: 10, bottom: 4),
-                              child:   Flex(
-                                direction: Axis.vertical,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
-                                    width: 60,
-                                    height: 60,
-                                    decoration: new BoxDecoration(
-                                      border: Border.all(width: 2,color: Colors.white),
-                                      boxShadow: [BoxShadow(
-
-                                        color:Colors.grey.withOpacity(.25),
-                                        //  blurRadius: 20.0, // soften the shadow
-                                        blurRadius:20, // soften the shadow
-                                        spreadRadius: 0.0, //extend the shadow
-                                        offset:Offset(
-                                          2.0, // Move to right 10  horizontally
-                                          1.0, // Move to bottom 10 Vertically
-                                        ),
-                                      )],
-                                      borderRadius: new BorderRadius.all(Radius.circular(30.0)),
-                                      shape: BoxShape.rectangle,
-                                    ),
-
-                                    // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(30),
-
-                                      child: Container(
-                                          height: 60,
-                                          width: 60,
-                                          color: hint_color,
-                                          child: FadeInImage.assetNetwork(
-                                            fit: BoxFit.fill,
-                                            placeholder: 'assets/images/empty.jpg',
-                                            image:
-                                            "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                                            imageErrorBuilder: (context, url, error) =>
-                                                Image.asset(
-                                                  'assets/images/empty.jpg',
-                                                  fit: BoxFit.fill,
-                                                ),
-                                          )),
-                                    ),
-                                  ),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
-                                      child: Text(
-                                        "Mario Rossio",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                  Container(
-                                    // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
-                                      child: Text(
-                                        "Available",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: novalexxa_hint_text_color,
-                                            fontSize: 9,
-                                            fontWeight: FontWeight.w500),
-                                      )),
-                                ],
-                              ),
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                                  itemCount: _chatWithUsList==null||_chatWithUsList.length<=0?0:
+                                  _chatWithUsList.length,
+                                  itemBuilder: (context, index) {
+                                    return _build_chat_with_us_sectionNumberListItem(_chatWithUsList[index]);
+                                  },
+                                  scrollDirection: Axis.horizontal,
+                                )
                             ),
 
 
@@ -805,6 +543,78 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
     );
   }
 
+  Widget _build_chat_with_us_sectionNumberListItem(var response) {
+    return  Container(
+      margin: EdgeInsets.only(right: 4, top: 14, left: 14, bottom: 20),
+      child:   Flex(
+        direction: Axis.vertical,
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
+            width: 60,
+            height: 60,
+            decoration: new BoxDecoration(
+              border: Border.all(width: 2,color: Colors.white),
+              boxShadow: [BoxShadow(
+
+                color:Colors.grey.withOpacity(.25),
+                //  blurRadius: 20.0, // soften the shadow
+                blurRadius:20, // soften the shadow
+                spreadRadius: 0.0, //extend the shadow
+                offset:Offset(
+                  2.0, // Move to right 10  horizontally
+                  1.0, // Move to bottom 10 Vertically
+                ),
+              )],
+              borderRadius: new BorderRadius.all(Radius.circular(30.0)),
+              shape: BoxShape.rectangle,
+            ),
+
+            // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+
+              child: Container(
+                  height: 60,
+                  width: 60,
+                  color: hint_color,
+                  child: FadeInImage.assetNetwork(
+                    fit: BoxFit.fill,
+                    placeholder: 'assets/images/empty.jpg',
+                    image: response["image"].toString(),
+                    imageErrorBuilder: (context, url, error) =>
+                        Image.asset(
+                          'assets/images/empty.jpg',
+                          fit: BoxFit.fill,
+                        ),
+                  )),
+            ),
+          ),
+          Container(
+            // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
+              child: Text(
+                response["username"].toString() ,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500),
+              )),
+          Container(
+            // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
+              child: Text(
+                "Available",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: novalexxa_hint_text_color,
+                    fontSize: 9,
+                    fontWeight: FontWeight.w500),
+              )),
+        ],
+      ),
+    );
+  }
+
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -833,7 +643,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             setState(() {
                var data = jsonDecode(response.body);
                _speakWithUsList=data["data"];
-               _showToast(_speakWithUsList.length.toString());
+               // _showToast(_speakWithUsList.length.toString());
               // _currentBalance=double.parse(data["amount"].toString());
             });
           } else {
@@ -848,6 +658,39 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
       showToast("No Internet Connection!");
     }
   }
+
+  _getChatUserList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_CHAT_WITH_US_LIST'),
+
+          );
+          Navigator.of(context).pop();
+           showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _chatWithUsList=data["data"];
+              _showToast(_chatWithUsList.length.toString());
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
 
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(

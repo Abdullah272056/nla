@@ -1,9 +1,18 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../api_service/api_service.dart';
+import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../static/toast.dart';
 import 'notification_details.dart';
 import 'notifications_settings.dart';
 
@@ -17,6 +26,27 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
+  String _userId = "";
+  List _notificationList = [];
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getUserNotificationList();
+          // _receiverId= _receiverResponse["data"]["id"].toString();
+
+
+          // _getCurrentBalanced();
+        });
+      }
+
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +114,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
           Expanded(child:  ListView.builder(
               padding: EdgeInsets.zero,
-              itemCount: 10,
+              itemCount: _notificationList==null||_notificationList.length<=0?0
+                  :_notificationList.length,
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return _buildNotificationItemForList(index);
+                return _buildNotificationItemForList(_notificationList[index]);
               }),)
 
 
@@ -459,7 +490,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     ;
   }
 
-  Widget _buildNotificationItemForList(int index) {
+  Widget _buildNotificationItemForList(var response) {
     return Container(
       margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
       //width: 180,
@@ -506,7 +537,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   onPressed: (BuildContext context) {
 
                     setState(() {
-                      _showToast(index.toString() +"Delete");
+                      //_showToast(index.toString() +"Delete");
                     });
 
                   },
@@ -575,6 +606,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           child: Flex(
                             direction: Axis.vertical,
                             children: [
+
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Flex(
@@ -582,7 +614,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                   children:  [
                                     Expanded(
                                       child: Text(
-                                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+
+                                        response["content"].toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             color:novalexxa_text_color,
@@ -599,9 +632,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 ),
 
                               ),
+
                               SizedBox(
                                 height: 10,
                               ),
+
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Flex(
@@ -609,7 +644,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                   children:  [
                                     Expanded(
                                       child: Text(
-                                        "06 Jun,2020 at 04:10 Pm",
+                                        response["created_at"].toString(),
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
 
@@ -657,5 +692,95 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         fontSize: 16.0);
   }
 
+  _getUserNotificationList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_NOTIFICATION_LIST$_userId/'),
+          );
+          Navigator.of(context).pop();
+          // showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+
+              _notificationList = data["data"];
+              //showToast(_notificationList.length.toString());
+
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_start_bg_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
+  String dateConvert(String inputDate){
+    DateTime tempDate = new DateFormat("yyyy-MM-dd hh:mm:ss").parse(inputDate);
+   // String outputDate = DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now());
+    return tempDate.toString();
+  }
 }
 

@@ -705,4 +705,3 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
 
 }
-

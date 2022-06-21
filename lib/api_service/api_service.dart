@@ -58,7 +58,7 @@
   String SUB_URL_API_TRANSFER_MONEY = "api/core/transfer-money1/";
 
   //notification
-  String SUB_URL_API_NOTIFICATION_LIST = "api/core/user-notification/3/";
+  String SUB_URL_API_NOTIFICATION_LIST = "api/core/user-notification/";
 
 
 

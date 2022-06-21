@@ -196,8 +196,6 @@ class _LogInByPinScreenState extends State<LogInByPinScreen> {
   }
 
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

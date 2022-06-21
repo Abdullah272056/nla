@@ -17,16 +17,71 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../../api_service/api_service.dart';
+import '../../static/loding_dialog.dart';
 
 
 class TransferMoneyDetailForParticularFromMobileScreen extends StatefulWidget {
-  const TransferMoneyDetailForParticularFromMobileScreen({Key? key}) : super(key: key);
+  String senderUserId,senderUserSendAmount,transferFees,senderUserCountryId,senderCurrencyId,
+      receiverUserId,receiverName,receiverSurname,receiverEmail,receiverCurrencyId,receiverUserCountryId,
+      receiverUserReceivedMoney,exchangeRate;
+
+
+  TransferMoneyDetailForParticularFromMobileScreen(
+         {
+           required this.senderUserId,
+           required this.senderUserSendAmount,
+           required this.transferFees,
+           required this.senderUserCountryId,
+           required this.senderCurrencyId,
+           required this.receiverUserId,
+           required this.receiverName,
+           required this.receiverSurname,
+           required this.receiverEmail,
+           required this.receiverCurrencyId,
+           required this.receiverUserCountryId,
+           required this.receiverUserReceivedMoney,
+           required this.exchangeRate,
+        }
+      );
 
   @override
-  State<TransferMoneyDetailForParticularFromMobileScreen> createState() => _TransferMoneyDetailForParticularFromMobileScreenState();
+  State<TransferMoneyDetailForParticularFromMobileScreen> createState() => _TransferMoneyDetailForParticularFromMobileScreenState(
+     this.senderUserId,
+     this.senderUserSendAmount,
+     this.transferFees,
+     this.senderUserCountryId,
+     this.senderCurrencyId,
+     this.receiverUserId,
+     this.receiverName,
+     this.receiverSurname,
+     this.receiverEmail,
+     this.receiverCurrencyId,
+     this.receiverUserCountryId,
+     this.receiverUserReceivedMoney,
+     this.exchangeRate,
+  );
 }
 
 class _TransferMoneyDetailForParticularFromMobileScreenState extends State<TransferMoneyDetailForParticularFromMobileScreen> {
+  String _senderUserId,_senderUserSendAmount,_transferFees,_senderUserCountryId,_senderCurrencyId,
+      _receiverUserId,_receiverName,_receiverSurname,_receiverEmail,_receiverCurrencyId,_receiverUserCountryId,
+      _receiverUserReceivedMoney,_exchangeRate;
+  _TransferMoneyDetailForParticularFromMobileScreenState(
+         this._senderUserId,
+         this._senderUserSendAmount,
+         this._transferFees,
+         this._senderUserCountryId,
+         this._senderCurrencyId,
+         this._receiverUserId,
+         this._receiverName,
+         this._receiverSurname,
+         this._receiverEmail,
+         this._receiverCurrencyId,
+         this._receiverUserCountryId,
+         this._receiverUserReceivedMoney,
+         this._exchangeRate,
+      );
+
 
   String _firstCountryCode = "IT";
   String _secondCountryCode = "CA";
@@ -299,12 +354,20 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
         children: [
           InkResponse(
             onTap: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
-                  ),),
+              _transferMoney(
+                  exchangeRate: _exchangeRate,
+                  receiverCurrencyId: _receiverCurrencyId,
+                  receiverEmail: _receiverEmail,
+                  receiverName:_receiverName,
+                  receiverSurname: _receiverSurname,
+                  receiverUserCountryId:_receiverUserCountryId,
+                  receiverUserId: _receiverUserId,
+                  receiverUserReceivedMoney: _receiverUserReceivedMoney,
+                  senderCurrencyId: _senderCurrencyId,
+                  senderUserCountryId: _senderUserCountryId,
+                  senderUserId: _senderUserId,
+                  senderUserSendAmount: _senderUserSendAmount,
+                  transferFees: _transferFees
               );
             },
             child: Container(
@@ -382,12 +445,20 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
           InkResponse(
             onTap: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
-                  ),),
+              _transferMoney(
+                  exchangeRate: _exchangeRate,
+                  receiverCurrencyId: _receiverCurrencyId,
+                  receiverEmail: _receiverEmail,
+                  receiverName:_receiverName,
+                  receiverSurname: _receiverSurname,
+                  receiverUserCountryId:_receiverUserCountryId,
+                  receiverUserId: _receiverUserId,
+                  receiverUserReceivedMoney: _receiverUserReceivedMoney,
+                  senderCurrencyId: _senderCurrencyId,
+                  senderUserCountryId: _senderUserCountryId,
+                  senderUserId: _senderUserId,
+                  senderUserSendAmount: _senderUserSendAmount,
+                  transferFees: _transferFees
               );
             },
             child: Container(
@@ -462,12 +533,20 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
           InkResponse(
             onTap: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
-                  ),),
+              _transferMoney(
+                  exchangeRate: _exchangeRate,
+                  receiverCurrencyId: _receiverCurrencyId,
+                  receiverEmail: _receiverEmail,
+                  receiverName:_receiverName,
+                  receiverSurname: _receiverSurname,
+                  receiverUserCountryId:_receiverUserCountryId,
+                  receiverUserId: _receiverUserId,
+                  receiverUserReceivedMoney: _receiverUserReceivedMoney,
+                  senderCurrencyId: _senderCurrencyId,
+                  senderUserCountryId: _senderUserCountryId,
+                  senderUserId: _senderUserId,
+                  senderUserSendAmount: _senderUserSendAmount,
+                  transferFees: _transferFees
               );
             },
             child:  Container(
@@ -533,8 +612,6 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
   }
 
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -546,6 +623,84 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
         fontSize: 16.0);
   }
 
+  _transferMoney({
+    required String senderUserId,
+    required String senderUserSendAmount,
+    required String transferFees,
+    required String senderUserCountryId,
+    required String senderCurrencyId,
+    required String receiverUserId,
+    required String receiverName,
+    required String receiverSurname,
+    required String receiverEmail,
+    required String receiverCurrencyId,
+    required String receiverUserCountryId,
+    required String receiverUserReceivedMoney,
+    required String exchangeRate,
+
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Transferring...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY'),
+              body: {
+
+                'sender_user_id': senderUserId,
+                'sender_user_send_amount': senderUserSendAmount,
+                'transfer_fees': transferFees,
+                'sender_user_country_id': senderUserCountryId,
+                'sender_currency_id': senderCurrencyId,
+                'receiver_user_id': receiverUserId,
+                'receiver_name': receiverName,
+                'receiver_surname': receiverSurname,
+                'receiver_email': receiverEmail,
+                'receiver_currency_id': receiverCurrencyId,
+                'receiver_user_country_id': receiverUserCountryId,
+                'receiver_user_received_money': receiverUserReceivedMoney,
+                'exchange_rate': exchangeRate,
+
+              }
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 201) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              var data = jsonDecode(response.body);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
+                  ),),
+              );
+
+            });
+          }
+
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
 
 

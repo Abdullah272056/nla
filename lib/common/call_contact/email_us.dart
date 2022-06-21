@@ -21,9 +21,6 @@ import '../static/toast.dart';
 
 
 class EmailUsPageScreen extends StatefulWidget {
-
-
-
   @override
   State<EmailUsPageScreen> createState() => _EmailUsPageScreenState();
 }
@@ -33,9 +30,10 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
   TextEditingController? _sendMoneyMessageController = TextEditingController();
   TextEditingController? _sendTopicController = TextEditingController();
    int _customTopic=0;
-  List _emailUsTopicList = [];
+   String _topicId="";
+  var _emailUsTopicList = [];
 
-  String topicName="Select Topic";
+ // String topicName="Select Topic";
   String _userId = "";
   @override
   @mustCallSuper
@@ -340,7 +338,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         hint: Text('hooseNumber'),
         items: _emailUsTopicList.map((item) {
           return DropdownMenuItem(
-            value: item["topic_name"],
+            value:item["topic_name"],
             // value: item['topic_name'].toString(),
             child: _buildDropDownItemDesign(item)
 
@@ -358,10 +356,11 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         ),
         dropdownElevation: 8,
         offset: const Offset(0, 0),
-        onChanged: (var newVal) {
+        onChanged: (newVal) {
           setState(() {
            // _showToast(baj.);
-            dropdownvalue = newVal;
+            String value=newVal.toString();
+            dropdownvalue =newVal;
           });
         },
         value: dropdownvalue,
@@ -402,11 +401,21 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          _sendEmail(
-            user_id: _userId,
-            send_message: "asdfgb",
-            topic_id: "1"
-          );
+
+          String messageTxt = _sendMoneyMessageController!.text;
+
+          validation_showToast(_topicId.toString());
+          //   if (messageTxt.isEmpty) {
+          //     Fluttertoast.cancel();
+          //     validation_showToast("email can't empty");
+          //     return;
+          //   }
+          //
+          // _sendEmail(
+          //   user_id: _userId,
+          //   send_message: "asdfgb",
+          //   topic_id: "1"
+          // );
          // _showToast("");
          // Navigator.of(context).pop();
         },
@@ -550,6 +559,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
       },
     );
   }
+
   _sendEmail(
       {
         required String topic_id,
@@ -598,10 +608,4 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
 }
 
-class baj{
-  String name;
-  String id;
-  baj(this.name, this.id);
 
-
-}

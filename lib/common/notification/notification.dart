@@ -132,7 +132,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return InkResponse(
       onTap: (){
         // _showToast("ok");
-         Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsDetailsScreen("12")));
+       //  Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsDetailsScreen("12")));
       },
       child:
       Container(
@@ -513,7 +513,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         onTap: (){
           setState(() {
 
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsDetailsScreen("12")));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsDetailsScreen("12",response["content"].toString())));
 
           });
 

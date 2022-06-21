@@ -16,6 +16,7 @@ const  Color novalexxa_end_bg_color = Color(0xFFE80354);
  const  Color slide_button_start_color = Color(0xFFF50057);
 
  const  Color novalexxa_color1 = Color(0xFFF50057);
+ const  Color receiver_message_bg_color = Color(0xFFF9F9FC);
  const  Color date_selection_color = Color(0xFFA91148);
 
  const  Color novalexxa_visa_card_start_color = Color(0xFFF91465);

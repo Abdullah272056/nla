@@ -120,11 +120,6 @@ dependencies:
   unicode: ^0.3.1
   currency_formatter: ^1.0.1
   characters: ^1.2.0
-  charset_converter: ^2.1.0
-
-
-
-
 
 
 

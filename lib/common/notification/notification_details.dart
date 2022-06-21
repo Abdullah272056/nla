@@ -10,10 +10,12 @@ import 'notifications_settings.dart';
 class NotificationsDetailsScreen extends StatefulWidget {
   String _notificationId;
   String _notificationMessage;
+  String _notificationMessageDate;
 
   NotificationsDetailsScreen(
     this._notificationId,
     this._notificationMessage,
+    this._notificationMessageDate,
   ); //  const NotificationsDetailsScreen({Key? key}) : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class NotificationsDetailsScreen extends StatefulWidget {
       _NotificationsDetailsScreenState(
         this._notificationId,
         this._notificationMessage,
+        this._notificationMessageDate,
       );
 }
 
@@ -28,13 +31,15 @@ class _NotificationsDetailsScreenState
     extends State<NotificationsDetailsScreen> {
   String _notificationId;
   String notificationMessage;
+  String _notificationMessageDate;
 
   _NotificationsDetailsScreenState(
     this._notificationId,
     this.notificationMessage,
+    this._notificationMessageDate,
   );
 
-  String _timeTxt = "06 Jun,2020 at 04:10 Pm";
+
 
   @override
   Widget build(BuildContext context) {
@@ -197,7 +202,7 @@ class _NotificationsDetailsScreenState
                   margin: EdgeInsets.only(
                       left: 0.0, right: 0.0, top: 20, bottom: 20),
                   child: Text(
-                    _timeTxt,
+                    _notificationMessageDate,
                     style: TextStyle(
                         color: intello_level_color,
                         fontSize: 10,

@@ -7,6 +7,7 @@ import 'Particular/biometric_particular.dart';
 import 'Particular/particular_information.dart';
 import 'Particular/particular_information2.dart';
 import 'common/call_contact/contact_support.dart';
+import 'common/call_contact/contact_support_message.dart';
 import 'common/call_contact/customer_services.dart';
 import 'common/call_contact/email_us.dart';
 import 'common/log_in/finger_print_done.dart';
@@ -47,9 +48,9 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body:NotificationsScreen()
+       // body:NotificationsScreen()
        // body:NavigationBarScreen(0,HomePageScreen())
-      // body:PayWithQRCodeScreen()
+      body:ContactSupportMessageScreen()
       ),
     );
   }

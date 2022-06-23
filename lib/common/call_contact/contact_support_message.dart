@@ -10,6 +10,7 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
+
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../money_option/pay_nfc/pay_nfc.dart';
@@ -25,17 +26,21 @@ import '../static/toast.dart';
 
 
 class ContactSupportMessageScreen extends StatefulWidget {
-  const ContactSupportMessageScreen({Key? key}) : super(key: key);
+  String receiverId;
+  ContactSupportMessageScreen({required this.receiverId});
+
   @override
-  State<ContactSupportMessageScreen> createState() => _ContactSupportMessageScreenState();
+  State<ContactSupportMessageScreen> createState() => _ContactSupportMessageScreenState(this.receiverId);
 }
 
 class _ContactSupportMessageScreenState extends State<ContactSupportMessageScreen> {
+  String _receiverId;
+  _ContactSupportMessageScreenState(this._receiverId);
+
   TextEditingController? _inputMessageController = TextEditingController();
  // String _senderId="";
   int sendIconVisibility=0;
   List _messageList = [];
-  String _receiverId="3";
   String _inputMessage="";
   String _file="";
   String _senderId = "";
@@ -69,37 +74,48 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
           const SizedBox(
             height: 55,
           ),
-          Row(
+
+          Flex(
+            direction: Axis.horizontal,
             children: [
-              Align(
-                alignment: Alignment.topLeft,
-
-                child: Container(
-                  width: 50,
-                  height: 50,
-
-
-                  margin:const EdgeInsets.only(left:20, top: 00, right: 15, bottom: 00),
-                  // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(27.5),
-                    child: Container(
-                        height: 50,
-                        width: 50,
-                        color:hint_color,
-                        child: FadeInImage.assetNetwork(
-                          fit: BoxFit.fill,
-                          placeholder: 'assets/images/empty.jpg',
-                          image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                          imageErrorBuilder: (context, url, error) =>
-                              Image.asset(
-                                'assets/images/empty.jpg',
-                                fit: BoxFit.fill,
-                              ),
-                        )),
+              Container(
+                margin: new EdgeInsets.only(left: 25),
+                child: InkResponse(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: novalexxa_text_color,
+                    size: 30.0,
                   ),
-
                 ),
+              ),
+              Container(
+                width: 50,
+                height: 50,
+
+
+                margin:const EdgeInsets.only(left:10, top: 00, right: 15, bottom: 00),
+                // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(27.5),
+                  child: Container(
+                      height: 50,
+                      width: 50,
+                      color:hint_color,
+                      child: FadeInImage.assetNetwork(
+                        fit: BoxFit.fill,
+                        placeholder: 'assets/images/empty.jpg',
+                        image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+                        imageErrorBuilder: (context, url, error) =>
+                            Image.asset(
+                              'assets/images/empty.jpg',
+                              fit: BoxFit.fill,
+                            ),
+                      )),
+                ),
+
               ),
               Expanded(child:Column(
                 children: [
@@ -128,14 +144,27 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
 
                 ],
-              )
-              )
-
+              )),
+              Container(
+                margin: const EdgeInsets.only(right: 20),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.more_vert_outlined,
+                    color: novalexxa_text_color,
+                    size: 25,
+                  ),
+                  color: novalexxa_text_color,
+                  onPressed: () {
+                    // Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
+                  },
+                ),
+              ),
             ],
           ),
           const SizedBox(
             height: 10,
           ),
+
           Expanded(child:  ListView.builder(
               padding: EdgeInsets.zero,
               //itemCount: 5,
@@ -202,7 +231,8 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
             margin: EdgeInsets.only(right: 30.0, top: 5, bottom: 5, left: 30),
             padding: EdgeInsets.only(right: 15.0, top: 12, bottom: 12, left: 15),
             child: Text(
-              response["message"].toString(),
+               convertText(response["message"].toString())
+              ,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   color:_senderId==response["sender"].toString()?Colors.white:novalexxa_text_color ,
@@ -398,11 +428,11 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
                 'sender': sender,
                 'receiver': receiver,
                 'message': message,
-                'message': message,
+              //  'message': message,
                 'file': file,
               });
          // Navigator.of(context).pop();
-          // _showToast(response.statusCode.toString());
+        // _showToast(response.statusCode.toString());
 
           if (response.statusCode == 200) {
             setState(() {
@@ -458,6 +488,12 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
   void clearText() {
     _inputMessageController!.clear();
+
+  }
+   convertText(String data) {
+
+
+    return data;
   }
 }
 

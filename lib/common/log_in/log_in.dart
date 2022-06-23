@@ -487,6 +487,7 @@ class _LogInScreenState extends State<LogInScreen> {
       validation_showToast("email can't empty");
       return;
     }
+
     if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+"
       //  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
     )

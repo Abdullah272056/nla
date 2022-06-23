@@ -67,9 +67,11 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   String _userTransferMoneyTxt="";
   //receiver info
   String _receiverId = "";
+  String _receiverEmail = "";
   List _currencyTypeListForRecever = [];
   String _receiverCountryName="";
   String _receiverCurrencyName="";
+  String _receiverCurrencyId="";
   String _receiverCurrencySymbol="";
   String _receiverCountryCode = "";
   String _receiverReceivedMoney = "0.00";
@@ -83,8 +85,10 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   String _senderCountryName="";
   String _senderCountryNameId="";
   String _senderCurrencyName="";
+  String _senderCurrencyId="";
   String _senderCurrencySymbol="";
   String _senderCountryCode = "";
+  String _senderUserCountryId = "";
 
 
   @override
@@ -96,6 +100,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
           _receiverId= _receiverResponse["data"]["id"].toString();
+          _receiverEmail= _receiverResponse["data"]["email"].toString();
           _getUserCurrencyTypeListForSender1();
           _getUserCurrencyTypeListForReceiver1(_receiverId);
           // _getCurrentBalanced();
@@ -297,16 +302,20 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                     //     _inputAmountGatterThanStatus=0;
                     //   });
                     // }
-                    if(_userTransferMoneyTxt!=""){
+
+                    if(text==""||text==null||text.isEmpty){
+                      setState(() {
+                        _transferFee="0.0";
+                        _receiverReceivedMoney="0.00";
+                          });
+                    }else{
                       if(_senderCountryNameId!=""){
                         _getTransferFees(countryId: _senderCountryNameId,userId: _userId,amount: _userTransferMoneyTxt);
                         _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
                         _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
-                      //  _getMoneyConvert(amount:_userTransferMoneyTxt,from: _receiverCurrencyName,to: _senderCurrencyName );
+                        //  _getMoneyConvert(amount:_userTransferMoneyTxt,from: _receiverCurrencyName,to: _senderCurrencyName );
 
                       }
-                    }else{
-                      _transferFee="0.0";
                     }
 
                   },
@@ -571,29 +580,40 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         children: [
           InkResponse(
             onTap: (){
+              String sendInputAmountTxt = _transferMoneyAmountController!.text;
+              if (sendInputAmountTxt.isEmpty) {
+                Fluttertoast.cancel();
+                validation_showToast("amount can't empty");
+                return;
+              }
+              if (_exchangeRate=='0.0') {
+                Fluttertoast.cancel();
+                validation_showToast("exchange rate can't empty");
+                return;
+              }
+              if (_receiverCurrencyId.isEmpty) {
+                Fluttertoast.cancel();
+                validation_showToast("amount can't empty");
+                return;
+              }
+
+
               _transferMoney(
                 exchangeRate: _exchangeRate,
-                receiverCurrencyId: "",
-                receiverEmail: "",
-                receiverName:"",
-                receiverSurname: "",
-                receiverUserCountryId:"",
-                receiverUserId: "",
-                receiverUserReceivedMoney: "",
-                senderCurrencyId: "",
-                senderUserCountryId: "",
-                senderUserId: "",
-                senderUserSendAmount: "",
-                transferFees: ""
+                receiverCurrencyId: _receiverCurrencyId,
+                receiverEmail: _receiverEmail,
+                receiverName:_receiverInputName,
+                receiverSurname: _receiverInputSurName,
+                receiverUserCountryId:_receiverInputCountryId,
+                receiverUserId: _receiverId,
+                receiverUserReceivedMoney: _receiverReceivedMoney,
+                senderCurrencyId: _senderCurrencyId,
+                senderUserCountryId: _senderCountryNameId,
+                senderUserId: _userId,
+                senderUserSendAmount: sendInputAmountTxt,
+                transferFees: _transferFee
               );
 
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
-                  ),),
-              );
             },
             child: Container(
 
@@ -670,12 +690,37 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
           InkResponse(
             onTap: (){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
-                  ),),
+              String sendInputAmountTxt = _transferMoneyAmountController!.text;
+              if (sendInputAmountTxt.isEmpty) {
+                Fluttertoast.cancel();
+                validation_showToast("amount can't empty");
+                return;
+              }
+              if (_exchangeRate=='0.0') {
+                Fluttertoast.cancel();
+                validation_showToast("exchange rate can't empty");
+                return;
+              }
+              if (_receiverCurrencyId.isEmpty) {
+                Fluttertoast.cancel();
+                validation_showToast("amount can't empty");
+                return;
+              }
+
+              _transferMoney(
+                  exchangeRate: _exchangeRate,
+                  receiverCurrencyId: _receiverCurrencyId,
+                  receiverEmail: _receiverEmail,
+                  receiverName:_receiverInputName,
+                  receiverSurname: _receiverInputSurName,
+                  receiverUserCountryId:_receiverInputCountryId,
+                  receiverUserId: _receiverId,
+                  receiverUserReceivedMoney: _receiverReceivedMoney,
+                  senderCurrencyId: _senderCurrencyId,
+                  senderUserCountryId: _senderCountryNameId,
+                  senderUserId: _userId,
+                  senderUserSendAmount: sendInputAmountTxt,
+                  transferFees: _transferFee
               );
             },
             child: Container(
@@ -750,11 +795,31 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
           InkResponse(
             onTap: (){
+              String sendInputAmountTxt = _transferMoneyAmountController!.text;
+              if (sendInputAmountTxt.isEmpty) {
+                Fluttertoast.cancel();
+                validation_showToast("amount can't empty");
+                return;
+              }
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   settings: RouteSettings(name: "Foo"),
                   builder: (BuildContext context) => TransferMoneyDetailForParticularFromMobileScreen(
+                      exchangeRate: _exchangeRate,
+                      receiverCurrencyId: _receiverCurrencyId,
+                      receiverEmail: _receiverEmail,
+                      receiverName:_receiverInputName,
+                      receiverSurname: _receiverInputSurName,
+                      receiverUserCountryId:_receiverInputCountryId,
+                      receiverUserId: _receiverId,
+                      receiverUserReceivedMoney: _receiverReceivedMoney,
+                      senderCurrencyId: _senderCurrencyId,
+                      senderUserCountryId: _senderCountryNameId,
+                      senderUserId: _userId,
+                      senderUserSendAmount: sendInputAmountTxt,
+                      transferFees: _transferFee
+
                   ),),
               );
             },
@@ -819,6 +884,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
       ),
     );
   }
+
+
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -962,9 +1029,12 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
 
                 _receiverCurrencyName=_currencyTypeListForRecever[0]['currency_information']['currency_name'].toString();
+                _receiverCurrencyId=_currencyTypeListForRecever[0]['currency_information']['currency_id'].toString();
                 _receiverCurrencySymbol= _currencyTypeListForRecever[0]['currency_information']['currency_symbol'].toString();
                 _receiverCountryName=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_name"].toString();
                 _receiverCountryCode=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_code_name"].toString();
+                _receiverCountryCode=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_code_name"].toString();
+
                 if(_senderCurrencyName!=""&&_receiverCurrencyName!=""){
                   _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
                 }
@@ -1025,6 +1095,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                               Navigator.of(context).pop();
 
                               _receiverCurrencyName=_currencyTypeListData[index]['currency_information']['currency_name'].toString();
+                              _receiverCurrencyId=_currencyTypeListData[index]['currency_information']['currency_id'].toString();
                               _receiverCurrencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
                               _receiverCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
                               _receiverCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
@@ -1126,6 +1197,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               _currencyTypeListForSender = data["data"];
               if(_currencyTypeListForSender.length>0){
                 _senderCurrencyName=_currencyTypeListForSender[0]['currency_information']['currency_name'].toString();
+                _senderCurrencyId=_currencyTypeListForSender[0]['currency_information']['currency_id'].toString();
                 _senderCurrencySymbol= _currencyTypeListForSender[0]['currency_information']['currency_symbol'].toString();
                 _senderCountryName=_currencyTypeListForSender[0]['currency_information']['country_info']["country_name"].toString();
                 _senderCountryCode=_currencyTypeListForSender[0]['currency_information']['country_info']["country_code_name"].toString();
@@ -1189,6 +1261,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                             setState(() {
                               Navigator.of(context).pop();
                               _senderCurrencyName=_currencyTypeListData[index]['currency_information']['currency_name'].toString();
+                              _senderCurrencyId=_currencyTypeListData[index]['currency_information']['currency_id'].toString();
                               _senderCurrencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
                               _senderCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
                               _senderCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
@@ -1263,7 +1336,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           if (response.statusCode == 200) {
             setState(() {
               var data = jsonDecode(response.body);
-              _transferFee=data["transfer_fees"].toString();
+
+              if(_userTransferMoneyTxt.isNotEmpty){
+                _transferFee=data["transfer_fees"].toString();
+              }else{
+                _transferFee="0.0";
+              }
+
 
             });
           }
@@ -1305,7 +1384,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           if (response.statusCode == 200) {
             setState(() {
               var data = jsonDecode(response.body);
-              _receiverReceivedMoney=data["data"]["result"][to].toString();
+
+              if(_userTransferMoneyTxt.isNotEmpty){
+                _receiverReceivedMoney=data["data"]["result"][to].toString();
+              }else{
+                _receiverReceivedMoney="0.0";
+              }
+
             //  _transferFee=data["transfer_fees"].toString();
 
             });
@@ -1371,20 +1456,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   }
 
 
-  loadUserIdFromSharePref() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    try {
-      setState(() {
-        _userId = sharedPreferences.getString(pref_user_id)!;
-        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
-
-      });
-    } catch(e) {
-      //code
-    }
-
-  }
-
   _transferMoney({
     required String senderUserId,
     required String senderUserSendAmount,
@@ -1404,10 +1475,10 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        showLoadingDialog(context,"Creating...");
+        showLoadingDialog(context,"Transferring...");
         try {
           Response response =
-          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_PERSONAL_REGISTRATION'),
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY'),
               body: {
 
                 'sender_user_id': senderUserId,
@@ -1427,21 +1498,19 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               }
           );
           Navigator.of(context).pop();
-          _showToast(response.statusCode.toString());
-          if (response.statusCode == 200) {
+          if (response.statusCode == 201) {
             _showToast("success");
             //var data = jsonDecode(response.body.toString());
 
             setState(() {
-              //_showToast("success");
               var data = jsonDecode(response.body);
-
-              // Navigator.push(context,MaterialPageRoute(builder: (context)=>ConfirmNumberForParticularScreen(
-              //   data["data"]["id"].toString(),
-              //   data["data"]["phone_number"].toString(),
-              //
-              //
-              // )));
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  settings: RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
+                  ),),
+              );
 
             });
           }
@@ -1465,6 +1534,23 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
       _showToast("No Internet Connection!");
     }
   }
+
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+
 
   void _showAlertDialogForSender(BuildContext context, List _currencyTypeListData) {
     showDialog(

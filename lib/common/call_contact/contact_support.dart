@@ -16,6 +16,7 @@ import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../notification/notification_details.dart';
 import '../notification/notifications_settings.dart';
 import '../static/toast.dart';
+import 'contact_support_message.dart';
 import 'email_us.dart';
 
 class ContactSupportScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
     loadUserIdFromSharePref().then((_) {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
-          _getSpeakUserlist();
+          _getSpeakUserList();
           _getChatUserList();
         });
       }
@@ -544,73 +545,79 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   }
 
   Widget _build_chat_with_us_sectionNumberListItem(var response) {
-    return  Container(
-      margin: EdgeInsets.only(right: 4, top: 14, left: 14, bottom: 20),
-      child:   Flex(
-        direction: Axis.vertical,
-        children: [
-          Container(
-            margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
-            width: 60,
-            height: 60,
-            decoration: new BoxDecoration(
-              border: Border.all(width: 2,color: Colors.white),
-              boxShadow: [BoxShadow(
+    return  InkWell(
+      onTap: (){
 
-                color:Colors.grey.withOpacity(.25),
-                //  blurRadius: 20.0, // soften the shadow
-                blurRadius:20, // soften the shadow
-                spreadRadius: 0.0, //extend the shadow
-                offset:Offset(
-                  2.0, // Move to right 10  horizontally
-                  1.0, // Move to bottom 10 Vertically
-                ),
-              )],
-              borderRadius: new BorderRadius.all(Radius.circular(30.0)),
-              shape: BoxShape.rectangle,
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>ContactSupportMessageScreen(receiverId: response["id"].toString(),)));
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 4, top: 14, left: 14, bottom: 20),
+        child:   Flex(
+          direction: Axis.vertical,
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
+              width: 60,
+              height: 60,
+              decoration: new BoxDecoration(
+                border: Border.all(width: 2,color: Colors.white),
+                boxShadow: [BoxShadow(
+
+                  color:Colors.grey.withOpacity(.25),
+                  //  blurRadius: 20.0, // soften the shadow
+                  blurRadius:20, // soften the shadow
+                  spreadRadius: 0.0, //extend the shadow
+                  offset:Offset(
+                    2.0, // Move to right 10  horizontally
+                    1.0, // Move to bottom 10 Vertically
+                  ),
+                )],
+                borderRadius: new BorderRadius.all(Radius.circular(30.0)),
+                shape: BoxShape.rectangle,
+              ),
+
+              // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+
+                child: Container(
+                    height: 60,
+                    width: 60,
+                    color: hint_color,
+                    child: FadeInImage.assetNetwork(
+                      fit: BoxFit.fill,
+                      placeholder: 'assets/images/empty.jpg',
+                      image: response["image"].toString(),
+                      imageErrorBuilder: (context, url, error) =>
+                          Image.asset(
+                            'assets/images/empty.jpg',
+                            fit: BoxFit.fill,
+                          ),
+                    )),
+              ),
             ),
-
-            // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-
-              child: Container(
-                  height: 60,
-                  width: 60,
-                  color: hint_color,
-                  child: FadeInImage.assetNetwork(
-                    fit: BoxFit.fill,
-                    placeholder: 'assets/images/empty.jpg',
-                    image: response["image"].toString(),
-                    imageErrorBuilder: (context, url, error) =>
-                        Image.asset(
-                          'assets/images/empty.jpg',
-                          fit: BoxFit.fill,
-                        ),
-                  )),
-            ),
-          ),
-          Container(
-            // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
-              child: Text(
-                response["username"].toString() ,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500),
-              )),
-          Container(
-            // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
-              child: Text(
-                "Available",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: novalexxa_hint_text_color,
-                    fontSize: 9,
-                    fontWeight: FontWeight.w500),
-              )),
-        ],
+            Container(
+              // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
+                child: Text(
+                  response["username"].toString() ,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 11,
+                      fontWeight: FontWeight.w500),
+                )),
+            Container(
+              // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
+                child: Text(
+                  "Available",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: novalexxa_hint_text_color,
+                      fontSize: 9,
+                      fontWeight: FontWeight.w500),
+                )),
+          ],
+        ),
       ),
     );
   }
@@ -627,7 +634,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         fontSize: 16.0);
   }
 
-  _getSpeakUserlist() async {
+  _getSpeakUserList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

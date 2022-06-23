@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        // body:NotificationsScreen()
-       // body:NavigationBarScreen(0,HomePageScreen())
-      body:ContactSupportMessageScreen()
+       body:NavigationBarScreen(0,HomePageScreen())
+      //body:ContactSupportMessageScreen()
       ),
     );
   }

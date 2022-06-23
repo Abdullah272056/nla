@@ -120,6 +120,7 @@ dependencies:
   unicode: ^0.3.1
   currency_formatter: ^1.0.1
   characters: ^1.2.0
+  #bangla_utilities: ^1.0.0
 
 
 

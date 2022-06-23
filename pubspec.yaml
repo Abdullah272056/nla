@@ -76,7 +76,7 @@ dependencies:
   image_picker: ^0.8.4+11
 
   #image slider
-  carousel_slider: ^4.0.0
+
   smooth_page_indicator: ^1.0.0+2
   #shimmer
   shimmer: ^2.0.0
@@ -121,6 +121,7 @@ dependencies:
   currency_formatter: ^1.0.1
   characters: ^1.2.0
   #bangla_utilities: ^1.0.0
+  carousel_slider: ^4.1.1
 
 
 

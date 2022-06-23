@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       body:AddCreditCardScreen()
-       //body:NavigationBarScreen(0,HomePageScreen())
+      // body:EmailUsPageScreen()
+       body:NavigationBarScreen(0,HomePageScreen())
       //body:ContactSupportMessageScreen()
       ),
     );

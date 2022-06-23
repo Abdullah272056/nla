@@ -315,7 +315,6 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
     );
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -326,8 +325,6 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         textColor: Colors.black,
         fontSize: 16.0);
   }
-
-
 
   Widget _buildDropDownMenu() {
     return DropdownButtonHideUnderline(
@@ -358,9 +355,8 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         offset: const Offset(0, 0),
         onChanged: (newVal) {
           setState(() {
-           // _showToast(baj.);
-            String value=newVal.toString();
             _topicId="1";
+            String value=newVal.toString();
             dropdownvalue =newVal;
           });
         },
@@ -405,26 +401,20 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
           String messageTxt = _sendMoneyMessageController!.text;
 
-         // validation_showToast(_topicId.toString());
-            if (_topicId.isEmpty) {
-              Fluttertoast.cancel();
-              validation_showToast("please select topic");
-              return;
-            }
+
             if (messageTxt.isEmpty) {
               Fluttertoast.cancel();
               validation_showToast("email can't empty");
               return;
             }
 
-
           _sendEmail(
             user_id: _userId,
             send_message: messageTxt,
             topic_id: _topicId
           );
-         // _showToast("");
-         // Navigator.of(context).pop();
+
+
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,
@@ -458,7 +448,6 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
       ),
     );
   }
-
 
   Widget _buildCancelButton() {
     return InkWell(
@@ -572,6 +561,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         required String topic_id,
         required String user_id,
         required String send_message,
+
       }) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -586,18 +576,16 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                 'send_message': send_message,
               });
           Navigator.of(context).pop();
-         // _showToast(response.statusCode.toString());
 
           if (response.statusCode == 201) {
-            _showToast("message send successfully");
+            _showToast("send successfully!");
             var data = jsonDecode(response.body.toString());
             Navigator.of(context).pop();
           }
-          else{
+          else {
             var data = jsonDecode(response.body);
             _showToast(data['message']);
           }
-
         } catch (e) {
           Navigator.of(context).pop();
           print(e.toString());

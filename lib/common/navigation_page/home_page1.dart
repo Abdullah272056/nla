@@ -2,7 +2,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -28,13 +27,7 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
 
   List _currencyTypeList= [];
-  List _transactionHistoryList= [];
   String _userId = "";
-
-  int _current = 0;
-  final CarouselController _controller = CarouselController();
-
-
   @override
   @mustCallSuper
   initState() {
@@ -43,7 +36,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
           _getUserCurrencyTypeList();
-          _getUserTransactionHistoryList();
           // _getChatUserList();
         });
       }
@@ -56,12 +48,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
       backgroundColor:Colors.white ,
       body:CustomScrollView(
-
-
         slivers: [
           SliverFillRemaining(
-          //  hasScrollBody: false,
-           fillOverscroll: true,
+            hasScrollBody: false,
             child:Column(
 
               children: [
@@ -174,23 +163,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   height: 10,
                 ),
                 //card desing
-                // cardItemDesign(),
-
-                CarouselSlider(
-                  items: carouselItem(),
-
-                  carouselController: _controller,
-                  options: CarouselOptions(
-                      autoPlay: true,
-                      enlargeCenterPage: true,
-                      height: 170.0,
-                      aspectRatio: 2.0,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      }),
-                ),
+                cardItemDesign(),
 
                 Container(
                   padding:EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
@@ -410,7 +383,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
         child: Padding(
             padding:
-            const EdgeInsets.only(left:25, top: 10, right: 25, bottom: 10),
+            const EdgeInsets.only(left:25, top: 10, right: 25, bottom: 30),
             child: Column(
               children: [
                 SizedBox(
@@ -484,30 +457,22 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                 ],
                 ),
-                Expanded(child:  Container(
-                  child:  ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
-                      _transactionHistoryList.length,
-                      // physics: NeverScrollableScrollPhysics(),
-
-                     // physics: ClampingScrollPhysics(),
-                      shrinkWrap: true,
-
-                      itemBuilder: (BuildContext context, int index) {
-                        return transactionItemDesign(_transactionHistoryList[index]);
-                      }),
-                )
-                )
 
 
 
-
+                transactionItemDesign(),
+                transactionItemDesign(),
+                transactionItemDesign(),
+                transactionItemDesign(),
+                transactionItemDesign(),
+                transactionItemDesign(),
+                transactionItemDesign(),
+                transactionItemDesign(),
               ],
             )));
   }
 
-  Widget transactionItemDesign(var response) {
+  Widget transactionItemDesign() {
     return Padding(padding: EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
     child:  Row(
       children: [
@@ -613,66 +578,127 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-  Widget cardItemDesign(var response) {
-    return InkWell(
-      onTap: (){
-        _showToast("€"+response["current_balance"].toString());
-      },
-      child:  Container(
-        margin: EdgeInsets.all(5.0),
-        height: 150,
-        //  width: 350,
+  Widget cardItemDesign() {
+    return  Container(
+      margin:EdgeInsets.only(right: 30,top: 10,left: 30,bottom: 10),
+      height: 150,
+      width: 350,
 
-        decoration: BoxDecoration(
+      decoration: BoxDecoration(
 
-          image: DecorationImage(
-            image: AssetImage("assets/images/current_balance_card_bg.png"),
-            fit: BoxFit.fill,
-          ),
+        image: DecorationImage(
+          image: AssetImage("assets/images/current_balance_card_bg.png"),
+          fit: BoxFit.fill,
         ),
+      ),
 
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Wrap(
-            direction: Axis.vertical,
-            children: [
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Wrap(
+          direction: Axis.vertical,
+          children: [
 
-              Container(
-                  margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
-                  child:  Text(
-                    "Current Balance",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400),
-                  )
-              ),
-
-              Container(
-                margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
-                child: Text(
-
-                  "€"+response["current_balance"].toString(),
+            Container(
+                margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
+                child:  Text(
+                  "Current Balance",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: 20,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold),
-                ),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400),
+                )
+            ),
+
+            Container(
+              margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
+              child: Text(
+
+                "€"+_currencyTypeList[0]["current_balance"].toString(),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    decoration: TextDecoration.none,
+                    fontWeight: FontWeight.bold),
               ),
+            ),
 
 
 
-            ],
-          ),
+          ],
         ),
-
-
-        /* add child content here */
       ),
+
+
+      /* add child content here */
     );
   }
+
+
+  Widget cardItemDesign2({required double marginLeft,required double marginRight,
+    required String bg_image_link,required String icon_link,required String item_name_text,
+  }) {
+    return  Container(
+      margin:EdgeInsets.only(right: marginRight,top: 10,left: marginLeft,bottom: 10),
+      height: 150,
+      width: 150,
+
+      decoration: BoxDecoration(
+
+        image: DecorationImage(
+          image: AssetImage(bg_image_link),
+          fit: BoxFit.fill,
+        ),
+      ),
+
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+
+            child: Container(
+              width: 44,
+              height: 44,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(22.0),
+                    bottomRight: Radius.circular(22.0),
+                    topLeft: Radius.circular(22.0),
+                    bottomLeft: Radius.circular(22.0)),
+              ),
+
+              margin:const EdgeInsets.only(left:20, top: 20, right: 10, bottom: 00),
+              padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+              child: Image.asset(icon_link,
+                fit: BoxFit.fill,
+              ),
+
+            ),
+          ),
+
+
+          Container(
+            padding:const EdgeInsets.only(left:20, top: 20, right: 5, bottom: 00),
+            child:Align(alignment: Alignment.topLeft,
+              child:Text(
+                item_name_text,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    decoration: TextDecoration.none,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+        ],
+      ),
+
+
+      /* add child content here */
+    );
+  }
+
 
 
   _getUserCurrencyTypeList() async {
@@ -685,46 +711,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
             Uri.parse('$BASE_URL_API$SUB_URL_API_USER_CURRENCY_TYPE_LIST$_userId/'),
           );
           Navigator.of(context).pop();
-          // showToast(response.statusCode.toString());
+           showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
 
               var data = jsonDecode(response.body);
               _currencyTypeList = data["data"];
-             // _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
-
-            });
-          } else {
-            Fluttertoast.cancel();
-          }
-        } catch (e) {
-          Fluttertoast.cancel();
-        }
-      }
-    } on SocketException catch (e) {
-      Fluttertoast.cancel();
-      showToast("No Internet Connection!");
-    }
-  }
-  _getUserTransactionHistoryList() async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
-        try {
-          var response = await post(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSACTION_HISTORY_LIST'),
-            body: {
-              "user_id":_userId
-            }
-          );
-          Navigator.of(context).pop();
-         //  showToast(response.statusCode.toString());
-          if (response.statusCode == 200) {
-            setState(() {
-
-              var data = jsonDecode(response.body);
-              _transactionHistoryList = data["data"];
              // _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
 
             });
@@ -804,14 +796,5 @@ class _HomePageScreenState extends State<HomePageScreen> {
     }
 
   }
-
-  carouselItem(){
-     return _currencyTypeList.map((var response) => Container(
-       height: 170,
-       child: cardItemDesign(response),
-     ))
-         .toList();
-  }
-
 }
 

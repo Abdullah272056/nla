@@ -54,8 +54,6 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
         setState(() {
           _sendMessage(sender: _senderId,file: _file,message: _inputMessage,receiver: _receiverId);
           // _receiverId= _receiverResponse["data"]["id"].toString();
-
-
           // _getCurrentBalanced();
         });
       }
@@ -75,8 +73,8 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
             height: 55,
           ),
 
-          Flex(
-            direction: Axis.horizontal,
+          Row(
+
             children: [
               Container(
                 margin: new EdgeInsets.only(left: 25),

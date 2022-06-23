@@ -38,6 +38,8 @@
   //send money
   String SUB_URL_API_SEND_MONEY_BALANCED_CHECKED = "api/core/balance-checked/";
   String SUB_URL_API_SEND_MONEY = "api/core/send-money/";
+  //all card list
+  String SUB_URL_API_GET_ALL_SAVE_CARDS_LIST= "api/core/card-save/?user_id=";
   //request money
   String SUB_URL_API_REQUEST_MONEY = "api/core/request-money/";
 

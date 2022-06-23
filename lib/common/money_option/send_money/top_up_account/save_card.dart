@@ -12,9 +12,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
+import '../../../../api_service/api_service.dart';
+import '../../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
+import '../../../static/toast.dart';
 import 'add_credit_cart.dart';
 
 
@@ -40,8 +44,23 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
       "their default model text and a search.";
   String _alertMessageForDelete="Many desktop publishing packages and web page editors now"
       " use Lorem Ipsum as their default model text and a search.";
-
-
+  List _saveCardList = [];
+  String _userId = "";
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getSaveCardsList();
+          // _getChatUserList();
+        });
+      }
+      else{
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,11 +123,12 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
           Expanded(child: Container(
             child:  ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: 3,
+                itemCount: _saveCardList==null||_saveCardList.length<=0?0:
+                _saveCardList.length,
                 shrinkWrap: true,
                 // physics: ClampingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
-                  return _buildCardListItem(index);
+                  return _buildCardListItem(_saveCardList[index]);
                 }),
 
           ),),
@@ -177,7 +197,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
     );
   }
 
-  Widget _buildCardListItem(int index) {
+  Widget _buildCardListItem(var response) {
     return Container(
       margin: EdgeInsets.only(right: 30.0, top: 10, bottom: 10, left: 30),
       //width: 180,
@@ -200,7 +220,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
           onTap: (){
             setState(() {
 
-              _showToast(index.toString());
+             // _showToast(index.toString());
             });
 
           },
@@ -358,7 +378,8 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
                       Expanded(child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              "**** **** **** 8743",
+                              response["card_number"].toString(),
+                              // "**** **** **** 8743",
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   color:novalexxa_text_color,
@@ -609,6 +630,77 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
     );
   }
 
+  _getSaveCardsList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_SAVE_CARDS_LIST$_userId'),
+
+          );
+          Navigator.of(context).pop();
+          showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _saveCardList=data["data"];
+              _showToast(_saveCardList.length.toString());
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -620,6 +712,18 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
         fontSize: 16.0);
   }
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
 
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 }
 

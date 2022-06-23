@@ -20,6 +20,7 @@ import 'common/money_option/send_money/top_up_account/select_top_up.dart';
 import 'common/money_option/transfer_money/transfer_money_details_particular.dart';
 import 'common/money_option/transfer_money/transfer_money_details_particular2.dart';
 import 'common/money_option/transfer_money/transfer_money_for_selected.dart';
+import 'common/navigation_page/cart/card_page.dart';
 import 'common/navigation_page/home_page.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
@@ -48,8 +49,8 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       // body:NotificationsScreen()
-       body:NavigationBarScreen(0,HomePageScreen())
+       body:SaveCardsScreen()
+       //body:NavigationBarScreen(0,HomePageScreen())
       //body:ContactSupportMessageScreen()
       ),
     );

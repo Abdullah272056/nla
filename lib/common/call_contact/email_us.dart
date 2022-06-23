@@ -360,6 +360,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
           setState(() {
            // _showToast(baj.);
             String value=newVal.toString();
+            _topicId="1";
             dropdownvalue =newVal;
           });
         },
@@ -404,18 +405,24 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
           String messageTxt = _sendMoneyMessageController!.text;
 
-          validation_showToast(_topicId.toString());
-          //   if (messageTxt.isEmpty) {
-          //     Fluttertoast.cancel();
-          //     validation_showToast("email can't empty");
-          //     return;
-          //   }
-          //
-          // _sendEmail(
-          //   user_id: _userId,
-          //   send_message: "asdfgb",
-          //   topic_id: "1"
-          // );
+         // validation_showToast(_topicId.toString());
+            if (_topicId.isEmpty) {
+              Fluttertoast.cancel();
+              validation_showToast("please select topic");
+              return;
+            }
+            if (messageTxt.isEmpty) {
+              Fluttertoast.cancel();
+              validation_showToast("email can't empty");
+              return;
+            }
+
+
+          _sendEmail(
+            user_id: _userId,
+            send_message: messageTxt,
+            topic_id: _topicId
+          );
          // _showToast("");
          // Navigator.of(context).pop();
         },
@@ -579,21 +586,18 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                 'send_message': send_message,
               });
           Navigator.of(context).pop();
-          _showToast(response.statusCode.toString());
+         // _showToast(response.statusCode.toString());
 
-          if (response.statusCode == 200) {
+          if (response.statusCode == 201) {
+            _showToast("message send successfully");
             var data = jsonDecode(response.body.toString());
-
+            Navigator.of(context).pop();
           }
-          else if (response.statusCode == 400) {
+          else{
             var data = jsonDecode(response.body);
             _showToast(data['message']);
           }
 
-          else {
-            // var data = jsonDecode(response.body.toString());
-            // _showToast(data['message']);
-          }
         } catch (e) {
           Navigator.of(context).pop();
           print(e.toString());

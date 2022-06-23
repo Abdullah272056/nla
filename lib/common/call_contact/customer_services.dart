@@ -131,36 +131,40 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
         child: Padding(
             padding:
             const EdgeInsets.only(left: 00, top: 10, right: 00, bottom: 30),
-            child: Expanded(
-              child: Column(
-                children: [
+            child:Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
 
-                  _buildTabButton(),
-                  SizedBox(
-                    height: 10,
+                      _buildTabButton(),
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      if(tab_status==1)...[
+                        Expanded(child: _allTabDataSection())
+                      ]
+                      else if(tab_status==2)...[
+                        Expanded(child: _currencyRatesDataSection())
+                      ]
+                      else if(tab_status==3)...[]
+                        else if(tab_status==4)...[]
+                          else ...[
+
+                            ],
+
+                      // all data tab section
+
+
+
+
+
+
+                    ],
                   ),
-
-                  if(tab_status==1)...[
-                    Expanded(child: _allTabDataSection())
-                  ]
-                  else if(tab_status==2)...[
-                    Expanded(child: _currencyRatesDataSection())
-                  ]
-                  else if(tab_status==3)...[]
-                  else if(tab_status==4)...[]
-                  else ...[
-
-                        ],
-
-                  // all data tab section
-
-
-
-
-
-
-                ],
-              ),
+                )
+              ],
             )
 
         ));

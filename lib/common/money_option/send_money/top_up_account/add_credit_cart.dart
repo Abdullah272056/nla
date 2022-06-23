@@ -13,9 +13,14 @@ import 'package:nova_lexxa/common/money_option/send_money/top_up_account/payment
 import 'package:nova_lexxa/common/money_option/send_money/top_up_account/save_card.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
+import '../../../../api_service/api_service.dart';
+import '../../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
+import '../../../static/loding_dialog.dart';
+import '../../../static/toast.dart';
 import 'card input format/input_formatters.dart';
 
 
@@ -55,6 +60,24 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
   var _paymentCard = PaymentCard();
   var _paymentCardExpiryMonth;
   var _paymentCardExpirYear;
+  String _userId = "";
+  String _cardType = "1";
+  String save_card_for_future_payment = "false";
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+        //  _getSaveCardsList();
+          // _getChatUserList();
+        });
+      }
+      else{
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -540,6 +563,12 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
                 onChanged: (bool? value) {
                   setState(() {
                     isChecked = value!;
+                    if(isChecked){
+                      save_card_for_future_payment="true";
+
+                    }else{
+                      save_card_for_future_payment="false";
+                    }
                   });
                 },
               ),
@@ -1084,22 +1113,57 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
     );
   }
 
-
   Widget _buildAddNewCardButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-         // _showToast(_paymentCard.month.toString());
-          // if( imageFile==null){
-          //   _showToast("please select document image!");
-          // }
-          // else{
-          //   Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocBackParticularScreen()));
-          //   //_showToast("Ok");
-          // }
+          String cardOnName=_nameOnCardController!.text;
+          String cardNumber=_cardNumberController!.text;
+          String cardExpiryDate=_expiryDateController!.text;
+          String cardCvv=_cvvController!.text;
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen()));
+          if (cardOnName.isEmpty) {
+            Fluttertoast.cancel();
+            validation_showToast("card on name can't empty");
+            return;
+          }
+          if (cardNumber.isEmpty) {
+            Fluttertoast.cancel();
+            validation_showToast("card number can't empty");
+            return;
+          }
+          if (cardNumber.length<19) {
+            Fluttertoast.cancel();
+            validation_showToast("card number must be 16 digit");
+            return;
+          }
+          if (cardExpiryDate.isEmpty) {
+            Fluttertoast.cancel();
+            validation_showToast("expiry date can't empty");
+            return;
+          }
+          if (cardExpiryDate.length<5) {
+            Fluttertoast.cancel();
+            validation_showToast("input valid expiry date");
+            return;
+          }
+          if (cardCvv.isEmpty) {
+            Fluttertoast.cancel();
+            validation_showToast("cvv can't empty");
+            return;
+          }
+          _userNewCardSave(
+            user_id: _userId,
+            card_names: _cardType,
+            card_number: cardNumber,
+            cvv_code: cardCvv,
+            expiry_date: cardExpiryDate,
+            name_on_card: cardOnName,
+            save_card_for_future_payment: save_card_for_future_payment,
+          );
+
+         //
 
 
         },
@@ -1147,6 +1211,67 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
       ),
     );
   }
+  _userNewCardSave({
+    required String user_id,
+    required String card_names,
+    required String name_on_card,
+    required String card_number,
+    required String expiry_date,
+    required String cvv_code,
+    required String save_card_for_future_payment,
+  }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Creating...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_CARD_WITH_SAVE_LIST'),
+              body: {
+
+                'user_id': user_id,
+                'card_names': card_names,
+                'name_on_card': name_on_card,
+                'card_number': card_number,
+                'expiry_date': expiry_date,
+                'cvv_code': cvv_code,
+                'save_card_for_future_payment': save_card_for_future_payment,
+              }
+          );
+          Navigator.of(context).pop();
+         // _showToast(response.statusCode.toString());
+          if (response.statusCode == 201) {
+            _showToast("success");
+            //var data = jsonDecode(response.body.toString());
+
+            setState(() {
+              //_showToast("success");
+              var data = jsonDecode(response.body);
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen()));
+
+            });
+          }
+
+          else if (response.statusCode == 400) {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+          else {
+            // var data = jsonDecode(response.body.toString());
+            // _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          _showToast("Try again!");
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
 
   Widget _buildCancelButton() {
     return InkWell(
@@ -1183,7 +1308,19 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
   }
 
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
 
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 
 }
 

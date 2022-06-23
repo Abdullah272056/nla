@@ -641,12 +641,12 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
           );
           Navigator.of(context).pop();
-          showToast(response.statusCode.toString());
+         // showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
               var data = jsonDecode(response.body);
               _saveCardList=data["data"];
-              _showToast(_saveCardList.length.toString());
+            //  _showToast(_saveCardList.length.toString());
               // _currentBalance=double.parse(data["amount"].toString());
             });
           } else {

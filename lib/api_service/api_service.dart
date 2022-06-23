@@ -40,6 +40,7 @@
   String SUB_URL_API_SEND_MONEY = "api/core/send-money/";
   //all card list
   String SUB_URL_API_GET_ALL_SAVE_CARDS_LIST= "api/core/card-save/?user_id=";
+  String SUB_URL_API_ADD_CARD_WITH_SAVE_LIST= "api/core/card-save/";
   //request money
   String SUB_URL_API_REQUEST_MONEY = "api/core/request-money/";
 

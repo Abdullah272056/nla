@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -144,8 +145,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
           ),
         ],
       )
-
-
     );
   }
 
@@ -221,14 +220,44 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
       child:  Row(
         children: [
 
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //
+          //   child: Container(
+          //     width: 55,
+          //     height: 55,
+          //
+          //
+          //     margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
+          //     // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+          //     child: ClipRRect(
+          //       borderRadius: BorderRadius.circular(27.5),
+          //       child: Container(
+          //           height: 55,
+          //           width: 55,
+          //           color:hint_color,
+          //           child: FadeInImage.assetNetwork(
+          //             fit: BoxFit.fill,
+          //             placeholder: 'assets/images/empty.jpg',
+          //             image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+          //             imageErrorBuilder: (context, url, error) =>
+          //                 Image.asset(
+          //                   'assets/images/empty.jpg',
+          //                   fit: BoxFit.fill,
+          //                 ),
+          //           )),
+          //     ),
+          //
+          //   ),
+          //
+          //
+          // ),
+
           Align(
             alignment: Alignment.topLeft,
-
             child: Container(
               width: 55,
               height: 55,
-
-
               margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
               // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
               child: ClipRRect(
@@ -236,29 +265,32 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                 child: Container(
                     height: 55,
                     width: 55,
-                    color:hint_color,
-                    child: FadeInImage.assetNetwork(
-                      fit: BoxFit.fill,
-                      placeholder: 'assets/images/empty.jpg',
-                      image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                      imageErrorBuilder: (context, url, error) =>
-                          Image.asset(
-                            'assets/images/empty.jpg',
-                            fit: BoxFit.fill,
-                          ),
-                    )),
+                    // color:colors[index],
+                    color:Colors.primaries[Random().nextInt(Colors.primaries.length)],
+
+                    //color:novalexxa_rounded_border_color,
+                    child:Center(
+                      child: Text(
+                        response["user_info"]["first_name"][0].toString()
+                        ,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                ),
               ),
 
             ),
-
-
           ),
           Expanded(child:Column(
             children: [
               Align(
                 alignment: Alignment.centerLeft,
                 child:Text(
-                  "Tech Italy",
+                    response["user_info"]["first_name"].toString(),
                   style: TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 17,

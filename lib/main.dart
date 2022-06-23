@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-      // body:TransactionDetailsScreen()
-       body:NavigationBarScreen(0,HomePageScreen())
+       body:SplashScreen1()
+       //body:NavigationBarScreen(0,HomePageScreen())
       //body:ContactSupportMessageScreen()
       ),
     );

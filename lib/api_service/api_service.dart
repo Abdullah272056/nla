@@ -64,6 +64,7 @@
   //notification
   String SUB_URL_API_NOTIFICATION_LIST = "api/core/user-notification/";
   String SUB_URL_API_TRANSACTION_HISTORY_LIST = "api/core/transaction-details-single/";
+  String SUB_URL_API_TRANSACTION_HISTORY_DETAILS = "api/core/transaction-details/";
 
 
 

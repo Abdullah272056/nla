@@ -1,11 +1,20 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:nova_lexxa/common/static/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+
+import '../api_service/api_service.dart';
+import '../api_service/sharePreferenceDataSaveName.dart';
 
 
 class TransactionDetailsScreen extends StatefulWidget {
@@ -17,8 +26,26 @@ class TransactionDetailsScreen extends StatefulWidget {
 
 class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
-  late String _startDate, _endDate;
+  String _startDate="", _endDate="";
   final DateRangePickerController _controller = DateRangePickerController();
+  String _userId = "";
+  List _transactionHistoryList= [];
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+
+          _getUserTransactionHistoryList();
+          // _getChatUserList();
+        });
+      }
+      else{
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +54,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
       body:CustomScrollView(
         slivers: [
           SliverFillRemaining(
-            hasScrollBody: false,
+            fillOverscroll: true,
             child:
             Column(
 
@@ -78,7 +105,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                         ),
                         color:Colors.white,
                         onPressed: () {
-                          _showToast(_endDate.toString());
+                          //_showToast(_endDate.toString());
+                         // _showToast(_startDate.toString());
                          // Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
 
                         },
@@ -106,9 +134,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   ),
                 ),
 
-                const SizedBox(
-                  height: 21,
-                ),
 
                 Expanded(child: _buildBottomDesign())
 
@@ -139,7 +164,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
         child: Padding(
             padding:
-            const EdgeInsets.only(left:25, top: 0, right: 25, bottom: 30),
+            const EdgeInsets.only(left:25, top: 0, right: 25, bottom: 15),
             child: Column(
               children: [
                 Container(
@@ -171,127 +196,201 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                 ),
 
+                SizedBox(height: 10,),
+
+                Expanded(child:  ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
+                    _transactionHistoryList.length,
+                    // physics: NeverScrollableScrollPhysics(),
+
+                    // physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+
+                    itemBuilder: (BuildContext context, int index) {
+                      return transactionItemDesign(_transactionHistoryList[index]);
+                    }))
 
 
-                transactionItemDesign(),
-                transactionItemDesign(),
-                transactionItemDesign(),
-                transactionItemDesign(),
-                transactionItemDesign(),
-                transactionItemDesign(),
-                transactionItemDesign(),
-                transactionItemDesign(),
               ],
             )));
   }
 
-  Widget transactionItemDesign() {
+  Widget transactionItemDesign(var response) {
     return Padding(padding: EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
-    child:  Row(
-      children: [
+      child:  Row(
+        children: [
 
-        Align(
-          alignment: Alignment.topLeft,
+          Align(
+            alignment: Alignment.topLeft,
 
-          child: Container(
-            width: 55,
-            height: 55,
+            child: Container(
+              width: 55,
+              height: 55,
 
 
-            margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
-            // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(27.5),
-              child: Container(
-                  height: 55,
-                  width: 55,
-                  color:hint_color,
-                  child: FadeInImage.assetNetwork(
-                    fit: BoxFit.fill,
-                    placeholder: 'assets/images/empty.jpg',
-                    image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
-                    imageErrorBuilder: (context, url, error) =>
-                        Image.asset(
-                          'assets/images/empty.jpg',
-                          fit: BoxFit.fill,
-                        ),
-                  )),
+              margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
+              // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(27.5),
+                child: Container(
+                    height: 55,
+                    width: 55,
+                    color:hint_color,
+                    child: FadeInImage.assetNetwork(
+                      fit: BoxFit.fill,
+                      placeholder: 'assets/images/empty.jpg',
+                      image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+                      imageErrorBuilder: (context, url, error) =>
+                          Image.asset(
+                            'assets/images/empty.jpg',
+                            fit: BoxFit.fill,
+                          ),
+                    )),
+              ),
+
             ),
+
 
           ),
-
-
-        ),
-        Expanded(child:Column(
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child:Text(
-                "Tech Italy",
-                style: TextStyle(
-                    color: novalexxa_text_color,
-                    fontSize: 17,
-                    decoration: TextDecoration.none,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Flex(direction: Axis.horizontal,
+          Expanded(child:Column(
             children: [
               Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                "10:45 AM",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: novalexxa_hint_text_color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400),
-              ),
-            ),
-              Container(
-                margin: const EdgeInsets.only(left: 5.0, right: 3.0),
-                decoration: const BoxDecoration(
-                  color: novalexxa_color,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(3.0),
-                  ),
+                alignment: Alignment.centerLeft,
+                child:Text(
+                  "Tech Italy",
+                  style: TextStyle(
+                      color: novalexxa_text_color,
+                      fontSize: 17,
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.bold),
                 ),
-                height: 5,
-                width: 5,
               ),
-              Align(alignment: Alignment.centerLeft,
-              child: Text(
-                "pending",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: novalexxa_hint_text_color,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400),
-              ),
-            )],
-            )
+              Flex(direction: Axis.horizontal,
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "10:45 AM",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: novalexxa_hint_text_color,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 5.0, right: 3.0),
+                    decoration: const BoxDecoration(
+                      color: novalexxa_color,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(3.0),
+                      ),
+                    ),
+                    height: 5,
+                    width: 5,
+                  ),
+                  Align(alignment: Alignment.centerLeft,
+                    child: Text(
+                      "pending",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: novalexxa_hint_text_color,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400),
+                    ),
+                  )],
+              )
 
-          ],
-        ),),
-        Align(
-          alignment: Alignment.centerLeft,
-          child:Text(
-            "-€12",
-            style: TextStyle(
-                color: novalexxa_text_color,
-                fontSize: 17,
-                decoration: TextDecoration.none,
-                fontWeight: FontWeight.bold),
+            ],
+          ),),
+          Align(
+            alignment: Alignment.centerLeft,
+            child:Text(
+              "-€"+response["user_amount"].toString(),
+              style: TextStyle(
+                  color: novalexxa_text_color,
+                  fontSize: 17,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
-        ),
-        SizedBox(width: 10,)
+          SizedBox(width: 10,)
 
-      ],
-    ),
+        ],
+      ),
     );
   }
 
+  _getUserTransactionHistoryList1({required String startDate, required String endDate}) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+     //   _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSACTION_HISTORY_DETAILS'),
+              body: {
+                "user_id":_userId,
+                "start_date":startDate,
+                "end_date":endDate,
+              }
+          );
+        //  Navigator.of(context).pop();
+          //  showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _transactionHistoryList = data["data"];
+              // _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
 
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  _getUserTransactionHistoryList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSACTION_HISTORY_LIST'),
+              body: {
+                "user_id":_userId
+              }
+          );
+          Navigator.of(context).pop();
+          //  showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _transactionHistoryList = data["data"];
+              // _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -306,12 +405,64 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      _startDate = DateFormat('yyyy-MMM-dd').format(args.value.startDate).toString();
-      _endDate = DateFormat('yyyy-MMM-dd').format(args.value.endDate ?? args.value.startDate).toString();
+      _startDate = DateFormat('yyyy-MM-dd').format(args.value.startDate).toString();
+      _endDate = DateFormat('yyyy-MM-dd').format(args.value.endDate ?? args.value.startDate).toString();
+      _getUserTransactionHistoryList1(startDate:_startDate,endDate: _endDate );
      // _showToast(_endDate.toString());
     });
   }
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 
 }
 

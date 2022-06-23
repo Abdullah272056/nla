@@ -484,24 +484,19 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                 ],
                 ),
-                Expanded(child:  Container(
-                  child:  ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
-                      _transactionHistoryList.length,
-                      // physics: NeverScrollableScrollPhysics(),
+                Expanded(child:  ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
+                    _transactionHistoryList.length,
+                    // physics: NeverScrollableScrollPhysics(),
 
-                     // physics: ClampingScrollPhysics(),
-                      shrinkWrap: true,
+                   // physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
 
-                      itemBuilder: (BuildContext context, int index) {
-                        return transactionItemDesign(_transactionHistoryList[index]);
-                      }),
+                    itemBuilder: (BuildContext context, int index) {
+                      return transactionItemDesign(_transactionHistoryList[index]);
+                    })
                 )
-                )
-
-
-
 
               ],
             )));
@@ -598,7 +593,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         Align(
           alignment: Alignment.centerLeft,
           child:Text(
-            "-€12",
+            "-€"+response["user_amount"].toString(),
             style: TextStyle(
                 color: novalexxa_text_color,
                 fontSize: 17,

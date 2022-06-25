@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../navigation_page/navigation_bar_page.dart';
 
 class LoginLoadingScreen extends StatefulWidget {
@@ -15,16 +17,33 @@ class LoginLoadingScreen extends StatefulWidget {
 class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
 
   int loging_status=2;
+  String _userId = "";
+  String _userName = "xxxxxxx";
+  // @override
+  // @mustCallSuper
+  // initState() {
+  //   super.initState();
+  //   setState(() {
+  //     loging_status=2;
+  //     _delay();
+  //   });
+  //
+  // }
 
   @override
   @mustCallSuper
   initState() {
     super.initState();
-    setState(() {
-      loging_status=2;
-      _delay();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          loging_status=2;
+          _delay();
+        });
+      }
+      else{
+      }
     });
-
   }
 
   @override
@@ -140,7 +159,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
         Align(
           alignment: Alignment.center,
           child:Text(
-            "Simon Lewis",
+            _userName,
             textAlign: TextAlign.center,
 
             style: TextStyle(
@@ -244,5 +263,18 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
     });
   }
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        _userName = sharedPreferences.getString(pref_user_name)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
 
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 }

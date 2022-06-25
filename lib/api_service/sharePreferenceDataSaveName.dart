@@ -10,6 +10,7 @@ String pref_user_selected_language = "$pref_file_base_name.pref_user_selected_la
 String pref_user_uuid = "$pref_file_base_name.pref_user_uuid";
 String pref_user_email = "$pref_file_base_name.pref_user_email";
 String pref_user_password = "$pref_file_base_name.pref_user_password";
+String pref_user_name = "$pref_file_base_name.pref_user_name";
 
 String pref_user_access_token = "$pref_file_base_name.pref_user_access_token";
 String pref_user_refresh_token = "$pref_file_base_name.pref_user_refresh_token";

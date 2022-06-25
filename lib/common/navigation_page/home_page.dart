@@ -32,6 +32,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   List _currencyTypeList= [];
   List _transactionHistoryList= [];
   String _userId = "";
+  String _userName = "xxxxxxx";
 
   int _current = 0;
   final CarouselController _controller = CarouselController();
@@ -108,7 +109,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           Expanded(child:  Align(
                             alignment: Alignment.centerLeft,
                             child:Text(
-                              "Simon Lewis",
+                              _userName,
                               style: TextStyle(
                                   color: novalexxa_text_color,
                                   fontSize: 22,
@@ -826,6 +827,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     try {
       setState(() {
         _userId = sharedPreferences.getString(pref_user_id)!;
+        _userName = sharedPreferences.getString(pref_user_name)!;
         // _login_status_check = sharedPreferences.getString(pref_login_status)!;
 
       });

@@ -503,7 +503,7 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
   Widget _buildAddNewCardButton() {
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
+      //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
 
         // showDialog(context: context,
         //     barrierDismissible:false,
@@ -879,7 +879,7 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
           //   //_showToast("Ok");
           // }
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
+        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
 
 
         },

@@ -40,76 +40,80 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
         slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+            child: Column(
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
 
-                  SizedBox(height: 55,),
+                      SizedBox(height: 55,),
 
 
-                  Image.asset(
-                    "assets/images/undraw_wallet_aym5.png",
-                    width: 240,
-                    height: 160,
-                    fit: BoxFit.fill,
+                      Image.asset(
+                        "assets/images/undraw_wallet_aym5.png",
+                        width: 240,
+                        height: 160,
+                        fit: BoxFit.fill,
+                      ),
+
+                      SizedBox(
+                        height: 30,
+                      ),
+
+                      Text(
+                        "Congratulations!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: congratulation_text_color,
+                            fontSize: 38,
+                            fontWeight: FontWeight.bold),
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                        child:Text(
+                          "You send $_sendAmount to",
+
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              height: 1.5,
+                              color: novalexxa_text_color,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
+                        child:Text(
+                          _receiverName,
+
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              height: 1.5,
+                              color: novalexxa_text_color,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+
+
+                      const SizedBox(
+                        height: 40,
+                      ),
+
+                      Container(
+                        child: _buildSendMoreMoneyButton(),
+                      ),
+                      SizedBox(height: 25,),
+
+
+                    ],
                   ),
-
-                  SizedBox(
-                    height: 30,
-                  ),
-
-                  Text(
-                    "Congratulations!",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: congratulation_text_color,
-                        fontSize: 38,
-                        fontWeight: FontWeight.bold),
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
-                    child:Text(
-                      "You send $_sendAmount to",
-
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          height: 1.5,
-                          color: novalexxa_text_color,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
-                    child:Text(
-                      _receiverName,
-
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          height: 1.5,
-                          color: novalexxa_text_color,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-
-
-                  const SizedBox(
-                    height: 40,
-                  ),
-
-                  Container(
-                    child: _buildSendMoreMoneyButton(),
-                  ),
-                  SizedBox(height: 25,),
-
-
-                ],
-              ),
-            ),
+                ),
+              ],
+            )
           ),
         ],
       )

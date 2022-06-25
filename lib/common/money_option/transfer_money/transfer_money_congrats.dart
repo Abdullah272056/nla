@@ -37,86 +37,90 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
         slivers: [
           SliverFillRemaining(
             hasScrollBody: false,
-            child: Expanded(
-              child: Column(
+            child:Column(
+              children: [
+                Expanded(
+                  child: Column(
 
-                children: [
-
-
-
-                  SizedBox(height: 60,),
-                  Container(
-                    margin: EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
-                    child: new LinearPercentIndicator(
-                      // width: MediaQuery.of(context).size.width - 80,
-                      animation: true,
-                      lineHeight: 20.0,
-                      animationDuration: 1000,
-                      percent: 1,
-                      center: Text("100%"),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      fillColor:Colors.white,
-                      backgroundColor: novalexxa_indicator_unselected_color,
-                      progressColor: novalexxa_color,
-                    ),
-                  ),
-                  Expanded(child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        "assets/images/undraw_wallet_aym5.png",
-                        width: 240,
-                        height: 160,
-                        fit: BoxFit.fill,
-                      ),
 
-                      SizedBox(
-                        height: 30,
-                      ),
 
-                      Text(
-                        "Congratulations!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: congratulation_text_color,
-                            fontSize: 38,
-                            fontWeight: FontWeight.bold),
-                      ),
 
+                      SizedBox(height: 60,),
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
-                        child:Text(
-                          "Your money is on the way!",
-
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              height: 1.5,
-                              color: novalexxa_text_color,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400),
+                        margin: EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
+                        child: new LinearPercentIndicator(
+                          // width: MediaQuery.of(context).size.width - 80,
+                          animation: true,
+                          lineHeight: 20.0,
+                          animationDuration: 1000,
+                          percent: 1,
+                          center: Text("100%"),
+                          linearStrokeCap: LinearStrokeCap.roundAll,
+                          fillColor:Colors.white,
+                          backgroundColor: novalexxa_indicator_unselected_color,
+                          progressColor: novalexxa_color,
                         ),
                       ),
+                      Expanded(child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/images/undraw_wallet_aym5.png",
+                            width: 240,
+                            height: 160,
+                            fit: BoxFit.fill,
+                          ),
+
+                          SizedBox(
+                            height: 30,
+                          ),
+
+                          Text(
+                            "Congratulations!",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: congratulation_text_color,
+                                fontSize: 38,
+                                fontWeight: FontWeight.bold),
+                          ),
+
+                          Container(
+                            margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                            child:Text(
+                              "Your money is on the way!",
+
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  height: 1.5,
+                                  color: novalexxa_text_color,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
 
 
 
-                      const SizedBox(
-                        height: 60,
-                      ),
+                          const SizedBox(
+                            height: 60,
+                          ),
 
-                      Container(
-                        child: _buildTransferMoreMoneyButton(),
-                      ),
-                      SizedBox(height: 25,),
+                          Container(
+                            child: _buildTransferMoreMoneyButton(),
+                          ),
+                          SizedBox(height: 25,),
+
+                        ],
+
+                      )),
+
 
                     ],
-
-                  )),
-
-
-                ],
-              ),
-            ),
+                  ),
+                ),
+              ],
+            )
           ),
         ],
       )

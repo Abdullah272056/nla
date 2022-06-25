@@ -139,7 +139,7 @@ class _TopUpAmountPageScreenState extends State<TopUpAmountPageScreen> {
                               //   return;
                               // }
 
-                              Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen()));
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen(currencyId: "1",inputBalance: amountTxt,)));
                            //   Navigator.push(context,MaterialPageRoute(builder: (context)=>NoCreditCardScreen()));
                             },
                             child: _buildContinueButton(),

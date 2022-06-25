@@ -26,14 +26,21 @@ import 'card input format/input_formatters.dart';
 
 
 class AddCreditCardScreen extends StatefulWidget {
-  const AddCreditCardScreen({Key? key}) : super(key: key);
+  String  inputBalance;
+  String  currencyId;
+  AddCreditCardScreen({required this.inputBalance, required this.currencyId});
+
+
 
   @override
-  State<AddCreditCardScreen> createState() => _AddCreditCardScreenState();
+  State<AddCreditCardScreen> createState() => _AddCreditCardScreenState(this.inputBalance, this.currencyId);
 }
 
 class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
+  String _inputBalance;
+  String _currencyId;
 
+  _AddCreditCardScreenState(this._inputBalance, this._currencyId);
 
   TextEditingController? _nameOnCardController = TextEditingController();
   TextEditingController? _cardNumberController = TextEditingController();
@@ -1247,7 +1254,10 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
             setState(() {
               //_showToast("success");
               var data = jsonDecode(response.body);
-              Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen()));
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>SaveCardsScreen(
+                  currencyId: _currencyId,
+                  inputBalance: _inputBalance,
+                  )));
 
             });
           }

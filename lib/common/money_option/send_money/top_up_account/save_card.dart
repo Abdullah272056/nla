@@ -23,13 +23,22 @@ import 'add_credit_cart.dart';
 
 
 class SaveCardsScreen extends StatefulWidget {
-  const SaveCardsScreen({Key? key}) : super(key: key);
+  String  inputBalance;
+  String  currencyId;
+
+
+  SaveCardsScreen({required this.inputBalance, required this.currencyId});
 
   @override
-  State<SaveCardsScreen> createState() => _SaveCardsScreenState();
+  State<SaveCardsScreen> createState() => _SaveCardsScreenState(this.inputBalance, this.currencyId);
 }
 
 class _SaveCardsScreenState extends State<SaveCardsScreen> {
+  String _inputBalance;
+  String _currencyId;
+
+  _SaveCardsScreenState(this._inputBalance, this._currencyId);
+
   String countryName="en",countryIcon="icon_country.png";
 
   String qrcode = 'Unknown';
@@ -46,6 +55,8 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
       " use Lorem Ipsum as their default model text and a search.";
   List _saveCardList = [];
   String _userId = "";
+
+
   @override
   @mustCallSuper
   initState() {
@@ -311,12 +322,13 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
             )
         )],
       ),
-      child: InkResponse(
+      child: InkWell(
           onTap: (){
-            setState(() {
-
-              // _showToast(index.toString());
-            });
+            _sendAmountBalanced(cardId: response["card_id"].toString(),currencyId:_currencyId ,inputBalance: _inputBalance);
+            // setState(() {
+            //
+            //
+            // });
 
           },
           child: SlidableAutoCloseBehavior(
@@ -503,7 +515,10 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
   Widget _buildAddNewCardButton() {
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
+          currencyId: _currencyId,
+          inputBalance: _inputBalance,
+        )));
 
         // showDialog(context: context,
         //     barrierDismissible:false,
@@ -824,6 +839,58 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
     }
 
   }
+  _sendAmountBalanced({required String cardId,required String currencyId, required String inputBalance }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Sending...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_TOP_UP_ACCOUNT'),
+              body: {
+                'user_id':_userId,
+                'card_id':cardId,
+                'currency_id':currencyId,
+                'top_up_amount':inputBalance,
+
+              }
+          );
+          Navigator.of(context).pop();
+          showToast(response.statusCode.toString());
+          if (response.statusCode == 201) {
+            setState(() {
+              //  var data = jsonDecode(response.body);
+
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(
+              //     settings: RouteSettings(name: "Foo"),
+              //     builder: (BuildContext context) => SendMoneyCongratsScreen(
+              //       receiverName: _receiverName,
+              //       sendAmount: _inputBalance.toString()+_currencySymbol,
+              //     ),),
+              // );
+
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          }
+          else {
+            Fluttertoast.cancel();
+            var data = jsonDecode(response.body);
+            _showToast(data["message"].toString());
+
+          }
+        } catch (e) {
+          showToast("No !");
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
 
 //no card save
   Widget scanMessageSection1() {
@@ -879,7 +946,10 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
           //   //_showToast("Ok");
           // }
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
+            currencyId: _currencyId,
+            inputBalance: _inputBalance,
+          )));
 
 
         },

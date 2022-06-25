@@ -4,17 +4,16 @@ import 'dart:io';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
-import '../notification/notification_details.dart';
-import '../notification/notifications_settings.dart';
 import '../static/toast.dart';
 import 'contact_support_message.dart';
 import 'email_us.dart';
@@ -496,51 +495,60 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   }
 
   Widget _build_speak_with_us_sectionNumberListItem(var response) {
-    return  Container(
-      margin: EdgeInsets.only(right: 5,  left: 10, bottom: 10),
-      height: 40,
-      decoration: new BoxDecoration(
-        color:contact_with_us_box_color,
-        border: Border.all(width: 1,color:novalexxa_customer_services_tab_border_color),
-        boxShadow: [BoxShadow(
+    return  InkWell(
+      onTap: (){
+       // _showToast("ok");
 
-          color:Colors.grey.withOpacity(.25),
-          //  blurRadius: 20.0, // soften the shadow
-          blurRadius:20, // soften the shadow
-          spreadRadius: 0.0, //extend the shadow
-          offset:Offset(
-            2.0, // Move to right 10  horizontally
-            1.0, // Move to bottom 10 Vertically
-          ),
-        )],
-        borderRadius: new BorderRadius.all(Radius.circular(20)),
+        _callNumber(response["phone_number"].toString());
 
-        shape: BoxShape.rectangle,
-      ),
+       // _launchCaller("01994215664");
+      },
+      child: Container(
+        margin: EdgeInsets.only(right: 5,  left: 10, bottom: 10),
+        height: 40,
+        decoration: new BoxDecoration(
+          color:contact_with_us_box_color,
+          border: Border.all(width: 1,color:novalexxa_customer_services_tab_border_color),
+          boxShadow: [BoxShadow(
 
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          if(response["country_info"]["country_code_name"].toString()!="" &&
-              response["country_info"]["country_code_name"].toString()!="null")...[
-            Flag.fromString(response["country_info"]["country_code_name"], height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
+            color:Colors.grey.withOpacity(.25),
+            //  blurRadius: 20.0, // soften the shadow
+            blurRadius:20, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset:Offset(
+              2.0, // Move to right 10  horizontally
+              1.0, // Move to bottom 10 Vertically
+            ),
+          )],
+          borderRadius: new BorderRadius.all(Radius.circular(20)),
+
+          shape: BoxShape.rectangle,
+        ),
+
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if(response["country_info"]["country_code_name"].toString()!="" &&
+                response["country_info"]["country_code_name"].toString()!="null")...[
+              Flag.fromString(response["country_info"]["country_code_name"], height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
+            ],
+
+            SizedBox(width: 8,),
+            Text(
+              response["phone_number"].toString(),
+              style: TextStyle(
+                  color: novalexxa_text_color,
+                  fontSize: 12,
+                  decoration: TextDecoration.none,
+                  fontWeight: FontWeight.w500),
+            )
           ],
+        ),
 
-          SizedBox(width: 8,),
-          Text(
-            response["phone_number"].toString(),
-            style: TextStyle(
-                color: novalexxa_text_color,
-                fontSize: 12,
-                decoration: TextDecoration.none,
-                fontWeight: FontWeight.w500),
-          )
-        ],
+        // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+
       ),
-
-      // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
-
     );
   }
 
@@ -751,5 +759,8 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
     }
 
   }
-
+  _callNumber(String number) async{
+   // const number = '085921192212'; //set the number here
+    bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+  }
 }

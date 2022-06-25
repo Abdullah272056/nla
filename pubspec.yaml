@@ -43,7 +43,7 @@ dependencies:
   otp_text_field: ^1.1.1
 
   xml: ^5.3.1
-  url_launcher: ^6.0.17
+  url_launcher: ^6.1.4
 
   persistent_bottom_nav_bar: ^4.0.2
   curved_navigation_bar: 1.0.1
@@ -122,6 +122,8 @@ dependencies:
   characters: ^1.2.0
   #bangla_utilities: ^1.0.0
   carousel_slider: ^4.1.1
+  flutter_phone_direct_caller: ^2.1.1
+
 
 
 

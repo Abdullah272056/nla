@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/money_option/pay_with_qr_code/pay_qr_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -580,7 +581,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
               _currencyTypeList = data["data"];
               if(_currencyTypeList.length>0){
                 _currentBalance=double.parse(_currencyTypeList[0]['current_balance'].toString());
-                _currencySymbol= _currencyTypeList[0]['currency_information']['currency_symbol'].toString();
+                _currencySymbol=getCurrency(_currencyTypeList[0]['currency_information']['currency_name'].toString());
                 _currencyId=_currencyTypeList[0]['currency_information']['country_id'].toString();
               }
 
@@ -637,7 +638,7 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                               Navigator.of(context).pop();
 
                               _currentBalance=double.parse(_currencyTypeListData[index]['current_balance'].toString());
-                              _currencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _currencySymbol=getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString());
                               _currencyId=_currencyTypeListData[index]['currency_information']['country_id'].toString();
 
 
@@ -689,8 +690,8 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                                       maxLines: 1,
                                     ),
                                     Text(
+                                      getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString()),
 
-                                      _currencyTypeListData[index]['currency_information']['currency_symbol'].toString(),
                                       style: TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,
@@ -737,7 +738,10 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
             setState(() {
               var data = jsonDecode(response.body);
               _currentBalance=double.parse(data["amount"].toString());
-              _currencySymbol=data["data"]["currency_symbol"].toString();
+              _currencySymbol=getCurrency(data["data"]["currency_name"].toString());
+
+            //  _currencySymbol=data["data"]["currency_symbol"].toString();
+
             });
           } else {
             Fluttertoast.cancel();
@@ -803,6 +807,12 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
       //code
     }
 
+  }
+
+
+  String getCurrency(String currencyCode) {
+    var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
+    return format.currencySymbol;
   }
 
 }

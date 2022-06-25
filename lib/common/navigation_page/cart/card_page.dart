@@ -40,7 +40,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
   String _user_uuidId = "";
 
   List _novalexxaCardDataList = [];
-
+  String _userName = "xxxxxxx";
   @override
   @mustCallSuper
   initState() {
@@ -665,7 +665,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          _card_holder_name,
+                          _userName,
                           style: TextStyle(
                               color: novalexxa_text_color,
                               fontSize: 22,
@@ -1084,7 +1084,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
       setState(() {
         _userId = sharedPreferences.getString(pref_user_id)!;
         _user_uuidId = sharedPreferences.getString(pref_user_uuid)!;
-
+        _userName = sharedPreferences.getString(pref_user_name)!;
 
       });
     } catch(e) {

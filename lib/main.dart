@@ -50,8 +50,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
        body:SplashScreen1()
-       //body:NavigationBarScreen(0,HomePageScreen())
-      //body:ContactSupportMessageScreen()
+        //body:NavigationBarScreen(0,HomePageScreen())
+        // body:TopUpMoneyCongratsScreen()
       ),
     );
   }

@@ -316,9 +316,6 @@ class _SendMoneySwipeToPayPageScreenState extends State<SendMoneySwipeToPayPageS
                 ]
               ],
             )
-
-
-
         ),
         child: Padding(
           padding: EdgeInsets.only(left: 20,right: 20,top: 0,bottom: 0),

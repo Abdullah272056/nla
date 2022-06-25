@@ -67,6 +67,8 @@
   String SUB_URL_API_TRANSACTION_HISTORY_DETAILS = "api/core/transaction-details/";
   //novalexxa card info
   String SUB_URL_API_NOVALEXXA_CARD_INFO_LIST = "api/core/card-info/?uuid=";
+  //top up account
+  String SUB_URL_API_TOP_UP_ACCOUNT = "api/core/top-up-account/";
 
 
 

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_message_page.dart';
 import 'package:nova_lexxa/common/money_option/send_money/top_up_account/select_top_up.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -80,6 +81,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
   int _inputAmountGatterThanStatus=0;
   String _currencySymbol = "";
   List _currencyTypeList = [];
+
+ //
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -381,7 +384,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           child:  Wrap(
                             children: [
                               Text(
-                                "Current balance is "+_currentBalance.toString()+_currencySymbol,
+                               "Current balance is "+_currentBalance.toString()+ _currencySymbol,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: intello_level_color,
@@ -501,6 +504,9 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       ),
     );
   }
+
+
+
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -683,7 +689,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
               _currencyTypeList = data["data"];
               if(_currencyTypeList.length>0){
                 _currentBalance=double.parse(_currencyTypeList[0]['current_balance'].toString());
-                _currencySymbol= _currencyTypeList[0]['currency_information']['currency_symbol'].toString();
+               // _currencySymbol= _currencyTypeList[0]['currency_information']['currency_symbol'].toString();
+                _currencySymbol= getCurrency(_currencyTypeList[0]['currency_information']['currency_name'].toString());
                 _currencyId=_currencyTypeList[0]['currency_information']['country_id'].toString();
               }
 
@@ -702,6 +709,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       showToast("No Internet Connection!");
     }
   }
+
   void _showAlertDialog(BuildContext context, List _currencyTypeListData) {
     showDialog(
       context: context,
@@ -739,7 +747,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                               Navigator.of(context).pop();
 
                               _currentBalance=double.parse(_currencyTypeListData[index]['current_balance'].toString());
-                              _currencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _currencySymbol= getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString());
                               _currencyId=_currencyTypeListData[index]['currency_information']['country_id'].toString();
 
 
@@ -792,8 +800,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                       maxLines: 1,
                                     ),
                                     Text(
-
-                                      _currencyTypeListData[index]['currency_information']['currency_symbol'].toString(),
+                                      getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString()),
                                       style: TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,
@@ -821,6 +828,10 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     );
   }
 
+  String getCurrency(String currencyCode) {
+    var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
+    return format.currencySymbol;
+  }
 
 }
 

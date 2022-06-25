@@ -123,6 +123,8 @@ dependencies:
   #bangla_utilities: ^1.0.0
   carousel_slider: ^4.1.1
   flutter_phone_direct_caller: ^2.1.1
+  currency_picker: ^2.0.11
+
 
 
 

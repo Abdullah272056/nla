@@ -3,17 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
+import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../money_option/pay_nfc/pay_nfc.dart';
 import '../money_option/pay_with_qr_code/pay_with_qr_code.dart';
 import '../money_option/request_money/request_money_page.dart';
 import '../money_option/schedule_a_payment/schedule_a_payment.dart';
 import '../money_option/send_money/send_money_page.dart';
 import '../money_option/transfer_money/transfer_money_for_selected.dart';
-
-
-
 
 class MoneyOptionScreen extends StatefulWidget {
   const MoneyOptionScreen({Key? key}) : super(key: key);
@@ -23,6 +22,14 @@ class MoneyOptionScreen extends StatefulWidget {
 }
 
 class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
+  String _userId = "";
+  String _userName = "xxxxxxx";
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +79,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child:Text(
-                        "Simon Lewis",
+                        _userName,
                         style: TextStyle(
                             color: novalexxa_text_color,
                             fontSize: 23,
@@ -297,8 +304,6 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
   }
 
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -310,6 +315,20 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
         fontSize: 16.0);
   }
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        _userName = sharedPreferences.getString(pref_user_name)!;
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 
 }
 

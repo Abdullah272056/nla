@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_From_mobile.dart';
@@ -1030,7 +1031,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                 _receiverCurrencyName=_currencyTypeListForRecever[0]['currency_information']['currency_name'].toString();
                 _receiverCurrencyId=_currencyTypeListForRecever[0]['currency_information']['currency_id'].toString();
-                _receiverCurrencySymbol= _currencyTypeListForRecever[0]['currency_information']['currency_symbol'].toString();
+                _receiverCurrencySymbol=  getCurrency(_currencyTypeListForRecever[0]['currency_information']['currency_name'].toString());
+
                 _receiverCountryName=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_name"].toString();
                 _receiverCountryCode=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_code_name"].toString();
                 _receiverCountryCode=_currencyTypeListForRecever[0]['currency_information']['country_info']["country_code_name"].toString();
@@ -1096,7 +1098,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                               _receiverCurrencyName=_currencyTypeListData[index]['currency_information']['currency_name'].toString();
                               _receiverCurrencyId=_currencyTypeListData[index]['currency_information']['currency_id'].toString();
-                              _receiverCurrencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+
+
+                              _receiverCurrencySymbol=  getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString());
                               _receiverCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
                               _receiverCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
                               if(_userTransferMoneyTxt.isNotEmpty){
@@ -1198,7 +1202,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               if(_currencyTypeListForSender.length>0){
                 _senderCurrencyName=_currencyTypeListForSender[0]['currency_information']['currency_name'].toString();
                 _senderCurrencyId=_currencyTypeListForSender[0]['currency_information']['currency_id'].toString();
-                _senderCurrencySymbol= _currencyTypeListForSender[0]['currency_information']['currency_symbol'].toString();
+                _senderCurrencySymbol= getCurrency(_currencyTypeListForSender[0]['currency_information']['currency_name'].toString());
+
+
                 _senderCountryName=_currencyTypeListForSender[0]['currency_information']['country_info']["country_name"].toString();
                 _senderCountryCode=_currencyTypeListForSender[0]['currency_information']['country_info']["country_code_name"].toString();
                 _senderCountryNameId=_currencyTypeListForSender[0]['currency_information']['country_info']["country_id"].toString();
@@ -1262,7 +1268,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                               Navigator.of(context).pop();
                               _senderCurrencyName=_currencyTypeListData[index]['currency_information']['currency_name'].toString();
                               _senderCurrencyId=_currencyTypeListData[index]['currency_information']['currency_id'].toString();
-                              _senderCurrencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
+                              _senderCurrencySymbol= getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString());
                               _senderCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
                               _senderCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
                               _senderCountryNameId=_currencyTypeListData[index]['currency_information']['country_info']["country_id"].toString();
@@ -1589,7 +1595,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                               Navigator.of(context).pop();
 
                               _senderCurrencyName=_currencyTypeListForSender[index]['currency_information']['currency_name'].toString();
-                              _senderCurrencySymbol= _currencyTypeListForSender[index]['currency_information']['currency_symbol'].toString();
+                              _senderCurrencySymbol= getCurrency(_currencyTypeListForSender[index]['currency_information']['currency_name'].toString());
                               _senderCountryName=_currencyTypeListForSender[index]['currency_information']['country_info']["country_name"].toString();
                               _senderCountryCode=_currencyTypeListForSender[index]['currency_information']['country_info']["country_code_name"].toString();
 
@@ -1678,6 +1684,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     );
   }
 
-
+  String getCurrency(String currencyCode) {
+    var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
+    return format.currencySymbol;
+  }
 }
 

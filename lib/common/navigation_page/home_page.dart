@@ -178,21 +178,28 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 //card desing
                 // cardItemDesign(),
 
-                CarouselSlider(
-                  items: carouselItem(),
+                if(_currencyTypeList.length<=0)...{
+                  dammyCardDesign(),
+                }
+                else...{
+                  CarouselSlider(
+                    items: carouselItem(),
 
-                  carouselController: _controller,
-                  options: CarouselOptions(
-                      autoPlay: true,
-                      enlargeCenterPage: true,
-                      height: 170.0,
-                      aspectRatio: 2.0,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      }),
-                ),
+                    carouselController: _controller,
+                    options: CarouselOptions(
+                        autoPlay: true,
+                        enlargeCenterPage: true,
+                        height: 170.0,
+                        aspectRatio: 2.0,
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            _current = index;
+                          });
+                        }),
+                  ),
+                },
+
+
 
                 Container(
                   padding:EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
@@ -365,8 +372,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                               ],
                             ),
-
-
                           ],
                         ),
                       )),
@@ -475,14 +480,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     color: novalexxa_hint_text_color,
 
                   ),),
-                  Text(
-                    "01 Mar, 2020",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: novalexxa_hint_text_color,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  // Text(
+                  //   "01 Mar, 2020",
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(
+                  //       color: novalexxa_hint_text_color,
+                  //       fontSize: 13,
+                  //       fontWeight: FontWeight.w400),
+                  // ),
                   Expanded(child:  Container(
                     margin: EdgeInsets.only(left:10, top: 0, right: 0, bottom: 0),
                     height: .4,
@@ -493,19 +498,35 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                 ],
                 ),
-                Expanded(child:  ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
-                    _transactionHistoryList.length,
-                    // physics: NeverScrollableScrollPhysics(),
+                if(_transactionHistoryList.length<=0)...{
+                  Expanded(
+                    child: Center(
+                      child:
+                      Text(
+                        "Transaction is not found!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: novalexxa_hint_text_color,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  )
+                }else...[
+                  Expanded(child:  ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
+                      _transactionHistoryList.length,
+                      // physics: NeverScrollableScrollPhysics(),
 
-                   // physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
+                      // physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
 
-                    itemBuilder: (BuildContext context, int index) {
-                      return transactionItemDesign(_transactionHistoryList[index],Colors.primaries[Random().nextInt(Colors.primaries.length)]);
-                    })
-                )
+                      itemBuilder: (BuildContext context, int index) {
+                        return transactionItemDesign(_transactionHistoryList[index],Colors.primaries[Random().nextInt(Colors.primaries.length)]);
+                      }))
+                ]
+
 
               ],
             )));
@@ -685,6 +706,68 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child: Text(
 
                   "€"+response["current_balance"].toString(),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      decoration: TextDecoration.none,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+
+
+
+            ],
+          ),
+        ),
+
+
+        /* add child content here */
+      ),
+    );
+  }
+
+  Widget dammyCardDesign() {
+    return InkWell(
+      // onTap: (){
+      //   _showToast("00");
+      // },
+      child:  Container(
+       // margin: EdgeInsets.all(5.0),
+        margin: EdgeInsets.only(left: 30,top: 5,bottom: 5,right: 30),
+
+        height: 150,
+        //  width: 350,
+
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/current_balance_card_bg.png"),
+            fit: BoxFit.fill,
+          ),
+        ),
+
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Wrap(
+            direction: Axis.vertical,
+            children: [
+
+              Container(
+                  margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
+                  child:  Text(
+                    "Current Balance",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400),
+                  )
+              ),
+
+              Container(
+                margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
+                child: Text(
+
+                  "00",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,

@@ -14,7 +14,6 @@ import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 import '../../../../api_service/api_service.dart';
 import '../../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
@@ -22,14 +21,15 @@ import '../../../static/toast.dart';
 import 'add_credit_cart.dart';
 
 
-class SaveCardsScreen extends StatefulWidget {
-  const SaveCardsScreen({Key? key}) : super(key: key);
+
+class SaveCardsScreen2 extends StatefulWidget {
+  const SaveCardsScreen2({Key? key}) : super(key: key);
 
   @override
-  State<SaveCardsScreen> createState() => _SaveCardsScreenState();
+  State<SaveCardsScreen2> createState() => _SaveCardsScreen2State();
 }
 
-class _SaveCardsScreenState extends State<SaveCardsScreen> {
+class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
   String countryName="en",countryIcon="icon_country.png";
 
   String qrcode = 'Unknown';
@@ -64,7 +64,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.white ,
+     backgroundColor:Colors.white ,
       body:_saveCardList.length>0? Column(
         children: [
 
@@ -315,7 +315,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
           onTap: (){
             setState(() {
 
-              // _showToast(index.toString());
+             // _showToast(index.toString());
             });
 
           },
@@ -338,7 +338,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
                     onPressed: (BuildContext context) {
 
                       setState(() {
-                        // _showToast(index.toString() +"Delete");
+                       // _showToast(index.toString() +"Delete");
                       });
 
                     },
@@ -471,20 +471,20 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
                         width: 17,
                       ),
                       Expanded(child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          response["card_number"].toString(),
-                          // "**** **** **** 8743",
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              color:novalexxa_text_color,
-                              // color: Colors.intello_text_color,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                          softWrap: false,
-                          maxLines: 2,
-                        ),
-                      )),
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              response["card_number"].toString(),
+                              // "**** **** **** 8743",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color:novalexxa_text_color,
+                                  // color: Colors.intello_text_color,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold),
+                              softWrap: false,
+                              maxLines: 2,
+                            ),
+                          )),
                     ],
                   ),
                 ),
@@ -740,12 +740,12 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
           );
           Navigator.of(context).pop();
-          // showToast(response.statusCode.toString());
+         // showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
               var data = jsonDecode(response.body);
               _saveCardList=data["data"];
-              //  _showToast(_saveCardList.length.toString());
+            //  _showToast(_saveCardList.length.toString());
               // _currentBalance=double.parse(data["amount"].toString());
             });
           } else {

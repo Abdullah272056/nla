@@ -760,7 +760,6 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
   }
   _callNumber(String number) async{
-   // const number = '085921192212'; //set the number here
     bool? res = await FlutterPhoneDirectCaller.callNumber(number);
   }
 }

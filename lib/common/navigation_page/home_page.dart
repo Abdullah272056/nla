@@ -16,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../call_contact/customer_services.dart';
+import '../money_option/send_money/top_up_account/select_top_up.dart';
 import '../notification/notification.dart';
 import '../static/toast.dart';
 
@@ -206,41 +207,48 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
+
                             Flex(direction: Axis.vertical,
                               children: [
-                                Container(
-                                  margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
-                                  width: 65,
-                                  height: 65,
-                                  decoration: new BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(33),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(.35),
-                                        blurRadius: 20.0, // soften the shadow
-                                        spreadRadius: 0.0, //extend the shadow
-                                        offset: Offset(
-                                          2.0, // Move to right 10  horizontally
-                                          1.0, // Move to bottom 10 Vertically
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  //   height: 150,
-                                  child: Container(
+                                InkWell(
 
-                                    margin: EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
-                                    // height: double.infinity,
-                                    // width: double.infinity,
-                                    color: Colors.white,
-                                    child: Image.asset(
-                                      "assets/images/deposit_icon.png",
-                                      width: 30,
-                                      height: 30,
-                                      fit: BoxFit.fill,
+                                  child: Container(
+                                    margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
+                                    width: 65,
+                                    height: 65,
+                                    decoration: new BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(33),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(.35),
+                                          blurRadius: 20.0, // soften the shadow
+                                          spreadRadius: 0.0, //extend the shadow
+                                          offset: Offset(
+                                            2.0, // Move to right 10  horizontally
+                                            1.0, // Move to bottom 10 Vertically
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  ) ,
+                                    //   height: 150,
+                                    child: Container(
+
+                                      margin: EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
+                                      // height: double.infinity,
+                                      // width: double.infinity,
+                                      color: Colors.white,
+                                      child: Image.asset(
+                                        "assets/images/deposit_icon.png",
+                                        width: 30,
+                                        height: 30,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ) ,
+                                  ),
+                                  onTap: (){
+                                     Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
+                                  },
                                 ),
 
                                 Container(

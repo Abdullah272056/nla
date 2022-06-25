@@ -65,6 +65,8 @@
   String SUB_URL_API_NOTIFICATION_LIST = "api/core/user-notification/";
   String SUB_URL_API_TRANSACTION_HISTORY_LIST = "api/core/transaction-details-single/";
   String SUB_URL_API_TRANSACTION_HISTORY_DETAILS = "api/core/transaction-details/";
+  //novalexxa card info
+  String SUB_URL_API_NOVALEXXA_CARD_INFO_LIST = "api/core/card-info/?uuid=";
 
 
 

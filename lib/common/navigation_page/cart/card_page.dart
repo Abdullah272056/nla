@@ -10,7 +10,14 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../api_service/api_service.dart';
+import '../../../api_service/sharePreferenceDataSaveName.dart';
+import '../../static/toast.dart';
 
 
 class CardPageScreen extends StatefulWidget {
@@ -25,9 +32,30 @@ class _CardPageScreenState extends State<CardPageScreen> {
   double _switchButtonHeight = 27;
   double _buttonToggleSize = 20;
   bool _switchButtonStatus = false;
-  String _card_number="5666 4239 8643 8643";
-  String _card_holder_name="Simon Lewis";
-  String _card_expire_date="02/20";
+  String _card_number="xxxx xxxx xxxx xxxx";
+  String _card_holder_name="-------";
+  String _card_expire_date="xx/xx";
+
+  String _userId = "";
+  String _user_uuidId = "";
+
+  List _novalexxaCardDataList = [];
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref().then((_) {
+      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+        setState(() {
+          _getUserNovalexxaCardDataList();
+          // _getCurrentBalanced();
+        });
+      }
+      else{
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -745,94 +773,99 @@ class _CardPageScreenState extends State<CardPageScreen> {
       required double iconWidth}) {
     return Padding(
       padding: EdgeInsets.only(right: 00, top: 00, left: 00, bottom: 10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                // margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
-                width: 57,
-                height: 57,
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(33),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(.35),
-                      blurRadius: 20.0, // soften the shadow
-                      spreadRadius: 0.0, //extend the shadow
-                      offset: Offset(
-                        2.0, // Move to right 10  horizontally
-                        1.0, // Move to bottom 10 Vertically
-                      ),
-                    )
-                  ],
-                ),
-                //   height: 150,
-                child: Container(
-                  margin: EdgeInsets.only(
-                      right: 17.0, top: 17, bottom: 17, left: 17),
-                  // height: double.infinity,
-                  // width: double.infinity,
-                  color: Colors.white,
-                  child: Image.asset(
-                    iconLink,
-                    width: iconWidth,
-                    height: iconHeight,
-                    fit: BoxFit.fill,
+      child: InkWell(
+         onTap: (){
+           _showToast(_user_uuidId.toString());
+         },
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                  // margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
+                  width: 57,
+                  height: 57,
+                  decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(33),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(.35),
+                        blurRadius: 20.0, // soften the shadow
+                        spreadRadius: 0.0, //extend the shadow
+                        offset: Offset(
+                          2.0, // Move to right 10  horizontally
+                          1.0, // Move to bottom 10 Vertically
+                        ),
+                      )
+                    ],
+                  ),
+                  //   height: 150,
+                  child: Container(
+                    margin: EdgeInsets.only(
+                        right: 17.0, top: 17, bottom: 17, left: 17),
+                    // height: double.infinity,
+                    // width: double.infinity,
+                    color: Colors.white,
+                    child: Image.asset(
+                      iconLink,
+                      width: iconWidth,
+                      height: iconHeight,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        itemHeader,
-                        style: TextStyle(
-                            color: novalexxa_text_color,
-                            fontSize: 17,
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        itemValue,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: novalexxa_hint_text_color,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  width: 15,
                 ),
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Icon(
-                  Icons.arrow_forward_ios,
-                  color: hint_color,
-                  size: 17.0,
+                Expanded(
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          itemHeader,
+                          style: TextStyle(
+                              color: novalexxa_text_color,
+                              fontSize: 17,
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          itemValue,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: novalexxa_hint_text_color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.only(right: 10, top: 10, left: 65, bottom: 0),
-            height: 1,
-            color: novalexxa_customer_services_list_divider_color,
-          )
-        ],
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: hint_color,
+                    size: 17.0,
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(right: 10, top: 10, left: 65, bottom: 0),
+              height: 1,
+              color: novalexxa_customer_services_list_divider_color,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -946,6 +979,93 @@ class _CardPageScreenState extends State<CardPageScreen> {
       ),
     );
   }
+  //novalexxa card list data
+  _getUserNovalexxaCardDataList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Loading...");
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_NOVALEXXA_CARD_INFO_LIST$_user_uuidId'),
+          );
+          Navigator.of(context).pop();
+         //  showToast(response.statusCode.toString());
+          if (response.statusCode == 200) {
+            setState(() {
+              var data = jsonDecode(response.body);
+              _novalexxaCardDataList = data["data"];
+              if(_novalexxaCardDataList[0]["user_info"]["name"].toString()!=null){
+                _card_holder_name=_novalexxaCardDataList[0]["user_info"]["name"].toString();
+              }
+
+              if(dateConvert(_novalexxaCardDataList[0]["expiration_date"].toString())!=null){
+                _card_expire_date= dateConvert(_novalexxaCardDataList[0]["expiration_date"].toString());
+              }
+
+              if(_novalexxaCardDataList[0]["card_number"].toString()!=null){
+                var value =  _novalexxaCardDataList[0]["card_number"].toString().replaceAllMapped(RegExp(r".{4}"), (match) => "${match.group(0)} ");
+                _card_number=value.toString();
+              }
+
+
+
+              // var cardNumber = _novalexxaCardDataList[0]["card_number"];
+              // cardNumber = cardNumber.substring(0, 4) + " " + cardNumber.substring(4, 8) + " " + cardNumber.substring(8, 12) + " " + cardNumber.substring(12, cardNumber.length);
+              // _card_number=cardNumber.toString();
+
+
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -958,5 +1078,27 @@ class _CardPageScreenState extends State<CardPageScreen> {
         fontSize: 16.0);
   }
 
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+        _user_uuidId = sharedPreferences.getString(pref_user_uuid)!;
+
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
+
+   dateConvert(String dateString) {
+    DateTime dateTime = DateTime.parse(dateString);
+
+    final DateFormat format = DateFormat('MM/dd');
+    final String formatted = format.format(dateTime);
+    return formatted;
+  }
 
 }

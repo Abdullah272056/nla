@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       body:ContactSupportScreen()
+       body:SplashScreen1()
        //body:NavigationBarScreen(0,HomePageScreen())
       //body:ContactSupportMessageScreen()
       ),

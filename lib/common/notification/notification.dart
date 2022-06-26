@@ -847,7 +847,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        shimmerStatus=true;
+       // shimmerStatus=true;
         try {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_NOTIFICATION_LIST$_userId/'),
@@ -856,11 +856,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           // showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
+              shimmerStatus=false;
               var data = jsonDecode(response.body);
 
               _notificationList = data["data"];
               //showToast(_notificationList.length.toString());
-              shimmerStatus=false;
+
 
             });
           } else {

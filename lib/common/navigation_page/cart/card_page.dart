@@ -14,6 +14,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../api_service/api_service.dart';
 import '../../../api_service/sharePreferenceDataSaveName.dart';
@@ -38,7 +39,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
 
   String _userId = "";
   String _user_uuidId = "";
-
+  bool shimmerStatus=true;
   List _novalexxaCardDataList = [];
   String _userName = "xxxxxxx";
   @override
@@ -65,7 +66,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
           slivers: [
             SliverFillRemaining(
               hasScrollBody: false,
-              child: Column(
+              child:Column(
                 children: [
                   const SizedBox(
                     height: 55,
@@ -775,7 +776,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
       padding: EdgeInsets.only(right: 00, top: 00, left: 00, bottom: 10),
       child: InkWell(
          onTap: (){
-           _showToast(_user_uuidId.toString());
+          // _showToast(_user_uuidId.toString());
          },
         child: Column(
           children: [
@@ -979,20 +980,374 @@ class _CardPageScreenState extends State<CardPageScreen> {
       ),
     );
   }
+
+  Widget shimmerDesign() {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 55,
+        ),
+
+        Container(
+          margin: EdgeInsets.only(right: 20.0, top: 0, bottom: 0, left: 20),
+          //width: 180,
+          decoration: new BoxDecoration(
+            color:Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            // boxShadow: [BoxShadow(
+            //
+            //     color:Colors.grey.withOpacity(.25),
+            //     //  blurRadius: 20.0, // soften the shadow
+            //     blurRadius:20, // soften the shadow
+            //     spreadRadius: 0.0, //extend the shadow
+            //     offset: Offset(
+            //       2.0, // Move to right 10  horizontally
+            //       1.0, // Move to bottom 10 Vertically
+            //     )
+            // )],
+          ),
+          child: Container(
+            margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+            //color: Colors.white,
+            child: SizedBox(
+              child: Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Shimmer.fromColors(
+                    baseColor:shimmer_baseColor,
+                    highlightColor:shimmer_highlightColor,
+                    child:Container(
+                      //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                      //padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                      width: 55,
+                      height: 55,
+                      decoration: new BoxDecoration(
+                        color: shimmer_baseColor,
+                        borderRadius: BorderRadius.circular(27.5),
+
+                      ),
+
+                    ),
+                  ),
+
+
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+
+
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Flex(
+                              direction: Axis.horizontal,
+                              children:  [
+                                Expanded(
+                                  child: Shimmer.fromColors(
+                                    baseColor:shimmer_baseColor,
+                                    highlightColor:shimmer_highlightColor,
+                                    child:Container(
+                                      margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                      decoration: BoxDecoration(
+                                        color: shimmer_baseColor,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(6.0),
+
+                                        ),
+                                      ),
+                                      height: 25,
+                                      width: double.infinity,
+
+
+                                    ),
+                                  ),
+
+
+                                ),
+                              ],
+                            ),
+
+                          ),
+
+                          SizedBox(
+                            height: 5,
+                          ),
+
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Flex(
+                              direction: Axis.horizontal,
+                              children:  [
+                                Expanded(
+                                  child: Shimmer.fromColors(
+                                    baseColor:shimmer_baseColor,
+                                    highlightColor:shimmer_highlightColor,
+                                    child:Container(
+                                      margin: EdgeInsets.only(right: 80.0,left: 5,bottom: 00),
+                                      decoration: BoxDecoration(
+                                        color: shimmer_baseColor,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(6.0),
+
+                                        ),
+                                      ),
+                                      height: 15,
+                                      width: double.infinity,
+
+
+                                    ),
+                                  ),
+
+
+                                ),
+                              ],
+                            ),
+
+                          ),
+                        ],
+                      )
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        Column(
+          children: [
+            Shimmer.fromColors(
+              baseColor:shimmer_baseColor,
+              highlightColor:shimmer_highlightColor,
+              child:Container(
+                margin: EdgeInsets.only(
+                    right: 30, top: 30, left: 30, bottom: 10),
+                height: 163,
+                //width: 316,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                  boxShadow: [
+                    // BoxShadow(
+                    //   color: Colors.grey.withOpacity(.50),
+                    //   blurRadius: 20.0, // soften the shadow
+                    //   spreadRadius: 0.0, //extend the shadow
+                    //   offset: Offset(
+                    //     2.0, // Move to right 10  horizontally
+                    //     1.0, // Move to bottom 10 Vertically
+                    //   ),
+                    // )
+                  ],
+                  gradient: LinearGradient(colors: [ novalexxa_visa_card_start_color,novalexxa_visa_card_end_color,],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+
+                ),
+
+
+                /* add child content here */
+              ),
+            ),
+          ],
+        ),
+
+        const SizedBox(
+          height: 30,
+        ),
+
+        Container(
+            width: double.infinity,
+            // height: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(.50),
+                  blurRadius: 20.0, // soften the shadow
+                  spreadRadius: 0.0, //extend the shadow
+                  offset: Offset(
+                    2.0, // Move to right 10  horizontally
+                    1.0, // Move to bottom 10 Vertically
+                  ),
+                )
+              ],
+            ),
+            child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 25, top: 30, right: 25, bottom: 30),
+                child: Column(
+                  children: [
+
+                    _buildItemForShimmer(),
+                    _buildItemForShimmer(),
+                    _buildItemForShimmer(),
+                    _buildItemForShimmer(),
+                    _buildItemForShimmer(),
+                    _buildItemForShimmer(),
+                    _buildItemForShimmer(),
+
+                  ],
+                )))
+      ],
+    );
+  }
+  Widget _buildItemForShimmer() {
+    return Container(
+      margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
+      //width: 180,
+      decoration: new BoxDecoration(
+        color:Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        // boxShadow: [BoxShadow(
+        //
+        //     color:Colors.grey.withOpacity(.25),
+        //     //  blurRadius: 20.0, // soften the shadow
+        //     blurRadius:20, // soften the shadow
+        //     spreadRadius: 0.0, //extend the shadow
+        //     offset: Offset(
+        //       2.0, // Move to right 10  horizontally
+        //       1.0, // Move to bottom 10 Vertically
+        //     )
+        // )],
+      ),
+      child: Container(
+        margin: EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
+        //color: Colors.white,
+        child: SizedBox(
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                 // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  width: 57,
+                  height: 57,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(28.5),
+
+                  ),
+
+                ),
+              ),
+
+
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(3.0),
+
+                                    ),
+                                  ),
+                                  height: 25,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+
+                      SizedBox(
+                        height: 5,
+                      ),
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 10.0,left: 5,bottom: 00),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(3.0),
+
+                                    ),
+                                  ),
+                                  height: 15,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+                    ],
+                  )
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+
+    ;
+  }
   //novalexxa card list data
   _getUserNovalexxaCardDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
+        //_showLoadingDialog(context, "Loading...");
+       // shimmerStatus=true;
         try {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_NOVALEXXA_CARD_INFO_LIST$_user_uuidId'),
           );
-          Navigator.of(context).pop();
-         //  showToast(response.statusCode.toString());
+         // Navigator.of(context).pop();
+         // showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
+           //  shimmerStatus=false;
               var data = jsonDecode(response.body);
               _novalexxaCardDataList = data["data"];
               if(_novalexxaCardDataList[0]["user_info"]["name"].toString()!=null){

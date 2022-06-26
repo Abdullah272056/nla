@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/request_money/request_money_amount_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../api_service/api_service.dart';
 import '../../../api_service/sharePreferenceDataSaveName.dart';
@@ -42,7 +43,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       }
     });
   }
-
+  bool shimmerStatus=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,46 +116,95 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
               ),
             ),
             //horizontal list view
-            Container(
-              margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
-              height: 110,
-              child:ListView.builder(
+            if(shimmerStatus==false)...{
+              Container(
+                margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                height: 110,
+                child:ListView.builder(
 
-                shrinkWrap: true,
+                  shrinkWrap: true,
 
-                // physics: const NeverScrollableScrollPhysics(),
-                //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
-                _recentlyContactUserList.length,
-                itemBuilder: (context, index) {
-                  if(index==0){
-                    return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
-                  //length
-                  if(index==_recentlyContactUserList.length-1){
-                    return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
-                  }
-                  else{
-                    return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
-                  }
-                },
-                scrollDirection: Axis.horizontal,
+                  // physics: const NeverScrollableScrollPhysics(),
+                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                  itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+                  _recentlyContactUserList.length,
+                  itemBuilder: (context, index) {
+                    if(index==0){
+                      return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
+                    //length
+                    if(index==_recentlyContactUserList.length-1){
+                      return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
+                    }
+                    else{
+                      return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
+                    }
+                  },
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
-            ),
+            }
+            else...{
+              Container(
+                margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                height: 110,
+                child:ListView.builder(
+
+                  shrinkWrap: true,
+
+                  // physics: const NeverScrollableScrollPhysics(),
+                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                  itemCount: 7,
+                  itemBuilder: (context, index) {
+                    if(index==0){
+                      return _recentContactTopItemShimmer(marginLeft: 30,marginRight: 0,);                          }
+                    //length
+                    if(index==6){
+                      return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 30);
+                    }
+                    else{
+                      return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 0);
+                    }
+                  },
+                  scrollDirection: Axis.horizontal,
+                ),
+              ),
+            },
+
+
             //vertical list view
-            Container(
-              margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
-              child:ListView.builder(
-                itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
-                _recentlyContactUserList.length,
-                padding: EdgeInsets.zero,
-                // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return recentContactBottomListItemDesign(response:_recentlyContactUserList[index]);
-                },
+
+            if(shimmerStatus==false)...{
+              Container(
+                margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                child:ListView.builder(
+                  itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+                  _recentlyContactUserList.length,
+                  padding: EdgeInsets.zero,
+                  // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return recentContactBottomListItemDesign(response:_recentlyContactUserList[index]);
+                  },
+                ),
               ),
-            ),
+            }
+            else...{
+              Container(
+                margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                child:ListView.builder(
+                  itemCount: 9,
+                  padding: EdgeInsets.zero,
+                  // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return _recentContactBottomItemShimmer();
+                  },
+                ),
+              ),
+            },
+
 
           ],
         ),
@@ -336,7 +386,6 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     );
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -366,15 +415,14 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
+        shimmerStatus=true;
         try {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_RECENTLY_CONTACT_LIST'),
           );
-          Navigator.of(context).pop();
-          // showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
+              shimmerStatus=false;
               var data = jsonDecode(response.body);
               _recentlyContactUserList = data["data"];
               // _showAlertDialog(context, _countryList);
@@ -429,6 +477,154 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
         );
       },
     );
+  }
+
+
+  Widget _recentContactBottomItemShimmer() {
+    return Container(
+      margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
+      //width: 180,
+      decoration: new BoxDecoration(
+        color:Colors.white,
+        borderRadius: BorderRadius.circular(12),
+
+      ),
+      child: Container(
+        margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+        //color: Colors.white,
+        child: SizedBox(
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  width:45,
+                  height: 45,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(27.5),
+
+                  ),
+
+                ),
+              ),
+
+
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(3.0),
+
+                                    ),
+                                  ),
+                                  height: 35,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+                    ],
+                  )
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+
+    ;
+  }
+  Widget _recentContactTopItemShimmer({required double marginLeft,required double marginRight}) {
+    return Container(
+      margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),
+      child: Flex(direction: Axis.vertical,
+        children: [
+
+          Container(
+            width: 61,
+            height: 61,
+
+            // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(31),
+              child: Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  width:55,
+                  height: 55,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(27.5),
+
+                  ),
+
+                ),
+              ),
+
+            ),
+
+          ),
+          SizedBox(height: 5,),
+          Shimmer.fromColors(
+            baseColor:shimmer_baseColor,
+            highlightColor:shimmer_highlightColor,
+            child:Container(
+              //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+              // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+              width:45,
+              height: 15,
+              decoration: new BoxDecoration(
+                color: shimmer_baseColor,
+                borderRadius: BorderRadius.circular(2),
+
+              ),
+
+            ),
+          ),
+
+        ],
+      ),
+
+
+      /* add child content here */
+    )
+
+    ;
   }
 
 

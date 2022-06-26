@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/common/money_option/send_money/top_up_account/top_up_money_congrats.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -856,9 +857,16 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
               }
           );
           Navigator.of(context).pop();
-          showToast(response.statusCode.toString());
+         // showToast(response.statusCode.toString());
           if (response.statusCode == 201) {
             setState(() {
+
+              Navigator.push(
+                  context,MaterialPageRoute(builder: (context)=>TopUpMoneyCongratsScreen(
+                receiverName:"",sendAmount: "",
+                ))
+              );
+
               //  var data = jsonDecode(response.body);
 
               // Navigator.pushReplacement(

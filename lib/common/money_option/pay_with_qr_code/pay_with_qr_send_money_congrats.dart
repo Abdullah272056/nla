@@ -24,9 +24,9 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
 
   String _sendAmount,_receiverName;
 
-
   _PayWithQRSendMoneyCongratsScreenState(
-      this._sendAmount, this._receiverName); //image upload
+      this._sendAmount, this._receiverName
+      ); //image upload
 
   File? imageFile;
 
@@ -121,7 +121,6 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
     );
   }
 
-
   Widget _buildSendMoreMoneyButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -167,7 +166,6 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
     );
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -178,8 +176,6 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
         textColor: Colors.black,
         fontSize: 16.0);
   }
-
-
 
 }
 

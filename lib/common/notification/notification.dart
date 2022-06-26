@@ -9,6 +9,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../static/toast.dart';
@@ -27,6 +28,7 @@ class NotificationsScreen extends StatefulWidget {
 class _NotificationsScreenState extends State<NotificationsScreen> {
   String _userId = "";
   List _notificationList = [];
+  bool shimmerStatus=true;
   @override
   @mustCallSuper
   initState() {
@@ -111,15 +113,31 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             height: 20,
           ),
 
-          Expanded(child:  ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: _notificationList==null||_notificationList.length<=0?0
-                  :_notificationList.length,
-              shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return _buildNotificationItemForList(_notificationList[index]);
-              }),)
+
+
+          if(shimmerStatus==false)...{
+            Expanded(child:  ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: _notificationList==null||_notificationList.length<=0?0
+                    :_notificationList.length,
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return _buildNotificationItemForList(_notificationList[index]);
+                }),)
+          }else...{
+            Expanded(child:  ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: 10,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                // physics: ClampingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return _buildNotificationItemForShimmer();
+                }),)
+          }
+
+
 
 
         ],
@@ -680,6 +698,140 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     ;
   }
 
+  Widget _buildNotificationItemForShimmer() {
+    return Container(
+      margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
+      //width: 180,
+      decoration: new BoxDecoration(
+        color:Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        // boxShadow: [BoxShadow(
+        //
+        //     color:Colors.grey.withOpacity(.25),
+        //     //  blurRadius: 20.0, // soften the shadow
+        //     blurRadius:20, // soften the shadow
+        //     spreadRadius: 0.0, //extend the shadow
+        //     offset: Offset(
+        //       2.0, // Move to right 10  horizontally
+        //       1.0, // Move to bottom 10 Vertically
+        //     )
+        // )],
+      ),
+      child: Container(
+        margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+        //color: Colors.white,
+        child: SizedBox(
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  width: 65,
+                  height: 65,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(10),
+
+                  ),
+
+                ),
+              ),
+
+
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6.0),
+
+                                    ),
+                                  ),
+                                  height: 35,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+
+                      SizedBox(
+                        height: 10,
+                      ),
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 80.0,left: 5,bottom: 00),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(6.0),
+
+                                    ),
+                                  ),
+                                  height: 20,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+                    ],
+                  )
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+
+    ;
+  }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -695,12 +847,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
+        shimmerStatus=true;
         try {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_NOTIFICATION_LIST$_userId/'),
           );
-          Navigator.of(context).pop();
+         // Navigator.of(context).pop();
           // showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
@@ -708,7 +860,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
               _notificationList = data["data"];
               //showToast(_notificationList.length.toString());
-
+              shimmerStatus=false;
 
             });
           } else {

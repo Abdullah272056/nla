@@ -1,5 +1,17 @@
 import 'dart:ui';
 
+
+//shimmer color
+const Color shimmer_baseColor = Color(0xFFF0F0F0);
+const Color shimmer_baseColor1 = Color(0xFFFCFCFC);
+const Color shimmer_highlightColor = Color(0xFFF8F8F8);
+//shimmer for dark
+const Color shimmer_baseColorDark = Color(0xFF2B3038);
+const Color shimmer_baseColorDark1 = Color(0xFF2B3038);
+const Color shimmer_highlightColorDark = Color(0xFF3A3E44);
+const Color shimmer_containerBgColorDark = Color(0xFF1E2126);
+const Color shimmer_containerShadowColorDark = Color(0x6E6E6E1A);
+
 ///Nova lexxa
  const  Color novalexxa_color = Color(0xFFEB0443);
 

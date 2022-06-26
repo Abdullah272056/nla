@@ -297,8 +297,6 @@ class _TopUpAmountPageScreenState extends State<TopUpAmountPageScreen> {
     );
   }
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

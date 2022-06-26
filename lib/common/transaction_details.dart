@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/static/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -31,6 +32,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
   final DateRangePickerController _controller = DateRangePickerController();
   String _userId = "";
   List _transactionHistoryList= [];
+  bool transactionShimmerStatus=true;
   @override
   @mustCallSuper
   initState() {
@@ -197,18 +199,54 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                 SizedBox(height: 10,),
 
-                Expanded(child:  ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
-                    _transactionHistoryList.length,
-                    // physics: NeverScrollableScrollPhysics(),
 
-                    // physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
+                if(transactionShimmerStatus==false)...{
 
-                    itemBuilder: (BuildContext context, int index) {
-                      return transactionItemDesign(_transactionHistoryList[index]);
-                    }))
+                  if(_transactionHistoryList.length<=0)...{
+                    Expanded(
+                      child: Center(
+                        child:
+                        Text(
+                          "Transaction is not found!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: novalexxa_hint_text_color,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ),
+                    )
+                  }
+                  else...[
+                    Expanded(child:  ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
+                        _transactionHistoryList.length,
+                        // physics: NeverScrollableScrollPhysics(),
+
+                        // physics: ClampingScrollPhysics(),
+                        shrinkWrap: true,
+
+                        itemBuilder: (BuildContext context, int index) {
+                          return transactionItemDesign(_transactionHistoryList[index]);
+                        }))
+                  ]
+
+
+                }else...{
+                  Expanded(child:  ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount:10,
+                      // physics: NeverScrollableScrollPhysics(),
+
+                      // physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+
+                      itemBuilder: (BuildContext context, int index) {
+                        return _buildTransactionItemForShimmer();
+                      }))
+                }
+
 
 
               ],
@@ -359,6 +397,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
      //   _showLoadingDialog(context, "Loading...");
+        transactionShimmerStatus=true;
         try {
           var response = await post(
               Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSACTION_HISTORY_DETAILS'),
@@ -372,6 +411,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
           //  showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
+              transactionShimmerStatus=false;
               var data = jsonDecode(response.body);
               _transactionHistoryList = data["data"];
               // _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
@@ -394,7 +434,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
+        // _showLoadingDialog(context, "Loading...");
+        transactionShimmerStatus=true;
         try {
           var response = await post(
               Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSACTION_HISTORY_LIST'),
@@ -402,10 +443,11 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                 "user_id":_userId
               }
           );
-          Navigator.of(context).pop();
+          //Navigator.of(context).pop();
           //  showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
+              transactionShimmerStatus=false;
               var data = jsonDecode(response.body);
               _transactionHistoryList = data["data"];
               // _showCountryAlertDialogForReceiver(context, _currencyTypeListForRecever);
@@ -495,6 +537,144 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     }
 
   }
+  Widget _buildTransactionItemForShimmer() {
+    return Container(
+      margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
+      //width: 180,
+      decoration: new BoxDecoration(
+        color:Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Container(
+        margin: EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
+        //color: Colors.white,
+        child: SizedBox(
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  width: 57,
+                  height: 57,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(28.5),
 
+                  ),
+
+                ),
+              ),
+
+
+              SizedBox(
+                width: 5,
+              ),
+              Expanded(
+
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(3.0),
+
+                                    ),
+                                  ),
+                                  height: 25,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+
+                      SizedBox(
+                        height: 5,
+                      ),
+
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Flex(
+                          direction: Axis.horizontal,
+                          children:  [
+                            Expanded(
+                              child: Shimmer.fromColors(
+                                baseColor:shimmer_baseColor,
+                                highlightColor:shimmer_highlightColor,
+                                child:Container(
+                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
+                                  decoration: BoxDecoration(
+                                    color: shimmer_baseColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(3.0),
+
+                                    ),
+                                  ),
+                                  height: 15,
+                                  width: double.infinity,
+
+
+                                ),
+                              ),
+
+
+                            ),
+                          ],
+                        ),
+
+                      ),
+                    ],
+                  )
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  width: 65,
+                  height: 30,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(2.5),
+
+                  ),
+
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+
+    ;
+  }
 }
 

@@ -405,7 +405,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       ],
                     ),
                   ),
-                }else...{
+                }
+                else...{
                   Container(
                     padding:EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
                     child: Row(

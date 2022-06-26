@@ -679,7 +679,6 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
   }
 
-
   Widget _buildAlertBackButton() {
     return InkResponse(
       onTap: (){
@@ -903,7 +902,7 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
               Navigator.push(
                   context,MaterialPageRoute(builder: (context)=>TopUpMoneyCongratsScreen(
-                receiverName:"",sendAmount: "",
+                receiverName:"",sendAmount: _inputBalance,
                 ))
               );
 
@@ -938,7 +937,6 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
       showToast("No Internet Connection!");
     }
   }
-
 
 //no card save
   Widget scanMessageSection1() {
@@ -979,7 +977,6 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
       ),
     );
   }
-
 
   Widget _buildAddNewCardButton1() {
     return Container(
@@ -1068,8 +1065,6 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
       ),
     );
   }
-
-
 
   Widget _buildMessageSectionShimmer() {
     return Container(
@@ -1204,7 +1199,5 @@ class _SaveCardsScreenState extends State<SaveCardsScreen> {
 
     ;
   }
-
-
 }
 

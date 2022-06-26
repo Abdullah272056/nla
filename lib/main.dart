@@ -49,8 +49,8 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       body:SaveCardsScreen(inputBalance: '12',currencyId: "3",)
-        //body:NavigationBarScreen(0,HomePageScreen())
+      // body:SplashScreen1()
+        body:NavigationBarScreen(0,HomePageScreen())
         // body:TopUpMoneyCongratsScreen()
       ),
     );

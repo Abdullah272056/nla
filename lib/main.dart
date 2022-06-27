@@ -13,10 +13,7 @@ import 'common/call_contact/email_us.dart';
 import 'common/log_in/finger_print_done.dart';
 import 'common/log_in/finger_print_input_for_loging.dart';
 import 'common/log_in/login_by_pin.dart';
-import 'common/money_option/send_money/top_up_account/add_credit_cart.dart';
-import 'common/money_option/send_money/top_up_account/no_credit_cart.dart';
-import 'common/money_option/send_money/top_up_account/save_card.dart';
-import 'common/money_option/send_money/top_up_account/select_top_up.dart';
+
 import 'common/money_option/transfer_money/transfer_money_details_particular.dart';
 import 'common/money_option/transfer_money/transfer_money_details_particular2.dart';
 import 'common/money_option/transfer_money/transfer_money_for_selected.dart';
@@ -49,11 +46,12 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-      // body:SplashScreen1()
-        body:NavigationBarScreen(0,HomePageScreen())
+       body:SplashScreen1()
+        //body:NavigationBarScreen(0,HomePageScreen())
         // body:TopUpMoneyCongratsScreen()
       ),
     );
   }
+
 
 }

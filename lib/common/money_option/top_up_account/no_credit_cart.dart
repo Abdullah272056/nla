@@ -11,8 +11,7 @@ import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-
-import '../../../static/Colors.dart';
+import '../../static/Colors.dart';
 import 'add_credit_cart.dart';
 
 

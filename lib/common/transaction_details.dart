@@ -485,6 +485,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
      // _showToast(_endDate.toString());
     });
   }
+
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
       context: context,
@@ -537,6 +538,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     }
 
   }
+
   Widget _buildTransactionItemForShimmer() {
     return Container(
       margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
@@ -676,5 +678,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
     ;
   }
+
 }
 

@@ -10,26 +10,38 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_money_congrats.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
+
 
 import '../../../../api_service/api_service.dart';
 import '../../../../api_service/sharePreferenceDataSaveName.dart';
-import '../../../static/Colors.dart';
-import '../../../static/toast.dart';
+
+import '../../static/Colors.dart';
+import '../../static/toast.dart';
 import 'add_credit_cart.dart';
 
 
+class SaveCardsScreen extends StatefulWidget {
+  String  inputBalance;
+  String  currencyId;
 
-class SaveCardsScreen2 extends StatefulWidget {
-  const SaveCardsScreen2({Key? key}) : super(key: key);
+
+  SaveCardsScreen({required this.inputBalance, required this.currencyId});
 
   @override
-  State<SaveCardsScreen2> createState() => _SaveCardsScreen2State();
+  State<SaveCardsScreen> createState() => _SaveCardsScreenState(this.inputBalance, this.currencyId);
 }
 
-class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
+class _SaveCardsScreenState extends State<SaveCardsScreen> {
+  String _inputBalance;
+  String _currencyId;
+
+  _SaveCardsScreenState(this._inputBalance, this._currencyId);
+
   String countryName="en",countryIcon="icon_country.png";
 
   String qrcode = 'Unknown';
@@ -46,6 +58,8 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
       " use Lorem Ipsum as their default model text and a search.";
   List _saveCardList = [];
   String _userId = "";
+
+  bool shimmerStatus=true;
   @override
   @mustCallSuper
   initState() {
@@ -61,193 +75,230 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     backgroundColor:Colors.white ,
-      body:_saveCardList.length>0? Column(
+      backgroundColor:Colors.white ,
+      body:  Column(
         children: [
 
-          SizedBox(
-            height: 55,
-          ),
-          Flex(
-            direction: Axis.horizontal,
-            children: [
+          if(shimmerStatus==false)...{
+            if(_saveCardList.length>0)...[
+              SizedBox(
+                height: 55,
+              ),
+              Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Container(
+                    margin: new EdgeInsets.only(left: 30),
+                    child: InkResponse(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: novalexxa_text_color,
+                        size: 30.0,
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                      child: Container(
+                        margin: new EdgeInsets.only(right: 60),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Save Cards",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: novalexxa_text_color,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      )
+                  ),
+
+                ],
+              ),
+
+              SizedBox(
+                height: 50,
+              ),
+              //message section
               Container(
-                margin: new EdgeInsets.only(left: 30),
-                child: InkResponse(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: novalexxa_text_color,
-                    size: 30.0,
+                margin: const EdgeInsets.only(left:30, top: 00, right: 30, bottom: 00),
+                child:   scanMessageSection(),
+              ),
+
+              Expanded(child: Container(
+                child:  ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemCount: _saveCardList==null||_saveCardList.length<=0?0:
+                    _saveCardList.length,
+                    shrinkWrap: true,
+                    // physics: ClampingScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      return _buildCardListItem(_saveCardList[index]);
+                    }),
+
+              ),),
+
+              Container(
+                child: _buildAddNewCardButton(),
+              ),
+
+              const SizedBox(height: 25,),
+            ]else...{
+
+              SizedBox(
+                height: 55,
+              ),
+              Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Container(
+                    margin: new EdgeInsets.only(left: 30),
+                    child: InkResponse(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: novalexxa_text_color,
+                        size: 30.0,
+                      ),
+                    ),
+                  ),
+
+                  Expanded(
+                      child: Container(
+                        margin: new EdgeInsets.only(right: 60),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Top Up Account",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: novalexxa_text_color,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      )
+                  ),
+
+                ],
+              ),
+
+              SizedBox(
+                height: 50,
+              ),
+
+              //message section
+              Container(
+                margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+                child:   scanMessageSection1(),
+              ),
+
+              //image section
+              Expanded(
+                child: Container(
+                  width: 282, // custom wrap size
+                  height: 207,
+                  margin: const EdgeInsets.only(left:10, top: 00, right: 10, bottom: 00),
+                  child: Center(
+                    child: Image.asset(
+                      "assets/images/no_credit_card.png",
+                      width: 282, // custom wrap size
+                      height: 207,
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ),
 
-              Expanded(
-                  child: Container(
-                    margin: new EdgeInsets.only(right: 60),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "Save Cards",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: novalexxa_text_color,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                  )
+              Container(
+                child: _buildAddNewCardButton1(),
               ),
 
-            ],
-          ),
+              const SizedBox(height: 10,),
+
+              Container(
+                child: _buildCancelButton1(),
+              ),
+              const SizedBox(height: 25,),
+
+
+            }
 
 
 
-          SizedBox(
-            height: 50,
-          ),
-
-          //message section
-          Container(
-            margin: const EdgeInsets.only(left:30, top: 00, right: 30, bottom: 00),
-            child:   scanMessageSection(),
-          ),
-
-          Expanded(child: Container(
-            child:  ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: _saveCardList==null||_saveCardList.length<=0?0:
-                _saveCardList.length,
-                shrinkWrap: true,
-                // physics: ClampingScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  return _buildCardListItem(_saveCardList[index]);
-                }),
-
-          ),),
-
-
-          // Expanded(
-          //   child:  ListView.builder(
-          //     padding: EdgeInsets.zero,
-          //     itemCount: 10,
-          //     shrinkWrap: true,
-          //     physics: ClampingScrollPhysics(),
-          //     itemBuilder: (BuildContext context, int index) {
-          //       return _buildNotificationItemForList(index);
-          //     }),
-          // ),
-
-
-          Container(
-            child: _buildAddNewCardButton(),
-          ),
-
-          const SizedBox(height: 25,),
-        ],
-      ):
-      CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Column(
+          }
+          else...{
+            SizedBox(
+              height: 55,
+            ),
+            Flex(
+              direction: Axis.horizontal,
               children: [
-
-                SizedBox(
-                  height: 55,
+                Container(
+                  margin: new EdgeInsets.only(left: 30),
+                  child: InkResponse(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: novalexxa_text_color,
+                      size: 30.0,
+                    ),
+                  ),
                 ),
-                Flex(
-                  direction: Axis.horizontal,
-                  children: [
-                    Container(
-                      margin: new EdgeInsets.only(left: 30),
-                      child: InkResponse(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: novalexxa_text_color,
-                          size: 30.0,
+
+                Expanded(
+                    child: Container(
+                      margin: new EdgeInsets.only(right: 60),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Save Cards",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: novalexxa_text_color,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
-                    ),
-
-                    Expanded(
-                        child: Container(
-                          margin: new EdgeInsets.only(right: 60),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Top Up Account",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: novalexxa_text_color,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
-                            ),
-                          ),
-                        )
-                    ),
-
-                  ],
+                    )
                 ),
 
-
-
-                SizedBox(
-                  height: 50,
-                ),
-
-                //message section
-                Container(
-                  margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
-                  child:   scanMessageSection1(),
-                ),
-
-                //image section
-                Expanded(
-                  child: Container(
-                    width: 282, // custom wrap size
-                    height: 207,
-                    margin: const EdgeInsets.only(left:10, top: 00, right: 10, bottom: 00),
-                    child: Center(
-                      child: Image.asset(
-                        "assets/images/no_credit_card.png",
-                        width: 282, // custom wrap size
-                        height: 207,
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                ),
-
-
-
-                Container(
-                  child: _buildAddNewCardButton1(),
-                ),
-
-                const SizedBox(height: 10,),
-
-                Container(
-                  child: _buildCancelButton1(),
-                ),
-                const SizedBox(height: 25,),
               ],
             ),
-          ),
+
+            SizedBox(
+              height: 50,
+            ),
+            _buildMessageSectionShimmer(),
+
+            Expanded(child: Container(
+              child:  ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount:10,
+                  shrinkWrap: true,
+                  // physics: ClampingScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return _buildCardListItemShimmer();
+                  }),
+
+            ),),
+          },
+
         ],
       ),
-
-
 
 
     );
@@ -311,12 +362,13 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
             )
         )],
       ),
-      child: InkResponse(
+      child: InkWell(
           onTap: (){
-            setState(() {
-
-             // _showToast(index.toString());
-            });
+            _sendAmountBalanced(cardId: response["card_id"].toString(),currencyId:_currencyId ,inputBalance: _inputBalance);
+            // setState(() {
+            //
+            //
+            // });
 
           },
           child: SlidableAutoCloseBehavior(
@@ -338,7 +390,8 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
                     onPressed: (BuildContext context) {
 
                       setState(() {
-                       // _showToast(index.toString() +"Delete");
+
+                        // _showToast(index.toString() +"Delete");
                       });
 
                     },
@@ -411,8 +464,9 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
                                           ),
                                           Row(
                                             children: [
+
                                               Expanded(child: _buildAlertCancelButton(),),
-                                              Expanded(child: _buildAlertYesDeleteButton(),),
+                                              Expanded(child: _buildAlertYesDeleteButton(response["card_id"].toString()),),
                                             ],
                                           ),
 
@@ -471,20 +525,20 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
                         width: 17,
                       ),
                       Expanded(child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              response["card_number"].toString(),
-                              // "**** **** **** 8743",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color:novalexxa_text_color,
-                                  // color: Colors.intello_text_color,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                              softWrap: false,
-                              maxLines: 2,
-                            ),
-                          )),
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          response["card_number"].toString(),
+                          // "**** **** **** 8743",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color:novalexxa_text_color,
+                              // color: Colors.intello_text_color,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
+                          softWrap: false,
+                          maxLines: 2,
+                        ),
+                      )),
                     ],
                   ),
                 ),
@@ -503,7 +557,10 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
   Widget _buildAddNewCardButton() {
     return InkResponse(
       onTap: (){
-      //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
+          currencyId: _currencyId,
+          inputBalance: _inputBalance,
+        )));
 
         // showDialog(context: context,
         //     barrierDismissible:false,
@@ -626,7 +683,6 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
 
   }
 
-
   Widget _buildAlertBackButton() {
     return InkResponse(
       onTap: (){
@@ -661,12 +717,14 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
     );
   }
 
-  Widget _buildAlertYesDeleteButton() {
+  Widget _buildAlertYesDeleteButton(String cardId) {
     return InkResponse(
       onTap: (){
         // Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
         // Navigator.pushReplacement(context, route);
         Navigator.of(context).pop();
+        _deleteSaveCardsList(cardId);
+
       },
       child: Container(
         height: 45,
@@ -733,20 +791,50 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
+      //  _showLoadingDialog(context, "Loading...");
+        shimmerStatus=true;
         try {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_SAVE_CARDS_LIST$_userId'),
 
           );
-          Navigator.of(context).pop();
-         // showToast(response.statusCode.toString());
+
           if (response.statusCode == 200) {
             setState(() {
+              shimmerStatus=false;
+
               var data = jsonDecode(response.body);
               _saveCardList=data["data"];
-            //  _showToast(_saveCardList.length.toString());
+              //  _showToast(_saveCardList.length.toString());
               // _currentBalance=double.parse(data["amount"].toString());
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  _deleteSaveCardsList(String cardId) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      _showLoadingDialog(context, "Deleting...");
+        try {
+          var response = await delete(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_CARD_DELETE$cardId/'),
+
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+            setState(() {
+              _showToast("card deleted successfully!");
+              _getSaveCardsList();
             });
           } else {
             Fluttertoast.cancel();
@@ -825,6 +913,65 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
 
   }
 
+  _sendAmountBalanced({required String cardId,required String currencyId, required String inputBalance }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _showLoadingDialog(context, "Sending...");
+        try {
+          var response = await post(
+              Uri.parse('$BASE_URL_API$SUB_URL_API_TOP_UP_ACCOUNT'),
+              body: {
+                'user_id':_userId,
+                'card_id':cardId,
+                'currency_id':currencyId,
+                'top_up_amount':inputBalance,
+
+              }
+          );
+          Navigator.of(context).pop();
+         // showToast(response.statusCode.toString());
+          if (response.statusCode == 201) {
+            setState(() {
+
+              Navigator.push(
+                  context,MaterialPageRoute(builder: (context)=>TopUpMoneyCongratsScreen(
+                receiverName:"",sendAmount: _inputBalance,
+                ))
+              );
+
+              //  var data = jsonDecode(response.body);
+
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(
+              //     settings: RouteSettings(name: "Foo"),
+              //     builder: (BuildContext context) => SendMoneyCongratsScreen(
+              //       receiverName: _receiverName,
+              //       sendAmount: _inputBalance.toString()+_currencySymbol,
+              //     ),),
+              // );
+
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          }
+          else {
+            Fluttertoast.cancel();
+            var data = jsonDecode(response.body);
+            _showToast(data["message"].toString());
+
+          }
+        } catch (e) {
+          showToast("No !");
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
 //no card save
   Widget scanMessageSection1() {
     return Container(
@@ -865,7 +1012,6 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
     );
   }
 
-
   Widget _buildAddNewCardButton1() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -879,7 +1025,10 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
           //   //_showToast("Ok");
           // }
 
-        //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
+            currencyId: _currencyId,
+            inputBalance: _inputBalance,
+          )));
 
 
         },
@@ -951,17 +1100,138 @@ class _SaveCardsScreen2State extends State<SaveCardsScreen2> {
     );
   }
 
-  _showToast1(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
+  Widget _buildMessageSectionShimmer() {
+    return Container(
+      margin: EdgeInsets.only(right: 30.0, top: 10, bottom: 10, left: 30),
+      height: 116,
+      decoration: new BoxDecoration(
+        color:add_new_card_button_bg_color,
+        borderRadius: BorderRadius.circular(12),
+
+      ),
+      child: Container(
+       // height: 82,
+        margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+        //color: Colors.white,
+        child: SizedBox(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  margin: EdgeInsets.only(right: 50.0,left: 50),
+                  // width: 50,
+                  height: 30,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(3),
+
+                  ),
+
+                ),
+              ),
+             SizedBox(height: 10,),
+
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  margin: EdgeInsets.only(right: 20.0,left: 20),
+                  // width: 50,
+                  height: 50,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(3),
+
+                  ),
+
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    )
+
+    ;
   }
+  Widget _buildCardListItemShimmer() {
+    return Container(
+      margin: EdgeInsets.only(right: 30.0, top: 10, bottom: 10, left: 30),
+      //width: 180,
+      decoration: new BoxDecoration(
+        color:Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(
+
+            color:Colors.grey.withOpacity(.25),
+            //  blurRadius: 20.0, // soften the shadow
+            blurRadius:20, // soften the shadow
+            spreadRadius: 0.0, //extend the shadow
+            offset: Offset(
+              2.0, // Move to right 10  horizontally
+              1.0, // Move to bottom 10 Vertically
+            )
+        )],
+      ),
+      child: Container(
+        height: 82,
+        margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 20),
+        //color: Colors.white,
+        child: SizedBox(
+          child: Flex(
+            direction: Axis.horizontal,
+            children: [
+              Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  width: 50,
+                  height: 50,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(3),
+
+                  ),
+
+                ),
+              ),
 
 
+              SizedBox(
+                width: 17,
+              ),
+
+              Expanded(child:  Shimmer.fromColors(
+                baseColor:shimmer_baseColor,
+                highlightColor:shimmer_highlightColor,
+                child:Container(
+                  //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
+                  padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  // width: 50,
+                  height: 30,
+                  decoration: new BoxDecoration(
+                    color: shimmer_baseColor,
+                    borderRadius: BorderRadius.circular(3),
+
+                  ),
+
+                ),
+              ),)
+            ],
+          ),
+        ),
+      ),
+    )
+
+    ;
+  }
 }
 

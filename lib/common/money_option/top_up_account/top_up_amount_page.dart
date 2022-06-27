@@ -10,13 +10,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_message_page.dart';
-import 'package:nova_lexxa/common/money_option/send_money/top_up_account/save_card.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/save_card.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../api_service/api_service.dart';
 import '../../../../api_service/sharePreferenceDataSaveName.dart';
-import '../../../static/toast.dart';
+import '../../static/toast.dart';
 import 'save_card2.dart';
 import 'no_credit_cart.dart';
 

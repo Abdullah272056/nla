@@ -9,8 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
-import 'package:nova_lexxa/common/money_option/send_money/top_up_account/payment_card.dart';
-import 'package:nova_lexxa/common/money_option/send_money/top_up_account/save_card.dart';
+
+import 'package:nova_lexxa/common/money_option/top_up_account/save_card.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,10 +18,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../api_service/api_service.dart';
 import '../../../../api_service/sharePreferenceDataSaveName.dart';
-import '../../../static/Colors.dart';
-import '../../../static/loding_dialog.dart';
-import '../../../static/toast.dart';
+
+import '../../static/Colors.dart';
+import '../../static/loding_dialog.dart';
+import '../../static/toast.dart';
+
 import 'card input format/input_formatters.dart';
+import 'payment_card.dart';
 
 
 
@@ -1235,7 +1238,6 @@ class _AddCreditCardScreenState extends State<AddCreditCardScreen> {
           Response response =
           await post(Uri.parse('$BASE_URL_API$SUB_URL_API_ADD_CARD_WITH_SAVE_LIST'),
               body: {
-
                 'user_id': user_id,
                 'card_names': card_names,
                 'name_on_card': name_on_card,

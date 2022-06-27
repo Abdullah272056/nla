@@ -16,8 +16,6 @@ import '../static/toast.dart';
 import 'notification_details.dart';
 import 'notifications_settings.dart';
 
-
-
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({Key? key}) : super(key: key);
 
@@ -326,14 +324,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               ),
             ),
           ),
-
         )
-
-
       ),
-    )
-
-    ;
+    );
   }
 
   Widget _buildNotificationItemForShimmer() {
@@ -528,6 +521,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     }
 
   }
+
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
       context: context,
@@ -566,7 +560,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       },
     );
   }
-
 
   _dateTimeConvert(String dateString) {
     DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);

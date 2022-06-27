@@ -742,7 +742,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   //color:novalexxa_rounded_border_color,
                   child:Center(
                     child: Text(
-                      response["user_info"]["first_name"][0].toString()
+                      response["receiver_info"]["username"][0].toString()
                       ,
                       style: TextStyle(
                           color: Colors.white,
@@ -761,7 +761,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child:Text(
-                response["user_info"]["first_name"].toString(),
+                response["receiver_info"]["username"].toString(),
                 style: TextStyle(
                     color: novalexxa_text_color,
                     fontSize: 17,
@@ -810,9 +810,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
         Align(
           alignment: Alignment.centerLeft,
           child:Text(
-            "-€"+response["user_amount"].toString(),
+              response["sender_info"]["username"].toString()==_userId?
+              "- €"+response["sender_user_send_amount"].toString():
+              "+ €"+response["receiver_user_received_money"].toString(),
             style: TextStyle(
-                color: novalexxa_text_color,
+                color:response["sender_info"]["username"].toString()==_userId?
+                transaction_send_money_color:transaction_receive_money_color,
                 fontSize: 17,
                 decoration: TextDecoration.none,
                 fontWeight: FontWeight.bold),

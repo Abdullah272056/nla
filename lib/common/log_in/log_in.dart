@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../navigation_page/home_page.dart';
+import '../navigation_page/navigation_bar_page.dart';
 import '../static/Colors.dart';
 import '../static/loding_dialog.dart';
 import '../static/toast.dart';
@@ -406,8 +408,14 @@ class _LogInScreenState extends State<LogInScreen> {
             var data = jsonDecode(response.body.toString());
 
             saveUserInfo(data);
-
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+              ),
+                  (route) => false,
+            );
+          //  Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
 
           }
           else if (response.statusCode == 400) {

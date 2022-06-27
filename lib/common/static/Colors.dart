@@ -61,6 +61,9 @@ const Color delete_action_bg_color = Color(0xFFF50057);
 const Color add_new_card_button_border_color = Color(0xFFB0BEC5);
 const Color add_new_card_button_bg_color = Color(0xFFF9F9FC);
 
+const Color transaction_receive_money_color = Color(0xFF04D883);
+const Color transaction_send_money_color = Color(0xFFF50057);
+
 
  const Color scan_text_box_color = Color(0xFFF9F9FC);
  const Color search_send_money_box_color = Color(0xFFF9F9FC);

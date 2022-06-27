@@ -27,6 +27,9 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
   String _userId = "";
 
   List _recentlyContactUserList = [];
+  List _allContactUserList = [];
+  bool shimmerStatus=true;
+  bool allUserShimmerStatus=true;
 
   @override
   @mustCallSuper
@@ -36,14 +39,13 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
           _getRecentlyContactList();
-
+          _getAllContactList();
         });
       }
       else{
       }
     });
   }
-  bool shimmerStatus=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +101,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
               height: 40,
             ),
 
-            userInputSearchField(_searchController!, 'Search here...', TextInputType.text),
+            userInputSearchField(_searchController!, 'Search by email', TextInputType.text),
 
             Align(
               alignment: Alignment.centerLeft,
@@ -170,21 +172,19 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
               ),
             },
 
-
             //vertical list view
-
-            if(shimmerStatus==false)...{
+            if(allUserShimmerStatus==false)...{
               Container(
                 margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
                 child:ListView.builder(
-                  itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
-                  _recentlyContactUserList.length,
+                  itemCount: _allContactUserList==null||_allContactUserList.length<=0?0:
+                  _allContactUserList.length,
                   padding: EdgeInsets.zero,
                   // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return recentContactBottomListItemDesign(response:_recentlyContactUserList[index]);
+                    return recentContactBottomListItemDesign(response:_allContactUserList[index]);
                   },
                 ),
               ),
@@ -353,8 +353,8 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       alignment: Alignment.center,
       margin: new EdgeInsets.only(left: 20,right: 20),
       decoration: BoxDecoration(
-      color:search_send_money_box_color,
-      borderRadius: BorderRadius.circular(10)),
+          color:search_send_money_box_color,
+          borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextField(
@@ -365,6 +365,21 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
           cursorColor:intello_input_text_color,
           style: TextStyle(color:novalexxa_text_color,),
           autofocus: false,
+          onChanged: (text){
+            if(text.isEmpty){
+              _getAllContactList();
+            }
+
+          },
+          onSubmitted: (text){
+            if(text.isEmpty){
+              _getAllContactList();
+            }
+            else{
+              _getAllContactSearchList(text);
+            }
+
+          },
           decoration: InputDecoration(
             border: InputBorder.none,
             prefixIcon:  Icon(
@@ -429,6 +444,68 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
             });
           } else {
             Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  _getAllContactList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        allUserShimmerStatus=true;
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_ALL_CONTACT_LIST'),
+          );
+          if (response.statusCode == 200) {
+            setState(() {
+              allUserShimmerStatus=false;
+              var data = jsonDecode(response.body);
+              _allContactUserList = data["data"];
+              // _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  _getAllContactSearchList(String email) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        // allUserShimmerStatus=true;
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_ALL_SEARCH_CONTACT_LIST$email'),
+          );
+          if (response.statusCode == 200) {
+            setState(() {
+              // allUserShimmerStatus=false;
+              var data = jsonDecode(response.body);
+              _allContactUserList = data["data"];
+
+            });
+          } else {
+
+            Fluttertoast.cancel();
+            var data = jsonDecode(response.body);
+            showToast(data["message"].toString());
+
           }
         } catch (e) {
           Fluttertoast.cancel();
@@ -566,6 +643,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
     ;
   }
+
   Widget _recentContactTopItemShimmer({required double marginLeft,required double marginRight}) {
     return Container(
       margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),

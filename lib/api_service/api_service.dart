@@ -34,6 +34,8 @@
   String SUB_URL_API_LOGIN_FINGERPRINT = "api/login-with-fingerprint/";
   String SUB_URL_API_LOGIN_EMAIL_PASSWORD = "api/login/";
   String SUB_URL_API_RECENTLY_CONTACT_LIST = "api/core/recently-contacts/";
+  String SUB_URL_API_ALL_CONTACT_LIST = "api/core/user-information-list/";
+  String SUB_URL_API_ALL_SEARCH_CONTACT_LIST = "api/core/user-email/?email=";
 
   //send money
   String SUB_URL_API_SEND_MONEY_BALANCED_CHECKED = "api/core/balance-checked/";

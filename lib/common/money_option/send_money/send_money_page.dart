@@ -226,8 +226,17 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   Widget recentContactBottomListItemDesign({required var response}){
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(response["id"].toString(),response["username"].toString())));
-      },
+
+        if(response["sender_information"]["id"].toString()==_userId){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
+              response["receiver_information"]["id"].toString(),response["receiver_information"]["username"].toString()
+          )));
+        }else{
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
+              response["sender_information"]["id"].toString(),response["sender_information"]["username"].toString()
+          )));
+        }
+        },
       child:  Container(
         margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
         height: 48,
@@ -268,7 +277,9 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                   ),
 
                   Expanded(child:Text(
-                      response["username"].toString(),
+                    response["sender_information"]["id"].toString()==_userId?
+                    response["receiver_information"]["username"].toString():
+                    response["sender_information"]["username"].toString(),
                     style: TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 16,
@@ -344,7 +355,9 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                 child:  Text(
 
 
-                  response["sender_information"]["id"].toString()==_userId? response["receiver_information"]["username"].toString():response["sender_information"]["username"].toString(),
+                  response["sender_information"]["id"].toString()==_userId?
+                  response["receiver_information"]["username"].toString():
+                  response["sender_information"]["username"].toString(),
 
                   //response["username"].toString(),
                   textAlign: TextAlign.center,
@@ -471,8 +484,36 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
       showToast("No Internet Connection!");
     }
   }
-
   _getAllContactList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        allUserShimmerStatus=true;
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_ALL_CONTACT_LIST$_userId/'),
+          );
+          if (response.statusCode == 200) {
+            setState(() {
+              allUserShimmerStatus=false;
+              var data = jsonDecode(response.body);
+              _allContactUserList = data["data"];
+              // _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+  _getAllContactList1() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -657,6 +698,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
     ;
   }
+
   Widget _recentContactTopItemShimmer({required double marginLeft,required double marginRight}) {
     return Container(
       margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),

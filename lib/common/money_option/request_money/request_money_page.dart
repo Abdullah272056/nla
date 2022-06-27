@@ -289,8 +289,90 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
     );
   }
-
   Widget recentContactBottomListItemDesign({required var response}){
+    return InkResponse(
+      onTap: (){
+
+        if(response["sender_information"]["id"].toString()==_userId){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
+              response["receiver_information"]["id"].toString(),response["receiver_information"]["username"].toString()
+          )));
+        }else{
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
+              response["sender_information"]["id"].toString(),response["sender_information"]["username"].toString()
+          )));
+        }
+      },
+      child:  Container(
+        margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
+        height: 48,
+        child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
+          child:  Column(
+            children: [
+              Expanded(child: Row(
+                children: [
+
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+
+
+                      margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
+                      // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(27.5),
+                        child: Container(
+                            height: 55,
+                            width: 55,
+                            color:hint_color,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: 'assets/images/empty.jpg',
+                              image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+                              imageErrorBuilder: (context, url, error) =>
+                                  Image.asset(
+                                    'assets/images/empty.jpg',
+                                    fit: BoxFit.fill,
+                                  ),
+                            )),
+                      ),
+
+                    ),
+                  ),
+
+                  Expanded(child:Text(
+                    response["sender_information"]["id"].toString()==_userId?
+                    response["receiver_information"]["username"].toString():
+                    response["sender_information"]["username"].toString(),
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 16,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w500),
+                  ),),
+
+                  SizedBox(width: 10,)
+
+                ],
+              ),),
+              Align(alignment:Alignment.bottomRight,
+                child:  Container(
+                  margin: EdgeInsets.only(left: 50,right: 15),
+                  height: 1.5,
+                  color:notification_image_bg_color ,
+                ),
+              )
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget recentContactBottomListItemDesign1({required var response}){
     return InkResponse(
       onTap: (){
         Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
@@ -531,8 +613,35 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       showToast("No Internet Connection!");
     }
   }
-
   _getAllContactList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        allUserShimmerStatus=true;
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_ALL_CONTACT_LIST$_userId/'),
+          );
+          if (response.statusCode == 200) {
+            setState(() {
+              allUserShimmerStatus=false;
+              var data = jsonDecode(response.body);
+              _allContactUserList = data["data"];
+              // _showAlertDialog(context, _countryList);
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+  _getAllContactList1() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

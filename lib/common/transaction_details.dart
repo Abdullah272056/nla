@@ -531,8 +531,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     );
   }
 
-
-
   _getUserTransactionHistoryList1({required String startDate, required String endDate}) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -607,17 +605,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     }
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
-
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       _startDate = DateFormat('yyyy-MM-dd').format(args.value.startDate).toString();
@@ -625,45 +612,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
       _getUserTransactionHistoryList1(startDate:_startDate,endDate: _endDate );
      // _showToast(_endDate.toString());
     });
-  }
-
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
   }
 
   loadUserIdFromSharePref() async {
@@ -820,5 +768,53 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     ;
   }
 
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        fontSize: 16.0);
+  }
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
 }
 

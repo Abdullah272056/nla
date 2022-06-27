@@ -742,7 +742,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   //color:novalexxa_rounded_border_color,
                   child:Center(
                     child: Text(
-                      response["receiver_info"]["username"][0].toString()
+                        response["user_id"].toString()!=_userId?
+                    response["sender_info"]["username"].toString()[0]:
+                    response["receiver_info"]["username"].toString()[0]
                       ,
                       style: TextStyle(
                           color: Colors.white,
@@ -761,7 +763,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child:Text(
-                response["receiver_info"]["username"].toString(),
+                  response["user_id"].toString()!=_userId?
+                  response["sender_info"]["username"].toString():
+                  response["receiver_info"]["username"].toString(),
                 style: TextStyle(
                     color: novalexxa_text_color,
                     fontSize: 17,
@@ -810,12 +814,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
         Align(
           alignment: Alignment.centerLeft,
           child:Text(
-              response["sender_info"]["username"].toString()==_userId?
-              "- €"+response["sender_user_send_amount"].toString():
-              "+ €"+response["receiver_user_received_money"].toString(),
+              response["user_id"].toString()!=_userId?
+              "+ €"+response["receiver_user_received_money"].toString():
+              "- €"+response["sender_user_send_amount"].toString()
+              ,
             style: TextStyle(
-                color:response["sender_info"]["username"].toString()==_userId?
-                transaction_send_money_color:transaction_receive_money_color,
+                color:response["user_id"].toString()!=_userId?
+                transaction_receive_money_color: transaction_send_money_color,
                 fontSize: 17,
                 decoration: TextDecoration.none,
                 fontWeight: FontWeight.bold),

@@ -34,19 +34,28 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   int scanQrStatus=1;
 
   @override
-  Future<void> reassemble() async {
-    super.reassemble();
-
-   // controller!.resumeCamera();
-
-    if (Platform.isAndroid) {
-      await controller?.resumeCamera();
-      _scannedQRCode="";
-    //  controller!.pauseCamera();
-    } else if (Platform.isIOS) {
-      controller!.resumeCamera();
-    }
+  @mustCallSuper
+  initState(){
+    super.initState();
+    setState(()  {
+      _delay();
+    });
   }
+
+  // @override
+  // Future<void> reassemble() async {
+  //   super.reassemble();
+  //
+  //  // controller!.resumeCamera();
+  //
+  //   if (Platform.isAndroid) {
+  //     await controller?.resumeCamera();
+  //     _scannedQRCode="";
+  //   //  controller!.pauseCamera();
+  //   } else if (Platform.isIOS) {
+  //     controller!.resumeCamera();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -303,15 +312,10 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   }
 
   _delay(){
-    Timer(Duration(seconds: 2), () {
-      setState(() {
-        scanQrStatus=1;
-        //if success then
-        //Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRAmountPageScreen()));
-
-        // if failed
-        //Navigator.push(context,MaterialPageRoute(builder: (context)=>QRInvalidScreen()));
-
+    Timer(Duration(milliseconds: 100), () {
+      setState(() async {
+        await controller?.resumeCamera();
+        _scannedQRCode="";
       });
 
     });

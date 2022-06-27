@@ -103,6 +103,83 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
             userInputSearchField(_searchController!, 'Search by email', TextInputType.text),
 
+            //
+            // if(_recentlyContactUserList.length>0 && _recentlyContactUserList!=null)...{
+            //   Align(
+            //     alignment: Alignment.centerLeft,
+            //     child:Container(
+            //       margin:  EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
+            //       child: Text(
+            //         "Recent Contacts",
+            //         style: TextStyle(
+            //             color: novalexxa_text_color,
+            //             fontSize: 22,
+            //             decoration: TextDecoration.none,
+            //             fontWeight: FontWeight.bold),
+            //       ),
+            //     ),
+            //   ),
+            // },
+            //
+            // //horizontal list view
+            // if(shimmerStatus==false)...{
+            //   if(_recentlyContactUserList.length>0 && _recentlyContactUserList!=null)...{
+            //     Container(
+            //       margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+            //       height: 110,
+            //       child:ListView.builder(
+            //
+            //         shrinkWrap: true,
+            //
+            //         // physics: const NeverScrollableScrollPhysics(),
+            //         //itemCount: offerDataList == null ? 0 : offerDataList.length,
+            //         itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+            //         _recentlyContactUserList.length,
+            //         itemBuilder: (context, index) {
+            //           if(index==0){
+            //             return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
+            //           //length
+            //           if(index==_recentlyContactUserList.length-1){
+            //             return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
+            //           }
+            //           else{
+            //             return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
+            //           }
+            //         },
+            //         scrollDirection: Axis.horizontal,
+            //       ),
+            //     ),
+            //   }
+            //
+            //
+            // }
+            // else...{
+            //   Container(
+            //     margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+            //     height: 110,
+            //     child:ListView.builder(
+            //
+            //       shrinkWrap: true,
+            //
+            //       // physics: const NeverScrollableScrollPhysics(),
+            //       //itemCount: offerDataList == null ? 0 : offerDataList.length,
+            //       itemCount: 7,
+            //       itemBuilder: (context, index) {
+            //         if(index==0){
+            //           return _recentContactTopItemShimmer(marginLeft: 30,marginRight: 0,);                          }
+            //         //length
+            //         if(index==6){
+            //           return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 30);
+            //         }
+            //         else{
+            //           return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 0);
+            //         }
+            //       },
+            //       scrollDirection: Axis.horizontal,
+            //     ),
+            //   ),
+            // },
+
             Align(
               alignment: Alignment.centerLeft,
               child:Container(
@@ -172,7 +249,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
               ),
             },
 
-            //vertical list view
+           // vertical list view
             if(allUserShimmerStatus==false)...{
               Container(
                 margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
@@ -292,15 +369,22 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
   Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight,required var response}) {
     return  InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
-            response["id"].toString(),response["username"].toString()
-        )));
+        if(response["sender_information"]["id"].toString()==_userId){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
+              response["receiver_information"]["id"].toString(),response["receiver_information"]["username"].toString()
+          )));
+        }else{
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyAmountPageScreen(
+              response["sender_information"]["id"].toString(),response["sender_information"]["username"].toString()
+          )));
+        }
 
       },
-      child: Container(
+      child:Container(
         margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),
         child: Flex(direction: Axis.vertical,
           children: [
+
             Container(
               width: 61,
               height: 61,
@@ -329,7 +413,11 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
             Container(
                 margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
                 child:  Text(
-                  response["username"].toString(),
+
+
+                  response["sender_information"]["id"].toString()==_userId? response["receiver_information"]["username"].toString():response["sender_information"]["username"].toString(),
+
+                  //response["username"].toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.black,
@@ -337,13 +425,13 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
                       fontWeight: FontWeight.w500),
                 )
             ),
+
           ],
         ),
 
 
         /* add child content here */
       ) ,
-
     );
   }
 
@@ -401,17 +489,6 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     );
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
-
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
@@ -433,7 +510,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
         shimmerStatus=true;
         try {
           var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_RECENTLY_CONTACT_LIST'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_RECENTLY_CONTACT_LIST$_userId/'),
           );
           if (response.statusCode == 200) {
             setState(() {
@@ -498,7 +575,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
               // allUserShimmerStatus=false;
               var data = jsonDecode(response.body);
               _allContactUserList = data["data"];
-
+              // _showAlertDialog(context, _countryList);
             });
           } else {
 
@@ -516,46 +593,6 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       showToast("No Internet Connection!");
     }
   }
-
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
-
 
   Widget _recentContactBottomItemShimmer() {
     return Container(
@@ -705,6 +742,53 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     ;
   }
 
-
+  void _showLoadingDialog(BuildContext context, String _message) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          child: Wrap(
+            children: [
+              Container(
+                  margin: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 30, bottom: 30),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircularProgressIndicator(
+                          backgroundColor: novalexxa_color,
+                          strokeWidth: 5,
+                        ),
+                        SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          _message,
+                          style: TextStyle(fontSize: 25),
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+            // child: VerificationScreen(),
+          ),
+        );
+      },
+    );
+  }
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        fontSize: 16.0);
+  }
 }
 

@@ -104,47 +104,54 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
             userInputSearchField(_searchController!, 'Search by email', TextInputType.text),
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child:Container(
-                margin:  EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
-                child: Text(
-                  "Recent Contacts",
-                  style: TextStyle(
-                      color: novalexxa_text_color,
-                      fontSize: 22,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold),
+            if(_recentlyContactUserList.length>0 && _recentlyContactUserList!=null)...{
+              Align(
+                alignment: Alignment.centerLeft,
+                child:Container(
+                  margin:  EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
+                  child: Text(
+                    "Recent Contacts",
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 22,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
-            ),
+            },
+
             //horizontal list view
             if(shimmerStatus==false)...{
-              Container(
-                margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
-                height: 110,
-                child:ListView.builder(
+              if(_recentlyContactUserList.length>0 && _recentlyContactUserList!=null)...{
+                Container(
+                  margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                  height: 110,
+                  child:ListView.builder(
 
-                  shrinkWrap: true,
+                    shrinkWrap: true,
 
-                  // physics: const NeverScrollableScrollPhysics(),
-                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                  itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
-                  _recentlyContactUserList.length,
-                  itemBuilder: (context, index) {
-                    if(index==0){
-                      return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
-                    //length
-                    if(index==_recentlyContactUserList.length-1){
-                      return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
-                    }
-                    else{
-                      return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
-                    }
-                  },
-                  scrollDirection: Axis.horizontal,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                    itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+                    _recentlyContactUserList.length,
+                    itemBuilder: (context, index) {
+                      if(index==0){
+                        return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
+                      //length
+                      if(index==_recentlyContactUserList.length-1){
+                        return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
+                      }
+                      else{
+                        return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
+                      }
+                    },
+                    scrollDirection: Axis.horizontal,
+                  ),
                 ),
-              ),
+              }
+
+
             }
             else...{
               Container(
@@ -232,7 +239,6 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
                   Align(
                     alignment: Alignment.topLeft,
-
                     child: Container(
                       width: 40,
                       height: 40,
@@ -259,9 +265,8 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                       ),
 
                     ),
-
-
                   ),
+
                   Expanded(child:Text(
                       response["username"].toString(),
                     style: TextStyle(
@@ -293,15 +298,22 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   Widget recentContactTopListItemDesign({required double marginLeft,required double marginRight,required var response}) {
     return  InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
-            response["id"].toString(),response["username"].toString()
-        )));
+        if(response["sender_information"]["id"].toString()==_userId){
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
+              response["receiver_information"]["id"].toString(),response["receiver_information"]["username"].toString()
+          )));
+        }else{
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
+              response["sender_information"]["id"].toString(),response["sender_information"]["username"].toString()
+          )));
+        }
 
       },
       child:Container(
         margin:EdgeInsets.only(right:marginRight,top: 10,left:marginLeft,bottom: 10),
         child: Flex(direction: Axis.vertical,
           children: [
+
             Container(
               width: 61,
               height: 61,
@@ -330,7 +342,11 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
             Container(
                 margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
                 child:  Text(
-                  response["username"].toString(),
+
+
+                  response["sender_information"]["id"].toString()==_userId? response["receiver_information"]["username"].toString():response["sender_information"]["username"].toString(),
+
+                  //response["username"].toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.black,
@@ -338,6 +354,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                       fontWeight: FontWeight.w500),
                 )
             ),
+
           ],
         ),
 
@@ -433,7 +450,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
         shimmerStatus=true;
         try {
           var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_RECENTLY_CONTACT_LIST'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_RECENTLY_CONTACT_LIST$_userId/'),
           );
           if (response.statusCode == 200) {
             setState(() {

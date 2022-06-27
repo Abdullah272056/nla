@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/transaction_details.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -872,8 +873,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               Container(
                 margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
                 child: Text(
-
-                  "€"+response["current_balance"].toString(),
+                    getCurrency(response["currency_information"]["currency_name"].toString())+
+                  response["current_balance"].toString(),
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -1537,6 +1538,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
 
 
+  }
+
+  String getCurrency(String currencyCode) {
+    var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
+    return format.currencySymbol;
   }
 }
 

@@ -505,9 +505,6 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     );
   }
 
-
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

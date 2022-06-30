@@ -28,8 +28,13 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
 
   List _recentlyContactUserList = [];
   List _allContactUserList = [];
+  List _searchUserList = [];
   bool shimmerStatus=true;
   bool allUserShimmerStatus=true;
+  bool searchUserShimmerStatus=true;
+
+
+  bool searchValueShowStatus=false;
 
   @override
   @mustCallSuper
@@ -46,6 +51,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +62,9 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
+
+
+
             const SizedBox(
               height: 55,
             ),
@@ -180,107 +189,126 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
             //   ),
             // },
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child:Container(
-                margin:  EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
-                child: Text(
-                  "Recent Contacts",
-                  style: TextStyle(
-                      color: novalexxa_text_color,
-                      fontSize: 22,
-                      decoration: TextDecoration.none,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            //horizontal list view
-            if(shimmerStatus==false)...{
-              Container(
-                margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
-                height: 110,
-                child:ListView.builder(
 
-                  shrinkWrap: true,
-
-                  // physics: const NeverScrollableScrollPhysics(),
-                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                  itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
-                  _recentlyContactUserList.length,
-                  itemBuilder: (context, index) {
-                    if(index==0){
-                      return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
-                    //length
-                    if(index==_recentlyContactUserList.length-1){
-                      return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
-                    }
-                    else{
-                      return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
-                    }
-                  },
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
-            }
-            else...{
-              Container(
-                margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
-                height: 110,
-                child:ListView.builder(
-
-                  shrinkWrap: true,
-
-                  // physics: const NeverScrollableScrollPhysics(),
-                  //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                  itemCount: 7,
-                  itemBuilder: (context, index) {
-                    if(index==0){
-                      return _recentContactTopItemShimmer(marginLeft: 30,marginRight: 0,);                          }
-                    //length
-                    if(index==6){
-                      return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 30);
-                    }
-                    else{
-                      return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 0);
-                    }
-                  },
-                  scrollDirection: Axis.horizontal,
-                ),
-              ),
-            },
-
-           // vertical list view
-            if(allUserShimmerStatus==false)...{
+            if(searchValueShowStatus)...{
+              // vertical list view
               Container(
                 margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
                 child:ListView.builder(
-                  itemCount: _allContactUserList==null||_allContactUserList.length<=0?0:
-                  _allContactUserList.length,
+                  itemCount: _searchUserList==null||_searchUserList.length<=0?0:
+                  _searchUserList.length,
                   padding: EdgeInsets.zero,
                   // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return recentContactBottomListItemDesign(response:_allContactUserList[index]);
+                    return searchListItemDesign(response:_searchUserList[index]);
                   },
                 ),
               ),
+            }else...{
+              Align(
+                alignment: Alignment.centerLeft,
+                child:Container(
+                  margin:  EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
+                  child: Text(
+                    "Recent Contacts",
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 22,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              //horizontal list view
+              if(shimmerStatus==false)...{
+                Container(
+                  margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                  height: 110,
+                  child:ListView.builder(
+
+                    shrinkWrap: true,
+
+                    // physics: const NeverScrollableScrollPhysics(),
+                    //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                    itemCount: _recentlyContactUserList==null||_recentlyContactUserList.length<=0?0:
+                    _recentlyContactUserList.length,
+                    itemBuilder: (context, index) {
+                      if(index==0){
+                        return recentContactTopListItemDesign(marginLeft: 30,marginRight: 0,response: _recentlyContactUserList[index]);                          }
+                      //length
+                      if(index==_recentlyContactUserList.length-1){
+                        return recentContactTopListItemDesign(marginLeft: 15,marginRight: 30,response: _recentlyContactUserList[index]);
+                      }
+                      else{
+                        return recentContactTopListItemDesign(marginLeft: 15,marginRight: 0,response: _recentlyContactUserList[index]);
+                      }
+                    },
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+              }
+              else...{
+                Container(
+                  margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                  height: 110,
+                  child:ListView.builder(
+
+                    shrinkWrap: true,
+
+                    // physics: const NeverScrollableScrollPhysics(),
+                    //itemCount: offerDataList == null ? 0 : offerDataList.length,
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      if(index==0){
+                        return _recentContactTopItemShimmer(marginLeft: 30,marginRight: 0,);                          }
+                      //length
+                      if(index==6){
+                        return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 30);
+                      }
+                      else{
+                        return _recentContactTopItemShimmer(marginLeft: 15,marginRight: 0);
+                      }
+                    },
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+              },
+
+              // vertical list view
+              if(allUserShimmerStatus==false)...{
+                Container(
+                  margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                  child:ListView.builder(
+                    itemCount: _allContactUserList==null||_allContactUserList.length<=0?0:
+                    _allContactUserList.length,
+                    padding: EdgeInsets.zero,
+                    // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return recentContactBottomListItemDesign(response:_allContactUserList[index]);
+                    },
+                  ),
+                ),
+              }
+              else...{
+                Container(
+                  margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                  child:ListView.builder(
+                    itemCount: 9,
+                    padding: EdgeInsets.zero,
+                    // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return _recentContactBottomItemShimmer();
+                    },
+                  ),
+                ),
+              },
             }
-            else...{
-              Container(
-                margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
-                child:ListView.builder(
-                  itemCount: 9,
-                  padding: EdgeInsets.zero,
-                  // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return _recentContactBottomItemShimmer();
-                  },
-                ),
-              ),
-            },
 
 
           ],
@@ -537,12 +565,14 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
           autofocus: false,
           onChanged: (text){
             if(text.isEmpty){
+              searchValueShowStatus=false;
               _getAllContactList();
             }
 
           },
           onSubmitted: (text){
             if(text.isEmpty){
+              searchValueShowStatus=false;
               _getAllContactList();
             }
             else{
@@ -566,6 +596,84 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
                 fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
+        ),
+      ),
+    );
+  }
+
+  Widget searchListItemDesign({required var response}){
+    return InkResponse(
+      onTap: (){
+
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>
+            RequestMoneyAmountPageScreen(
+                  response["id"].toString(),response["username"].toString()
+              )));
+
+
+      },
+      child:  Container(
+        margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
+        height: 48,
+        child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
+          child:  Column(
+            children: [
+              Expanded(child: Row(
+                children: [
+
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+
+
+                      margin:const EdgeInsets.only(left:0, top: 00, right: 15, bottom: 00),
+                      // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(27.5),
+                        child: Container(
+                            height: 55,
+                            width: 55,
+                            color:hint_color,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.fill,
+                              placeholder: 'assets/images/empty.jpg',
+                              image: "https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg",
+                              imageErrorBuilder: (context, url, error) =>
+                                  Image.asset(
+                                    'assets/images/empty.jpg',
+                                    fit: BoxFit.fill,
+                                  ),
+                            )),
+                      ),
+
+                    ),
+                  ),
+
+                  Expanded(child:Text(
+                    response["username"].toString(),
+                    style: TextStyle(
+                        color: novalexxa_text_color,
+                        fontSize: 16,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.w500),
+                  ),),
+
+                  SizedBox(width: 10,)
+
+                ],
+              ),),
+              Align(alignment:Alignment.bottomRight,
+                child:  Container(
+                  margin: EdgeInsets.only(left: 50,right: 15),
+                  height: 1.5,
+                  color:notification_image_bg_color ,
+                ),
+              )
+
+            ],
+          ),
         ),
       ),
     );
@@ -616,7 +724,7 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
   _getAllContactList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty){
         allUserShimmerStatus=true;
         try {
           var response = await get(
@@ -674,16 +782,18 @@ class _RequestMoneyPageScreenScreenState extends State<RequestMoneyPageScreen> {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        // allUserShimmerStatus=true;
+      //  searchUserShimmerStatus=true;
         try {
           var response = await get(
             Uri.parse('$BASE_URL_API$SUB_URL_API_ALL_SEARCH_CONTACT_LIST$email'),
           );
           if (response.statusCode == 200) {
             setState(() {
+              searchValueShowStatus=true;
+            //  searchUserShimmerStatus=false;
               // allUserShimmerStatus=false;
               var data = jsonDecode(response.body);
-              _allContactUserList = data["data"];
+              _searchUserList = data["data"];
               // _showAlertDialog(context, _countryList);
             });
           } else {

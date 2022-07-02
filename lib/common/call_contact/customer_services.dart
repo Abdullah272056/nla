@@ -37,6 +37,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   List _customerServiceTypeList = [];
   List _customerServiceList = [];
   int selectedTabPosition=0;
+
   @override
   @mustCallSuper
   initState() {
@@ -771,7 +772,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
             Uri.parse('$BASE_URL_API$SUB_URL_API_CUSTOMER_SERVICE_SINGLE_TYPE_DETAILS_LIST$typeId'),
           );
           // Navigator.of(context).pop();
-          showToast(response.statusCode.toString());
+        //  showToast(response.statusCode.toString());
           if (response.statusCode == 200) {
             setState(() {
             //  shimmerStatus=false;

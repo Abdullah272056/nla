@@ -337,7 +337,8 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
           Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
               response["receiver_information"]["id"].toString(),response["receiver_information"]["username"].toString()
           )));
-        }else{
+        }
+        else{
           Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyAmountPageScreen(
               response["sender_information"]["id"].toString(),response["sender_information"]["username"].toString()
           )));
@@ -394,8 +395,6 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
           ],
         ),
-
-
         /* add child content here */
       ) ,
     );

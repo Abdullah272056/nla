@@ -78,6 +78,10 @@
   String SUB_URL_API_NOVALEXXA_CARD_INFO_LIST = "api/core/card-info/?uuid=";
   //top up account
   String SUB_URL_API_TOP_UP_ACCOUNT = "api/core/top-up-account/";
+  //customer service type list
+  String SUB_URL_API_CUSTOMER_SERVICE_SINGLE_TYPE_DETAILS_LIST = "api/core/customar-service-type-info/";
+  //type list
+  String SUB_URL_API_CUSTOMER_SERVICE_TYPE_LIST = "api/core/customar-service-type-info/";
 
 
 

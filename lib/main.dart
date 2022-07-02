@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       body:SplashScreen1()
+       body:CustomerServicesScreen()
         //body:NavigationBarScreen(0,HomePageScreen())
         // body:TopUpMoneyCongratsScreen()
       ),

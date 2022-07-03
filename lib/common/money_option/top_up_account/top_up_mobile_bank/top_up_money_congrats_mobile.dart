@@ -8,7 +8,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/select_top_up.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
-import '../../static/Colors.dart';
+import '../../../static/Colors.dart';
+
+
 
 
 

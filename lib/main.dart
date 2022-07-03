@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
+import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 import 'Particular/biometric_particular.dart';
 import 'Particular/particular_information.dart';
@@ -14,11 +15,11 @@ import 'common/log_in/finger_print_done.dart';
 import 'common/log_in/finger_print_input_for_loging.dart';
 import 'common/log_in/login_by_pin.dart';
 
-import 'common/money_option/top_up_account/save_number.dart';
-import 'common/money_option/top_up_account/top_up_account_mobile_amount_page.dart';
+import 'common/money_option/top_up_account/top_up_mobile_bank/save_number.dart';
+import 'common/money_option/top_up_account/top_up_mobile_bank/top_up_account_mobile_amount_page.dart';
+import 'common/money_option/top_up_account/top_up_mobile_bank/top_up_try_again.dart';
 import 'common/money_option/top_up_account/top_up_money_congrats.dart';
-import 'common/money_option/top_up_account/top_up_money_congrats_mobile.dart';
-import 'common/money_option/top_up_account/top_up_your_account_for_mobile.dart';
+import 'common/money_option/top_up_account/top_up_mobile_bank/top_up_your_account_for_mobile.dart';
 import 'common/money_option/transfer_money/transfer_money_details_particular.dart';
 import 'common/money_option/transfer_money/transfer_money_details_particular2.dart';
 import 'common/money_option/transfer_money/transfer_money_for_selected.dart';
@@ -51,9 +52,9 @@ class MyApp extends StatelessWidget {
     return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-       //body:CustomerServicesScreen()
-       // body:NavigationBarScreen(0,HomePageScreen())
-         body:TopUpMoneyCongratsMobileScreen(sendAmount: '12',receiverName: "asdf",)
+         //body:CustomerServicesScreen()
+         // body:NavigationBarScreen(0,HomePageScreen())
+         body:TryAgainTopUPScreen()
       ),
     );
   }

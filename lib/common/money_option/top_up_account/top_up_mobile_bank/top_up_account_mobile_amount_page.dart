@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular.dart';
 
-import '../../static/Colors.dart';
+import '../../../static/Colors.dart';
 
 
 class TopUpAccountMobileAmountPageScreen extends StatefulWidget {

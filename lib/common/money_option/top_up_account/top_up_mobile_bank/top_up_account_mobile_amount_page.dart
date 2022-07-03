@@ -141,31 +141,26 @@ Widget build(BuildContext context) {
                                 child:Wrap(
                                   children: [
                                     Container(
-                                      padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                                      padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 30,bottom: 30),
                                       child: Column(
 
                                         children: [
 
-
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-
                                           Image.asset(
-                                            "assets/images/information.png",
-                                            height: 30,
-                                            width: 30,
+                                            "assets/images/confirm_transaction_icon.png",
+                                            height: 86,
+                                            width: 86,
                                             fit: BoxFit.fill,
-                                            color: novalexxa_color1,
+                                            //color: novalexxa_color1,
                                           ),
                                           SizedBox(
-                                            height: 15,
+                                            height: 20,
                                           ),
                                           Text("Confirm Transaction",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color:novalexxa_text_color,
-                                                fontSize: 17,
+                                                fontSize: 20,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                           SizedBox(
@@ -305,8 +300,8 @@ Widget userInputAmountField(TextEditingController userInput, String hintTitle, T
                               "Fees:00 Fcfa ",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: intello_level_color,
-                                  fontSize: 12,
+                                  color: top_up_mobile_fees_text_color,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w500),
                             ),
                             Icon(
@@ -358,7 +353,7 @@ Widget _buildContinueButton() {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'PT-Sans',
-              fontSize: 20,
+              fontSize: 18,
               fontWeight: FontWeight.normal,
               color: Colors.white,
             ),
@@ -374,34 +369,28 @@ Widget _buildLoadingView() {
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
+      SizedBox(height: 30,),
       Container(
         child:  SpinKitCircle(
-          size: 70,
+          size: 50,
           color: novalexxa_color,
-
-
-
         ),
 
-        height: 70,
-        width: 70,
+        height: 50,
+        width: 50,
 
       ),
       SizedBox(height: 10,),
-      // SpinKitSquareCircle(
-      //   color: Colors.white,
-      //   size: 50.0,
-      //  // controller: AnimationController(vsync: this, duration: const Duration(milliseconds: 1200)),
-      // ),
+
       Text(
         "Loading",
         //textAlign: TextAlign.center,
 
         style: TextStyle(
             color:Colors.black,
-            fontSize: 22,
+            fontSize: 20,
             fontWeight: FontWeight.w400),
-      )
+      ),
 
 
 

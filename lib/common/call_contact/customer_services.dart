@@ -36,6 +36,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   String _serviceTypeName = "All Question";
   List _customerServiceTypeList = [];
   List _customerServiceList = [];
+  List _customerServiceList1 = [];
   int selectedTabPosition=0;
 
   @override
@@ -397,7 +398,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
-                return _buildCurrencyRatesItem(_customerServiceList[index]);
+                return _buildCurrencyRatesItem1(_customerServiceList[index]);
               }),
 
 
@@ -407,6 +408,18 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
     );
   }
 
+  Widget _buildCurrencyRatesItem1(var responseList) {
+    return ListView.builder(
+        padding: EdgeInsets.zero,
+
+        itemCount: responseList["customar_service_info"]==null||responseList["customar_service_info"].length<=0?0
+            :responseList["customar_service_info"].length,
+        shrinkWrap: true,
+        physics: ClampingScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          return _buildCurrencyRatesItem(responseList["customar_service_info"][index]);
+        });
+  }
   Widget _buildCurrencyRatesItem(var response) {
     return InkResponse(
       onTap: (){
@@ -426,7 +439,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
                     child: Container(
                       margin: new EdgeInsets.only(right:00),
                       child: Text(
-                        "What it the rate currency in IT ?",
+                        response["customar_service_qustions"].toString(),
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             color: novalexxa_text_color,

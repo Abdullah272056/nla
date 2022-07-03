@@ -17,20 +17,20 @@ import '../../../static/Colors.dart';
 
 class TopUpMoneyCongratsMobileScreen extends StatefulWidget {
 
-  String sendAmount,receiverName;
-  TopUpMoneyCongratsMobileScreen({required this.sendAmount, required this.receiverName});
+  String sendAmount;
+  TopUpMoneyCongratsMobileScreen({required this.sendAmount});
 
   @override
-  State<TopUpMoneyCongratsMobileScreen> createState() => _TopUpMoneyCongratsMobileScreenState(this.sendAmount, this.receiverName);
+  State<TopUpMoneyCongratsMobileScreen> createState() => _TopUpMoneyCongratsMobileScreenState(this.sendAmount);
 }
 
 class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobileScreen> {
 
-  String _sendAmount,_receiverName;
+  String _sendAmount;
 
 
   _TopUpMoneyCongratsMobileScreenState(
-      this._sendAmount, this._receiverName); //image upload
+      this._sendAmount); //image upload
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
   String _imageLink = "";
@@ -58,19 +58,15 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
 
 
                       Image.asset(
-                        "assets/images/undraw_wallet_aym5.png",
-                        width: 240,
-                        height: 160,
+                        "assets/images/top_up_mobile_bank_successfull_icon.png",
+                        width: 100,
+                        height: 105,
                         fit: BoxFit.fill,
-                      ),
-
-                      SizedBox(
-                        height: 30,
                       ),
 
 
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                        margin: EdgeInsets.only(left:30, top: 30, right: 30, bottom: 00),
                         child:  Text.rich(
                           TextSpan(
                             children: <TextSpan>[
@@ -79,7 +75,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                                 style: TextStyle(
                                     height: 1.5,
                                     color: novalexxa_text_color,
-                                    fontSize: 25,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w500),
                               ),
                               TextSpan(
@@ -87,7 +83,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                                 style: TextStyle(
                                     height: 1.5,
                                     color: novalexxa_color,
-                                    fontSize: 25,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w500),
 
                               ),
@@ -96,7 +92,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                                 style: TextStyle(
                                     height: 1.5,
                                     color: novalexxa_text_color,
-                                    fontSize: 25,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.w500),
                               ),
                             ],
@@ -105,12 +101,8 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                         )
                       ),
 
-                      const SizedBox(
-                        height: 20,
-                      ),
-
                       Container(
-                          margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                          margin: EdgeInsets.only(left:30, top: 24, right: 30, bottom: 00),
                           child: Text.rich(
                             TextSpan(
                               children: <TextSpan>[
@@ -120,7 +112,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                                   style: TextStyle(
                                       height: 1.5,
                                       color: novalexxa_text_color,
-                                      fontSize: 25,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.w500),
 
                                 ),
@@ -130,7 +122,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                                   style: TextStyle(
                                       height: 1.5,
                                       color: novalexxa_color,
-                                      fontSize: 25,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.w500),
 
                                 ),
@@ -140,9 +132,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
                           )
                       ),
 
-                      const SizedBox(
-                        height: 40,
-                      ),
+
                       Container(
                         child: _buildBackToHomeButton(),
                       ),
@@ -164,7 +154,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
 
   Widget _buildBackToHomeButton() {
     return Container(
-      margin: const EdgeInsets.only(left: 50.0, right: 50.0),
+      margin: const EdgeInsets.only(left: 50.0, right: 50.0,top: 75),
       child: ElevatedButton(
         onPressed: () {
           //
@@ -187,7 +177,7 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
           ),
           child: Container(
 
-            height: 50,
+            height: 47,
             alignment: Alignment.center,
             child:  Text(
               "Back to Home",

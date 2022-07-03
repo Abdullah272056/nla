@@ -114,7 +114,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
 
           if(shimmerStatus==false)...{
-            Expanded(child:  ListView.builder(
+            Expanded(child:
+            ListView.builder(
                 padding: EdgeInsets.zero,
                 itemCount: _notificationList==null||_notificationList.length<=0?0
                     :_notificationList.length,
@@ -122,7 +123,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 physics: ClampingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return _buildNotificationItemForList(_notificationList[index]);
-                }),)
+                })
+              ,)
           }else...{
             Expanded(child:  ListView.builder(
                 padding: EdgeInsets.zero,

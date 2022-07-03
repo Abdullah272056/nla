@@ -26,21 +26,13 @@ import '../add_credit_cart.dart';
 
 
 class SaveNumberScreen extends StatefulWidget {
-  String  inputBalance;
-  String  currencyId;
 
-
-  SaveNumberScreen({required this.inputBalance, required this.currencyId});
 
   @override
-  State<SaveNumberScreen> createState() => _SaveNumberScreenState(this.inputBalance, this.currencyId);
+  State<SaveNumberScreen> createState() => _SaveNumberScreenState();
 }
 
 class _SaveNumberScreenState extends State<SaveNumberScreen> {
-  String _inputBalance;
-  String _currencyId;
-
-  _SaveNumberScreenState(this._inputBalance, this._currencyId);
 
   String countryName="en",countryIcon="icon_country.png";
 
@@ -364,7 +356,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
       ),
       child: InkWell(
           onTap: (){
-            _sendAmountBalanced(cardId: response["card_id"].toString(),currencyId:_currencyId ,inputBalance: _inputBalance);
+           // _sendAmountBalanced(cardId: response["card_id"].toString(),currencyId:_currencyId ,inputBalance: _inputBalance);
             // setState(() {
             //
             //
@@ -557,75 +549,11 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
   Widget _buildAddNewCardButton() {
     return InkResponse(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
-          currencyId: _currencyId,
-          inputBalance: _inputBalance,
-        )));
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
+        //   currencyId: _currencyId,
+        //   inputBalance: _inputBalance,
+        // )));
 
-        // showDialog(context: context,
-        //     barrierDismissible:false,
-        //     builder: (BuildContext context){
-        //       return Dialog(
-        //         shape: RoundedRectangleBorder(
-        //             borderRadius:BorderRadius.circular(10.0)),
-        //         child:Wrap(
-        //           children: [
-        //             Container(
-        //               padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 0,bottom: 0),
-        //               child: Column(
-        //
-        //                 children: [
-        //
-        //
-        //                   SizedBox(
-        //                     height: 45,
-        //                   ),
-        //
-        //                   Image.asset(
-        //                     "assets/images/information.png",
-        //                     height: 30,
-        //                     width: 30,
-        //                     fit: BoxFit.fill,
-        //                     color: novalexxa_color1,
-        //                   ),
-        //                   SizedBox(
-        //                     height: 15,
-        //                   ),
-        //                   Text("You can’t able to Add New Card",
-        //                     textAlign: TextAlign.center,
-        //                     style: TextStyle(
-        //                         color:novalexxa_text_color,
-        //                         fontSize: 17,
-        //                         fontWeight: FontWeight.w600),
-        //                   ),
-        //                   SizedBox(
-        //                     height: 20,
-        //                   ),
-        //
-        //                   Text(_alertMessageForSave,
-        //                     textAlign: TextAlign.center,
-        //                     style: TextStyle(
-        //                         color:novalexxa_text_color,
-        //                         fontSize: 14,
-        //                         fontWeight: FontWeight.normal),
-        //                   ),
-        //                   SizedBox(
-        //                     height: 35,
-        //                   ),
-        //
-        //                   _buildAlertBackButton(),
-        //                   SizedBox(
-        //                     height: 45,
-        //                   ),
-        //
-        //                 ],
-        //               ),
-        //             )
-        //           ],
-        //         ),
-        //       );
-        //     }
-        // );
 
 
       },
@@ -934,11 +862,11 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
           if (response.statusCode == 201) {
             setState(() {
 
-              Navigator.push(
-                  context,MaterialPageRoute(builder: (context)=>TopUpMoneyCongratsScreen(
-                receiverName:"",sendAmount: _inputBalance,
-                ))
-              );
+              // Navigator.push(
+              //     context,MaterialPageRoute(builder: (context)=>TopUpMoneyCongratsScreen(
+              //   receiverName:"",sendAmount: _inputBalance,
+              //   ))
+              // );
 
               //  var data = jsonDecode(response.body);
 
@@ -1025,10 +953,10 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
           //   //_showToast("Ok");
           // }
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
-            currencyId: _currencyId,
-            inputBalance: _inputBalance,
-          )));
+          // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
+          //   currencyId: _currencyId,
+          //   inputBalance: _inputBalance,
+          // )));
 
 
         },

@@ -5,8 +5,10 @@ import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 import 'Particular/biometric_particular.dart';
+import 'Particular/particular_acount_information.dart';
 import 'Particular/particular_information.dart';
 import 'Particular/particular_information2.dart';
+import 'Particular/registration_for_particular.dart';
 import 'common/call_contact/contact_support.dart';
 import 'common/call_contact/contact_support_message.dart';
 import 'common/call_contact/customer_services.dart';
@@ -28,6 +30,8 @@ import 'common/navigation_page/home_page.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
 import 'common/notification/notification.dart';
+import 'company/company_account.dart';
+import 'company/company_information.dart';
 import 'company/registration_for_company.dart';
 import 'finger_print_auth.dart';
 
@@ -54,10 +58,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
          //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
-         body:CustomerServicesScreen()
+         body:SplashScreen1()
       ),
     );
   }
-
 
 }

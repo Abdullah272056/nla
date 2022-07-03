@@ -112,7 +112,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
 
                       ),
                     ),
-                    
+
                     Container(
                       margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: Align(alignment: Alignment.topLeft,
@@ -144,19 +144,35 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                     SizedBox(
                       height: 30,
                     ),
-
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Passport No or ID Card",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Passport No or ID Card',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     SizedBox(
                       height: 0,
@@ -169,19 +185,35 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                     ),
 
 
-
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Date of Issue",
-                            style: TextStyle(
-                                color:novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Date of Issue',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
 
                     userInputDateOfIssue(_birthDayController!, 'select date', TextInputType.datetime),
@@ -198,14 +230,31 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Date of Expiry",
-                            style: TextStyle(
-                                color:novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Date of Expiry',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     userInputDateOfExpire(_birthDayController!, 'select date', TextInputType.datetime),
                     Container( color: novalexxa_hint_text_color,
@@ -216,19 +265,35 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
                     SizedBox(
                       height: 20,
                     ),
-
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Place of Issue",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Place of Issue',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
                     userInputCountry(_countryController!, 'Country', TextInputType.text),
                     Container( color: novalexxa_hint_text_color,
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),

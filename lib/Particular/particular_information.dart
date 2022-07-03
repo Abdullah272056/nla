@@ -132,14 +132,31 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Name",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Name',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     SizedBox(
                       height: 0,
@@ -153,14 +170,31 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Surname",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Surname',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     userInputName(_surnameController!, 'Surname', TextInputType.text),
                     //country
@@ -171,14 +205,32 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Birthday",
-                            style: TextStyle(
-                                color:novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Birthday',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
+
 
                     const SizedBox(
                       height: 10,
@@ -261,7 +313,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
 
 
             hintText: hintTitle,
-            hintStyle: const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle: const TextStyle(fontSize: 17, color: hint_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),

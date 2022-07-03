@@ -121,18 +121,36 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                     SizedBox(
                       height: 30,
                     ),
+
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Company ID",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Company ID',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     SizedBox(
                       height: 0,
@@ -146,14 +164,31 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Responsible Name",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Responsible Name',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     companyInfoInput(_responsibleNameController!, 'Responsible Name', TextInputType.text,"assets/images/icon_user.png",18,18),
 
@@ -166,14 +201,31 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Responsible Surname",
-                            style: TextStyle(
-                                color:novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Responsible Surname',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
                     companyInfoInput(_responsibleSurnameController!, 'Responsible Surname', TextInputType.text,"assets/images/icon_user.png",18,18),
 
 

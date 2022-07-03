@@ -125,41 +125,78 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                     SizedBox(
                       height: 30,
                     ),
+
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Company Name",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Company Name',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
+
 
                     SizedBox(
                       height: 0,
                     ),
-                    companyNameInput(_companyNameController!, 'Company Name', TextInputType.text,"assets/images/commpany_name_icon.png"),
+                    companyNameInput(_companyNameController!, 'Company Name',
+                        TextInputType.text,"assets/images/commpany_name_icon.png"),
 
                     SizedBox(
                       height: 20,
                     ),
+
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Sector of Activities",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Sector of Activities',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
 
-                    companyNameInput(_SectorofActivitiesController!, 'Sector of Activities', TextInputType.text,"assets/images/icon_activity.png"),
+                    companyNameInput(_SectorofActivitiesController!, 'Sector of Activities',
+                        TextInputType.text,"assets/images/icon_activity.png"),
 
 
                     //country
@@ -170,15 +207,33 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Address",
-                            style: TextStyle(
-                                color:novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Address',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    companyNameInput(_addressController!, 'Address', TextInputType.text,"assets/images/icon_map.png"),
+
+                    companyNameInput(_addressController!, 'Address',
+                        TextInputType.text,"assets/images/icon_map.png"),
 
                     // userInputBirthDay(_birthDayController!, 'BirthDay', TextInputType.datetime),
                     // Container( color: novalexxa_hint_text_color,
@@ -188,21 +243,38 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                     SizedBox(
                       height: 20,
                     ),
-
                     Container(
                       margin: const EdgeInsets.only(left: 10),
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Text("Zip Code",
-                            style: TextStyle(
-                                color: novalexxa_hint_text_color,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400)
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Zip Code',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
                         ),
                       ),
                     ),
 
-                    companyNameInput(_zipCodeController!, 'Zip Code', TextInputType.text,"assets/images/icon_zip.png"),
+
+                    companyNameInput(_zipCodeController!, 'Zip Code',
+                        TextInputType.text,"assets/images/icon_zip.png"),
 
 
                     SizedBox(

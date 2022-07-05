@@ -90,6 +90,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   String _senderCurrencySymbol="";
   String _senderCountryCode = "";
   String _senderUserCountryId = "";
+  String _moneyConvertTransferFees = "0.00";
 
 
   @override
@@ -311,8 +312,14 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                           });
                     }else{
                       if(_senderCountryNameId!=""){
-                        _getTransferFees(countryId: _senderCountryNameId,userId: _userId,amount: _userTransferMoneyTxt);
-                        _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+
+                        _getTransferFees(countryId: _senderCountryNameId,userId: _userId,
+                            amount: _userTransferMoneyTxt,currencyFrom: _senderCurrencyId,
+                            currencyTo: _receiverCurrencyId);
+
+
+                       // _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+
                         _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
                         //  _getMoneyConvert(amount:_userTransferMoneyTxt,from: _receiverCurrencyName,to: _senderCurrencyName );
 
@@ -612,7 +619,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                 senderUserCountryId: _senderCountryNameId,
                 senderUserId: _userId,
                 senderUserSendAmount: sendInputAmountTxt,
-                transferFees: _transferFee
+                transferFees: _transferFee,
+                moneyConvertTransferFees: _moneyConvertTransferFees
               );
 
             },
@@ -721,7 +729,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   senderUserCountryId: _senderCountryNameId,
                   senderUserId: _userId,
                   senderUserSendAmount: sendInputAmountTxt,
-                  transferFees: _transferFee
+                  transferFees: _transferFee,
+                moneyConvertTransferFees: _moneyConvertTransferFees
               );
             },
             child: Container(
@@ -1103,8 +1112,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                               _receiverCurrencySymbol=  getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString());
                               _receiverCountryName=_currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString();
                               _receiverCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
+
+
                               if(_userTransferMoneyTxt.isNotEmpty){
-                                _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+                                _getTransferFees(countryId: _senderCountryNameId,userId: _userId,
+                                    amount: _userTransferMoneyTxt,currencyFrom: _senderCurrencyId,
+                                    currencyTo: _receiverCurrencyId);
+                                // _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
                                // _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
                               }
 
@@ -1273,7 +1287,10 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                               _senderCountryCode=_currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString();
                               _senderCountryNameId=_currencyTypeListData[index]['currency_information']['country_info']["country_id"].toString();
                               if(_userTransferMoneyTxt.isNotEmpty){
-                                _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
+                                _getTransferFees(countryId: _senderCountryNameId,userId: _userId,
+                                    amount: _userTransferMoneyTxt,currencyFrom: _senderCurrencyId,
+                                    currencyTo: _receiverCurrencyId);
+                               // _getMoneyConvert(amount:_userTransferMoneyTxt,from: _senderCurrencyName,to: _receiverCurrencyName );
 
                               }
                               _getExchangeRate(from: _senderCurrencyName,to: _receiverCurrencyName);
@@ -1327,6 +1344,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     required String userId,
     required String countryId,
     required String amount,
+    required String currencyFrom,
+    required String currencyTo,
   }) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -1338,6 +1357,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                 'user_id': userId,
                 'country_id': countryId,
                 'amount': amount,
+                'currency_from': currencyFrom,
+                'currency_to': currencyTo,
               });
           if (response.statusCode == 200) {
             setState(() {
@@ -1345,6 +1366,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
               if(_userTransferMoneyTxt.isNotEmpty){
                 _transferFee=data["transfer_fees"].toString();
+                _receiverReceivedMoney=data["receiver_received_amount"].toString();
+                _moneyConvertTransferFees=data["money_convert_novalexxa_percentage_amount"].toString();
+
               }else{
                 _transferFee="0.0";
               }
@@ -1371,7 +1395,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   }
 
 
-  _getMoneyConvert({
+  _getMoneyConvert1({
     required String from,
     required String to,
     required String amount,
@@ -1438,7 +1462,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           if (response.statusCode == 200) {
             setState(() {
               var data = jsonDecode(response.body);
-              _exchangeRate=data["data"]["result"]["rate"].toString();
+             // _exchangeRate=data["data"]["result"]["rate"].toString();
+              _exchangeRate=data["amount_rate_convert"].toString();
               //  _transferFee=data["transfer_fees"].toString();
 
             });
@@ -1476,6 +1501,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     required String receiverUserCountryId,
     required String receiverUserReceivedMoney,
     required String exchangeRate,
+    required String moneyConvertTransferFees,
 
   }) async {
     try {
@@ -1500,6 +1526,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                 'receiver_user_country_id': receiverUserCountryId,
                 'receiver_user_received_money': receiverUserReceivedMoney,
                 'exchange_rate': exchangeRate,
+                'money_convert_transfer_fees': moneyConvertTransferFees,
 
               }
           );

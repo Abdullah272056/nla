@@ -723,7 +723,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
         shimmerStatus=true;
         try {
           var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_SAVE_CARDS_LIST$_userId'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_GET_ALL_SAVE_NUMBER_LIST$_userId/'),
 
           );
 

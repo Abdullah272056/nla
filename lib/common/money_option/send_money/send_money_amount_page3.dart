@@ -20,19 +20,19 @@ import '../../static/toast.dart';
 import '../top_up_account/select_top_up.dart';
 
 
-class SendMoneyAmountPageScreen1 extends StatefulWidget {
+class SendMoneyAmountPageScreen3 extends StatefulWidget {
   String receiverId;
   String receiverName;
-  SendMoneyAmountPageScreen1(this.receiverId,this.receiverName);
+  SendMoneyAmountPageScreen3(this.receiverId,this.receiverName);
 
   @override
-  State<SendMoneyAmountPageScreen1> createState() => _SendMoneyAmountPageScreenState1(this.receiverId,this.receiverName);
+  State<SendMoneyAmountPageScreen3> createState() => _SendMoneyAmountPageScreenState3(this.receiverId,this.receiverName);
 }
 
-class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1> {
+class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3> {
   String _receiverId;
   String _receiverName;
-  _SendMoneyAmountPageScreenState1(this._receiverId,this._receiverName);
+  _SendMoneyAmountPageScreenState3(this._receiverId,this._receiverName);
 
 
   TextEditingController? _sendMoneyAmountController = TextEditingController();
@@ -81,17 +81,8 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
   int _inputAmountGatterThanStatus=0;
   String _currencySymbol = "";
   List _currencyTypeList = [];
-  double keyboardfontSize= 30;
-  double keyboardfontTopPadding= 13;
-  double keyboardfontBottomPadding= 13;
 
-  String inputText="";
-
-  TextStyle keyboardTextStyle= TextStyle(
-  color: novalexxa_text_color,
-  fontSize: 30,
-  decoration: TextDecoration.none,
-  fontWeight: FontWeight.w500);
+ //
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,11 +204,8 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
                           ),
                         ),
 
-                        // Align(alignment: Alignment.topCenter,
-                        //   child: userInputAmountField(_sendMoneyAmountController!, '00', TextInputType.text),
-                        // ),
                         Align(alignment: Alignment.topCenter,
-                          child: userInputAmountField1(_sendMoneyAmountController!, '00', TextInputType.text),
+                          child: userInputAmountField(_sendMoneyAmountController!, '00', TextInputType.text),
                         ),
 
                         if(_inputAmountGatterThanStatus==1)...{
@@ -277,9 +265,43 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
 
                         },
 
-                        SizedBox(height: 30,),
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
-                          child: _buildBottomDesign(),
+                          child: InkResponse(
+                            onTap: (){
+                              String amountTxt = _sendMoneyAmountController!.text;
+
+                              if (amountTxt.isEmpty) {
+                                Fluttertoast.cancel();
+                                _showToast("amount can't empty");
+                                return;
+                              }
+                              if (double.parse(amountTxt)<=0) {
+                                Fluttertoast.cancel();
+                                _showToast("please input valid amount!");
+                                return;
+                              }
+                              if (double.parse(amountTxt)>_currentBalance) {
+                                Fluttertoast.cancel();
+                                _showToast("your current balance is not enough!");
+                                return;
+                              }
+                              if (_currencyId==""||_currencyId.isEmpty) {
+                                Fluttertoast.cancel();
+                                _showToast("select currency!");
+                                return;
+                              }
+
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyMessagePageScreen(
+                                currentBalance:_currentBalance.toString(),
+                                inputBalance:double.parse(amountTxt).toString(),
+                                currencyId:_currencyId,
+                                receiverId: _receiverId,
+                                receiverName: _receiverName,
+                                currencySymbol: _currencySymbol,
+                              )));
+                            },
+                            child: _buildContinueButton(),
+                          ),
                         ),)
 
                       ],
@@ -313,168 +335,13 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
             children: [
               Expanded(child:  Column(
                 children: [
-
-                  Text(
-                    inputText,
-                    textAlign: TextAlign.center,
-                    style: keyboardTextStyle,
-                  ),
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          child:  Wrap(
-                            children: [
-                              Text(
-                               "Current balance is "+_currentBalance.toString()+ _currencySymbol,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: intello_level_color,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Icon(
-                                Icons.arrow_drop_down,
-                                color: intello_level_color,
-                                size: 15.0,
-                              ),
-                            ],
-                          ),
-                          onTap: (){
-                            _getUserCurrencyTypeList();
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-
-                ],
-              ),),
-
-              IconButton(
-                icon: Image.asset(
-                  "assets/images/information.png",
-                  height: 20,
-                  width: 20,
-                  fit: BoxFit.fill,
-                ),
-                // color: Colors.white,
-                onPressed: () {
-                  showDialog(context: context,
-                      barrierDismissible:false,
-                      builder: (BuildContext context){
-                        return Dialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:BorderRadius.circular(10.0)),
-                          child:Wrap(
-                            children: [
-                              Container(
-                                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-                                child: Column(
-
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(child: Align(
-                                            alignment: Alignment.topRight,
-                                            child: InkResponse(
-                                              onTap: (){
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Icon(
-                                                Icons.cancel_outlined,
-                                                size: 25,
-                                              ),
-                                            )
-
-                                        ))
-
-                                      ],
-                                    ),
-
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-
-                                    Image.asset(
-                                      "assets/images/information.png",
-                                      height: 30,
-                                      width: 30,
-                                      fit: BoxFit.fill,
-                                      color: novalexxa_color1,
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text("Lorem Ipsum Title",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color:novalexxa_text_color,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-
-                                    Text(_alertMessage,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color:novalexxa_text_color,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal),
-                                    ),
-
-
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-                      }
-                  );
-
-                },
-              )
-
-
-            ],
-          )
-
-
-      ),
-    );
-  }
-
-  Widget userInputAmountField1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
-
-      alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
-      decoration: BoxDecoration(
-          color:search_send_money_box_color,
-          borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-          padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
-          child: Row(
-            children: [
-              Expanded(child:  Column(
-                children: [
                   TextField(
                     textAlign: TextAlign.center,
                     controller: userInput,
-                    showCursor: true,
-                    readOnly: true,
-                    cursorColor: Colors.transparent,
-                    cursorWidth: 0,
-                    //   textInputAction: TextInputAction.search,
+                    textInputAction: TextInputAction.search,
                     autocorrect: false,
                     enableSuggestions: false,
-                   // cursorColor:intello_input_text_color,
+                    cursorColor:intello_input_text_color,
                     keyboardType: TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
                     style: TextStyle(
@@ -517,7 +384,7 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
                           child:  Wrap(
                             children: [
                               Text(
-                                "Current balance is "+_currentBalance.toString()+ _currencySymbol,
+                               "Current balance is "+_currentBalance.toString()+ _currencySymbol,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: intello_level_color,
@@ -651,73 +518,38 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
   // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
 
   Widget _buildContinueButton() {
-    return InkResponse(
-      onTap: (){
-        String amountTxt = _sendMoneyAmountController!.text;
-
-        if (amountTxt.isEmpty) {
-          Fluttertoast.cancel();
-          _showToast("amount can't empty");
-          return;
-        }
-        if (double.parse(amountTxt)<=0) {
-          Fluttertoast.cancel();
-          _showToast("please input valid amount!");
-          return;
-        }
-        if (double.parse(amountTxt)>_currentBalance) {
-          Fluttertoast.cancel();
-          _showToast("your current balance is not enough!");
-          return;
-        }
-        if (_currencyId==""||_currencyId.isEmpty) {
-          Fluttertoast.cancel();
-          _showToast("select currency!");
-          return;
-        }
-
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyMessagePageScreen(
-          currentBalance:_currentBalance.toString(),
-          inputBalance:double.parse(amountTxt).toString(),
-          currencyId:_currencyId,
-          receiverId: _receiverId,
-          receiverName: _receiverName,
-          currencySymbol: _currencySymbol,
-        )));
-      },
-      child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(8.0)
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-          height: 65,
-          alignment: Alignment.center,
-          child:  Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Continue",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'PT-Sans',
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
-                  color: Colors.white,
-                ),
-              ),
-              SizedBox(width: 10,),
-              Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-                size: 25.0,
-              ),
-            ],
-          )
-
+          borderRadius: BorderRadius.circular(8.0)
       ),
+      height: 65,
+      alignment: Alignment.center,
+      child:  Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Continue",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'PT-Sans',
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(width: 10,),
+          Icon(
+            Icons.arrow_forward,
+            color: Colors.white,
+            size: 25.0,
+          ),
+        ],
+      )
+
     );
   }
 
@@ -806,6 +638,7 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
     }
 
   }
+
 
   _getUserCurrencyTypeList() async {
     try {
@@ -996,379 +829,6 @@ class _SendMoneyAmountPageScreenState1 extends State<SendMoneyAmountPageScreen1>
     var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
     return format.currencySymbol;
   }
-
-  Widget _buildBottomDesign() {
-    return Container(
-
-      height: 350,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.0),
-            topRight: Radius.circular(20.0),
-          ),
-          boxShadow: [BoxShadow(
-
-            color:Colors.grey.withOpacity(.25),
-            //  blurRadius: 20.0, // soften the shadow
-            blurRadius:20, // soften the shadow
-            spreadRadius: 0.0, //extend the shadow
-            offset:Offset(
-              2.0, // Move to right 10  horizontally
-              1.0, // Move to bottom 10 Vertically
-            )
-          )],
-
-        ),
-        child: Padding(
-            padding: const EdgeInsets.only(left: 00, top: 00, right: 00, bottom: 0),
-            child: Column(
-              children: [
-
-
-                 Expanded(
-                   child:
-                       Column(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         crossAxisAlignment: CrossAxisAlignment.center,
-                         children: [
-
-                           Container(
-
-                           child: Flex(direction: Axis.horizontal,
-                             children: [
-                               Expanded(child:InkWell(
-                                 onTap: (){
-                                   typeKeyboard("1");
-                                 },
-                                 child: Container(
-                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                   child: Text(
-                                     "1",
-                                     textAlign: TextAlign.center,
-
-                                     style: keyboardTextStyle,
-                                   ),
-                                 ),
-                               ),),
-                               Expanded(child:InkWell(
-                                 onTap: (){
-                                   typeKeyboard("2");
-                                 },
-                                 child: Container(
-                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                   child: Text(
-                                     "2",
-                                     textAlign: TextAlign.center,
-
-                                     style: keyboardTextStyle,
-                                   ),
-                                 ),
-                               ),),
-                               Expanded(child:InkWell(
-                                 onTap: (){
-                                   typeKeyboard("3");
-                                 },
-                                 child: Container(
-                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                   child: Text(
-                                     "3",
-                                     textAlign: TextAlign.center,
-
-                                     style: keyboardTextStyle,
-                                   ),
-                                 ),
-                               ),),
-
-                             ],
-                           ),
-                           ),
-
-                           Container(
-
-                             child: Flex(direction: Axis.horizontal,
-                               children: [
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("4");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "4",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("5");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "5",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("6");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "6",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-
-                               ],
-                             ),
-                           ),
-                           Container(
-
-                             child: Flex(direction: Axis.horizontal,
-                               children: [
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("7");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "7",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("8");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "8",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("9");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "9",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-
-                               ],
-                             ),
-                           ),
-                           Container(
-
-                             child: Flex(direction: Axis.horizontal,
-                               children: [
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard(".");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       ".",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("0");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "0",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("x");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "x",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-
-                               ],
-                             ),
-                           ),
-
-                         ],
-                       )
-
-                 ),
-
-
-                  Align(alignment: Alignment.bottomCenter,
-                  child: _buildContinueButton(),
-                  )
-
-              ],
-            )));
-  }
-
-  void typeKeyboard(String typeKey){
-    setState(() {
-
-   if(inputText.isNotEmpty){
-     String value=inputText+typeKey;
-
-
-     if(typeKey=="."){
-
-       if (inputText.contains(".")) {
-         //_showToast("Already use!");
-       }
-       else {
-         if(inputText!=null&& inputText.isNotEmpty){
-           double inputAmountDouble=double.parse(inputText);
-           if (inputAmountDouble<=0) {
-             inputText = "0"+typeKey;
-             //_sendMoneyAmountController?.text = typeKey;
-
-           }
-           else {
-             inputText = inputText+typeKey;
-             // _sendMoneyAmountController?.text = getOldText+typeKey;
-
-           }
-         }else{
-           inputText = "0"+typeKey;
-         }
-
-       }
-
-     }
-
-     else if(typeKey=="x") {
-       if (inputText != null && inputText.length > 1) {
-         inputText = inputText.substring(0, inputText.length - 1);
-
-          if(inputText!="."&& inputText!=".0"){
-            _inputAmountGatterThanStatus=0;
-          }else{
-            double inputAmountDouble=double.parse(inputText);
-
-            if(inputAmountDouble>_currentBalance){
-              _inputAmountGatterThanStatus=1;
-            }
-            else{
-              _inputAmountGatterThanStatus=0;
-
-            }
-          }
-
-       }
-       else{
-         inputText="";
-       }
-
-     }
-
-     else{
-       //String getOldText = _sendMoneyAmountController!.text;
-
-
-       if(inputText=="0."||inputText=="."||inputText==".0"||inputText=="0.0"){
-         inputText = inputText+typeKey;
-       }
-       else{
-        String value=inputText+typeKey;
-        double inputAmountDouble=double.parse(value);
-        if(_inputAmountGatterThanStatus==0){
-          if(inputAmountDouble>_currentBalance){
-            _inputAmountGatterThanStatus=1;
-            inputText = inputText+typeKey;
-            // _showToast("not possible");
-          }
-          else{
-            _inputAmountGatterThanStatus=0;
-
-            if (inputAmountDouble<=0) {
-              inputText=typeKey;
-              //_sendMoneyAmountController?.text = typeKey;
-
-            }
-            else {
-              inputText = inputText+typeKey;
-              // _sendMoneyAmountController?.text = getOldText+typeKey;
-
-            }
-          }
-        }
-
-
-       }
-
-
-
-
-
-     }
-
-   }
-
-   else{
-     if(typeKey!="x"){
-       inputText =typeKey;
-     }else{
-       inputText ="";
-     }
-
-   }
-
-
-     _sendMoneyAmountController?.text = inputText;
-
-
-    });
-
-
-  }
-
 
 }
 

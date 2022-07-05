@@ -1326,7 +1326,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
        else{
 
          if(inputText=="0."||inputText=="."||inputText==".0"||inputText=="0.0"){
-           if(inputText=="0.0"&&typeKey=="0"){
+           if((inputText=="0.0"&&typeKey=="0") || (inputText==".0"&&typeKey=="0")){
 
            }else{
              inputText = inputText+typeKey;

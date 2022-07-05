@@ -17,6 +17,7 @@ import 'common/log_in/finger_print_done.dart';
 import 'common/log_in/finger_print_input_for_loging.dart';
 import 'common/log_in/login_by_pin.dart';
 
+import 'common/money_option/request_money/request_money_amount_page.dart';
 import 'common/money_option/send_money/send_money_amount_page.dart';
 import 'common/money_option/top_up_account/top_up_mobile_bank/save_number.dart';
 import 'common/money_option/top_up_account/top_up_mobile_bank/top_up_account_mobile_amount_page.dart';
@@ -58,8 +59,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
          //body:CustomerServicesScreen()
-         // body:NavigationBarScreen(0,HomePageScreen())
-         body:SendMoneyAmountPageScreen("2","Boss")
+          body:NavigationBarScreen(0,HomePageScreen())
+        // body:RequestMoneyAmountPageScreen("2","Boss")
       ),
     );
   }

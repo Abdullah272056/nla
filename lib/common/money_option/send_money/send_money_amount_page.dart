@@ -1267,28 +1267,33 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
 
      if(typeKey=="."){
+       if(_inputAmountGatterThanStatus==1){
 
-       if (inputText.contains(".")) {
-         //_showToast("Already use!");
-       }
-       else {
-         if(inputText!=null&& inputText.isNotEmpty){
-           double inputAmountDouble=double.parse(inputText);
-           if (inputAmountDouble<=0) {
+       }else{
+         if (inputText.contains(".")) {
+           //_showToast("Already use!");
+         }
+         else {
+           if(inputText!=null&& inputText.isNotEmpty){
+             double inputAmountDouble=double.parse(inputText);
+             if (inputAmountDouble<=0) {
+               inputText = "0"+typeKey;
+               //_sendMoneyAmountController?.text = typeKey;
+
+             }
+             else {
+               inputText = inputText+typeKey;
+               // _sendMoneyAmountController?.text = getOldText+typeKey;
+
+             }
+           }else{
              inputText = "0"+typeKey;
-             //_sendMoneyAmountController?.text = typeKey;
-
            }
-           else {
-             inputText = inputText+typeKey;
-             // _sendMoneyAmountController?.text = getOldText+typeKey;
 
-           }
-         }else{
-           inputText = "0"+typeKey;
          }
 
        }
+
 
      }
 

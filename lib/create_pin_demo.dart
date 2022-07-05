@@ -9,24 +9,23 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import 'create_confirm_pin_particular.dart';
+import 'Particular/create_confirm_pin_particular.dart';
 
 
 
-
-class CreatePinParticularScreen extends StatefulWidget {
+class CreatePinParticularScreen12 extends StatefulWidget {
   String userId;
-  CreatePinParticularScreen(this.userId);
+  CreatePinParticularScreen12(this.userId);
 
   @override
-  State<CreatePinParticularScreen> createState() => _CreatePinParticularScreenState(this.userId);
+  State<CreatePinParticularScreen12> createState() => _CreatePinParticularScreenState12(this.userId);
 
 }
 
-class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
+class _CreatePinParticularScreenState12 extends State<CreatePinParticularScreen12> {
 
   String _userId;
-  _CreatePinParticularScreenState(this._userId);
+  _CreatePinParticularScreenState12(this._userId);
 
   double keyboardfontSize= 25;
   double keyboardfontTopPadding= 15;
@@ -196,7 +195,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
         textFieldAlignment: MainAxisAlignment.spaceAround,
 
         fieldStyle: FieldStyle.box,
-        // contentPadding: EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
+       // contentPadding: EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
         fieldWidth:45,
 
 
@@ -212,15 +211,15 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
         keyboardType: TextInputType.number,
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
-          //   Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen(_userId,pin)));
+       //   Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen(_userId,pin)));
 
 
           //_otpTxt = pin;
-          // _showToast(pin);
+         // _showToast(pin);
         },
         onChanged: (value) {
           if (value.length < 6) {
-            // _otpTxt = "";
+           // _otpTxt = "";
           }
         },
       ),
@@ -571,7 +570,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
                               ),),
                               Expanded(child:InkWell(
                                 onTap: (){
-                                  // typeKeyboard("x");
+                                 // typeKeyboard("x");
                                   if(inputText.length<6||inputText.length>6){
 
                                     _showToast("Input six digit pin");

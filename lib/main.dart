@@ -5,6 +5,7 @@ import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 import 'Particular/biometric_particular.dart';
+import 'Particular/create_pin_particular.dart';
 import 'Particular/particular_acount_information.dart';
 import 'Particular/particular_information.dart';
 import 'Particular/particular_information2.dart';
@@ -36,6 +37,7 @@ import 'common/notification/notification.dart';
 import 'company/company_account.dart';
 import 'company/company_information.dart';
 import 'company/registration_for_company.dart';
+import 'create_pin_demo.dart';
 import 'finger_print_auth.dart';
 
 void main() {
@@ -60,8 +62,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           //body:CustomerServicesScreen()
-          //body:NavigationBarScreen(0,HomePageScreen())
-         body:PayWithQRAmountPageScreen("2","Boss")
+         // body:NavigationBarScreen(0,HomePageScreen())
+         body:CreatePinParticularScreen12("2")
+        // body:PayWithQRAmountPageScreen("2","Boss")
       ),
     );
   }

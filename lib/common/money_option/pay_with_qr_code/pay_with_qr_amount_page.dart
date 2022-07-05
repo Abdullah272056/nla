@@ -291,10 +291,13 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                 TextField(
                   textAlign: TextAlign.center,
                   controller: userInput,
-                  textInputAction: TextInputAction.search,
+                  showCursor: true,
+                  readOnly: true,
+                  cursorColor: Colors.transparent,
+                  cursorWidth: 0,
+                  //   textInputAction: TextInputAction.search,
                   autocorrect: false,
                   enableSuggestions: false,
-                  cursorColor:intello_input_text_color,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
                   style: TextStyle(

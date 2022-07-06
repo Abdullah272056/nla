@@ -58,6 +58,7 @@
   String SUB_URL_API_SPEAK_WITH_US_LIST= "api/core/speak-with-us-list/";
   String SUB_URL_API_CHAT_WITH_US_LIST= "api/core/support-team/";
   String SUB_URL_API_CHAT_WITH_US_SEND_MESSAGE= "api/core/chat-with-support-team/";
+
   //send money qr code
   String SUB_URL_API_QR_CODE_EMAIL_CHECKED= "api/core/qr-code-email-checked/";
   String SUB_URL_API_QR_CODE_MONEY_SEND= "api/core/qr-code-money-send/";
@@ -75,6 +76,7 @@
   String SUB_URL_API_NOTIFICATION_LIST = "api/core/user-notification/";
   String SUB_URL_API_TRANSACTION_HISTORY_LIST = "api/core/transaction-details-single/";
   String SUB_URL_API_TRANSACTION_HISTORY_DETAILS = "api/core/transaction-details/";
+
   //novalexxa card info
   String SUB_URL_API_NOVALEXXA_CARD_INFO_LIST = "api/core/card-info/?uuid=";
   //top up account
@@ -83,10 +85,15 @@
   String SUB_URL_API_CUSTOMER_SERVICE_SINGLE_TYPE_DETAILS_LIST = "api/core/customar-service-type-info/";
   //type list
   String SUB_URL_API_CUSTOMER_SERVICE_TYPE_LIST = "api/core/customar-service-type-info/";
+  //mobile number payment save
+  String SUB_URL_API_MOBILE_NUMBER_SAVE_LIST = "api/core/top-up-mobile-number-saved/";
+  String SUB_URL_API_TOP_UP_MOBILR_TRANSFER_FEE = "api/core/top-up-mobile-transfer-fee/";
+  String SUB_URL_API_TOP_UP_MOBILR_TRANSFER = "api/core/top-up-mobile-transfer/";
 
 
+  //payment method
+  String BASE_URL_FOR_PAYMENT1="http://3.249.105.56:8000";
+  String BASE_URL_FOR_PAYMENT="http://3.249.105.56:8000/";
 
-
-
-
+  String SUB_URL_API_MOBILE_PAYMENT_TYPE_LIST = "user-authentication/api/company-payment-subscription-list/3/";
 

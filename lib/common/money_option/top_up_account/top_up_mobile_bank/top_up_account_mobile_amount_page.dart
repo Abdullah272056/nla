@@ -1,39 +1,62 @@
 
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_money_congrats_mobile.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_try_again.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../api_service/api_service.dart';
+import '../../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../../static/Colors.dart';
+import '../../../static/loding_dialog.dart';
 
 
 class TopUpAccountMobileAmountPageScreen extends StatefulWidget {
-  const TopUpAccountMobileAmountPageScreen({Key? key}) : super(key: key);
+  String paymentMethodId,phoneNumber;
+
+  TopUpAccountMobileAmountPageScreen({required this.paymentMethodId, required this.phoneNumber});
 
   @override
-  State<TopUpAccountMobileAmountPageScreen> createState() => _TopUpAccountMobileAmountPageScreenState();
+  State<TopUpAccountMobileAmountPageScreen> createState() => _TopUpAccountMobileAmountPageScreenState(this.paymentMethodId, this.phoneNumber);
 
 
 }
 
 class _TopUpAccountMobileAmountPageScreenState extends State<TopUpAccountMobileAmountPageScreen> {
+  String _paymentMethodId,_phoneNumber;
+  _TopUpAccountMobileAmountPageScreenState(
+      this._paymentMethodId, this._phoneNumber);
 
-int _particular_company_selected_status=1;
+  int _particular_company_selected_status=1;
 
 TextEditingController? _sendMoneyAmountController = TextEditingController();
 String _userId = "";
 String _currencyId = "0";
 
-double _currentBalance=0.00;
+String _inputAmountBalance="";
 int _inputAmountGatterThanStatus=0;
 String _currencySymbol = "";
+String _transferFee = "0.00";
 List _currencyTypeList = [];
 
 String _alertMessage="Please complete the operation by dailing *150*50# on your phone."
     " The operation is handled by our local service provider Evveress Tech.";
+
+  @override
+  @mustCallSuper
+  initState() {
+    super.initState();
+    loadUserIdFromSharePref();
+  }
 
 @override
 Widget build(BuildContext context) {
@@ -132,58 +155,9 @@ Widget build(BuildContext context) {
                     child:InkWell(
                       child:  _buildContinueButton(),
                       onTap: (){
-                        showDialog(context: context,
-                            barrierDismissible:false,
-                            builder: (BuildContext context){
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:BorderRadius.circular(10.0)),
-                                child:Wrap(
-                                  children: [
-                                    Container(
-                                      padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 30,bottom: 30),
-                                      child: Column(
+                        _mobileTopUpTransfer(userId: _userId,mainAmount: _inputAmountBalance,mobileNumber: _phoneNumber,
+                        paymentMethodTypeId: _paymentMethodId);
 
-                                        children: [
-
-                                          Image.asset(
-                                            "assets/images/confirm_transaction_icon.png",
-                                            height: 86,
-                                            width: 86,
-                                            fit: BoxFit.fill,
-                                            //color: novalexxa_color1,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text("Confirm Transaction",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color:novalexxa_text_color,
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-
-                                          Text(_alertMessage,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                color:novalexxa_text_color,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.normal),
-                                          ),
-
-                                          _buildLoadingView()
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              );
-                            }
-                        );
                       },
                     ),
 
@@ -261,18 +235,19 @@ Widget userInputAmountField(TextEditingController userInput, String hintTitle, T
                       fontSize: 26,
                       fontWeight: FontWeight.w600),
                   onChanged: (text) {
-                    // if(double.parse(text)>_currentBalance){
-                    //   setState(() {
-                    //     _inputAmountGatterThanStatus=1;
-                    //   });
-                    //
-                    //   // _showToast("not possible");
-                    // }
-                    // else{
-                    //   setState(() {
-                    //     _inputAmountGatterThanStatus=0;
-                    //   });
-                    // }
+                    _inputAmountBalance=text;
+
+                    if(text==""||text==null||text.isEmpty){
+                      setState(() {
+                        _transferFee="0.00";
+                      });
+                    }else{
+                      if(text!=""){
+                        _getTransferFee(inputAmount:_inputAmountBalance );
+
+                      }
+                    }
+
 
                   },
                   autofocus: false,
@@ -297,7 +272,7 @@ Widget userInputAmountField(TextEditingController userInput, String hintTitle, T
                         child:  Wrap(
                           children: [
                             Text(
-                              "Fees:00 Fcfa ",
+                              "Fees:$_transferFee",
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   color: top_up_mobile_fees_text_color,
@@ -411,6 +386,173 @@ _showToast(String message) {
       fontSize: 16.0);
 }
 
+void loading(){
+  showDialog(context: context,
+      barrierDismissible:false,
+      builder: (BuildContext context){
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius:BorderRadius.circular(10.0)),
+          child:Wrap(
+            children: [
+              Container(
+                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 30,bottom: 30),
+                child: Column(
 
+                  children: [
+
+                    Image.asset(
+                      "assets/images/confirm_transaction_icon.png",
+                      height: 86,
+                      width: 86,
+                      fit: BoxFit.fill,
+                      //color: novalexxa_color1,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text("Confirm Transaction",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color:novalexxa_text_color,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+
+                    Text(_alertMessage,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color:novalexxa_text_color,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal),
+                    ),
+
+                    _buildLoadingView()
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      }
+  );
+}
+
+_getTransferFee({
+      required String inputAmount,
+    }) async {
+  try {
+    final result = await InternetAddress.lookup('example.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      try {
+        Response response =
+        await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TOP_UP_MOBILR_TRANSFER_FEE'),
+            body: {
+              'amount': inputAmount,
+
+            });
+
+        //  _showToast(response.statusCode.toString());
+        if (response.statusCode == 200) {
+          setState(() {
+            // shimmerStatus=false;
+            var data = jsonDecode(response.body);
+           _transferFee=data["transfer_fee"].toString();
+          });
+        }
+
+        else {
+          var data = jsonDecode(response.body.toString());
+          _showToast(data['message']);
+        }
+      } catch (e) {
+       // Navigator.of(context).pop();
+        print(e.toString());
+      }
+    }
+  } on SocketException catch (_) {
+    Fluttertoast.cancel();
+    _showToast("No Internet Connection!");
+  }
+}
+
+
+_mobileTopUpTransfer({
+  required String paymentMethodTypeId,
+  required String mobileNumber,
+  required String userId,
+  required String mainAmount,
+
+}) async {
+  try {
+    final result = await InternetAddress.lookup('example.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      try {
+
+        loading();
+        Response response =
+        await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TOP_UP_MOBILR_TRANSFER'),
+            body: {
+
+              'payment_method_type_id': paymentMethodTypeId,
+              'mobile_number': mobileNumber,
+              'user_id': userId,
+              'amount': mainAmount,
+              // 'transfer_fee': transferFee,
+              // 'sub_amount': subAmount,
+
+            });
+
+
+        Navigator.of(context).pop();
+        //  _showToast(response.statusCode.toString());
+
+        if (response.statusCode == 200) {
+          setState(() {
+            // shimmerStatus=false;
+            var data = jsonDecode(response.body);
+          //  _transferFee=data["transfer_fee"].toString();
+
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                TopUpMoneyCongratsMobileScreen(sendAmount: mainAmount,)));
+          });
+
+        }
+
+        else {
+          var data = jsonDecode(response.body.toString());
+          _showToast(data['message']);
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>
+              TryAgainTopUPScreen()));
+
+        }
+      } catch (e) {
+        // Navigator.of(context).pop();
+        print(e.toString());
+      }
+    }
+  } on SocketException catch (_) {
+    Fluttertoast.cancel();
+    _showToast("No Internet Connection!");
+  }
+}
+
+  loadUserIdFromSharePref() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    try {
+      setState(() {
+        _userId = sharedPreferences.getString(pref_user_id)!;
+
+        // _login_status_check = sharedPreferences.getString(pref_login_status)!;
+
+      });
+    } catch(e) {
+      //code
+    }
+
+  }
 }
 

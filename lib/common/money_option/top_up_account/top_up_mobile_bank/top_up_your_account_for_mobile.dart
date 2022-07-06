@@ -10,12 +10,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_message_page.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_account_mobile_amount_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../api_service/api_service.dart';
 import '../../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../../log_in/login_loading_page.dart';
+import '../../../static/loding_dialog.dart';
 import '../../../static/toast.dart';
 import '../select_top_up.dart';
 
@@ -34,7 +36,11 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
   TextEditingController? _phoneNumberController = TextEditingController();
   String _userId = "";
   String _currencyId = "0";
-
+  List _mobilePaymentTypeList = [];
+  String _paymentMethodLogo="";
+  String _paymentMethodId="";
+  String _paymentMethodName="";
+  String _phoneNumber="";
 
   @override
   @mustCallSuper
@@ -43,8 +49,7 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
     loadUserIdFromSharePref().then((_) {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
-
-          // _getCurrentBalanced();
+          _getMobilePaymentTypeList();
         });
       }
       else{
@@ -174,38 +179,26 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
                           child: InkResponse(
                             onTap: (){
-                              String amountTxt = _phoneNumberController!.text;
+                              String phoneTxt = _phoneNumberController!.text;
 
-                              if (amountTxt.isEmpty) {
+                              if (phoneTxt.isEmpty) {
                                 Fluttertoast.cancel();
-                                _showToast("amount can't empty");
+                                _showToast("phone number can't empty");
                                 return;
                               }
-                              if (double.parse(amountTxt)<=0) {
+                              if (phoneTxt.length<=8) {
                                 Fluttertoast.cancel();
-                                _showToast("please input valid amount!");
+                                _showToast("please input valid phone number!");
                                 return;
                               }
-                              if (double.parse(amountTxt)>_currentBalance) {
-                                Fluttertoast.cancel();
-                                _showToast("your current balance is not enough!");
-                                return;
-                              }
-                              if (_currencyId==""||_currencyId.isEmpty) {
-                                Fluttertoast.cancel();
-                                _showToast("select currency!");
-                                return;
-                              }
+                              _phoneNumber=phoneTxt;
+                              _saveNumber(
+                                userId: _userId,
+                                mobileNumber:_phoneNumber,
+                                logo:_paymentMethodLogo,
+                                paymentMethodTypeId:_paymentMethodId
+                              );
 
-                              // Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyMessagePageScreen(
-                              //   currentBalance:_currentBalance.toString(),
-                              //   inputBalance:double.parse(amountTxt).toString(),
-                              //   currencyId:_currencyId,
-                              //   receiverId: _receiverId,
-                              //   receiverName: _receiverName,
-                              //   currencySymbol: _currencySymbol,
-                              // )));
-                              //
                             },
                             child: _buildContinueButton(),
                           ),
@@ -238,30 +231,48 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
           child: Row(
             children: [
 
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: SizedBox(
-                    height: 70,
-                    width: 70,
-                    child: Stack(children: <Widget>[
-                      Image.asset("assets/images/orange_money_logo.png")
-                      // FadeInImage.assetNetwork(
-                      //   height: 120,
-                      //   width: 120,
-                      //   fit: BoxFit.fill,
-                      //   placeholder: 'assets/images/loading.png',
-                      //   image:
-                      //   "https://technofaq.org/wp-content/uploads/2017/03/image00-21.jpg",
-                      //   imageErrorBuilder: (context, url, error) =>
-                      //       Image.asset(
-                      //         'assets/images/loading.png',
-                      //         fit: BoxFit.fill,
-                      //       ),
-                      // ),
+             InkWell(
+               onTap: (){
+                 _showAlertDialog(
+                   context,_mobilePaymentTypeList
+                 );
+
+               },
+               child:  ClipRRect(
+                   borderRadius: BorderRadius.circular(10.0),
+                   child: SizedBox(
+                     height: 70,
+                     width: 70,
+                     child: Stack(children: <Widget>[
+                       if(_paymentMethodLogo.isEmpty)...{
+                         Image.asset(
+                           'assets/images/empty.jpg',
+                           height: 70,
+                           width: 70,
+                           fit: BoxFit.fill,
+                         ),
+                       }
+                       else...{
+                         FadeInImage.assetNetwork(
+                           height: 70,
+                           width: 70,
+                           // fit: BoxFit.fill,
+                           fit: BoxFit.fill,
+                           placeholder: 'assets/images/empty.jpg',
+                           image: _paymentMethodLogo,
+                           imageErrorBuilder: (context, url, error) =>
+                               Image.asset(
+                                 'assets/images/empty.jpg',
+                                 fit: BoxFit.fill,
+                               ),
+                         ),
+                       }
 
 
-                    ]),
-                  )),
+
+                     ]),
+                   )),
+             ),
 
               Expanded(child:  Column(
                 children: [
@@ -277,7 +288,7 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
                     //
                     style: TextStyle(
                         color: novalexxa_text_color,
-                        fontSize: 26,
+                        fontSize: 22,
                         fontWeight: FontWeight.w600),
 
                     autofocus: false,
@@ -370,6 +381,211 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
     var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
     return format.currencySymbol;
   }
+
+  _getMobilePaymentTypeList() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        //  _showLoadingDialog(context, "Loading...");
+        //  shimmerStatus=true;
+        try {
+          var response = await get(
+            Uri.parse('$BASE_URL_FOR_PAYMENT$SUB_URL_API_MOBILE_PAYMENT_TYPE_LIST'),
+          );
+
+          if (response.statusCode == 200) {
+            setState(() {
+              // shimmerStatus=false;
+
+              var data = jsonDecode(response.body);
+              _mobilePaymentTypeList=data["data"];
+
+              _paymentMethodId=_mobilePaymentTypeList[0]["payment_method_type_id"].toString();
+              _paymentMethodName=_mobilePaymentTypeList[0]["payment_method_type_info"]["payment_type_name"].toString();
+              _paymentMethodLogo=BASE_URL_FOR_PAYMENT1+_mobilePaymentTypeList[0]["payment_method_type_info"]["logo"].toString();
+
+             // _showToast(_mobilePaymentTypeList.length.toString());
+              // _currentBalance=double.parse(data["amount"].toString());
+            });
+          } else {
+            Fluttertoast.cancel();
+          }
+        } catch (e) {
+          Fluttertoast.cancel();
+        }
+      }
+    } on SocketException catch (e) {
+      Fluttertoast.cancel();
+      showToast("No Internet Connection!");
+    }
+  }
+
+
+
+  _saveNumber(
+      {
+        required String paymentMethodTypeId,
+        required String mobileNumber,
+        required String userId,
+        required String logo,
+      }) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Checking...");
+        try {
+          Response response =
+          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_MOBILE_NUMBER_SAVE_LIST'),
+              body: {
+                'payment_method_type_id': paymentMethodTypeId,
+                'mobile_number': mobileNumber,
+                'user_id': userId,
+                'logo': logo,
+              });
+          Navigator.of(context).pop();
+        //  _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 201) {
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                  TopUpAccountMobileAmountPageScreen(paymentMethodId: _paymentMethodId,
+                    phoneNumber: mobileNumber,)));
+
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
+
+
+  void _showAlertDialog(BuildContext context, List _countryListData) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        // return VerificationScreen();
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          child: Container(
+            // color: Colors.green,
+            margin: const EdgeInsets.only(
+                left: 15.0, right: 15.0, top: 20, bottom: 20),
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 10.0, right: 10.0, top: 00, bottom: 10),
+                  child: Text(
+                    "Select your payment method",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: novalexxa_text_color,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    softWrap: false,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                ),
+
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _countryListData == null ? 0 : _countryListData.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkResponse(
+                          onTap: () {
+                            setState(() {
+                              Navigator.of(context).pop();
+                              _paymentMethodId=_countryListData[index]["payment_method_type_id"].toString();
+                              _paymentMethodName=_countryListData[index]["payment_method_type_info"]["payment_type_name"].toString();
+                              _paymentMethodLogo=BASE_URL_FOR_PAYMENT1+_countryListData[index]["payment_method_type_info"]["logo"].toString();
+
+                            });
+                          },
+                          child: Container(
+                            margin: EdgeInsets.only(
+                                left: 10.0, right: 10.0, top: 10, bottom: 10),
+                            child: Column(
+                              children: [
+                                Flex(
+                                  direction: Axis.horizontal,
+                                  children: [
+                                    ClipRRect(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                        child: SizedBox(
+                                          height: 40,
+                                          width: 40,
+                                          child: Stack(children: <Widget>[
+                                            if(_countryListData[index]["payment_method_type_info"]["logo"].toString().isEmpty)...{
+                                              Image.asset(
+                                                'assets/images/empty.jpg',
+                                                height: 40,
+                                                width: 40,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            }
+                                            else...{
+                                              FadeInImage.assetNetwork(
+                                                height: 40,
+                                                width: 40,
+                                                // fit: BoxFit.fill,
+                                                fit: BoxFit.fill,
+                                                placeholder: 'assets/images/empty.jpg',
+                                                image: BASE_URL_FOR_PAYMENT1+_countryListData[index]["payment_method_type_info"]["logo"].toString(),
+                                                imageErrorBuilder: (context, url, error) =>
+                                                    Image.asset(
+                                                      'assets/images/empty.jpg',
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                              ),
+                                            }
+
+
+
+                                          ]),
+                                        )),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Text(
+                                        _countryListData[index]["payment_method_type_info"]["payment_type_name"].toString(),
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                        softWrap: false,
+                                        overflow: TextOverflow.clip,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 
 }
 

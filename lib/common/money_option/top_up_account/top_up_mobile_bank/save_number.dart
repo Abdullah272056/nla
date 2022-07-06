@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_your_account_for_mobile.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/top_up_money_congrats.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -369,7 +370,6 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
               // Specify a key if the Slidable is dismissible.
               key: ValueKey(0),
 
-
               endActionPane:ActionPane(
                 extentRatio: .5,
                 motion:DrawerMotion(),
@@ -495,7 +495,6 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                 ],
               ),
 
-
               // The child of the Slidable is what the user sees when the
               // component is not dragged.
               child:Container(
@@ -506,12 +505,47 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                   child: Flex(
                     direction: Axis.horizontal,
                     children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: SizedBox(
+                            height: 60,
+                            width: 60,
+                            child: Stack(children: <Widget>[
+                              if(response["logo"].toString().isEmpty)...{
 
-                      Image.asset("assets/images/card1.png",
-                        height: 34,
-                        width: 50,
-                        fit: BoxFit.fill,
-                      ),
+                                Image.asset(
+                                  'assets/images/empty.jpg',
+                                  height: 60,
+                                  width: 60,
+                                  fit: BoxFit.fill,
+                                ),
+
+                              }
+                              else...{
+
+                                FadeInImage.assetNetwork(
+                                  height: 60,
+                                  width: 60,
+                                  // fit: BoxFit.fill,
+                                  fit: BoxFit.fill,
+                                  placeholder: 'assets/images/empty.jpg',
+                                  image: response["logo"].toString(),
+                                  imageErrorBuilder: (context, url, error) =>
+                                      Image.asset(
+                                        'assets/images/empty.jpg',
+                                        fit: BoxFit.fill,
+                                      ),
+                                ),
+
+                              }
+
+                            ]),
+                          )),
+                      // Image.asset("assets/images/card1.png",
+                      //   height: 34,
+                      //   width: 50,
+                      //   fit: BoxFit.fill,
+                      // ),
 
                       SizedBox(
                         width: 17,
@@ -519,7 +553,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                       Expanded(child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          response["card_number"].toString(),
+                          response["mobile_number"].toString(),
                           // "**** **** **** 8743",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -541,21 +575,14 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
 
 
       ),
-    )
-
-    ;
+    );
   }
 
   Widget _buildAddNewCardButton() {
     return InkResponse(
       onTap: (){
-        // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
-        //   currencyId: _currencyId,
-        //   inputBalance: _inputBalance,
-        // )));
-
-
-
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpYourAccountPageScreen(
+         )));
       },
       child: Container(
           margin: const EdgeInsets.only(left: 50.0, right: 50.0,top: 25),
@@ -602,13 +629,9 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                 ),
               ),
             ),
-
-
           )
       ),
     );
-
-
   }
 
   Widget _buildAlertBackButton() {
@@ -748,6 +771,8 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
       showToast("No Internet Connection!");
     }
   }
+
+
   _deleteSaveCardsList(String cardId) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -914,7 +939,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: const [
             Text(
-              "Credit Card",
+              "Save Number",
               textAlign: TextAlign.center,
 
               style: TextStyle(
@@ -926,7 +951,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
               height: 10,
             ),
             Text(
-              "You don't have any card save in\nyour account",
+              "You don't have any card number in\nyour account",
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: novalexxa_hint_text_color,
@@ -945,18 +970,9 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-          // if( imageFile==null){
-          //   _showToast("please select document image!");
-          // }
-          // else{
-
-          //   //_showToast("Ok");
-          // }
-
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>AddCreditCardScreen(
-          //   currencyId: _currencyId,
-          //   inputBalance: _inputBalance,
-          // )));
+         // _showToast("sdf");
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpYourAccountPageScreen(
+          )));
 
 
         },
@@ -988,7 +1004,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                 ),
                 SizedBox(width: 10,),
                 Text(
-                  "Add New Card",
+                  "Add New Number",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'PT-Sans',
@@ -1088,6 +1104,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
 
     ;
   }
+
   Widget _buildCardListItemShimmer() {
     return Container(
       margin: EdgeInsets.only(right: 30.0, top: 10, bottom: 10, left: 30),
@@ -1161,5 +1178,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
 
     ;
   }
+
+
 }
 

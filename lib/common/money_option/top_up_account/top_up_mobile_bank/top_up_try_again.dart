@@ -13,6 +13,7 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../create_account_particular_company.dart';
 import '../../../log_in/log_in.dart';
+import '../select_top_up.dart';
 
 
 
@@ -92,7 +93,8 @@ class _TryAgainTopUPScreenState extends State<TryAgainTopUPScreen> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-
+          Route route = MaterialPageRoute(builder: (context) => TopUpScreenScreen());
+          Navigator.pushReplacement(context, route);
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateAccountParticularAndCompanyScreen()));
 
         },

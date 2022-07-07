@@ -340,7 +340,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
-        textColor: Colors.white,
+        textColor: Colors.black,
         fontSize: 16.0);
   }
 

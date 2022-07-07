@@ -5,7 +5,10 @@ import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 import 'Particular/biometric_particular.dart';
+import 'Particular/create_confirm_pin_particular.dart';
 import 'Particular/create_pin_particular.dart';
+import 'Particular/email_verification_particular.dart';
+import 'Particular/message_verification_particular.dart';
 import 'Particular/particular_acount_information.dart';
 import 'Particular/particular_information.dart';
 import 'Particular/particular_information2.dart';
@@ -63,7 +66,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
-         body:LogInByPinScreen()
+         body:CreateConfirmPinParticularScreen("1","123456")
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),
     );

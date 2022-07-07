@@ -39,7 +39,10 @@ import 'common/navigation_page/navigation_bar_page.dart';
 import 'common/notification/notification.dart';
 import 'company/company_account.dart';
 import 'company/company_information.dart';
+import 'company/create_confirm_pin_company.dart';
 import 'company/create_pin_Company.dart';
+import 'company/email_verification_company.dart';
+import 'company/message_verification_company.dart';
 import 'company/registration_for_company.dart';
 import 'create_pin_demo.dart';
 import 'finger_print_auth.dart';
@@ -67,7 +70,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
-         body:CreatePinCompanyScreen("1")
+         body:MessageVerificationCompanyScreen("1")
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),
     );

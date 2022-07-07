@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
-         body:SplashScreen1()
+         body:LogInByPinScreen()
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),
     );

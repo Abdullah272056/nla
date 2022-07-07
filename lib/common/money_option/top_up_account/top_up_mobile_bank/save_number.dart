@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_account_mobile_amount_page.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_your_account_for_mobile.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/top_up_money_congrats.dart';
 
@@ -336,8 +337,13 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
     );
   }
 
+
+
+
+
+
   Widget _buildCardListItem(var response) {
-    return Container(
+    return  Container(
       margin: EdgeInsets.only(right: 30.0, top: 10, bottom: 10, left: 30),
       //width: 180,
       decoration: new BoxDecoration(
@@ -357,12 +363,11 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
       ),
       child: InkWell(
           onTap: (){
-           // _sendAmountBalanced(cardId: response["card_id"].toString(),currencyId:_currencyId ,inputBalance: _inputBalance);
-            // setState(() {
-            //
-            //
-            // });
-
+            setState(() {
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                  TopUpAccountMobileAmountPageScreen(paymentMethodId: response["payment_method_type_id"].toString(),
+                    phoneNumber: response["mobile_number"].toString(),)));
+            });
           },
           child: SlidableAutoCloseBehavior(
             child: Slidable(
@@ -572,7 +577,6 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
             ),
 
           )
-
 
       ),
     );

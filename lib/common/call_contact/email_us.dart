@@ -335,11 +335,9 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         hint: Text('hooseNumber'),
         items: _emailUsTopicList.map((item) {
           return DropdownMenuItem(
-            value:item["topic_name"],
+            value:item["topic_name"]+"~"+item["topic_id"].toString(),
             // value: item['topic_name'].toString(),
             child: _buildDropDownItemDesign(item)
-
-           // Text(item['topic_name'].toString()),
           );
         }).toList(),
         customItemsHeight: 8,
@@ -355,7 +353,11 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         offset: const Offset(0, 0),
         onChanged: (newVal) {
           setState(() {
-            _topicId="1";
+            String abc=newVal.toString();
+            String separator ="~";
+            int sepPos = abc.indexOf(separator);
+            _topicId=abc.substring(sepPos + separator.length);
+           // _topicId="1";
             String value=newVal.toString();
             dropdownvalue =newVal;
           });

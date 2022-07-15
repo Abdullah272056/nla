@@ -14,6 +14,8 @@ import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../navigation_page/home_page.dart';
 import '../navigation_page/navigation_bar_page.dart';
 import '../static/Colors.dart';
+import '../static/Colors.dart';
+import '../static/Colors.dart';
 import '../static/loding_dialog.dart';
 import '../static/toast.dart';
 import 'finger_print_input_for_loging.dart';
@@ -466,7 +468,7 @@ class _LogInScreenState extends State<LogInScreen> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
-        backgroundColor: Colors.hint_color,
+        backgroundColor: hint_color,
         textColor: Colors.black,
         fontSize: 16.0);
   }

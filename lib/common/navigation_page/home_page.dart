@@ -34,7 +34,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   List _currencyTypeList= [];
   List _transactionHistoryList= [];
   String _userId = "";
-  String _userName = "xxxxxxx";
+  String _userName = "------";
 
   int _current = 0;
   final CarouselController _controller = CarouselController();
@@ -42,6 +42,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   bool buttonShimmerStatus=true;
   bool headerShimmerStatus=true;
   bool cardShimmerStatus=true;
+
   @override
   @mustCallSuper
   initState() {
@@ -58,6 +59,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -957,7 +959,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     );
   }
 
-
   _getUserCurrencyTypeList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -1544,5 +1545,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
     var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);
     return format.currencySymbol;
   }
+
+
 }
 

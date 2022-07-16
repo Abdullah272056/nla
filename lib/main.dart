@@ -19,6 +19,7 @@ import 'common/call_contact/customer_services.dart';
 import 'common/call_contact/email_us.dart';
 import 'common/log_in/finger_print_done.dart';
 import 'common/log_in/finger_print_input_for_loging.dart';
+import 'common/log_in/log_in.dart';
 import 'common/log_in/login_by_pin.dart';
 
 import 'common/money_option/pay_with_qr_code/pay_with_qr_amount_page.dart';
@@ -70,7 +71,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
-         body:MessageVerificationCompanyScreen("1")
+         body:LogInScreen()
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),
     );

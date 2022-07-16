@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
+import '../create_account_particular_company.dart';
 import '../navigation_page/home_page.dart';
 import '../navigation_page/navigation_bar_page.dart';
 import '../static/Colors.dart';
@@ -181,7 +182,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           ],
                           ),
                           Container(
-                            margin:  EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 18),
+                            margin:  EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 25),
                             child:Align(
                               alignment: Alignment.topLeft,
                               child: Text("Forgot Password ?",
@@ -191,7 +192,45 @@ class _LogInScreenState extends State<LogInScreen> {
                                       fontWeight: FontWeight.w500)
                               ),
                             ) ,
-                          )
+                          ),
+
+                          Container(
+                            margin:  EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 18),
+                            child:Align(
+                              alignment: Alignment.topLeft,
+                              child: InkWell(
+                                onTap: (){
+
+                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateAccountParticularAndCompanyScreen()));
+
+                                },
+                                child: Text.rich(
+                                  TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text:"Don't have an Account?",
+                                          style: TextStyle(
+                                              color: novalexxa_text_color,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500)
+                                      ),
+                                      TextSpan(
+                                          text: ' Sign Up',
+                                          style: TextStyle(
+                                              color: novalexxa_color,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400)
+                                      ),
+
+                                    ],
+                                  ),
+                                  // textAlign: TextAlign.center,
+                                ),
+                              ),
+
+
+                            ) ,
+                          ),
 
 
 

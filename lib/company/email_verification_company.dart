@@ -546,7 +546,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
                                   }
                                   else{
                                     // _userVerify(userId: _userId,otp:inputText );
-                                    _userVerify(userId: _userId,otp:_otpTxt );
+                                    _userVerify(userId: _userId,otp:inputText );
                                   }
 
                                 },

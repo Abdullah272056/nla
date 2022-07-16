@@ -28,7 +28,7 @@ class EmailVerificationParticularScreen extends StatefulWidget {
 class _EmailVerificationParticularScreenState extends State<EmailVerificationParticularScreen> {
   String _userId;
   _EmailVerificationParticularScreenState(this._userId);
-  String _otpTxt="";
+//  String _otpTxt="";
 
 
   String _firstDigitPin="-";
@@ -224,8 +224,8 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
         inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
         onCompleted: (pin) {
         //  Navigator.push(context,MaterialPageRoute(builder: (context)=>AddInformationForParticularScreen()));
-          _otpTxt = pin;
-          _userVerify(userId: _userId,otp:_otpTxt );
+         // _otpTxt = pin;
+         // _userVerify(userId: _userId,otp:_otpTxt );
 
         },
         onChanged: (value) {
@@ -520,7 +520,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                               Expanded(child:InkWell(
                                 onTap: (){
 
-
+                                 // _showToast(inputText);
                                   if(inputText.length<6||inputText.length>6){
 
                                     _showToast("Input six digit pin");
@@ -528,7 +528,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
                                   }
                                   else{
                                    // _userVerify(userId: _userId,otp:inputText );
-                                    _userVerify(userId: _userId,otp:_otpTxt );
+                                    _userVerify(userId: _userId,otp:inputText );
                                   }
 
                                 },

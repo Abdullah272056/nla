@@ -361,7 +361,9 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
           Navigator.of(context).pop();
           if (response.statusCode == 200) {
             _showToast("successfully verified");
-            _userSendCodeWithEmail();
+            //_userSendCodeWithEmail();
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>EmailVerificationCompanyScreen(_userId)));
+
 
           }
           else if (response.statusCode == 400) {

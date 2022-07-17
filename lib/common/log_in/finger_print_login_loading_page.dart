@@ -32,7 +32,7 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
 
   String _userId = "";
   String _finger_print_permission_status = "";
-
+  String _userName = "xxxxxxx";
   @override
   @mustCallSuper
   initState() {
@@ -166,7 +166,7 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
         Align(
           alignment: Alignment.center,
           child:Text(
-            "Simon Lewis",
+            _userName,
             textAlign: TextAlign.center,
 
             style: TextStyle(
@@ -285,6 +285,7 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
             setState(() {
               var data = jsonDecode(response.body);
               saveUserInfo(data);
+              _userName=data['data']['name'].toString();
               loging_status=2;
               _delay();
             });
@@ -316,17 +317,19 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
 
   }
 
-void saveUserInfo(var userInfo) async {
-  try {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    sharedPreferences.setString(pref_user_id, userInfo['data']['id'].toString());
-    sharedPreferences.setString(pref_user_uuid, userInfo['data']['uuid'].toString());
-  } catch (e) {
-    //code
+
+  void saveUserInfo(var userInfo) async {
+    try {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+      sharedPreferences.setString(pref_user_id, userInfo['data']['id'].toString());
+      sharedPreferences.setString(pref_user_uuid, userInfo['data']['uuid'].toString());
+      sharedPreferences.setString(pref_user_name, userInfo['data']['name'].toString());
+    } catch (e) {
+      //code
+    }
+
   }
-
-}
-
 
 }

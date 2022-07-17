@@ -18,6 +18,8 @@ import '../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../static/toast.dart';
 import 'package:unicode/unicode.dart' as unicode;
 
+import '../top_up_account/select_top_up.dart';
+
 class PayWithQRAmountPageScreen extends StatefulWidget {
   String receiverId;
   String receiverName;
@@ -219,29 +221,35 @@ class _PayWithQRAmountPageScreenState extends State<PayWithQRAmountPageScreen> {
                                         fontWeight: FontWeight.normal),
                                   ),),
 
-                                  Container(
-                                      padding: new EdgeInsets.only(left: 15,right: 15),
-                                      margin: new EdgeInsets.only(left: 17,right: 0),
-                                      decoration: BoxDecoration(
-                                          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                          ),
-                                          borderRadius: BorderRadius.circular(18.0)
-                                      ),
-                                      height: 36,
-                                      alignment: Alignment.center,
-                                      child:Text(
-                                        "Top up my account",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'PT-Sans',
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white,
-                                        ),
-                                      )
+                                  InkWell(
+                                    onTap: (){
+                                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
 
+                                    },
+                                    child:  Container(
+                                        padding: new EdgeInsets.only(left: 15,right: 15),
+                                        margin: new EdgeInsets.only(left: 17,right: 0),
+                                        decoration: BoxDecoration(
+                                            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                            ),
+                                            borderRadius: BorderRadius.circular(18.0)
+                                        ),
+                                        height: 36,
+                                        alignment: Alignment.center,
+                                        child:Text(
+                                          "Top up my account",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'PT-Sans',
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                          ),
+                                        )
+
+                                    ),
                                   )
                                 ],
 

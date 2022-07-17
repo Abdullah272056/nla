@@ -226,53 +226,54 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                             delayDuration: Duration(milliseconds: 0),// Not required
                             animationDuration: Duration(milliseconds: 700),// Not required
                             animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
-                            child:InkResponse(
-                              onTap: (){
+                            child: Container(
+                              margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Expanded(child: Text("Your current balance is not enough",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color:novalexxa_text_color,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.normal),
+                                  ),),
+                                  InkWell(
+                                    onTap: (){
+                                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
 
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
-                              },
-                             child: Container(
-                               margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
-                               child: Row(
-                                 mainAxisAlignment: MainAxisAlignment.center,
-                                 children: [
-                                   Expanded(child: Text("Your current balance is not enough",
-                                     textAlign: TextAlign.center,
-                                     style: TextStyle(
-                                         color:novalexxa_text_color,
-                                         fontSize: 12,
-                                         fontWeight: FontWeight.normal),
-                                   ),),
+                                    },
+                                    child:  Container(
+                                        padding: new EdgeInsets.only(left: 15,right: 15),
+                                        margin: new EdgeInsets.only(left: 17,right: 0),
+                                        decoration: BoxDecoration(
+                                            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+                                              begin: Alignment.centerLeft,
+                                              end: Alignment.centerRight,
+                                            ),
+                                            borderRadius: BorderRadius.circular(18.0)
+                                        ),
+                                        height: 36,
+                                        alignment: Alignment.center,
+                                        child:Text(
+                                          "Top up my account",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'PT-Sans',
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                          ),
+                                        )
 
-                                   Container(
-                                       padding: new EdgeInsets.only(left: 15,right: 15),
-                                       margin: new EdgeInsets.only(left: 17,right: 0),
-                                       decoration: BoxDecoration(
-                                           gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                                             begin: Alignment.centerLeft,
-                                             end: Alignment.centerRight,
-                                           ),
-                                           borderRadius: BorderRadius.circular(18.0)
-                                       ),
-                                       height: 36,
-                                       alignment: Alignment.center,
-                                       child:Text(
-                                         "Top up my account",
-                                         textAlign: TextAlign.center,
-                                         style: TextStyle(
-                                           fontFamily: 'PT-Sans',
-                                           fontSize: 12,
-                                           fontWeight: FontWeight.normal,
-                                           color: Colors.white,
-                                         ),
-                                       )
+                                    ),
+                                  )
 
-                                   )
-                                 ],
 
-                               ),
-                             ),
-                            )
+                                ],
+
+                              ),
+                            ),
                           )
 
                         },

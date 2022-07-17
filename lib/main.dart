@@ -71,12 +71,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
-<<<<<<< HEAD
-         body:LogInScreen()
-=======
          // body:MessageVerificationCompanyScreen("1")
-         body:SplashScreen1()
->>>>>>> origin
+         body:EmailVerificationParticularScreen("22")
+
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),
     );

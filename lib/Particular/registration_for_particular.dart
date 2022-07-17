@@ -46,6 +46,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
   //String _countryCode="IT";
   String _countryCode = "IT";
+  String _countryCodeForPhone = "";
 
 
   //var homeSearchResultData;
@@ -172,42 +173,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                     ),
                     userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
 
-                    SizedBox(
-                      height: 20,
-                    ),
 
-                    Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text.rich(
-                          TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Phone Number',
-                                  style: TextStyle(
-                                      color: novalexxa_hint_text_color,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400)
-                              ),
-                              TextSpan(
-                                  text: ' *',
-                                  style: TextStyle(
-                                      color: novalexxa_color,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400)
-                              ),
-
-                            ],
-                          ),
-                          // textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-
-
-
-                    userInputPhoneNumber(_phoneController!, 'Phone Number', TextInputType.phone),
                     //country
                     SizedBox(
                       height: 20,
@@ -247,6 +213,43 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                       height: .6,
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      margin: const EdgeInsets.only(left: 10),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: 'Phone Number',
+                                  style: TextStyle(
+                                      color: novalexxa_hint_text_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: novalexxa_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400)
+                              ),
+
+                            ],
+                          ),
+                          // textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+
+
+
+                    userInputPhoneNumber(_phoneController!, 'Phone Number', TextInputType.phone),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -412,12 +415,12 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             enabledBorder:UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
-            suffixIcon:  Icon(
+            suffixIcon: _countryCodeForPhone.isEmpty?Icon(
               Icons.phone_iphone,
               color: hint_color,
               size: 22.0,
-            ),
-
+            ):
+            Flag.fromString(_countryCode, height: 18, width: 22, fit: BoxFit.fill),
 
             hintText: hintTitle,
             hintStyle: const TextStyle(fontSize: 17, color: hint_color, fontStyle: FontStyle.normal),
@@ -674,8 +677,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                             setState(() {
                               Navigator.of(context).pop();
                               _countryName = _countryListData[index]['country_name'].toString();
-                              _countryCode = _countryListData[index]['country_code_name']
-                                  .toString();
+                              _countryCode = _countryListData[index]['country_code_name'].toString();
+                              _countryCodeForPhone = _countryListData[index]['country_code_name'].toString();
                               _countryNameId = _countryListData[index]['country_id'].toString();
 
                             });

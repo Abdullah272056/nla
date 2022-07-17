@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
          // body:MessageVerificationCompanyScreen("1")
-         body:EmailVerificationParticularScreen("22")
+         body:MessageVerificationCompanyScreen("22")
 
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),

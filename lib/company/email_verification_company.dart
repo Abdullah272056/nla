@@ -1,4 +1,5 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
@@ -65,6 +67,20 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
       fontSize: 20,
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500);
+
+  bool _isCountingStatus=false;
+  String _time="4:00";
+  late Timer _timer;
+  int _start = 4 * 60;
+  int _second=4 * 60;
+
+  @override
+  @mustCallSuper
+  void initState() {
+    super.initState();
+    //countDown();
+    startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,30 +177,61 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
                                           fontWeight: FontWeight.w400),
                                     ),),
                                 ),
-                                Container(
-                                  margin:EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
-                                  child: Align(alignment: Alignment.topCenter,
-                                    child: Text(
-                                      "01:36",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: novalexxa_color,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400),
-                                    ),),
-                                ),
-                                Container(
-                                  margin:EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
-                                  child: Align(alignment: Alignment.topCenter,
-                                    child: Text(
-                                      "Resend Code",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: novalexxa_hint_text_color,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w400),
-                                    ),),
-                                ),
+
+                                if(_isCountingStatus==false)...[
+                                  Container(
+                                    margin:EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
+                                    child: Align(alignment: Alignment.topCenter,
+                                      child: Text(
+                                        _time,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: novalexxa_color,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400),
+                                      ),),
+                                  ),
+                                ]else...[
+                                  Container(
+                                    margin:EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+                                    child: Align(alignment: Alignment.topCenter,
+                                      child: InkResponse(
+                                        onTap: (){
+
+                                          _userSendCodeWithEmail();
+
+                                        },
+                                        child: Text(
+                                          "Resend Code",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: novalexxa_hint_text_color,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ),),
+                                  ),
+                                  // Container(
+                                  //   margin:EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+                                  //   child: Align(alignment: Alignment.topCenter,
+                                  //     child: InkResponse(
+                                  //       onTap: (){
+                                  //
+                                  //         _userReSendCodeWithPhoneNumber();
+                                  //
+                                  //       },
+                                  //       child: Text(
+                                  //         "Resend Code",
+                                  //         textAlign: TextAlign.center,
+                                  //         style: TextStyle(
+                                  //             color: novalexxa_hint_text_color,
+                                  //             fontSize: 15,
+                                  //             fontWeight: FontWeight.w400),
+                                  //       ),
+                                  //     ),),
+                                  // ),
+                                ],
+
                                 SizedBox(
                                   height: 24,
                                 ),
@@ -309,6 +356,40 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
         fontSize: 16.0);
   }
 
+  _userSendCodeWithEmail() async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        showLoadingDialog(context,"Sending...");
+        try {
+          Response response =
+          await put(
+            Uri.parse('$BASE_URL_API$SUB_URL_API_EMAIL_SEND_CODE_COMPANY$_userId/'),
+          );
+          Navigator.of(context).pop();
+          if (response.statusCode == 200) {
+
+            String _time="4:00";
+            _showToast("Check your phone number");
+            _start=_second;
+            _isCountingStatus=false;
+            startTimer();
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
   Widget _buildBottomDesign() {
     return Container(
@@ -776,7 +857,28 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
 
   }
 
+  startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+            _isCountingStatus=true;
+          });
+        } else {
+          setState(() {
+            _start--;
+            final df = DateFormat('mm:ss');
+            _time=df.format(new DateTime.fromMillisecondsSinceEpoch(_start*1000)).toString();
+            // timetxt=df.format(new DateTime.fromMillisecondsSinceEpoch(_start*1000));
 
+          });
+        }
+      },
+    );
+  }
 
 }
 

@@ -24,7 +24,6 @@ class CreateConfirmPinParticularScreen extends StatefulWidget {
   String newPin;
   CreateConfirmPinParticularScreen(this.userId,this.newPin);
 
-
   @override
   State<CreateConfirmPinParticularScreen> createState() => _CreateConfirmPinParticularScreenState(this.userId,this.newPin);
 }
@@ -247,7 +246,6 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
                 'user_id': _userId,
                 'new_pin': newPin,
                 'confirm_pin': confirmPin,
-
               });
           Navigator.of(context).pop();
           if (response.statusCode == 201) {
@@ -256,7 +254,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
             setState(() {
               //_showToast("success");
               var data = jsonDecode(response.body);
-              saveUserId(_userId);
+              saveUserInfo(data);
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -284,6 +282,19 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     }
   }
 
+  void saveUserInfo(var userInfo) async {
+    try {
+      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+      sharedPreferences.setString(pref_user_id, userInfo['data']['id'].toString());
+      sharedPreferences.setString(pref_user_uuid, userInfo['data']['uuid'].toString());
+      sharedPreferences.setString(pref_user_name, userInfo['data']['name'].toString());
+    } catch (e) {
+      //code
+    }
+
+  }
+
   void saveUserId(String userId) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -304,8 +315,6 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
         textColor: Colors.black,
         fontSize: 16.0);
   }
-
-
 
   Widget _buildBottomDesign() {
     return Container(
@@ -769,7 +778,6 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     });
 
   }
-
 
 }
 

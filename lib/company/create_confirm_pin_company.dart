@@ -252,7 +252,7 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
             setState(() {
               //_showToast("success");
               var data = jsonDecode(response.body);
-              saveUserId(_userId);
+              saveUserInfo(data);
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(
@@ -280,16 +280,31 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
     }
   }
 
-  void saveUserId(String userId) async {
+  // void saveUserId(String userId) async {
+  //   try {
+  //     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //
+  //     sharedPreferences.setString(pref_user_id,userId);
+  //
+  //   } catch (e) {
+  //     //code
+  //   }
+  // }
+
+
+  void saveUserInfo(var userInfo) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-      sharedPreferences.setString(pref_user_id,userId);
-
+      sharedPreferences.setString(pref_user_id, userInfo['data']['id'].toString());
+      sharedPreferences.setString(pref_user_uuid, userInfo['data']['uuid'].toString());
+      sharedPreferences.setString(pref_user_name, userInfo['data']['name'].toString());
     } catch (e) {
       //code
     }
+
   }
+
 
   _showToast(String message) {
     Fluttertoast.showToast(

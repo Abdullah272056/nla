@@ -91,6 +91,8 @@
   String SUB_URL_API_TOP_UP_MOBILR_TRANSFER_FEE = "api/core/top-up-mobile-transfer-fee/";
   String SUB_URL_API_TOP_UP_MOBILR_TRANSFER = "api/core/top-up-mobile-transfer/";
 
+  String SUB_URL_API_TOP_UP_MOBILE_TRANSFER_STATUS_CHECK = "api/core/top-up-mobile-transfer-status-check/";
+
 
   //payment method
   String BASE_URL_FOR_PAYMENT1="http://3.249.105.56:8000";

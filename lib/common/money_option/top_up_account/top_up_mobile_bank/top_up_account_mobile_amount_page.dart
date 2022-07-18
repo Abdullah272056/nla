@@ -496,33 +496,28 @@ _mobileTopUpTransfer({
         Response response =
         await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TOP_UP_MOBILR_TRANSFER'),
             body: {
-
               'payment_method_type_id': paymentMethodTypeId,
               'mobile_number': mobileNumber,
               'user_id': userId,
               'amount': mainAmount,
-              // 'transfer_fee': transferFee,
-              // 'sub_amount': subAmount,
-
+              'currency_id': "5",
             });
-
-
-        Navigator.of(context).pop();
-        //  _showToast(response.statusCode.toString());
 
         if (response.statusCode == 200) {
           setState(() {
             // shimmerStatus=false;
             var data = jsonDecode(response.body);
-          //  _transferFee=data["transfer_fee"].toString();
+            topUpMobileTransferStatusCheck(data["response_json_data"]["payToken"].toString(),mainAmount);
 
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>
-                TopUpMoneyCongratsMobileScreen(sendAmount: mainAmount,)));
+
+
+
           });
 
         }
 
         else {
+          Navigator.of(context).pop();
           var data = jsonDecode(response.body.toString());
           _showToast(data['message']);
           Navigator.push(context,MaterialPageRoute(builder: (context)=>
@@ -539,6 +534,53 @@ _mobileTopUpTransfer({
     _showToast("No Internet Connection!");
   }
 }
+
+
+  topUpMobileTransferStatusCheck(String payToken,String mainBalanced) async {
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        try {
+
+        //  loading();
+          Response response =
+          await get(Uri.parse('$BASE_URL_API$SUB_URL_API_TOP_UP_MOBILE_TRANSFER_STATUS_CHECK$payToken/'),);
+
+          //_showToast(response.statusCode.toString());
+
+
+          Navigator.of(context).pop();
+          //  _showToast(response.statusCode.toString());
+
+          if (response.statusCode == 200) {
+            setState(() {
+              // shimmerStatus=false;
+              var data = jsonDecode(response.body);
+              //  _transferFee=data["transfer_fee"].toString();
+
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                  TopUpMoneyCongratsMobileScreen(sendAmount: mainBalanced,)));
+            });
+
+          }
+
+          else {
+            var data = jsonDecode(response.body.toString());
+            _showToast(data['message']);
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>
+                TryAgainTopUPScreen()));
+
+          }
+        } catch (e) {
+          // Navigator.of(context).pop();
+          print(e.toString());
+        }
+      }
+    } on SocketException catch (_) {
+      Fluttertoast.cancel();
+      _showToast("No Internet Connection!");
+    }
+  }
 
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

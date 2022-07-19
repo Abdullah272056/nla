@@ -159,7 +159,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
 
 
                         Align(alignment: Alignment.topCenter,
-                          child: userInputSearchField(_requestMoneyAmountController!, '00 €', TextInputType.text),
+                          child: userInputAmountField(_requestMoneyAmountController!, '00 €', TextInputType.text),
                         ),
                         SizedBox(height: 50,),
 
@@ -186,7 +186,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
     );
   }
 
-  Widget userInputSearchField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
+  Widget userInputAmountField(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
 
       alignment: Alignment.center,

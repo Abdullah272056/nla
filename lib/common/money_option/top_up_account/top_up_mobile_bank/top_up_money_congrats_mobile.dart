@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/select_top_up.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
+import '../../../navigation_page/home_page.dart';
+import '../../../navigation_page/navigation_bar_page.dart';
 import '../../../static/Colors.dart';
 
 
@@ -157,9 +159,13 @@ class _TopUpMoneyCongratsMobileScreenState extends State<TopUpMoneyCongratsMobil
       margin: const EdgeInsets.only(left: 50.0, right: 50.0,top: 75),
       child: ElevatedButton(
         onPressed: () {
-          //
-          Route route = MaterialPageRoute(builder: (context) => TopUpScreenScreen());
-          Navigator.pushReplacement(context, route);
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+            ),
+                (route) => false,
+          );
         },
         style: ElevatedButton.styleFrom(
             padding: EdgeInsets.zero,

@@ -61,7 +61,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
     loadUserIdFromSharePref().then((_) {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
-          _getSaveCardsList();
+          _getSaveNumberList();
           // _getChatUserList();
         });
       }
@@ -463,7 +463,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                                             children: [
 
                                               Expanded(child: _buildAlertCancelButton(),),
-                                              Expanded(child: _buildAlertYesDeleteButton(response["card_id"].toString()),),
+                                              Expanded(child: _buildAlertYesDeleteButton(response["user_top_up_number_saved_id"].toString()),),
                                             ],
                                           ),
 
@@ -678,7 +678,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
         // Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
         // Navigator.pushReplacement(context, route);
         Navigator.of(context).pop();
-        _deleteSaveCardsList(cardId);
+        _deleteSaveNumberList(cardId);
 
       },
       child: Container(
@@ -742,7 +742,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
     );
   }
 
-  _getSaveCardsList() async {
+  _getSaveNumberList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -777,21 +777,22 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
   }
 
 
-  _deleteSaveCardsList(String cardId) async {
+  _deleteSaveNumberList(String cardId) async {
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
       _showLoadingDialog(context, "Deleting...");
         try {
           var response = await delete(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_CARD_DELETE$cardId/'),
+            Uri.parse('$BASE_URL_API$SUB_URL_API_MOBILE_NUMBER_SAVE_LIST$cardId/'),
 
           );
+         // _showToast(response.statusCode.toString());
           Navigator.of(context).pop();
           if (response.statusCode == 200) {
             setState(() {
-              _showToast("card deleted successfully!");
-              _getSaveCardsList();
+              _showToast("Card deleted successfully!");
+              _getSaveNumberList();
             });
           } else {
             Fluttertoast.cancel();

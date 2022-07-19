@@ -61,6 +61,9 @@ List _currencyTypeList = [];
 String _alertMessage="Please complete the operation by dailing *150*50# on your phone."
     " The operation is handled by our local service provider Evveress Tech.";
 
+  double _maximumTopUpAmountBalance=500000;
+
+
   @override
   @mustCallSuper
   initState() {
@@ -121,13 +124,22 @@ Widget build(BuildContext context) {
                 SizedBox(
                   height: 50,
                 ),
+                if(_inputAmountGatterThanStatus!=0)...{
+                  DelayedWidget(
+                    // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
+                    delayDuration: Duration(milliseconds: 0),// Not required
+                    animationDuration: Duration(milliseconds: 700),// Not required
+                    animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
+                    child: scanMessageSection(),
+                  )
+                },
 
-                scanMessageSection(),
                 Align(alignment: Alignment.topCenter,
                   child: userInputAmountField(_topUpMoneyAmountController!, '00', TextInputType.text),
                 ),
 
-                Expanded(child:  Align(alignment: Alignment.bottomCenter,
+                Expanded(
+                  child:  Align(alignment: Alignment.bottomCenter,
                   child: _buildBottomDesign(),
                 ),)
               ],
@@ -154,7 +166,7 @@ Widget scanMessageSection() {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: const [
           Text(
-            "You cannot top up more than 500000 XAF",
+            "You can not top up more than 500000 XAF",
             textAlign: TextAlign.center,
             style: TextStyle(
                 color: novalexxa_hint_text_color,
@@ -288,6 +300,12 @@ Widget _buildContinueButton() {
       if (double.parse(amountTxt)<=0) {
         Fluttertoast.cancel();
         _showToast("please input valid amount!");
+        return;
+      }
+
+      if(double.parse(amountTxt)>_maximumTopUpAmountBalance){
+          Fluttertoast.cancel();
+          _showToast("can not more than 500000 XAF");
         return;
       }
 
@@ -627,6 +645,171 @@ Widget _buildLoadingView() {
       if(inputText.isNotEmpty){
         String value=inputText+typeKey;
 
+
+        if(typeKey=="."){
+          if(_inputAmountGatterThanStatus==1){
+
+          }else{
+            if (inputText.contains(".")) {
+              //_showToast("Already use!");
+            }
+            else {
+              if(inputText!=null&& inputText.isNotEmpty){
+                double inputAmountDouble=double.parse(inputText);
+                if (inputAmountDouble<=0) {
+                  inputText = "0"+typeKey;
+                  //_sendMoneyAmountController?.text = typeKey;
+
+                }
+                else {
+                  inputText = inputText+typeKey;
+                  // _sendMoneyAmountController?.text = getOldText+typeKey;
+
+                }
+              }else{
+                inputText = "0"+typeKey;
+              }
+
+            }
+
+          }
+
+
+        }
+
+        else if(typeKey=="x") {
+          if (inputText != null && inputText.length > 1) {
+            inputText = inputText.substring(0, inputText.length - 1);
+
+            if(inputText!="."&& inputText!=".0"){
+              _inputAmountGatterThanStatus=0;
+            }else{
+              double inputAmountDouble=double.parse(inputText);
+
+              if(inputAmountDouble>_maximumTopUpAmountBalance){
+                _inputAmountGatterThanStatus=1;
+              }
+              else{
+                _inputAmountGatterThanStatus=0;
+
+              }
+            }
+
+          }
+          else{
+            inputText="";
+          }
+
+        }
+
+        else{
+          //String getOldText = _sendMoneyAmountController!.text;
+
+          if(inputText=="0"){
+            inputText=typeKey;
+          }
+          else{
+
+            if(inputText=="0."||inputText=="."||inputText==".0"||inputText=="0.0"){
+              if((inputText=="0.0"&&typeKey=="0") || (inputText==".0"&&typeKey=="0")){
+
+              }else{
+                inputText = inputText+typeKey;
+              }
+
+            }
+            else{
+              String value=inputText+typeKey;
+              String value1=inputText+typeKey;
+              double inputAmountDouble=double.parse(value);
+
+              // String str = "Tom.Hanks";
+              if(value1.contains(".")){
+                String separator =".";
+                int a=0;
+                int sepPos = value1.indexOf(separator);
+
+                if (sepPos == -1) {
+                  a=0;
+                  // System.out.println("");
+                }
+                else{
+                  a= value1.substring(sepPos +separator.length).length;
+                }
+
+                if(a>2){
+                  // _showToast("getter 2");
+                  return;
+                }
+              }
+
+
+
+
+              if(_inputAmountGatterThanStatus==0){
+                if(inputAmountDouble>_maximumTopUpAmountBalance){
+                  _inputAmountGatterThanStatus=1;
+                  inputText = inputText+typeKey;
+                  // _showToast("not possible");
+                }
+                else{
+                  _inputAmountGatterThanStatus=0;
+
+                  if (inputAmountDouble<=0) {
+                    inputText=typeKey;
+                    //_sendMoneyAmountController?.text = typeKey;
+
+                  }
+                  else {
+                    inputText = inputText+typeKey;
+                    // _sendMoneyAmountController?.text = getOldText+typeKey;
+
+                  }
+                }
+              }
+
+            }
+
+          }
+
+
+
+        }
+
+      }
+
+      else{
+        if(typeKey!="x"){
+          inputText =typeKey;
+        }else{
+          inputText ="";
+        }
+
+      }
+      _topUpMoneyAmountController?.text = inputText;
+
+      if(inputText==""||inputText==null||inputText.isEmpty){
+        setState(() {
+          _transferFee="0.00";
+        });
+      }else{
+        if(inputText!=""){
+          _getTransferFee(inputAmount:inputText );
+
+        }
+      }
+
+    });
+
+
+  }
+
+  void typeKeyboard1(String typeKey){
+    setState(() {
+
+      if(inputText.isNotEmpty){
+        String value=inputText+typeKey;
+
         if(typeKey=="."){
 
           if (inputText.contains(".")) {
@@ -749,73 +932,73 @@ Widget _buildLoadingView() {
 
   }
 
-_showToast(String message) {
-  Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Colors.white,
-      textColor: Colors.black,
-      fontSize: 16.0);
-}
+  _showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.black,
+        fontSize: 16.0);
+  }
 
-void loading(){
-  showDialog(context: context,
-      barrierDismissible:false,
-      builder: (BuildContext context){
-        return Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius:BorderRadius.circular(10.0)),
-          child:Wrap(
-            children: [
-              Container(
-                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 30,bottom: 30),
-                child: Column(
+  void loading(){
+    showDialog(context: context,
+        barrierDismissible:false,
+        builder: (BuildContext context){
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius:BorderRadius.circular(10.0)),
+            child:Wrap(
+              children: [
+                Container(
+                  padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 30,bottom: 30),
+                  child: Column(
 
-                  children: [
+                    children: [
 
-                    Image.asset(
-                      "assets/images/confirm_transaction_icon.png",
-                      height: 86,
-                      width: 86,
-                      fit: BoxFit.fill,
-                      //color: novalexxa_color1,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text("Confirm Transaction",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color:novalexxa_text_color,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                      Image.asset(
+                        "assets/images/confirm_transaction_icon.png",
+                        height: 86,
+                        width: 86,
+                        fit: BoxFit.fill,
+                        //color: novalexxa_color1,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Confirm Transaction",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color:novalexxa_text_color,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
 
-                    Text(_alertMessage,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color:novalexxa_text_color,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal),
-                    ),
+                      Text(_alertMessage,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color:novalexxa_text_color,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal),
+                      ),
 
-                    _buildLoadingView()
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      }
-  );
-}
+                      _buildLoadingView()
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }
+    );
+  }
 
-_getTransferFee({
+  _getTransferFee({
       required String inputAmount,
     }) async {
   try {
@@ -984,5 +1167,8 @@ _mobileTopUpTransfer({
     }
 
   }
+
+
+
 }
 

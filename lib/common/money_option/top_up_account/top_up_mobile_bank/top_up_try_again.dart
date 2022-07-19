@@ -8,11 +8,14 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/save_number.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../create_account_particular_company.dart';
 import '../../../log_in/log_in.dart';
+import '../../../navigation_page/home_page.dart';
+import '../../../navigation_page/navigation_bar_page.dart';
 import '../select_top_up.dart';
 
 
@@ -93,7 +96,7 @@ class _TryAgainTopUPScreenState extends State<TryAgainTopUPScreen> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          Route route = MaterialPageRoute(builder: (context) => TopUpScreenScreen());
+          Route route = MaterialPageRoute(builder: (context) => SaveNumberScreen());
           Navigator.pushReplacement(context, route);
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateAccountParticularAndCompanyScreen()));
 
@@ -134,7 +137,13 @@ class _TryAgainTopUPScreenState extends State<TryAgainTopUPScreen> {
   Widget _buildBackToHomeButton() {
     return InkWell(
       onTap: (){
-      //  Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+          ),
+              (route) => false,
+        );
 
       },
       child: Container(

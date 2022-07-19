@@ -308,8 +308,8 @@ Widget _buildContinueButton() {
           _showToast("can not more than 500000 XAF");
         return;
       }
-
-      _mobileTopUpTransfer(userId: _userId,mainAmount: _inputAmountBalance,mobileNumber: _phoneNumber,
+       // _showToast(_inputAmountBalance);
+      _mobileTopUpTransfer(userId: _userId,mainAmount: amountTxt,mobileNumber: _phoneNumber,
           paymentMethodTypeId: _paymentMethodId);
     },
     child: Container(
@@ -1074,7 +1074,9 @@ _mobileTopUpTransfer({
         }
        else if (response.statusCode == 400) {
           Navigator.of(context).pop();
-          _showToast("insufficient balance!");
+          var data = jsonDecode(response.body);
+          _showToast(data['message']);
+         // _showToast("insufficient balance!");
         }
         else {
           Navigator.of(context).pop();

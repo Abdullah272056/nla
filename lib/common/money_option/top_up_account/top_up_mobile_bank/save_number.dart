@@ -259,7 +259,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "Save Cards",
+                          "Saved Number",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: novalexxa_text_color,
@@ -791,7 +791,7 @@ class _SaveNumberScreenState extends State<SaveNumberScreen> {
           Navigator.of(context).pop();
           if (response.statusCode == 200) {
             setState(() {
-              _showToast("Card deleted successfully!");
+              _showToast("Number deleted successfully!");
               _getSaveNumberList();
             });
           } else {

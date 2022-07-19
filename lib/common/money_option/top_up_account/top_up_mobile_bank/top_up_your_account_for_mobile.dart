@@ -283,9 +283,10 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
                     autocorrect: false,
                     enableSuggestions: false,
                     cursorColor:intello_input_text_color,
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
-                    // inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                    //
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [FilteringTextInputFormatter.allow(RegExp('[0-9,]')),],
+                    maxLength: 9,
+
                     style: TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 22,
@@ -294,6 +295,7 @@ class _TopUpYourAccountPageScreenState extends State<TopUpYourAccountPageScreen>
                     autofocus: false,
                     decoration: InputDecoration(
                       border: InputBorder.none,
+                      counterText: "",
 
                       hintText: hintTitle,
                       hintStyle:  TextStyle(fontSize: 20,

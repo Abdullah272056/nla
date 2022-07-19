@@ -245,11 +245,11 @@ Widget userInputAmountField(TextEditingController userInput, String hintTitle, T
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500),
                             ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: intello_level_color,
-                              size: 15.0,
-                            ),
+                            // Icon(
+                            //   Icons.arrow_drop_down,
+                            //   color: intello_level_color,
+                            //   size: 15.0,
+                            // ),
                           ],
                         ),
                         onTap: (){
@@ -889,10 +889,13 @@ _mobileTopUpTransfer({
           });
 
         }
-
+       else if (response.statusCode == 400) {
+          Navigator.of(context).pop();
+          _showToast("insufficient balance!");
+        }
         else {
           Navigator.of(context).pop();
-          var data = jsonDecode(response.body.toString());
+          var data = jsonDecode(response.body);
           _showToast(data['message']);
           Navigator.push(context,MaterialPageRoute(builder: (context)=>
               TryAgainTopUPScreen()));
@@ -940,7 +943,7 @@ _mobileTopUpTransfer({
 
 
           }
-          if (response.statusCode == 202) {
+         else if (response.statusCode == 202) {
             setState(() {
               topUpMobileTransferStatusCheck(payToken,mainBalanced);
 

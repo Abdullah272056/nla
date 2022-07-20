@@ -18,7 +18,7 @@ import '../../../api_service/sharePreferenceDataSaveName.dart';
 import '../../static/toast.dart';
 import 'package:unicode/unicode.dart' as unicode;
 
-import '../top_up_account/select_top_up.dart';
+import '../top_up_account/top_up_credit_card/select_top_up.dart';
 
 class PayWithQRAmountPageScreen extends StatefulWidget {
   String receiverId;

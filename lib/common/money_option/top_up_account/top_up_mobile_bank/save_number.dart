@@ -12,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_account_mobile_amount_page.dart';
 import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank/top_up_your_account_for_mobile.dart';
-import 'package:nova_lexxa/common/money_option/top_up_account/top_up_money_congrats.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +23,7 @@ import '../../../../../api_service/sharePreferenceDataSaveName.dart';
 
 import '../../../static/Colors.dart';
 import '../../../static/toast.dart';
-import '../add_credit_cart.dart';
+import '../top_up_credit_card/add_credit_cart.dart';
 
 
 class SaveNumberScreen extends StatefulWidget {

@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/common/money_option/top_up_account/select_top_up.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
 import '../../../navigation_page/home_page.dart';

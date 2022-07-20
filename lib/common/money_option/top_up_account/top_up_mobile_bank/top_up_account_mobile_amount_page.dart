@@ -47,7 +47,8 @@ TextEditingController? _topUpMoneyAmountController = TextEditingController();
       color: novalexxa_text_color,
       fontSize: 26,
       decoration: TextDecoration.none,
-      fontWeight: FontWeight.w500);
+      fontWeight: FontWeight.w500
+  );
 
 String _userId = "";
 String _currencyId = "0";

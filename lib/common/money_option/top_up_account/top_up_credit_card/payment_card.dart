@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'card input format/my_strings.dart';
+import '../card input format/my_strings.dart';
 
 class PaymentCard {
   CardType? type;

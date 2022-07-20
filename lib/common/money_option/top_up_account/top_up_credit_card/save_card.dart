@@ -10,18 +10,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/Particular/scan_doc_back_particular.dart';
-import 'package:nova_lexxa/common/money_option/top_up_account/top_up_money_congrats.dart';
+import 'package:nova_lexxa/common/money_option/top_up_account/top_up_credit_card/top_up_money_congrats.dart';
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
 
 
-import '../../../../api_service/api_service.dart';
-import '../../../../api_service/sharePreferenceDataSaveName.dart';
+import '../../../../../api_service/api_service.dart';
+import '../../../../../api_service/sharePreferenceDataSaveName.dart';
 
-import '../../static/Colors.dart';
-import '../../static/toast.dart';
+import '../../../static/Colors.dart';
+import '../../../static/toast.dart';
 import 'add_credit_cart.dart';
 
 

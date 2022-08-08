@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../api_service/sharePreferenceDataSaveName.dart';
@@ -17,11 +18,41 @@ class SplashScreen1 extends StatefulWidget {
 
 class _SplashScreen1State extends State<SplashScreen1> {
   String _userId = "";
+  final QuickActions quickActions = const QuickActions();
 
   @override
   @mustCallSuper
   initState() {
     super.initState();
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(type: 'support', localizedTitle: 'Support', icon: 'logo'),
+      const ShortcutItem(type: 'topUp_money', localizedTitle: 'TopUp Money', icon: "logo"),
+      const ShortcutItem(type: 'send_money', localizedTitle: 'Send Money', icon: 'logo'),
+      const ShortcutItem(type: 'account_details', localizedTitle: 'Account Details', icon: 'logo',),
+      const ShortcutItem(type: 'scan_pay', localizedTitle: 'Scan/Pay', icon: 'logo'),
+    ]);
+
+
+    quickActions.initialize((type) {
+      if(type=="support"){
+
+      }
+      else if(type=="topUp_money"){
+
+      }
+      else if(type=="send_money"){
+
+      }
+      // else if(type=="categories"){
+      //
+      // }
+      else if(type=="account_details"){
+
+      }
+
+    });
+
     loadUserIdFromSharePref().then((_) {
       if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
         setState(() {
@@ -33,10 +64,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
       else{
 
       }
-
     });
-
-
 
   }
 
@@ -57,6 +85,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
             },
             child: Column(
               children: [
+
                 Expanded(child: Container()),
                 Container(
                   margin:EdgeInsets.only(right: 20.0,top: 00,left: 25),
@@ -120,7 +149,6 @@ class _SplashScreen1State extends State<SplashScreen1> {
                   ),
                 ),
                 Flex(
-
                   direction: Axis.horizontal,
                   children: [
                     Expanded(child:
@@ -172,6 +200,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
 
                   ],
                 ),
+
                 SizedBox(height: 30,)
               ],
 

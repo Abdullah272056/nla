@@ -39,6 +39,7 @@ import 'common/navigation_page/home_page.dart';
 import 'common/navigation_page/money_option.dart';
 import 'common/navigation_page/navigation_bar_page.dart';
 import 'common/notification/notification.dart';
+import 'common/static/Colors.dart';
 import 'company/company_account.dart';
 import 'company/company_information.dart';
 import 'company/create_confirm_pin_company.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return  MaterialApp(
+      color:novalexxa_color,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           //body:CustomerServicesScreen()

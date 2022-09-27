@@ -27,11 +27,9 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
 
   String countryName="en",countryIcon="icon_country.png";
 
-int _particular_company_selected_status=1;
+  int _particular_company_selected_status=1;
 
-
-
-  //image upload
+  ///image upload
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
   String _imageLink = "";
@@ -334,6 +332,7 @@ int _particular_company_selected_status=1;
       ],
     );
   }
+
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {
@@ -346,6 +345,7 @@ int _particular_company_selected_status=1;
 
     });
   }
+
 
   _imageUpload(String image64) async {
     try {
@@ -453,5 +453,8 @@ int _particular_company_selected_status=1;
 
     );
   }
+
+
+
 }
 

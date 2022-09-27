@@ -67,6 +67,7 @@ const Color transaction_send_money_color = Color(0xFFF50057);
 
 
  const Color scan_text_box_color = Color(0xFFF9F9FC);
+ const Color top_up_limit_text_box_color = Color(0xFFFFF4F7);
  const Color search_send_money_box_color = Color(0xFFF9F9FC);
 
  const  Color novalexxa_next_page_circle_color = Color(0x10000000);

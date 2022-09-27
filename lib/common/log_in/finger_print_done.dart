@@ -125,7 +125,7 @@ class _FingerPrintDoneScreenState extends State<FingerPrintDoneScreen> {
     // _authenticate();
     super.initState();
   }
-  // _authenticate();
+  /// _authenticate();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

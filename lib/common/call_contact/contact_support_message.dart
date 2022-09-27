@@ -488,10 +488,14 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
     _inputMessageController!.clear();
 
   }
-   convertText(String data) {
+
+  convertText(String data) {
 
 
     return data;
   }
+
+
+
 }
 

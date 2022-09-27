@@ -47,6 +47,7 @@ import 'company/create_pin_Company.dart';
 import 'company/email_verification_company.dart';
 import 'company/message_verification_company.dart';
 import 'company/registration_for_company.dart';
+import 'company/scan_doc_front_company.dart';
 import 'create_pin_demo.dart';
 import 'finger_print_auth.dart';
 

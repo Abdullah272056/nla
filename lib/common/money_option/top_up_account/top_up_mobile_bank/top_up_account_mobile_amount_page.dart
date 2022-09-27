@@ -159,7 +159,7 @@ Widget scanMessageSection() {
     margin: new EdgeInsets.only(left: 30,right: 30,top: 0,bottom: 15),
     alignment: Alignment.center,
 
-    decoration: BoxDecoration(color:scan_text_box_color, borderRadius: BorderRadius.circular(10)),
+    decoration: BoxDecoration(color:top_up_limit_text_box_color, borderRadius: BorderRadius.circular(10)),
     child: Padding(
       padding: const EdgeInsets.only(left: 20.0, top: 0,bottom: 0, right: 20),
       child: Column(

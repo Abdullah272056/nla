@@ -1,6 +1,5 @@
 
-  String BASE_URL1 = "http://52.30.104.68:8000";
-  String BASE_URL_API2 = "http://52.30.104.68:8000/";
+
 
   String BASE_URL = "http://3.249.53.197:8000";
   String BASE_URL_API = "http://3.249.53.197:8000/";

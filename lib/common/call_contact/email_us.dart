@@ -32,8 +32,11 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
    int _customTopic=0;
    String _topicId="";
   var _emailUsTopicList = [];
+  List _data = [];
 
- // String topicName="Select Topic";
+  String _selectName="";
+
+
   String _userId = "";
   @override
   @mustCallSuper
@@ -91,23 +94,25 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
                   ],
                 ),
+                userInputSelectTopic(),
 
 
+                // Container(
+                //
+                //   alignment: Alignment.center,
+                //   margin: new EdgeInsets.only(left: 30,right: 30,top: 50),
+                //   decoration: BoxDecoration(
+                //       color:search_send_money_box_color,
+                //       borderRadius: BorderRadius.circular(10)),
+                //   child: Padding(
+                //       padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
+                //       child:Align(alignment: Alignment.topCenter,
+                //         child: _buildDropDownMenu(),
+                //       )
+                //   ),
+                // ),
 
-                Container(
 
-                  alignment: Alignment.center,
-                  margin: new EdgeInsets.only(left: 30,right: 30,top: 50),
-                  decoration: BoxDecoration(
-                      color:search_send_money_box_color,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
-                      child:Align(alignment: Alignment.topCenter,
-                        child: _buildDropDownMenu(),
-                      )
-                  ),
-                ),
                 if(_customTopic==1)...{
                   SizedBox(height: 30,),
                   userInputCustomTopic(_sendTopicController!, 'Enter your Topic', TextInputType.text,),
@@ -245,6 +250,89 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
     );
   }
 
+  Widget userInputSelectTopic() {
+    return Container(
+        height: 55,
+
+        alignment: Alignment.center,
+        margin: new EdgeInsets.only(left: 30,right: 30,top: 50,bottom: 15,),
+
+        decoration: BoxDecoration(
+            color:search_send_money_box_color,
+            borderRadius: BorderRadius.circular(10)),
+        child: Row(
+          children: [
+            Expanded(child: DropdownButton2(
+
+
+              //   menuMaxHeight:55,
+              value: _selectName != null && _selectName.isNotEmpty ? _selectName : null,
+              underline:SizedBox.shrink(),
+              hint:Row(
+                children: [
+                  SizedBox(width: 20,),
+                  Text("Select Your Topic",
+                      style: TextStyle(
+                          color: intello_input_text_color,
+                          fontSize: 18,
+                          fontWeight: FontWeight.normal)),
+                ],
+              ),
+              isExpanded: true,
+
+             /// icon: SizedBox.shrink(),
+              buttonPadding: const EdgeInsets.only(left: 0, right: 14),
+
+              items:
+              _data.map((list) {
+                return DropdownMenuItem(
+
+
+
+                  child: Container(
+                    // color: Colors.yellow,
+                    child:Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+
+                        const SizedBox(width: 20,),
+                        Expanded(child: Text(
+                            list["topic_name"].toString(),
+                            style: TextStyle(
+                                color: intello_input_text_color,
+                                //color: intello_text_color,
+                                fontSize: 18,
+                                fontWeight: FontWeight.normal)),),
+
+
+                        SizedBox(width: 20,),
+
+                      ],
+                    ) ,
+
+                  ),
+
+                  // Text(list["country_name"].toString()),
+                  value: list["topic_id"].toString(),
+                );
+
+              },
+              ).toList(),
+              onChanged: (String? value) {
+                //_getCountryDataList1();
+                setState((){
+                  _selectName=value.toString();
+                 // _showToast(_selectName);
+                });
+
+              },
+
+            ),)
+          ],
+        )
+    );
+  }
+
   Widget userInputMessage(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
     return  Container(
       margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
@@ -340,7 +428,8 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             child: _buildDropDownItemDesign(item)
           );
         }).toList(),
-        customItemsHeight: 8,
+        buttonHeight: 8,
+        // customItemsHeight: 8,
         itemHeight: 55.0,
         itemPadding: const EdgeInsets.only(left: 10, right: 10),
         //dropdownWidth: 160,
@@ -403,17 +492,22 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
           String messageTxt = _sendMoneyMessageController!.text;
 
+          if (_selectName.isEmpty) {
+            Fluttertoast.cancel();
+            validation_showToast("Select topic!");
+            return;
+          }
 
             if (messageTxt.isEmpty) {
               Fluttertoast.cancel();
-              validation_showToast("email can't empty");
+              validation_showToast("message can't empty");
               return;
             }
 
           _sendEmail(
             user_id: _userId,
             send_message: messageTxt,
-            topic_id: _topicId
+            topic_id: _selectName
           );
 
 
@@ -490,6 +584,8 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             setState(() {
               var data = jsonDecode(response.body);
               _emailUsTopicList=data["data"];
+              _data=data["data"];
+             // _showToast(_emailUsTopicList.toString());
 
             });
           } else {

@@ -312,8 +312,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
           child: _buildDropButton(),
         ),
         // openWithLongPress: true,
-        customItemsIndexes: const [4],
-        customItemsHeight: 8,
+        buttonHeight: 8,
         items: [
           ...MenuItems.firstItems.map(
                 (item) =>

@@ -64,7 +64,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
                       animationDuration: 1000,
                       percent: 0.7,
                       center: Text("70%"),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,

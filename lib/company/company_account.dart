@@ -57,7 +57,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                       animationDuration: 1000,
                       percent: 0.8,
                       center: Text("80%"),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,

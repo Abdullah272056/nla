@@ -13,7 +13,6 @@ import 'package:nova_lexxa/common/money_option/top_up_account/top_up_mobile_bank
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_From_mobile.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class TopUpScreenScreen extends StatefulWidget {
   const TopUpScreenScreen({Key? key}) : super(key: key);

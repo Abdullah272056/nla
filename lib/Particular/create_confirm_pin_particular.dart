@@ -86,7 +86,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
                                   animationDuration: 1000,
                                   percent: 1.0,
                                   center: Text("100%"),
-                                  linearStrokeCap: LinearStrokeCap.roundAll,
+                                  barRadius: const Radius.circular(10),
                                   fillColor:Colors.white,
                                   backgroundColor: novalexxa_indicator_unselected_color,
                                   progressColor: novalexxa_color,

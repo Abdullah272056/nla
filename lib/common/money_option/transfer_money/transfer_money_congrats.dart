@@ -56,7 +56,7 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
                           animationDuration: 1000,
                           percent: 1,
                           center: Text("100%"),
-                          linearStrokeCap: LinearStrokeCap.roundAll,
+                          barRadius: const Radius.circular(10),
                           fillColor:Colors.white,
                           backgroundColor: novalexxa_indicator_unselected_color,
                           progressColor: novalexxa_color,

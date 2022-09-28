@@ -178,7 +178,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                 animationDuration: 1000,
                 percent: 0.6,
                 center: Text("60%"),
-                linearStrokeCap: LinearStrokeCap.roundAll,
+                barRadius: const Radius.circular(10),
                 fillColor:Colors.white,
                 backgroundColor: novalexxa_indicator_unselected_color,
                 progressColor: novalexxa_color,

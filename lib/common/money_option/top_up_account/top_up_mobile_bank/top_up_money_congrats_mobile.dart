@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:substring_highlight/substring_highlight.dart';
 
 import '../../../navigation_page/home_page.dart';
 import '../../../navigation_page/navigation_bar_page.dart';

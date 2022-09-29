@@ -1,8 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
 
@@ -54,7 +51,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                 Stack(
                   children: [
                     //bg
-                    Container(
+                    SizedBox(
                       height: 185,
 
                       child: Image.asset(
@@ -78,12 +75,12 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                           direction: Axis.horizontal,
                           children: [
                             Container(
-                              margin: new EdgeInsets.only(left: 30),
+                              margin: const EdgeInsets.only(left: 30),
                               child: InkResponse(
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30.0,
@@ -93,8 +90,8 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
 
                             Expanded(
                                 child: Container(
-                                  margin: new EdgeInsets.only(right: 60),
-                                  child: Align(
+                                  margin: const EdgeInsets.only(right: 60),
+                                  child: const Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Pay With QR",
@@ -138,8 +135,8 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
 
                           ),
                         ),
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Send Money to",
                             textAlign: TextAlign.center,
@@ -149,8 +146,8 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Anna Lain",
                             textAlign: TextAlign.center,
@@ -165,9 +162,9 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                         Align(alignment: Alignment.topCenter,
                           child: userAmountSection(),
                         ),
-                        SizedBox(height: 30,),
+                        const SizedBox(height: 30,),
                         //message section
-                        Align(alignment: Alignment.topCenter,
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Add custom Message to Recipient",
                             textAlign: TextAlign.center,
@@ -206,12 +203,12 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
         child: Row(
           children: [
 
@@ -228,13 +225,13 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                   child: Text(
                     _inputBalance.toString()+"€",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 22,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
 
                 Align(
                   alignment: Alignment.topCenter,
@@ -242,7 +239,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
 
                     "Current balance is "+_currentBalance.toString()+"€",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: intello_level_color,
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
@@ -274,7 +271,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                         child:Wrap(
                           children: [
                             Container(
-                              padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                              padding:const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
                               child: Column(
 
                                 children: [
@@ -286,7 +283,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                                             onTap: (){
                                               Navigator.of(context).pop();
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.cancel_outlined,
                                               size: 25,
                                             ),
@@ -297,7 +294,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                                     ],
                                   ),
 
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
 
@@ -308,23 +305,23 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
                                     fit: BoxFit.fill,
                                     color: novalexxa_color1,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
-                                  Text("Lorem Ipsum Title",
+                                  const Text("Lorem Ipsum Title",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color:novalexxa_text_color,
                                         fontSize: 17,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
 
                                   Text(_alertMessage,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color:novalexxa_text_color,
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal),
@@ -354,7 +351,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
 
   Widget userInputMessage(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
     return  Container(
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
 
@@ -369,7 +366,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
             autocorrect: false,
             enableSuggestions: false,
             cursorColor:intello_input_text_color,
-            style: TextStyle(
+            style: const TextStyle(
                 color:intello_input_text_color,
                 fontSize: 17,
             ),
@@ -405,7 +402,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
       },
       child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -415,7 +412,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
           alignment: Alignment.center,
           child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 "Continue",
                 textAlign: TextAlign.center,
@@ -441,16 +438,7 @@ class _PayWithQRMessagePageScreenState extends State<PayWithQRMessagePageScreen>
 
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
 
 

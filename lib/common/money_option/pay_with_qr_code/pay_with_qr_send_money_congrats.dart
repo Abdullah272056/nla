@@ -1,10 +1,7 @@
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../navigation_page/money_option.dart';
 import '../../navigation_page/navigation_bar_page.dart';
 import '../../static/Colors.dart';
@@ -48,7 +45,7 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
 
-                      SizedBox(height: 55,),
+                      const SizedBox(height: 55,),
 
 
                       Image.asset(
@@ -58,11 +55,11 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
                         fit: BoxFit.fill,
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
 
-                      Text(
+                      const Text(
                         "Congratulations!",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -72,12 +69,12 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                        margin: const EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
                         child:Text(
                           "You send $_sendAmount to",
 
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               height: 1.5,
                               color: novalexxa_text_color,
                               fontSize: 22,
@@ -85,12 +82,12 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
+                        margin: const EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
                         child:Text(
                           _receiverName,
 
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               height: 1.5,
                               color: novalexxa_text_color,
                               fontSize: 22,
@@ -127,7 +124,7 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
       child: ElevatedButton(
         onPressed: () {
 
-          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,const MoneyOptionScreen()));
           Navigator.pushReplacement(context, route);
 
 
@@ -140,7 +137,7 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -150,7 +147,7 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Send More Money",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -164,17 +161,6 @@ class _PayWithQRSendMoneyCongratsScreenState extends State<PayWithQRSendMoneyCon
         ),
       ),
     );
-  }
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
   }
 
 }

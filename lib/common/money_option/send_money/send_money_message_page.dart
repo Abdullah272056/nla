@@ -1,15 +1,10 @@
 
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:nova_lexxa/common/money_option/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
-import '../../../api_service/api_service.dart';
-import '../../static/toast.dart';
+
 
 
 
@@ -22,14 +17,14 @@ class SendMoneyMessagePageScreen extends StatefulWidget {
   String inputBalance,currentBalance;
 
 
-  SendMoneyMessagePageScreen({
+  SendMoneyMessagePageScreen({Key? key,
     required this.inputBalance,
     required this.currentBalance,
     required this.currencySymbol,
     required this.receiverId,
     required this.receiverName,
     required this.currencyId,
-});
+}) : super(key: key);
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
   @override
@@ -106,12 +101,12 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                           direction: Axis.horizontal,
                           children: [
                             Container(
-                              margin: new EdgeInsets.only(left: 30),
+                              margin: const EdgeInsets.only(left: 30),
                               child: InkResponse(
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30.0,
@@ -121,8 +116,8 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
                             Expanded(
                                 child: Container(
-                                  margin: new EdgeInsets.only(right: 60),
-                                  child: Align(
+                                  margin: const EdgeInsets.only(right: 60),
+                                  child: const Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Send Money",
@@ -166,8 +161,8 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
                           ),
                         ),
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Send Money to",
                             textAlign: TextAlign.center,
@@ -177,12 +172,12 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
                             _receiverName,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: novalexxa_text_color,
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600),
@@ -193,9 +188,9 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                         Align(alignment: Alignment.topCenter,
                           child: userAmountSection(),
                         ),
-                        SizedBox(height: 30,),
+                        const SizedBox(height: 30,),
                         //message section
-                        Align(alignment: Alignment.topCenter,
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Add custom Message to Recipient",
                             textAlign: TextAlign.center,
@@ -234,12 +229,12 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 15,bottom: 15, right: 10),
         child: Row(
           children: [
 
@@ -256,13 +251,13 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                   child: Text(
                     _inputBalance.toString()+_currencySymbol,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 22,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
 
                 Align(
                   alignment: Alignment.topCenter,
@@ -270,7 +265,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
                     "Current balance is "+_currentBalance.toString()+_currencySymbol,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: intello_level_color,
                         fontSize: 12,
                         fontWeight: FontWeight.w500),
@@ -302,7 +297,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                         child:Wrap(
                           children: [
                             Container(
-                              padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                              padding:const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
                               child: Column(
 
                                 children: [
@@ -314,7 +309,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                                             onTap: (){
                                               Navigator.of(context).pop();
                                             },
-                                            child: Icon(
+                                            child: const Icon(
                                               Icons.cancel_outlined,
                                               size: 25,
                                             ),
@@ -325,7 +320,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                                     ],
                                   ),
 
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
 
@@ -336,23 +331,23 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
                                     fit: BoxFit.fill,
                                     color: novalexxa_color1,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
-                                  Text("Lorem Ipsum Title",
+                                  const Text("Lorem Ipsum Title",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color:novalexxa_text_color,
                                         fontSize: 17,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
 
                                   Text(_alertMessage,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color:novalexxa_text_color,
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal),
@@ -382,7 +377,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
   Widget userInputMessage(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
     return  Container(
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
 
@@ -397,7 +392,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
             autocorrect: false,
             enableSuggestions: false,
             cursorColor:intello_input_text_color,
-            style: TextStyle(
+            style: const TextStyle(
                 color:intello_input_text_color,
                 fontSize: 17,
             ),
@@ -440,7 +435,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
       },
       child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -450,7 +445,7 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
           alignment: Alignment.center,
           child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 "Continue",
                 textAlign: TextAlign.center,
@@ -477,56 +472,6 @@ class _SendMoneyMessagePageScreenState extends State<SendMoneyMessagePageScreen>
 
 
 
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
-
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
 
 
 

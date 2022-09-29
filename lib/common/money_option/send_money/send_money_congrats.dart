@@ -1,10 +1,7 @@
 
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 import '../../navigation_page/money_option.dart';
 import '../../navigation_page/navigation_bar_page.dart';
@@ -15,7 +12,7 @@ import '../../static/Colors.dart';
 class SendMoneyCongratsScreen extends StatefulWidget {
 
   String sendAmount,receiverName;
-  SendMoneyCongratsScreen({required this.sendAmount, required this.receiverName});
+  SendMoneyCongratsScreen({Key? key, required this.sendAmount, required this.receiverName}) : super(key: key);
 
   @override
   State<SendMoneyCongratsScreen> createState() => _SendMoneyCongratsScreenState(this.sendAmount, this.receiverName);
@@ -28,10 +25,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
 
   _SendMoneyCongratsScreenState(
       this._sendAmount, this._receiverName); //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
+
 
  // String _sendAmount="30",_receiverName="Simon Lewis";
 
@@ -51,7 +45,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
 
-                      SizedBox(height: 55,),
+                      const SizedBox(height: 55,),
 
 
                       Image.asset(
@@ -61,11 +55,11 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                         fit: BoxFit.fill,
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
 
-                      Text(
+                      const Text(
                         "Congratulations!",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -75,12 +69,12 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                        margin: const EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
                         child:Text(
                           "You send $_sendAmount to",
 
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               height: 1.5,
                               color: novalexxa_text_color,
                               fontSize: 22,
@@ -88,12 +82,12 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
+                        margin: const EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
                         child:Text(
                           _receiverName,
 
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               height: 1.5,
                               color: novalexxa_text_color,
                               fontSize: 22,
@@ -109,7 +103,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
                       Container(
                         child: _buildSendMoreMoneyButton(),
                       ),
-                      SizedBox(height: 25,),
+                      const SizedBox(height: 25,),
 
 
                     ],
@@ -131,7 +125,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
       child: ElevatedButton(
         onPressed: () {
 
-          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,const MoneyOptionScreen()));
           Navigator.pushReplacement(context, route);
 
 
@@ -144,7 +138,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -154,7 +148,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Send More Money",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -171,16 +165,7 @@ class _SendMoneyCongratsScreenState extends State<SendMoneyCongratsScreen> {
   }
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
 
 }

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -15,12 +14,10 @@ import '../create_account_particular_company.dart';
 import '../navigation_page/home_page.dart';
 import '../navigation_page/navigation_bar_page.dart';
 import '../static/Colors.dart';
-import '../static/Colors.dart';
-import '../static/Colors.dart';
+
 import '../static/loding_dialog.dart';
 import '../static/toast.dart';
 import 'finger_print_input_for_loging.dart';
-import 'login_loading_page.dart';
 
 
 class LogInScreen extends StatefulWidget {
@@ -33,7 +30,6 @@ class LogInScreen extends StatefulWidget {
 class _LogInScreenState extends State<LogInScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
-  int _particular_company_selected_status=1;
   TextEditingController? _emailController = TextEditingController();
   TextEditingController? _passwordController = TextEditingController();
 
@@ -60,7 +56,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
           children: [
 
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
 
@@ -70,7 +66,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 child: Column(
                   children: [
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                      margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10),
                       child:Align(alignment: Alignment.topLeft,
                         child:Container(
                           decoration: BoxDecoration(
@@ -79,7 +75,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                 color: Colors.grey.withOpacity(0.3),
                                 spreadRadius: 1,
                                 blurRadius: 10,
-                                offset: Offset(0, 2), // changes position of shadow
+                                offset: const Offset(0, 2), // changes position of shadow
                               ),
                             ],
                           ),
@@ -96,8 +92,8 @@ class _LogInScreenState extends State<LogInScreen> {
                     ),
 
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.topLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.topLeft,
                         child: Text(
                           "Login",
                           textAlign: TextAlign.center,
@@ -110,8 +106,8 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.centerLeft,
+                      margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.centerLeft,
                         child: Text(
                           "Login with your email address and password.",
                           textAlign: TextAlign.center,
@@ -122,12 +118,12 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Email",
                             style: TextStyle(
@@ -138,17 +134,17 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Your Password",
                             style: TextStyle(
@@ -158,19 +154,19 @@ class _LogInScreenState extends State<LogInScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userInputPassword(_passwordController!, 'Password', TextInputType.visiblePassword),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
@@ -184,8 +180,8 @@ class _LogInScreenState extends State<LogInScreen> {
                           ],
                           ),
                           Container(
-                            margin:  EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 25),
-                            child:Align(
+                            margin:  const EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 25),
+                            child:const Align(
                               alignment: Alignment.topLeft,
                               child: Text("Forgot Password ?",
                                   style: TextStyle(
@@ -197,16 +193,16 @@ class _LogInScreenState extends State<LogInScreen> {
                           ),
 
                           Container(
-                            margin:  EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 18),
+                            margin:  const EdgeInsets.only(left: 10, right: 15,bottom: 0,top: 18),
                             child:Align(
                               alignment: Alignment.topLeft,
                               child: InkWell(
                                 onTap: (){
 
-                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateAccountParticularAndCompanyScreen()));
+                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>const CreateAccountParticularAndCompanyScreen()));
 
                                 },
-                                child: Text.rich(
+                                child: const Text.rich(
                                   TextSpan(
                                     children: <TextSpan>[
                                       TextSpan(
@@ -265,13 +261,13 @@ class _LogInScreenState extends State<LogInScreen> {
           decoration: InputDecoration(
 
            // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
             suffixIcon: IconButton(
                 color:intello_input_text_color,
-                icon:  Icon(
+                icon:  const Icon(
                   Icons.email,
                   color:hint_color,
                   size: 25.0,
@@ -306,7 +302,7 @@ class _LogInScreenState extends State<LogInScreen> {
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
@@ -350,7 +346,7 @@ class _LogInScreenState extends State<LogInScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -360,7 +356,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Login",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -380,7 +376,7 @@ class _LogInScreenState extends State<LogInScreen> {
     return   InkWell(
       onTap: (){
         if(_userId!=""&&_finger_print_permission_status=="1"){
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>FingerPrintInputForLoginScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const FingerPrintInputForLoginScreen()));
         }
         else{
           _showToast("Finger print is not available at this moment!");
@@ -389,10 +385,10 @@ class _LogInScreenState extends State<LogInScreen> {
 
       },
       child:Container(
-        margin:  EdgeInsets.only(left: 5, right: 15,bottom: 0,top: 0),
+        margin:  const EdgeInsets.only(left: 5, right: 15,bottom: 0,top: 0),
         width: 50,
         height: 50,
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(7),
           boxShadow: [
@@ -400,7 +396,7 @@ class _LogInScreenState extends State<LogInScreen> {
               color: Colors.grey.withOpacity(.25),
               blurRadius: 20.0, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset: Offset(
+              offset: const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               ),
@@ -409,7 +405,7 @@ class _LogInScreenState extends State<LogInScreen> {
         ),
         //   height: 150,
         child: Container(
-          margin: EdgeInsets.only(right: 10.0,top: 10,bottom: 10,left: 10),
+          margin: const EdgeInsets.only(right: 10.0,top: 10,bottom: 10,left: 10),
           // height: double.infinity,
           // width: double.infinity,
           color: Colors.white,
@@ -452,7 +448,7 @@ class _LogInScreenState extends State<LogInScreen> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+                builder: (BuildContext context) => NavigationBarScreen(0,const HomePageScreen()),
               ),
                   (route) => false,
             );

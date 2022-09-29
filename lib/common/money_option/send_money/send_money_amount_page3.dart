@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api_service/api_service.dart';
 import '../../../api_service/sharePreferenceDataSaveName.dart';
-import '../../log_in/login_loading_page.dart';
 import '../../static/toast.dart';
 import '../top_up_account/top_up_credit_card/select_top_up.dart';
 
@@ -59,7 +57,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getUserCurrencyTypeList1();
           // _getCurrentBalanced();
@@ -84,6 +82,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
 
  //
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white ,
@@ -98,7 +97,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                 Stack(
                   children: [
                     //bg
-                    Container(
+                    SizedBox(
                       height: 185,
 
                       child: Image.asset(
@@ -121,12 +120,12 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                           direction: Axis.horizontal,
                           children: [
                             Container(
-                              margin: new EdgeInsets.only(left: 30),
+                              margin: const EdgeInsets.only(left: 30),
                               child: InkResponse(
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30.0,
@@ -136,8 +135,8 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
 
                             Expanded(
                                 child: Container(
-                                  margin: new EdgeInsets.only(right: 60),
-                                  child: Align(
+                                  margin: const EdgeInsets.only(right: 60),
+                                  child: const Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Send Money",
@@ -181,8 +180,8 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                           ),
                         ),
 
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Send Money to",
                             textAlign: TextAlign.center,
@@ -192,12 +191,12 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
                             _receiverName,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: novalexxa_text_color,
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600),
@@ -211,20 +210,20 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                         if(_inputAmountGatterThanStatus==1)...{
                           DelayedWidget(
                           // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
-                            delayDuration: Duration(milliseconds: 0),// Not required
-                            animationDuration: Duration(milliseconds: 700),// Not required
+                            delayDuration: const Duration(milliseconds: 0),// Not required
+                            animationDuration: const Duration(milliseconds: 700),// Not required
                             animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
                             child:InkResponse(
                               onTap: (){
 
-                                Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>const TopUpScreenScreen()));
                               },
                              child: Container(
-                               margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
+                               margin: const EdgeInsets.only(top: 20,right: 20,left: 20),
                                child: Row(
                                  mainAxisAlignment: MainAxisAlignment.center,
                                  children: [
-                                   Expanded(child: Text("Your current balance is not enough",
+                                   const Expanded(child: Text("Your current balance is not enough",
                                      textAlign: TextAlign.center,
                                      style: TextStyle(
                                          color:novalexxa_text_color,
@@ -233,10 +232,10 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                    ),),
 
                                    Container(
-                                       padding: new EdgeInsets.only(left: 15,right: 15),
-                                       margin: new EdgeInsets.only(left: 17,right: 0),
+                                       padding: const EdgeInsets.only(left: 15,right: 15),
+                                       margin: const EdgeInsets.only(left: 17,right: 0),
                                        decoration: BoxDecoration(
-                                           gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+                                           gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                                              begin: Alignment.centerLeft,
                                              end: Alignment.centerRight,
                                            ),
@@ -244,7 +243,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                        ),
                                        height: 36,
                                        alignment: Alignment.center,
-                                       child:Text(
+                                       child:const Text(
                                          "Top up my account",
                                          textAlign: TextAlign.center,
                                          style: TextStyle(
@@ -325,12 +324,12 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-          padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
+          padding: const EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
           child: Row(
             children: [
               Expanded(child:  Column(
@@ -342,9 +341,9 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                     autocorrect: false,
                     enableSuggestions: false,
                     cursorColor:intello_input_text_color,
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 26,
                         fontWeight: FontWeight.w600),
@@ -367,7 +366,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                       border: InputBorder.none,
 
                       hintText: hintTitle,
-                      hintStyle:  TextStyle(fontSize: 22,
+                      hintStyle:  const TextStyle(fontSize: 22,
                           color:novalexxa_hint_text_color,
                           // color: Colors.intello_hint_color,
                           fontStyle: FontStyle.normal),
@@ -386,12 +385,12 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                               Text(
                                "Current balance is "+_currentBalance.toString()+ _currencySymbol,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: intello_level_color,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_drop_down,
                                 color: intello_level_color,
                                 size: 15.0,
@@ -427,7 +426,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                           child:Wrap(
                             children: [
                               Container(
-                                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                                padding:const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
                                 child: Column(
 
                                   children: [
@@ -439,7 +438,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                               onTap: (){
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.cancel_outlined,
                                                 size: 25,
                                               ),
@@ -450,7 +449,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                       ],
                                     ),
 
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
 
@@ -461,23 +460,23 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                       fit: BoxFit.fill,
                                       color: novalexxa_color1,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
-                                    Text("Lorem Ipsum Title",
+                                    const Text("Lorem Ipsum Title",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color:novalexxa_text_color,
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
 
                                     Text(_alertMessage,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color:novalexxa_text_color,
                                           fontSize: 14,
                                           fontWeight: FontWeight.normal),
@@ -520,7 +519,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
   Widget _buildContinueButton() {
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+          gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
@@ -530,7 +529,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
       alignment: Alignment.center,
       child:  Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           Text(
             "Continue",
             textAlign: TextAlign.center,
@@ -553,38 +552,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
     );
   }
 
-  _getCurrentBalanced() async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        _showLoadingDialog(context, "Loading...");
-        try {
-          var response = await post(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_SEND_MONEY_BALANCED_CHECKED'),
-            body: {
-              'user_id':_userId,
-              'currency_id':_currencyId,
-            }
-          );
-          Navigator.of(context).pop();
-           //showToast(response.statusCode.toString());
-          if (response.statusCode == 200) {
-            setState(() {
-              var data = jsonDecode(response.body);
-              _currentBalance=double.parse(data["amount"].toString());
-            });
-          } else {
-            Fluttertoast.cancel();
-          }
-        } catch (e) {
-          Fluttertoast.cancel();
-        }
-      }
-    } on SocketException catch (e) {
-      Fluttertoast.cancel();
-      showToast("No Internet Connection!");
-    }
-  }
+
 
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
@@ -595,24 +563,24 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -664,7 +632,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -701,7 +669,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -720,9 +688,9 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
+                  child: const Text(
                     "Select your Currency",
                     style: TextStyle(
                       fontSize: 17,
@@ -751,7 +719,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 10.0, right: 10.0, top: 10, bottom: 10),
                             child: Column(
                               children: [
@@ -759,12 +727,12 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                   direction: Axis.horizontal,
                                   children: [
 
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       _currencyTypeListData[index]['currency_information']['currency_name'].toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
@@ -773,7 +741,7 @@ class _SendMoneyAmountPageScreenState3 extends State<SendMoneyAmountPageScreen3>
                                       overflow: TextOverflow.clip,
                                       maxLines: 1,
                                     ),
-                                    Text(
+                                    const Text(
                                       " - ",
                                       style: TextStyle(
                                         fontSize: 17,

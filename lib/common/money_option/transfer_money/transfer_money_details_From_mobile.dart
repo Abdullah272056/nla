@@ -2,17 +2,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
-import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
-import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular2.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -27,7 +21,7 @@ class TransferMoneyDetailForParticularFromMobileScreen extends StatefulWidget {
 
 
   TransferMoneyDetailForParticularFromMobileScreen(
-         {
+         {Key? key,
            required this.senderUserId,
            required this.senderUserSendAmount,
            required this.transferFees,
@@ -42,7 +36,7 @@ class TransferMoneyDetailForParticularFromMobileScreen extends StatefulWidget {
            required this.receiverUserReceivedMoney,
            required this.exchangeRate,
         }
-      );
+      ) : super(key: key);
 
   @override
   State<TransferMoneyDetailForParticularFromMobileScreen> createState() => _TransferMoneyDetailForParticularFromMobileScreenState(
@@ -96,19 +90,19 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -118,8 +112,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 60),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 60),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Transfer Money",
@@ -135,19 +129,19 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
 
             Container(
-              margin: EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
-              child: new LinearPercentIndicator(
+              margin: const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
+              child: LinearPercentIndicator(
                 // width: MediaQuery.of(context).size.width - 80,
                 animation: true,
                 lineHeight: 20.0,
                 animationDuration: 1000,
                 percent: 0.6,
-                center: Text("60%"),
+                center: const Text("60%"),
                 barRadius: const Radius.circular(10),
                 fillColor:Colors.white,
                 backgroundColor: novalexxa_indicator_unselected_color,
@@ -160,8 +154,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
 
             Container(
-              margin:EdgeInsets.only(right: 20.0,top: 50,left: 30,bottom: 0),
-              child: Align(alignment: Alignment.centerLeft,
+              margin:const EdgeInsets.only(right: 20.0,top: 50,left: 30,bottom: 0),
+              child: const Align(alignment: Alignment.centerLeft,
                 child: Text(
                   "Select the recipient Mobile Operator",
                   textAlign: TextAlign.left,
@@ -173,7 +167,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                 ),
               ),
             ),
-              SizedBox(height: 30,),
+              const SizedBox(height: 30,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -183,7 +177,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
           ],
         ),
       ),
@@ -196,7 +190,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
       height: 115,
       margin: const EdgeInsets.only(left: 30.0, right: 30.0,top: 60),
       padding: const EdgeInsets.only(left: 00.0, right: 00.0),
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
@@ -204,7 +198,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
             color: Colors.grey.withOpacity(.25),
             blurRadius: 20.0, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset: Offset(
+            offset: const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             ),
@@ -229,14 +223,14 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
               height: 24,
               width: 24,
               margin: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: notification_image_bg_color,
                 borderRadius: BorderRadius.circular(27),
 
               ),
               child:
 
-              Center(
+              const Center(
                 child:  Icon(
                   Icons.edit,
                   color:hint_color,
@@ -265,8 +259,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     ),
                   ),
 
-                  SizedBox(height: 15,),
-                  Align(
+                  const SizedBox(height: 15,),
+                  const Align(
                     alignment: Alignment.center,
                     child:   Text(
                       "250.00",
@@ -279,8 +273,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     ),
                   ),
 
-                  SizedBox(height: 5,),
-                  Align(
+                  const SizedBox(height: 5,),
+                  const Align(
                     alignment: Alignment.center,
                     child:   Text(
                       "Transfer Fees: 3.8 €",
@@ -307,8 +301,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     ),
                   ),
 
-                  SizedBox(height: 15,),
-                  Align(
+                  const SizedBox(height: 15,),
+                  const Align(
                     alignment: Alignment.center,
                     child:   Text(
                       "382.24",
@@ -321,8 +315,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     ),
                   ),
 
-                  SizedBox(height: 5,),
-                  Align(
+                  const SizedBox(height: 5,),
+                  const Align(
                     alignment: Alignment.center,
                     child:   Text(
                       "Exchange Rate: 1 € = 1.53 CAD",
@@ -373,7 +367,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
             child: Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -381,7 +375,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     color: Colors.grey.withOpacity(.25),
                     blurRadius: 20.0, // soften the shadow
                     spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
+                    offset: const Offset(
                       2.0, // Move to right 10  horizontally
                       1.0, // Move to bottom 10 Vertically
                     ),
@@ -395,7 +389,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                   height: 54,
                   width: 54,
                   // padding: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: notification_image_bg_color,
                     borderRadius: BorderRadius.circular(27),
 
@@ -418,8 +412,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
             ),
           ),
 
-          SizedBox(height: 15,),
-          Text(
+          const SizedBox(height: 15,),
+          const Text(
             "Telecom Italia",
             textAlign: TextAlign.center,
 
@@ -464,7 +458,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
             child: Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -472,7 +466,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     color: Colors.grey.withOpacity(.25),
                     blurRadius: 20.0, // soften the shadow
                     spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
+                    offset: const Offset(
                       2.0, // Move to right 10  horizontally
                       1.0, // Move to bottom 10 Vertically
                     ),
@@ -486,7 +480,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                   height: 54,
                   width: 54,
                   // padding: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: notification_image_bg_color,
                     borderRadius: BorderRadius.circular(27),
 
@@ -508,8 +502,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
             ),
           ),
-          SizedBox(height: 15,),
-          Text(
+          const SizedBox(height: 15,),
+          const Text(
             "Vodafone",
             textAlign: TextAlign.center,
 
@@ -552,7 +546,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
             child:  Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -560,7 +554,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                     color: Colors.grey.withOpacity(.25),
                     blurRadius: 20.0, // soften the shadow
                     spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
+                    offset: const Offset(
                       2.0, // Move to right 10  horizontally
                       1.0, // Move to bottom 10 Vertically
                     ),
@@ -574,7 +568,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
                   height: 54,
                   width: 54,
                   padding: const EdgeInsets.only(left: 5.0, ),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: notification_image_bg_color,
                     borderRadius: BorderRadius.circular(27),
 
@@ -596,8 +590,8 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
 
             ),
           ),
-          SizedBox(height: 15,),
-          Text(
+          const SizedBox(height: 15,),
+          const Text(
             "Iliad Telecom",
             textAlign: TextAlign.center,
 
@@ -670,12 +664,12 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
             //var data = jsonDecode(response.body.toString());
 
             setState(() {
-              var data = jsonDecode(response.body);
+             // var data = jsonDecode(response.body);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
+                  settings: const RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => const TransferMoneyCongratsScreen(
                   ),),
               );
 
@@ -693,7 +687,7 @@ class _TransferMoneyDetailForParticularFromMobileScreenState extends State<Trans
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

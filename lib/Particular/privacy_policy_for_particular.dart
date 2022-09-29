@@ -1,7 +1,5 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/Particular/registration_for_particular.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -18,11 +16,6 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
   String countryName="en",countryIcon="icon_country.png";
 
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-                                    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
   late AnimationController controller;
   late Animation heartbeatAnimation;
@@ -32,25 +25,25 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: novalexxa_color,
         ),
         child: Flex(
           direction: Axis.vertical,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
                       size: 30.0,
@@ -60,8 +53,8 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 50),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 50),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Privacy Policy",
@@ -75,7 +68,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -105,10 +98,10 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 22,
                   ),
-                 Align(
+                 const Align(
                    alignment: Alignment.centerLeft,
                    child:  Text(
                      "Privacy Policy for Particular",
@@ -122,10 +115,10 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                    ),
                  ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                  Text(
+                  const Text(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehe nderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         "\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm odo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nul pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         "\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
@@ -138,19 +131,19 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
                         fontWeight: FontWeight.w400),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
 
                   DelayedWidget(
 
-                    delayDuration: Duration(milliseconds: 100),// Not required
-                    animationDuration: Duration(milliseconds: 1000),// Not required
+                    delayDuration: const Duration(milliseconds: 100),// Not required
+                    animationDuration: const Duration(milliseconds: 1000),// Not required
                     animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
                     child:Flex(direction: Axis.vertical,
                       children: [
                         _buildAcceptButton(),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         _buildDeclineButton()
                       ],
                     ),
@@ -168,7 +161,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
       child: ElevatedButton(
         onPressed: () {
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpForParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const SignUpForParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },
@@ -179,7 +172,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -189,7 +182,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Accept",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -208,14 +201,14 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
   Widget _buildDeclineButton() {
     return InkWell(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>const SplashScreen4()));
 
       },
       child: Container(
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "Decline",
           textAlign: TextAlign.center,
           style: TextStyle(

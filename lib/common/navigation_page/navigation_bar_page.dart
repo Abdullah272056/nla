@@ -9,7 +9,7 @@ import 'home_page.dart';
 import 'money_option.dart';
 
 class NavigationBarScreen extends StatefulWidget {
-  int _selectedTabIndex;
+  final int _selectedTabIndex;
   //int _selectedPageIndex;
   Widget _selectedPage;
 
@@ -32,7 +32,6 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
 
   final navigationkey = GlobalKey<CurvedNavigationBarState>();
 
-  int _selectedIndexa = 0;
   // int _selectedTabIndex = 0;
   // int _selectedPageIndex = 0;
   final items1 = <Widget>[
@@ -61,12 +60,12 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
     });
   }
 
-  List<Widget> _widgetOptions = <Widget>[
-    HomePageScreen(),
-    HomePageScreen(),
-    MoneyOptionScreen(),
-    CardPageScreen(),
-    HomePageScreen(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const HomePageScreen(),
+    const HomePageScreen(),
+    const MoneyOptionScreen(),
+    const CardPageScreen(),
+    const HomePageScreen(),
     // RoomDetailsScreen("1"),
     // CartPageScreen()
   ];
@@ -74,9 +73,6 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
 
   late final TabController _tabcontroller;
 
-  int _darkOrLightStatus=1;
-  int _darkOrLightToggleModeStatus=1;
-  String _darkOrLightToggleButtonImageLink="";
   @override
   void initState() {
     super.initState();
@@ -122,13 +118,13 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> with SingleTi
               color: Colors.grey.withOpacity(.15),
               blurRadius: 20.0, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset: Offset(
+              offset: const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               ),
             )
           ],
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topRight: Radius.circular(15.0),
               bottomRight: Radius.circular(0.0),
               topLeft: Radius.circular(15.0),

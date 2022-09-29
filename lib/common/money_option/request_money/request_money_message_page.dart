@@ -1,8 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/money_option/request_money/request_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
@@ -14,12 +11,12 @@ class RequestMoneyMessagePageScreen extends StatefulWidget {
   String receiverName;
   double inputBalance;
 
-  RequestMoneyMessagePageScreen({
+  RequestMoneyMessagePageScreen({Key? key,
     required this.inputBalance,
     required this.receiverId,
     required this.receiverName,
     required this.currencyId,
-  });
+  }) : super(key: key);
   // const SendMoneyMessagePageScreen({Key? key}) : super(key: key);
 
 
@@ -49,11 +46,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
   );
 
   TextEditingController? _sendMoneyMessageController = TextEditingController();
-  String _alertMessage="There are many variations of passages of Lorem Ipsum available, "
-      "but the majority have suffered alteration in some form, by injected humour, or "
-      "randomised words which don't look even slightly believable. If you are going to "
-      "use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing"
-      " hidden in the middle of text.";
+
 
 
   //TextEditingController? _userMessage = TextEditingController();
@@ -75,7 +68,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                 Stack(
                   children: [
                     //bg
-                    Container(
+                    SizedBox(
                       height: 185,
 
                       child: Image.asset(
@@ -99,12 +92,12 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                           direction: Axis.horizontal,
                           children: [
                             Container(
-                              margin: new EdgeInsets.only(left: 30),
+                              margin: const EdgeInsets.only(left: 30),
                               child: InkResponse(
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30.0,
@@ -114,8 +107,8 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
 
                             Expanded(
                                 child: Container(
-                                  margin: new EdgeInsets.only(right: 60),
-                                  child: Align(
+                                  margin: const EdgeInsets.only(right: 60),
+                                  child: const Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Request Money",
@@ -159,8 +152,8 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
 
                           ),
                         ),
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Request Money to",
                             textAlign: TextAlign.center,
@@ -170,12 +163,12 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
                             _receiverName,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: novalexxa_text_color,
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600),
@@ -186,9 +179,9 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
                         Align(alignment: Alignment.topCenter,
                           child: userAmountSection(),
                         ),
-                        SizedBox(height: 30,),
+                        const SizedBox(height: 30,),
                         //message section
-                        Align(alignment: Alignment.topCenter,
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Add custom Message to Recipient",
                             textAlign: TextAlign.center,
@@ -227,12 +220,12 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 25,bottom: 25, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 25,bottom: 25, right: 10),
         child: Row(
           children: [
 
@@ -245,7 +238,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
               child: Text(
                 _inputBalance.toString()+"€",
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     color: novalexxa_text_color,
                     fontSize: 22,
                     fontWeight: FontWeight.w600),
@@ -269,7 +262,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
 
   Widget userInputMessage(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
     return  Container(
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
 
@@ -284,7 +277,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
             autocorrect: false,
             enableSuggestions: false,
             cursorColor:intello_input_text_color,
-            style: TextStyle(
+            style: const TextStyle(
                 color:intello_input_text_color,
                 fontSize: 17,
             ),
@@ -328,7 +321,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
       },
       child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -338,7 +331,7 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
           alignment: Alignment.center,
           child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 "Continue",
                 textAlign: TextAlign.center,
@@ -363,18 +356,6 @@ class _RequestMoneyMessagePageScreenState extends State<RequestMoneyMessagePageS
 
 
   }
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
-
 
 
 }

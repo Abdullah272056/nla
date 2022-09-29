@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flag/flag_enum.dart';
+
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -28,13 +27,7 @@ class SignUpForParticularScreen extends StatefulWidget {
 class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   String countryName="en",countryIcon="icon_country.png";
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
-  int _particular_company_selected_status=1;
   TextEditingController? _emailController = TextEditingController();
   TextEditingController? _phoneController = TextEditingController();
   TextEditingController? _countryController = TextEditingController();
@@ -60,7 +53,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Padding(
@@ -68,23 +61,23 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    new LinearPercentIndicator(
+                    LinearPercentIndicator(
                       // width: MediaQuery.of(context).size.width - 80,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
                       percent: 0.3,
-                      center: Text("30%"),
+                      center: const Text("30%"),
                       barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                      margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10),
                       child:Align(alignment: Alignment.topLeft,
                           child:Container(
                             decoration: BoxDecoration(
@@ -93,7 +86,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                                   color: Colors.grey.withOpacity(0.3),
                                   spreadRadius: 1,
                                   blurRadius: 10,
-                                  offset: Offset(0, 2), // changes position of shadow
+                                  offset: const Offset(0, 2), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -109,8 +102,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.topLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.topLeft,
                         child: Text(
                           "Register",
                           textAlign: TextAlign.center,
@@ -123,8 +116,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.centerLeft,
+                      margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.centerLeft,
                         child: Text(
                           "Register with your email address and password.",
                           textAlign: TextAlign.center,
@@ -135,13 +128,13 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                         ),),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -168,21 +161,21 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
 
 
                     //country
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -210,16 +203,16 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                     ),
                     userInputCountry(_countryController!, 'Country', TextInputType.text),
                     Container( color: novalexxa_hint_text_color,
-                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+                      margin:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                       height: .6,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -250,12 +243,12 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
                     userInputPhoneNumber(_phoneController!, 'Phone Number', TextInputType.phone),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -282,27 +275,27 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userPromoCode(_promoCodeController!, 'Promo code', TextInputType.text),
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
                           _buildNextButton(),
                           Container(
-                            margin:EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+                            margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
                             child: Flex(direction: Axis.horizontal,
                               children: [
-                                Text(
+                                const Text(
                                   "Already have an account?",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -316,7 +309,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                                   onTap: (){
                                     Navigator.push(context,MaterialPageRoute(builder: (context)=>const LogInScreen()));
                                   },
-                                  child: Align(alignment: Alignment.centerLeft,
+                                  child: const Align(alignment: Alignment.centerLeft,
                                     child:  Text(
                                       " Sign In",
                                       textAlign: TextAlign.center,
@@ -363,18 +356,18 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           decoration: InputDecoration(
             // border: InputBorder.,
 
-            focusedBorder:UnderlineInputBorder(
+            focusedBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
+            enabledBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            suffixIcon:  Icon(
+            suffixIcon:  const Icon(
               Icons.email,
               color:hint_color,
               size: 22.0,
@@ -405,17 +398,17 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            focusedBorder:UnderlineInputBorder(
+            focusedBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
+            enabledBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
-            suffixIcon: _countryCodeForPhone.isEmpty?Icon(
+            suffixIcon: _countryCodeForPhone.isEmpty?const Icon(
               Icons.phone_iphone,
               color: hint_color,
               size: 22.0,
@@ -432,7 +425,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   }
 
   Widget userInputCountry1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
+    return SizedBox(
       height: 55,
 
       child: Padding(
@@ -446,17 +439,17 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            focusedBorder:UnderlineInputBorder(
+            focusedBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
+            enabledBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
-            suffixIcon:Image(
+            suffixIcon:const Image(
               image: AssetImage(
                 "assets/images/icon_country.png",
               ),
@@ -467,7 +460,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
 
             hintText: hintTitle,
-            hintStyle:  TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
+            hintStyle:  const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -488,12 +481,12 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         height: 52,
 
         child: Padding(
-          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
           child:Flex(direction: Axis.horizontal,
             children: [
               if(_countryName==select_your_country)...{
                 Expanded(child: Text(_countryName,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
@@ -501,7 +494,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               }
               else...{
                 Expanded(child: Text(_countryName,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
@@ -532,11 +525,11 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 12,
               minWidth: 12,
             ),
-            suffixIcon: Image(
+            suffixIcon: const Image(
               image: AssetImage(
                 "assets/images/promo_code_icon.png",
 
@@ -546,14 +539,14 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
               width: 18,
               fit: BoxFit.fill,
             ),
-            focusedBorder:UnderlineInputBorder(
+            focusedBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
+            enabledBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
             hintText: hintTitle,
-            hintStyle:  TextStyle(fontSize: 17, color: hint_color, fontStyle: FontStyle.normal),
+            hintStyle:  const TextStyle(fontSize: 17, color: hint_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),
@@ -585,7 +578,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -595,7 +588,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -635,7 +628,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -654,9 +647,9 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
+                  child: const Text(
                     "Select your country",
                     style: TextStyle(
                       fontSize: 17,
@@ -684,7 +677,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 10.0, right: 10.0, top: 10, bottom: 10),
                             child: Column(
                               children: [
@@ -697,14 +690,14 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
                                             .toString(),
                                         height: 25,
                                         width: 25),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
                                       child: Text(
                                         _countryListData[index]['country_name']
                                             .toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 17,
                                           color: Colors.black,
                                           fontWeight: FontWeight.normal,
@@ -739,24 +732,24 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -862,7 +855,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

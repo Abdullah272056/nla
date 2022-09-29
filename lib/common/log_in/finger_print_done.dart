@@ -1,19 +1,13 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
-import 'package:page_transition/page_transition.dart';
 
-import '../navigation_page/navigation_bar_page.dart';
 
 
 class FingerPrintDoneScreen extends StatefulWidget {

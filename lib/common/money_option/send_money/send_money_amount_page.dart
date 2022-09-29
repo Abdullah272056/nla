@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,7 +14,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../api_service/api_service.dart';
 import '../../../api_service/sharePreferenceDataSaveName.dart';
-import '../../log_in/login_loading_page.dart';
 import '../../static/toast.dart';
 import '../top_up_account/top_up_credit_card/select_top_up.dart';
 
@@ -23,7 +21,7 @@ import '../top_up_account/top_up_credit_card/select_top_up.dart';
 class SendMoneyAmountPageScreen extends StatefulWidget {
   String receiverId;
   String receiverName;
-  SendMoneyAmountPageScreen(this.receiverId,this.receiverName);
+  SendMoneyAmountPageScreen(this.receiverId,this.receiverName, {Key? key}) : super(key: key);
 
   @override
   State<SendMoneyAmountPageScreen> createState() => _SendMoneyAmountPageScreenState(this.receiverId,this.receiverName);
@@ -87,12 +85,13 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
   String inputText="";
 
-  TextStyle keyboardTextStyle= TextStyle(
+  TextStyle keyboardTextStyle= const TextStyle(
   color: novalexxa_text_color,
   fontSize: 26,
   decoration: TextDecoration.none,
   fontWeight: FontWeight.w500);
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white ,
@@ -107,7 +106,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                 Stack(
                   children: [
                     //bg
-                    Container(
+                    SizedBox(
                       height: 185,
 
                       child: Image.asset(
@@ -130,12 +129,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           direction: Axis.horizontal,
                           children: [
                             Container(
-                              margin: new EdgeInsets.only(left: 30),
+                              margin: const EdgeInsets.only(left: 30),
                               child: InkResponse(
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30.0,
@@ -145,8 +144,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                             Expanded(
                                 child: Container(
-                                  margin: new EdgeInsets.only(right: 60),
-                                  child: Align(
+                                  margin: const EdgeInsets.only(right: 60),
+                                  child: const Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Send Money",
@@ -190,8 +189,8 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           ),
                         ),
 
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Send Money to",
                             textAlign: TextAlign.center,
@@ -201,12 +200,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
                             _receiverName,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: novalexxa_text_color,
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600),
@@ -223,15 +222,15 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                         if(_inputAmountGatterThanStatus==1)...{
                           DelayedWidget(
                           // Navigator.push(context,MaterialPageRoute(builder: (context)=>LoginLoadingScreen()));
-                            delayDuration: Duration(milliseconds: 0),// Not required
-                            animationDuration: Duration(milliseconds: 700),// Not required
+                            delayDuration: const Duration(milliseconds: 0),// Not required
+                            animationDuration: const Duration(milliseconds: 700),// Not required
                             animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
                             child: Container(
-                              margin: new EdgeInsets.only(top: 20,right: 20,left: 20),
+                              margin: const EdgeInsets.only(top: 20,right: 20,left: 20),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Expanded(child: Text("Your current balance is not enough",
+                                  const Expanded(child: Text("Your current balance is not enough",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color:novalexxa_text_color,
@@ -240,14 +239,14 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                   ),),
                                   InkWell(
                                     onTap: (){
-                                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
+                                      Navigator.push(context,MaterialPageRoute(builder: (context)=>const TopUpScreenScreen()));
 
                                     },
                                     child:  Container(
-                                        padding: new EdgeInsets.only(left: 15,right: 15),
-                                        margin: new EdgeInsets.only(left: 17,right: 0),
+                                        padding: const EdgeInsets.only(left: 15,right: 15),
+                                        margin: const EdgeInsets.only(left: 17,right: 0),
                                         decoration: BoxDecoration(
-                                            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+                                            gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                                               begin: Alignment.centerLeft,
                                               end: Alignment.centerRight,
                                             ),
@@ -255,7 +254,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                         ),
                                         height: 36,
                                         alignment: Alignment.center,
-                                        child:Text(
+                                        child:const Text(
                                           "Top up my account",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -278,7 +277,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                         },
 
-                        SizedBox(height: 30,),
+                        const SizedBox(height: 30,),
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
                           child: _buildBottomDesign(),
                         ),)
@@ -304,12 +303,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-          padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
+          padding: const EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
           child: Row(
             children: [
               Expanded(child:  Column(
@@ -332,12 +331,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                               Text(
                                "Current balance is "+_currentBalance.toString()+ _currencySymbol,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: intello_level_color,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_drop_down,
                                 color: intello_level_color,
                                 size: 15.0,
@@ -373,7 +372,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           child:Wrap(
                             children: [
                               Container(
-                                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                                padding:const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
                                 child: Column(
 
                                   children: [
@@ -385,7 +384,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                               onTap: (){
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.cancel_outlined,
                                                 size: 25,
                                               ),
@@ -396,7 +395,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                       ],
                                     ),
 
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
 
@@ -407,23 +406,23 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                       fit: BoxFit.fill,
                                       color: novalexxa_color1,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
-                                    Text("Lorem Ipsum Title",
+                                    const Text("Lorem Ipsum Title",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color:novalexxa_text_color,
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
 
                                     Text(_alertMessage,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color:novalexxa_text_color,
                                           fontSize: 14,
                                           fontWeight: FontWeight.normal),
@@ -455,12 +454,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-          padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
+          padding: const EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
           child: Row(
             children: [
               Expanded(child:  Column(
@@ -476,9 +475,9 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                     autocorrect: false,
                     enableSuggestions: false,
                    // cursorColor:intello_input_text_color,
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 26,
                         fontWeight: FontWeight.w600),
@@ -501,7 +500,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                       border: InputBorder.none,
 
                       hintText: hintTitle,
-                      hintStyle:  TextStyle(fontSize: 22,
+                      hintStyle:  const TextStyle(fontSize: 22,
                           color:novalexxa_hint_text_color,
                           // color: Colors.intello_hint_color,
                           fontStyle: FontStyle.normal),
@@ -520,12 +519,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                               Text(
                                 "Current balance is "+_currentBalance.toString()+ _currencySymbol,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: intello_level_color,
                                     fontSize: 12,
                                     fontWeight: FontWeight.w500),
                               ),
-                              Icon(
+                              const Icon(
                                 Icons.arrow_drop_down,
                                 color: intello_level_color,
                                 size: 15.0,
@@ -561,7 +560,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                           child:Wrap(
                             children: [
                               Container(
-                                padding:EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
+                                padding:const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
                                 child: Column(
 
                                   children: [
@@ -573,7 +572,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                               onTap: (){
                                                 Navigator.of(context).pop();
                                               },
-                                              child: Icon(
+                                              child: const Icon(
                                                 Icons.cancel_outlined,
                                                 size: 25,
                                               ),
@@ -584,7 +583,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                       ],
                                     ),
 
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
 
@@ -595,23 +594,23 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                       fit: BoxFit.fill,
                                       color: novalexxa_color1,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 15,
                                     ),
-                                    Text("Lorem Ipsum Title",
+                                    const Text("Lorem Ipsum Title",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color:novalexxa_text_color,
                                           fontSize: 17,
                                           fontWeight: FontWeight.w600),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 10,
                                     ),
 
                                     Text(_alertMessage,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color:novalexxa_text_color,
                                           fontSize: 14,
                                           fontWeight: FontWeight.normal),
@@ -688,7 +687,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
       },
       child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -698,7 +697,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           alignment: Alignment.center,
           child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 "Continue",
                 textAlign: TextAlign.center,
@@ -749,7 +748,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -764,24 +763,24 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -832,7 +831,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -869,7 +868,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -888,9 +887,9 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
+                  child: const Text(
                     "Select your Currency",
                     style: TextStyle(
                       fontSize: 17,
@@ -919,7 +918,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 10.0, right: 10.0, top: 10, bottom: 10),
                             child: Column(
                               children: [
@@ -927,12 +926,12 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                   direction: Axis.horizontal,
                                   children: [
 
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Text(
                                       _currencyTypeListData[index]['currency_information']['currency_name'].toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
@@ -941,7 +940,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                       overflow: TextOverflow.clip,
                                       maxLines: 1,
                                     ),
-                                    Text(
+                                    const Text(
                                       " - ",
                                       style: TextStyle(
                                         fontSize: 17,
@@ -955,7 +954,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                     Text(
                                       _currencyTypeListData[index]['current_balance']
                                           .toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
@@ -966,7 +965,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                                     ),
                                     Text(
                                       getCurrency(_currencyTypeListData[index]['currency_information']['currency_name'].toString()),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 17,
                                         color: Colors.black,
                                         fontWeight: FontWeight.normal,
@@ -1005,7 +1004,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -1015,7 +1014,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
             //  blurRadius: 20.0, // soften the shadow
             blurRadius:20, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset:Offset(
+            offset:const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             )
@@ -1035,9 +1034,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                          crossAxisAlignment: CrossAxisAlignment.center,
                          children: [
 
-                           Container(
-
-                           child: Flex(direction: Axis.horizontal,
+                           Flex(direction: Axis.horizontal,
                              children: [
                                Expanded(child:InkWell(
                                  onTap: (){
@@ -1084,165 +1081,155 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
 
                              ],
                            ),
+
+                           Flex(direction: Axis.horizontal,
+                             children: [
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("4");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "4",
+                                     textAlign: TextAlign.center,
+
+                                     style: keyboardTextStyle,
+                                   ),
+                                 ),
+                               ),),
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("5");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "5",
+                                     textAlign: TextAlign.center,
+
+                                     style: keyboardTextStyle,
+                                   ),
+                                 ),
+                               ),),
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("6");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "6",
+                                     textAlign: TextAlign.center,
+
+                                     style: keyboardTextStyle,
+                                   ),
+                                 ),
+                               ),),
+
+                             ],
                            ),
+                           Flex(direction: Axis.horizontal,
+                             children: [
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("7");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "7",
+                                     textAlign: TextAlign.center,
 
-                           Container(
-
-                             child: Flex(direction: Axis.horizontal,
-                               children: [
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("4");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "4",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
+                                     style: keyboardTextStyle,
                                    ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("5");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "5",
-                                       textAlign: TextAlign.center,
+                                 ),
+                               ),),
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("8");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "8",
+                                     textAlign: TextAlign.center,
 
-                                       style: keyboardTextStyle,
-                                     ),
+                                     style: keyboardTextStyle,
                                    ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("6");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "6",
-                                       textAlign: TextAlign.center,
+                                 ),
+                               ),),
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("9");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "9",
+                                     textAlign: TextAlign.center,
 
-                                       style: keyboardTextStyle,
-                                     ),
+                                     style: keyboardTextStyle,
                                    ),
-                                 ),),
+                                 ),
+                               ),),
 
-                               ],
-                             ),
+                             ],
                            ),
-                           Container(
+                           Flex(direction: Axis.horizontal,
+                             children: [
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard(".");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: const Text(
+                                     ".",
+                                     textAlign: TextAlign.center,
 
-                             child: Flex(direction: Axis.horizontal,
-                               children: [
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("7");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "7",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
+                                     style: TextStyle(
+                                         color: novalexxa_text_color,
+                                         fontSize: 27,
+                                         decoration: TextDecoration.none,
+                                         fontWeight: FontWeight.w900),
                                    ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("8");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "8",
-                                       textAlign: TextAlign.center,
+                                 ),
+                               ),),
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("0");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                   child: Text(
+                                     "0",
+                                     textAlign: TextAlign.center,
 
-                                       style: keyboardTextStyle,
-                                     ),
+                                     style: keyboardTextStyle,
                                    ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("9");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "9",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
+                                 ),
+                               ),),
+                               Expanded(child:InkWell(
+                                 onTap: (){
+                                   typeKeyboard("x");
+                                 },
+                                 child: Container(
+                                   padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                   child:Image.asset('assets/images/icon_backspace.png',
+                                     height: 20,
+                                     width: 30,
                                    ),
-                                 ),),
+                                   // Text(
+                                   //   "x",
+                                   //   textAlign: TextAlign.center,
+                                   //
+                                   //   style: keyboardTextStyle,
+                                   // ),
+                                 ),
+                               ),),
 
-                               ],
-                             ),
-                           ),
-                           Container(
-
-                             child: Flex(direction: Axis.horizontal,
-                               children: [
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard(".");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       ".",
-                                       textAlign: TextAlign.center,
-
-                                       style: TextStyle(
-                                           color: novalexxa_text_color,
-                                           fontSize: 27,
-                                           decoration: TextDecoration.none,
-                                           fontWeight: FontWeight.w900),
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("0");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                     child: Text(
-                                       "0",
-                                       textAlign: TextAlign.center,
-
-                                       style: keyboardTextStyle,
-                                     ),
-                                   ),
-                                 ),),
-                                 Expanded(child:InkWell(
-                                   onTap: (){
-                                     typeKeyboard("x");
-                                   },
-                                   child: Container(
-                                     padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
-                                     child:Image.asset('assets/images/icon_backspace.png',
-                                       height: 20,
-                                       width: 30,
-                                     ),
-                                     // Text(
-                                     //   "x",
-                                     //   textAlign: TextAlign.center,
-                                     //
-                                     //   style: keyboardTextStyle,
-                                     // ),
-                                   ),
-                                 ),),
-
-                               ],
-                             ),
+                             ],
                            ),
 
                          ],
@@ -1251,7 +1238,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
                  ),
 
 
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   Align(alignment: Alignment.bottomCenter,
                   child: _buildContinueButton(),
                   )
@@ -1264,7 +1251,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
     setState(() {
 
    if(inputText.isNotEmpty){
-     String value=inputText+typeKey;
+     //String value=inputText+typeKey;
 
 
      if(typeKey=="."){
@@ -1275,7 +1262,7 @@ class _SendMoneyAmountPageScreenState extends State<SendMoneyAmountPageScreen> {
            //_showToast("Already use!");
          }
          else {
-           if(inputText!=null&& inputText.isNotEmpty){
+           if(inputText.isNotEmpty){
              double inputAmountDouble=double.parse(inputText);
              if (inputAmountDouble<=0) {
                inputText = "0"+typeKey;

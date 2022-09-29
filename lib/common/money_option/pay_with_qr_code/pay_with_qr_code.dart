@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'dart:io';
 
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -14,7 +13,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../../api_service/api_service.dart';
 import '../../static/Colors.dart';
-import '../../static/loding_dialog.dart';
 
 
 
@@ -65,7 +63,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
         children: [
 
 
-          SizedBox(
+          const SizedBox(
             height: 55,
           ),
 
@@ -74,7 +72,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
             direction: Axis.horizontal,
             children: [
               Container(
-                margin: new EdgeInsets.only(left: 30),
+                margin: const EdgeInsets.only(left: 30),
                 child: InkResponse(
                   onTap: () {
                     Navigator.of(context).pop();
@@ -89,7 +87,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
 
               Expanded(
                   child: Container(
-                    margin: new EdgeInsets.only(right: 60),
+                    margin: const EdgeInsets.only(right: 60),
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -108,7 +106,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
           ),
 
 
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
 
@@ -121,7 +119,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
 
           Expanded(
               child:Center(
-            child: Container(
+            child: SizedBox(
               width: 250,
               height: 250,
               child: _buildQrView(context),
@@ -225,8 +223,8 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   Widget _buildLoadingView() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
+      children: const [
+        SizedBox(
           child:  CircularProgressIndicator(
             backgroundColor: Colors.white,
             color: hint_color,
@@ -259,7 +257,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
 
   Widget  _buildScanQRCodeButton() {
     return Container(
-      margin:EdgeInsets.only(left: 50.0, right: 50.0),
+      margin:const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
           if(_scannedQRCode.isNotEmpty){
@@ -285,7 +283,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -295,7 +293,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Scan QR Code",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -312,7 +310,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
   }
 
   _delay(){
-    Timer(Duration(milliseconds: 100), () {
+    Timer(const Duration(milliseconds: 100), () {
       setState(() async {
         await controller?.resumeCamera();
         _scannedQRCode="";
@@ -417,7 +415,7 @@ class _PayWithQRCodeScreenState extends State<PayWithQRCodeScreen> {
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

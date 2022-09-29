@@ -17,14 +17,14 @@ import '../call_contact/customer_services.dart';
 import '../notification/notification.dart';
 import '../static/toast.dart';
 
-class HomePageScreen extends StatefulWidget {
-  const HomePageScreen({Key? key}) : super(key: key);
+class HomePageScreen1 extends StatefulWidget {
+  const HomePageScreen1({Key? key}) : super(key: key);
 
   @override
-  State<HomePageScreen> createState() => _HomePageScreenState();
+  State<HomePageScreen1> createState() => _HomePageScreenState();
 }
 
-class _HomePageScreenState extends State<HomePageScreen> {
+class _HomePageScreenState extends State<HomePageScreen1> {
 
   List _currencyTypeList= [];
   String _userId = "";

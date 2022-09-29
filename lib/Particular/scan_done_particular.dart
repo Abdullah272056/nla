@@ -1,15 +1,12 @@
 
-import 'dart:convert';
+
 import 'dart:io';
 
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart';
+
 import 'package:image_picker/image_picker.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
+
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 
@@ -18,7 +15,7 @@ import 'biometric_particular.dart';
 
 class ScanDoneParticularScreen extends StatefulWidget {
   String userId;
-  ScanDoneParticularScreen(this.userId);
+  ScanDoneParticularScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<ScanDoneParticularScreen> createState() => _ScanDoneParticularScreenState(this.userId);
@@ -30,7 +27,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
   //image upload
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
+
   File? imageFile;
 
   @override
@@ -41,19 +38,19 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
         child: Column(
           children: [
 
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
 
             Container(
-              margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+              margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
               child:   LinearPercentIndicator(
                 // width: MediaQuery.of(context).size.width - 80,
                 animation: true,
                 lineHeight: 20.0,
                 animationDuration: 1000,
                 percent: 0.85,
-                center: Text("85%"),
+                center: const Text("85%"),
                 barRadius: const Radius.circular(10),
                 fillColor:Colors.white,
                 backgroundColor: novalexxa_indicator_unselected_color,
@@ -61,7 +58,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 110,
             ),
 
@@ -72,11 +69,11 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
               fit: BoxFit.fill,
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 27,
             ),
 
-            Text(
+            const Text(
               "Done",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -86,8 +83,8 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
             ),
 
             Container(
-              margin: EdgeInsets.only(left:20, top: 18, right: 20, bottom: 00),
-              child:Text(
+              margin: const EdgeInsets.only(left:20, top: 18, right: 20, bottom: 00),
+              child:const Text(
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -130,7 +127,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -140,7 +137,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -157,16 +154,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
   }
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
 
   void takeImage(ImageSource source)async{
@@ -175,7 +163,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
       _imageFile=pickedFile!;
       imageFile = File(pickedFile.path);
       final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
+     // String img64 = base64Encode(bytes);
 
      // _imageUpload(img64);
 

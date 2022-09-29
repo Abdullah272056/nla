@@ -2,12 +2,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/common/money_option/send_money/send_money_amount_page.dart';
-import 'package:nova_lexxa/common/money_option/send_money/send_money_amount_page3.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shimmer/shimmer.dart';
@@ -38,7 +36,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getRecentlyContactList();
           _getAllContactList();
@@ -69,12 +67,12 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -84,8 +82,8 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 60),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 60),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Send Money",
@@ -111,9 +109,9 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
             if(searchValueShowStatus)...{
               // vertical list view
               Container(
-                margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                margin:  const EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
                 child:ListView.builder(
-                  itemCount: _searchUserList==null||_searchUserList.length<=0?0:
+                  itemCount: _searchUserList.length<=0?0:
                   _searchUserList.length,
                   padding: EdgeInsets.zero,
                   // itemCount: orderRoomList == null ? 0 : orderRoomList.length,
@@ -129,8 +127,8 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child:Container(
-                    margin:  EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
-                    child: Text(
+                    margin:  const EdgeInsets.only(left: 30, top: 30, right:10, bottom: 0),
+                    child: const Text(
                       "Recent Contacts",
                       style: TextStyle(
                           color: novalexxa_text_color,
@@ -146,7 +144,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
               if(shimmerStatus==false)...{
                 if(_recentlyContactUserList.length>0 && _recentlyContactUserList!=null)...{
                   Container(
-                    margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                    margin:  const EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
                     height: 110,
                     child:ListView.builder(
 
@@ -176,7 +174,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
               }
               else...{
                 Container(
-                  margin:  EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
+                  margin:  const EdgeInsets.only(left: 0, top: 30, right:15, bottom: 0),
                   height: 110,
                   child:ListView.builder(
 
@@ -206,7 +204,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
               if(allUserShimmerStatus==false)...{
                 Container(
-                  margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                  margin:  const EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
                   child:ListView.builder(
                     itemCount: _allContactUserList==null||_allContactUserList.length<=0?0:
                     _allContactUserList.length,
@@ -222,7 +220,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
               }
               else...{
                 Container(
-                  margin:  EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
+                  margin:  const EdgeInsets.only(left: 15, top: 30, right:15, bottom: 0),
                   child:ListView.builder(
                     itemCount: 9,
                     padding: EdgeInsets.zero,
@@ -263,9 +261,9 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
         }
         },
       child:  Container(
-        margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
+        margin: const EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
         height: 48,
-        child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
+        child: Padding(padding: const EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
           child:  Column(
             children: [
               Expanded(child: Row(
@@ -305,20 +303,20 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                     response["sender_information"]["id"].toString()==_userId?
                     response["receiver_information"]["username"].toString():
                     response["sender_information"]["username"].toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 16,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.w500),
                   ),),
 
-                  SizedBox(width: 10,)
+                  const SizedBox(width: 10,)
 
                 ],
               ),),
               Align(alignment:Alignment.bottomRight,
                 child:  Container(
-                  margin: EdgeInsets.only(left: 50,right: 15),
+                  margin: const EdgeInsets.only(left: 50,right: 15),
                   height: 1.5,
                   color:notification_image_bg_color ,
                 ),
@@ -351,7 +349,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
         child: Flex(direction: Axis.vertical,
           children: [
 
-            Container(
+            SizedBox(
               width: 61,
               height: 61,
 
@@ -377,7 +375,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
             ),
 
             Container(
-                margin:  EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
+                margin:  const EdgeInsets.only(left: 0, right: 0,bottom: 00,top: 6),
                 child:  Text(
 
 
@@ -387,7 +385,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
                   //response["username"].toString(),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 13,
                       fontWeight: FontWeight.w500),
@@ -413,9 +411,9 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
       },
       child:  Container(
-        margin: EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
+        margin: const EdgeInsets.only(right:00,top: 0,left: 0,bottom: 25),
         height: 48,
-        child: Padding(padding: EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
+        child: Padding(padding: const EdgeInsets.only(right:00,top: 0,left: 20,bottom: 0),
           child:  Column(
             children: [
               Expanded(child: Row(
@@ -453,20 +451,20 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
                   Expanded(child:Text(
                     response["username"].toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: novalexxa_text_color,
                         fontSize: 16,
                         decoration: TextDecoration.none,
                         fontWeight: FontWeight.w500),
                   ),),
 
-                  SizedBox(width: 10,)
+                  const SizedBox(width: 10,)
 
                 ],
               ),),
               Align(alignment:Alignment.bottomRight,
                 child:  Container(
-                  margin: EdgeInsets.only(left: 50,right: 15),
+                  margin: const EdgeInsets.only(left: 50,right: 15),
                   height: 1.5,
                   color:notification_image_bg_color ,
                 ),
@@ -483,19 +481,19 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
     return Container(
       height: 50,
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 20,right: 20),
+      margin: const EdgeInsets.only(left: 20,right: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextField(
           controller: userInput,
           textInputAction: TextInputAction.search,
           autocorrect: false,
           enableSuggestions: false,
           cursorColor:intello_input_text_color,
-          style: TextStyle(color:novalexxa_text_color,),
+          style: const TextStyle(color:novalexxa_text_color,),
           autofocus: false,
           onChanged: (text){
             if(text.isEmpty){
@@ -516,7 +514,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
           },
           decoration: InputDecoration(
             border: InputBorder.none,
-            prefixIcon:  Icon(
+            prefixIcon:  const Icon(
               Icons.search,
               color: hint_color,
               size: 30.0,
@@ -524,7 +522,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
 
             hintText: hintTitle,
 
-            hintStyle:  TextStyle(fontSize: 17,
+            hintStyle:  const TextStyle(fontSize: 17,
                 color:novalexxa_hint_text_color,
                 // color: Colors.intello_hint_color,
                 fontStyle: FontStyle.normal),
@@ -535,16 +533,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
     );
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -583,7 +572,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -611,7 +600,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -645,39 +634,12 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
   }
-  _getAllContactList1() async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        allUserShimmerStatus=true;
-        try {
-          var response = await get(
-            Uri.parse('$BASE_URL_API$SUB_URL_API_ALL_CONTACT_LIST'),
-          );
-          if (response.statusCode == 200) {
-            setState(() {
-              allUserShimmerStatus=false;
-               var data = jsonDecode(response.body);
-               _allContactUserList = data["data"];
-              // _showAlertDialog(context, _countryList);
-            });
-          } else {
-            Fluttertoast.cancel();
-          }
-        } catch (e) {
-          Fluttertoast.cancel();
-        }
-      }
-    } on SocketException catch (e) {
-      Fluttertoast.cancel();
-      showToast("No Internet Connection!");
-    }
-  }
+
 
   // _getAllContactSearchList(String email) async {
   //   try {
@@ -710,56 +672,18 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
   //   }
   // }
 
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
 
   Widget _recentContactBottomItemShimmer() {
     return Container(
-      margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
+      margin: const EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
 
       ),
       child: Container(
-        margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+        margin: const EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
         //color: Colors.white,
         child: SizedBox(
           child: Flex(
@@ -773,7 +697,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                  // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width:45,
                   height: 45,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(27.5),
 
@@ -783,7 +707,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
               ),
 
 
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -803,8 +727,8 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -842,7 +766,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
       child: Flex(direction: Axis.vertical,
         children: [
 
-          Container(
+          SizedBox(
             width: 61,
             height: 61,
 
@@ -857,7 +781,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
                   // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width:55,
                   height: 55,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(27.5),
 
@@ -869,7 +793,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
             ),
 
           ),
-          SizedBox(height: 5,),
+          const SizedBox(height: 5,),
           Shimmer.fromColors(
             baseColor:shimmer_baseColor,
             highlightColor:shimmer_highlightColor,
@@ -878,7 +802,7 @@ class _SendMoneyPageScreenState extends State<SendMoneyPageScreen> {
               // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
               width:45,
               height: 15,
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: shimmer_baseColor,
                 borderRadius: BorderRadius.circular(2),
 

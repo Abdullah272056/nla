@@ -1,7 +1,5 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +20,6 @@ class MoneyOptionScreen extends StatefulWidget {
 }
 
 class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
-  String _userId = "";
   String _userName = "xxxxxxx";
   @override
   @mustCallSuper
@@ -80,14 +77,14 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                       alignment: Alignment.centerLeft,
                       child:Text(
                         _userName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_text_color,
                             fontSize: 23,
                             decoration: TextDecoration.none,
                             fontWeight: FontWeight.bold),
                       ),
                     ) ,
-                    Align(
+                    const Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "IT60 X054 2811 1010 0000 0123 456",
@@ -110,7 +107,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
 
             Container(
               padding:const EdgeInsets.only(left:20, top: 50, right: 20, bottom: 00),
-              child:Align(alignment: Alignment.topLeft,
+              child:const Align(alignment: Alignment.topLeft,
                 child:Text(
                   "Select Payment Method",
                   style: TextStyle(
@@ -123,8 +120,8 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
             ),
 
             Container(
-              margin:EdgeInsets.only(right: 20.0,top: 10,left: 20,bottom: 30),
-              child: Align(alignment: Alignment.topLeft,
+              margin:const EdgeInsets.only(right: 20.0,top: 10,left: 20,bottom: 30),
+              child: const Align(alignment: Alignment.topLeft,
                 child: Text(
                   "Please select what you wish to do.",
                   textAlign: TextAlign.center,
@@ -140,7 +137,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
               Expanded(child:
               InkResponse(
                 onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context)=>SendMoneyPageScreen()));
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>const SendMoneyPageScreen()));
 
                 },
                 child: cardItemDesign(marginLeft: 20,marginRight: 10,bg_image_link: "assets/images/send_to_pay_friend_card_bg.png",
@@ -154,7 +151,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
               Expanded(child:
               InkResponse(
                 onTap: (){
-                  Navigator.push(context,MaterialPageRoute(builder: (context)=>RequestMoneyPageScreen()));
+                  Navigator.push(context,MaterialPageRoute(builder: (context)=>const RequestMoneyPageScreen()));
                 },
                 child: cardItemDesign(marginLeft: 10,marginRight: 20,bg_image_link: "assets/images/request_money_card_bg.png",
                     icon_link: "assets/images/request_money_icoon.png",item_name_text: "Request\nMoney"
@@ -171,7 +168,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                   onTap: (){
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>PayWithQRCodeScreen()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const PayWithQRCodeScreen()));
                   },
                   child: cardItemDesign(marginLeft: 20,marginRight: 10,bg_image_link: "assets/images/pay_with_qr_code_card_bg.png",
                       icon_link: "assets/images/pay_with_qr_code_icon.png",item_name_text: "Pay With\nQR Code"
@@ -184,7 +181,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>PayNFCScreen()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>const PayNFCScreen()));
                     },
                     child: cardItemDesign(marginLeft: 10,marginRight: 20,bg_image_link: "assets/images/pay_with_nfc_card_bg.png",
                         icon_link: "assets/images/pay_with_nfc_icon.png",item_name_text: "Pay With\nNFC"
@@ -202,7 +199,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyParticularAndCompanyScreen()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>const TransferMoneyParticularAndCompanyScreen()));
 
 
                     },
@@ -217,7 +214,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
                 Expanded(child:
                 InkResponse(
                     onTap: (){
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>SchedulePaymentScreen()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>const SchedulePaymentScreen()));
                     },
                     child: cardItemDesign(marginLeft: 10,marginRight: 20,bg_image_link: "assets/images/schedule_card_item_bg.png",
                         icon_link: "assets/images/schedule_payment_icon.png",item_name_text: "Schedule\na Payment"
@@ -263,7 +260,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
             child: Container(
               width: 44,
               height: 44,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(22.0),
@@ -287,7 +284,7 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
             child:Align(alignment: Alignment.topLeft,
               child:Text(
                 item_name_text,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
                     decoration: TextDecoration.none,
@@ -304,22 +301,11 @@ class _MoneyOptionScreenState extends State<MoneyOptionScreen> {
   }
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
 
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
       setState(() {
-        _userId = sharedPreferences.getString(pref_user_id)!;
         _userName = sharedPreferences.getString(pref_user_name)!;
         // _login_status_check = sharedPreferences.getString(pref_login_status)!;
 

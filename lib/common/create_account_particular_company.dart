@@ -2,9 +2,7 @@
 
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
 import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -23,11 +21,6 @@ class _CreateAccountParticularAndCompanyScreenState extends State<CreateAccountP
   String countryName="en",countryIcon="icon_country.png";
 
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
 int _particular_company_selected_status=1;
 
@@ -39,7 +32,7 @@ int _particular_company_selected_status=1;
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Padding(
@@ -53,17 +46,17 @@ int _particular_company_selected_status=1;
                       lineHeight: 20.0,
                       animationDuration: 1000,
                       percent: 0.1,
-                      center: Text("10%"),
+                      center: const Text("10%"),
                       barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
-                    Text(
+                    const Text(
                       "Create Account as",
                       textAlign: TextAlign.center,
 
@@ -72,10 +65,10 @@ int _particular_company_selected_status=1;
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -83,7 +76,7 @@ int _particular_company_selected_status=1;
                           fontSize: 15,
                           fontWeight: FontWeight.w400),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
@@ -93,14 +86,14 @@ int _particular_company_selected_status=1;
                     ]else...{
                       _buildCompanySelectedSection(),
                     },
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
@@ -124,7 +117,7 @@ int _particular_company_selected_status=1;
       child:Stack(
         children: [
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 142,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 142,
                 bottom: 20,
               ),
               child:InkResponse(
@@ -144,7 +137,7 @@ int _particular_company_selected_status=1;
 
 
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 00,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 00,
                 bottom: 20,
               ),
               child:InkResponse(
@@ -173,7 +166,7 @@ int _particular_company_selected_status=1;
       child:Stack(
         children: [
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 00,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 00,
                 bottom: 20,
               ),
               child: InkResponse(
@@ -194,7 +187,7 @@ int _particular_company_selected_status=1;
 
           ),
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 142,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 142,
                 bottom: 20,
               ),
               child:InkResponse(
@@ -230,10 +223,10 @@ int _particular_company_selected_status=1;
         onPressed: () {
           if(_particular_company_selected_status==1){
 
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>const PrivacyPolicyForParticularScreen()));
           }
           else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForCompanyScreen()));
+            Navigator.push(context,MaterialPageRoute(builder: (context)=>const PrivacyPolicyForCompanyScreen()));
           }
 
         },
@@ -244,7 +237,7 @@ int _particular_company_selected_status=1;
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -254,7 +247,7 @@ int _particular_company_selected_status=1;
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -273,13 +266,13 @@ int _particular_company_selected_status=1;
   Widget _buildHaveAnAccountButton() {
     return InkWell(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>const SplashScreen4()));
       },
       child: Container(
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "I have an Account",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -291,17 +284,6 @@ int _particular_company_selected_status=1;
         ),
       ),
     );
-  }
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.white,
-        fontSize: 16.0);
   }
 
 

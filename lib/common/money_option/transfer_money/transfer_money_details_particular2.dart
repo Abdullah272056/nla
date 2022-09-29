@@ -2,17 +2,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
-import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_congrats.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_From_mobile.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -30,10 +26,10 @@ class TransferMoneyDetailForParticularScreen2 extends StatefulWidget {
   var response;
 
 
-  TransferMoneyDetailForParticularScreen2({
+  TransferMoneyDetailForParticularScreen2({Key? key,
     required  this.name,required this.surName, required this.countryId,required this.response
       }
-     );
+     ) : super(key: key);
 
   @override
   State<TransferMoneyDetailForParticularScreen2> createState() => _TransferMoneyDetailForParticularScreen2State(this.name, this.surName, this.countryId, this.response);
@@ -49,16 +45,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
   TextEditingController? _transferMoneyAmountController = TextEditingController();
 
-  String _countryBirthDay="Enter Birthday";
   String select_your_country="Enter Birthday";
 
   double _switchButtonWidth = 40;
   double _switchButtonHeight = 25;
-  double _buttonToggleSize = 20;
+
   bool _switchButtonStatus = false;
-  String _countryName = "Select your country";
-  String _countryNameId = "0";
-  String _countryCode = "IT";
+
 
   String _transferFee = "0.00";
 
@@ -81,7 +74,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
   //sender info
   String _userId = "";
-  String _currencyId = "0";
   List _currencyTypeListForSender = [];
   String _senderCountryName="";
   String _senderCountryNameId="";
@@ -89,7 +81,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   String _senderCurrencyId="";
   String _senderCurrencySymbol="";
   String _senderCountryCode = "";
-  String _senderUserCountryId = "";
   String _moneyConvertTransferFees = "0.00";
 
 
@@ -99,7 +90,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     super.initState();
     loadUserIdFromSharePref().then((_) {
 
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _receiverId= _receiverResponse["data"]["id"].toString();
           _receiverEmail= _receiverResponse["data"]["email"].toString();
@@ -126,19 +117,19 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -148,8 +139,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 60),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 60),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Transfer Money",
@@ -165,19 +156,19 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
 
             Container(
-              margin: EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
-              child: new LinearPercentIndicator(
+              margin: const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
+              child: LinearPercentIndicator(
                 // width: MediaQuery.of(context).size.width - 80,
                 animation: true,
                 lineHeight: 20.0,
                 animationDuration: 1000,
                 percent: 0.6,
-                center: Text("60%"),
+                center: const Text("60%"),
                 barRadius: const Radius.circular(10),
                 fillColor:Colors.white,
                 backgroundColor: novalexxa_indicator_unselected_color,
@@ -186,8 +177,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             ),
 
             Container(
-              margin:EdgeInsets.only(right: 20.0,top: 50,left: 20,bottom: 0),
-              child: Align(alignment: Alignment.center,
+              margin:const EdgeInsets.only(right: 20.0,top: 50,left: 20,bottom: 0),
+              child: const Align(alignment: Alignment.center,
                 child: Text(
                   "Where do you want to send money?",
                   textAlign: TextAlign.center,
@@ -203,8 +194,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             _buildSelectDeliveryMethodItemBankDeposit3(),
 
             Container(
-              margin:EdgeInsets.only(right: 20.0,top: 30,left: 30,bottom: 0),
-              child: Align(alignment: Alignment.centerLeft,
+              margin:const EdgeInsets.only(right: 20.0,top: 30,left: 30,bottom: 0),
+              child: const Align(alignment: Alignment.centerLeft,
                 child: Text(
                   "Select Delivery Method",
                   textAlign: TextAlign.left,
@@ -216,7 +207,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                 ),
               ),
             ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -226,7 +217,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
               ],
             ),
-            SizedBox(height: 20,),
+            const SizedBox(height: 20,),
           ],
         ),
       ),
@@ -238,7 +229,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   Widget _buildSelectDeliveryMethodItemBankDeposit2() {
     return Container(
       height: 100,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
@@ -246,7 +237,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             color: Colors.grey.withOpacity(.25),
             blurRadius: 20.0, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset: Offset(
+            offset: const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             ),
@@ -261,7 +252,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             mainAxisAlignment: MainAxisAlignment.center,
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child:  Text(
                   "You Send?",
@@ -284,9 +275,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   autocorrect: false,
                   enableSuggestions: false,
                   cursorColor:slide_button_end_color,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: slide_button_end_color,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
@@ -305,7 +296,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                     //   });
                     // }
 
-                    if(text==""||text==null||text.isEmpty){
+                    if(text.isEmpty){
                       setState(() {
                         _transferFee="0.0";
                         _receiverReceivedMoney="0.00";
@@ -328,7 +319,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                   },
                   autofocus: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
 
                     hintText: "0.00",
@@ -349,7 +340,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   "Transfer Fees: $_transferFee $_senderCurrencyName",
                   textAlign: TextAlign.center,
 
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: intello_level_color,
                       fontSize: 9,
                       fontWeight: FontWeight.normal),
@@ -375,16 +366,16 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                     children: [
                       Text(
                         _senderCountryName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: intello_level_color,
                             fontSize: 11,
                             fontWeight: FontWeight.normal),
                       ),
 
-                      SizedBox(height: 5,),
+                      const SizedBox(height: 5,),
                       Text(
                         "$_senderCurrencyName $_senderCurrencySymbol",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_text_color,
                             fontSize: 14,
                             fontWeight: FontWeight.w600),
@@ -412,7 +403,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   Widget _buildSelectDeliveryMethodItemBankDeposit3() {
     return Container(
       height: 100,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
@@ -420,7 +411,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             color: Colors.grey.withOpacity(.25),
             blurRadius: 20.0, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset: Offset(
+            offset: const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             ),
@@ -441,14 +432,14 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   _switchButtonStatus==true? "$_receiverInputName will receive?":'$_receiverInputName will receive Exactly?',
                   textAlign: TextAlign.left,
 
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 13,
                       fontWeight: FontWeight.normal),
                 ),
               ),
 
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Align(
                 alignment: Alignment.centerLeft,
                 child:   Text(
@@ -456,14 +447,14 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                   textAlign: TextAlign.left,
 
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: slide_button_end_color,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
                 ),
               ),
 
-              SizedBox(height: 5,),
+              const SizedBox(height: 5,),
               Align(
                 alignment: Alignment.centerLeft,
                 child:Text(
@@ -471,7 +462,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   "Exchange Rate: 1 $_senderCurrencyName = $_exchangeRate $_receiverCurrencyName",
                   textAlign: TextAlign.left,
 
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: intello_level_color,
                       fontSize: 9,
                       fontWeight: FontWeight.normal),
@@ -532,16 +523,16 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
                             Text(
                               _receiverCountryName,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: intello_level_color,
                                   fontSize: 11,
                                   fontWeight: FontWeight.normal),
                             ),
 
-                            SizedBox(height: 5,),
+                            const SizedBox(height: 5,),
                             Text(
                               "$_receiverCurrencyName $_receiverCurrencySymbol",
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: novalexxa_text_color,
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600),
@@ -561,7 +552,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                           child: Flag.fromString(_receiverCountryCode, height: 28, width: 32, fit: BoxFit.fill ),
                         )
                       },
-                      Icon(
+                      const Icon(
                         Icons.arrow_drop_down_outlined,
                         color: novalexxa_text_color,
                         size: 26.0,
@@ -627,7 +618,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             child: Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -635,7 +626,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                     color: Colors.grey.withOpacity(.25),
                     blurRadius: 20.0, // soften the shadow
                     spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
+                    offset: const Offset(
                       2.0, // Move to right 10  horizontally
                       1.0, // Move to bottom 10 Vertically
                     ),
@@ -649,7 +640,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   height: 54,
                   width: 54,
                   // padding: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: notification_image_bg_color,
                     borderRadius: BorderRadius.circular(27),
 
@@ -672,8 +663,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             ),
           ),
 
-          SizedBox(height: 15,),
-          Text(
+          const SizedBox(height: 15,),
+          const Text(
             "Bank Deposit",
             textAlign: TextAlign.center,
 
@@ -736,7 +727,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             child: Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -744,7 +735,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                     color: Colors.grey.withOpacity(.25),
                     blurRadius: 20.0, // soften the shadow
                     spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
+                    offset: const Offset(
                       2.0, // Move to right 10  horizontally
                       1.0, // Move to bottom 10 Vertically
                     ),
@@ -758,7 +749,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   height: 54,
                   width: 54,
                   // padding: const EdgeInsets.only(left: 5.0, right: 5.0,top: 5,bottom: 5),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: notification_image_bg_color,
                     borderRadius: BorderRadius.circular(27),
 
@@ -780,8 +771,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
             ),
           ),
-          SizedBox(height: 15,),
-          Text(
+          const SizedBox(height: 15,),
+          const Text(
             "Cash Pickup",
             textAlign: TextAlign.center,
 
@@ -814,7 +805,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
+                  settings: const RouteSettings(name: "Foo"),
                   builder: (BuildContext context) => TransferMoneyDetailForParticularFromMobileScreen(
                       exchangeRate: _exchangeRate,
                       receiverCurrencyId: _receiverCurrencyId,
@@ -836,7 +827,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             child:  Container(
 
               // padding: const EdgeInsets.only(left: 18.0, right: 18.0,top: 18,bottom: 18),
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
@@ -844,7 +835,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                     color: Colors.grey.withOpacity(.25),
                     blurRadius: 20.0, // soften the shadow
                     spreadRadius: 0.0, //extend the shadow
-                    offset: Offset(
+                    offset: const Offset(
                       2.0, // Move to right 10  horizontally
                       1.0, // Move to bottom 10 Vertically
                     ),
@@ -858,7 +849,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                   height: 54,
                   width: 54,
                   padding: const EdgeInsets.only(left: 5.0, ),
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: notification_image_bg_color,
                     borderRadius: BorderRadius.circular(27),
 
@@ -880,8 +871,8 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
             ),
           ),
-          SizedBox(height: 15,),
-          Text(
+          const SizedBox(height: 15,),
+          const Text(
             "Mobile Money",
             textAlign: TextAlign.center,
 
@@ -918,24 +909,24 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_start_bg_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -952,24 +943,24 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
     return Container(
       height: 50,
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 00,right: 00,bottom: 15,top: 15),
+      margin: const EdgeInsets.only(left: 00,right: 00,bottom: 15,top: 15),
       decoration: BoxDecoration(
           color:scan_text_box_color,
           border: Border.all(color: select_country_search_box_border_color,width: 1),
           borderRadius: BorderRadius.circular(25)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextField(
           controller: userInput,
           textInputAction: TextInputAction.search,
           autocorrect: false,
           enableSuggestions: false,
           cursorColor:intello_input_text_color,
-          style: TextStyle(color:novalexxa_text_color,fontSize: 16),
+          style: const TextStyle(color:novalexxa_text_color,fontSize: 16),
           autofocus: false,
           decoration: InputDecoration(
             border: InputBorder.none,
-            prefixIcon:  Icon(
+            prefixIcon:  const Icon(
               Icons.search,
               color: hint_color,
               size: 25.0,
@@ -977,7 +968,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
             hintText: hintTitle,
 
-            hintStyle:  TextStyle(fontSize: 16,
+            hintStyle:  const TextStyle(fontSize: 16,
                 color:novalexxa_hint_text_color,
                 // color: Colors.intello_hint_color,
                 fontStyle: FontStyle.normal),
@@ -1015,7 +1006,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -1061,7 +1052,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -1072,7 +1063,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
       builder: (context) {
         // return VerificationScreen();
         return Dialog(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           child: Container(
             // color: Colors.green,
@@ -1081,9 +1072,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
+                  child: const Text(
                     "Select your country",
                     style: TextStyle(
                       fontSize: 17,
@@ -1127,7 +1118,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 10.0, right: 10.0, top: 10, bottom: 10),
                             child: Column(
                               children: [
@@ -1136,13 +1127,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                                   children: [
                                     Flag.fromString(
                                         _currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString(), height: 25, width: 25),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
                                       child: Text(
                                         _currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 17,
                                           color: Colors.black,
                                           fontWeight: FontWeight.normal,
@@ -1193,7 +1184,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -1237,7 +1228,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -1248,7 +1239,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
       builder: (context) {
         // return VerificationScreen();
         return Dialog(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           child: Container(
             // color: Colors.green,
@@ -1257,9 +1248,9 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
+                  child: const Text(
                     "Select your country",
                     style: TextStyle(
                       fontSize: 17,
@@ -1297,7 +1288,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 10.0, right: 10.0, top: 10, bottom: 10),
                             child: Column(
                               children: [
@@ -1306,13 +1297,13 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
                                   children: [
                                     Flag.fromString(
                                         _currencyTypeListData[index]['currency_information']['country_info']["country_code_name"].toString(), height: 25, width: 25),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
                                       child: Text(
                                         _currencyTypeListData[index]['currency_information']['country_info']["country_name"].toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 17,
                                           color: Colors.black,
                                           fontWeight: FontWeight.normal,
@@ -1385,7 +1376,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         } catch (e) {
 
        //   _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -1395,53 +1386,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
   }
 
 
-  _getMoneyConvert1({
-    required String from,
-    required String to,
-    required String amount,
-  }) async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        try {
-          Response response =
-          await post(Uri.parse('$BASE_URL_API$SUB_URL_API_TRANSFER_MONEY_CONVERT'),
-              body: {
-                'from': from,
-                'to': to,
-                'amount': amount,
-              });
-          if (response.statusCode == 200) {
-            setState(() {
-              var data = jsonDecode(response.body);
-
-              if(_userTransferMoneyTxt.isNotEmpty){
-                _receiverReceivedMoney=data["data"]["result"][to].toString();
-              }else{
-                _receiverReceivedMoney="0.0";
-              }
-
-            //  _transferFee=data["transfer_fees"].toString();
-
-            });
-          }
-
-          else {
-            // var data = jsonDecode(response.body.toString());
-            // _showToast(data['message']);
-          }
-
-        } catch (e) {
-
-       //   _showToast("Try again!");
-          print(e.toString());
-        }
-      }
-    } on SocketException catch (_) {
-      Fluttertoast.cancel();
-      _showToast("No Internet Connection!");
-    }
-  }
 
 
   _getExchangeRate({
@@ -1477,7 +1421,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         } catch (e) {
 
           //   _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -1536,12 +1480,12 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
             //var data = jsonDecode(response.body.toString());
 
             setState(() {
-              var data = jsonDecode(response.body);
+           //   var data = jsonDecode(response.body);
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  settings: RouteSettings(name: "Foo"),
-                  builder: (BuildContext context) => TransferMoneyCongratsScreen(
+                  settings: const RouteSettings(name: "Foo"),
+                  builder: (BuildContext context) => const TransferMoneyCongratsScreen(
                   ),),
               );
 
@@ -1559,7 +1503,7 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -1585,131 +1529,6 @@ class _TransferMoneyDetailForParticularScreen2State extends State<TransferMoneyD
 
 
 
-  void _showAlertDialogForSender(BuildContext context, List _currencyTypeListData) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Container(
-            // color: Colors.green,
-            margin: const EdgeInsets.only(
-                left: 15.0, right: 15.0, top: 20, bottom: 20),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
-                    "Select your Currency",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: novalexxa_color,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    softWrap: false,
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: _currencyTypeListData == null ? 0 : _currencyTypeListData.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkResponse(
-                          onTap: () {
-                            setState(() {
-                              Navigator.of(context).pop();
-
-                              _senderCurrencyName=_currencyTypeListForSender[index]['currency_information']['currency_name'].toString();
-                              _senderCurrencySymbol= getCurrency(_currencyTypeListForSender[index]['currency_information']['currency_name'].toString());
-                              _senderCountryName=_currencyTypeListForSender[index]['currency_information']['country_info']["country_name"].toString();
-                              _senderCountryCode=_currencyTypeListForSender[index]['currency_information']['country_info']["country_code_name"].toString();
-
-
-
-                              // _currentBalance=double.parse(_currencyTypeListData[index]['current_balance'].toString());
-                              // _currencySymbol= _currencyTypeListData[index]['currency_information']['currency_symbol'].toString();
-                              // _currencyId=_currencyTypeListData[index]['currency_information']['country_id'].toString();
-
-
-                            });
-                          },
-                          child: Container(
-                            margin: EdgeInsets.only(
-                                left: 10.0, right: 10.0, top: 10, bottom: 10),
-                            child: Column(
-                              children: [
-                                Flex(
-                                  direction: Axis.horizontal,
-                                  children: [
-
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      _currencyTypeListData[index]['currency_information']['currency_name'].toString(),
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      softWrap: false,
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 1,
-                                    ),
-                                    Text(
-                                      " - ",
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      softWrap: false,
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 1,
-                                    ),
-                                    Text(
-                                      _currencyTypeListData[index]['current_balance']
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      softWrap: false,
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 1,
-                                    ),
-                                    Text(
-
-                                      _currencyTypeListData[index]['currency_information']['currency_symbol'].toString(),
-                                      style: TextStyle(
-                                        fontSize: 17,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.normal,
-                                        fontFamily: 'Roboto',
-                                      ),
-
-                                      softWrap: false,
-                                      overflow: TextOverflow.clip,
-                                      maxLines: 1,
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   String getCurrency(String currencyCode) {
     var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: currencyCode);

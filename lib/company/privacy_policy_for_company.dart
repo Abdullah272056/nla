@@ -1,6 +1,5 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/company/registration_for_company.dart';
@@ -23,25 +22,25 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: novalexxa_color,
         ),
         child: Flex(
           direction: Axis.vertical,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
                       size: 30.0,
@@ -50,8 +49,8 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
                 ),
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 50),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 50),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Privacy Policy",
@@ -65,7 +64,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -95,10 +94,10 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 22,
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child:  Text(
                       "Privacy Policy for Company",
@@ -112,10 +111,10 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
                     ),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 25,
                   ),
-                  Text(
+                  const Text(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehe nderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         "\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm odo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nul pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                         "\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
@@ -128,19 +127,19 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
                         fontWeight: FontWeight.w400),
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
 
                   DelayedWidget(
 
-                    delayDuration: Duration(milliseconds: 100),// Not required
-                    animationDuration: Duration(milliseconds: 1000),// Not required
+                    delayDuration: const Duration(milliseconds: 100),// Not required
+                    animationDuration: const Duration(milliseconds: 1000),// Not required
                     animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
                     child:Flex(direction: Axis.vertical,
                       children: [
                         _buildAcceptButton(),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         _buildDeclineButton()
                       ],
                     ),
@@ -168,7 +167,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient:LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient:const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -178,7 +177,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Accept",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -196,14 +195,14 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
   Widget _buildDeclineButton() {
     return InkWell(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>const SplashScreen4()));
 
       },
       child: Container(
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "Decline",
           textAlign: TextAlign.center,
           style: TextStyle(

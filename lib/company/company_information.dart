@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -15,12 +14,11 @@ import '../api_service/api_service.dart';
 import '../common/static/loding_dialog.dart';
 import '../common/static/toast.dart';
 import 'company_account.dart';
-import 'confirm_number_company.dart';
 
 
 class AddInformationForCompanyScreen extends StatefulWidget {
   String userId;
-  AddInformationForCompanyScreen(this.userId);
+  AddInformationForCompanyScreen(this.userId, {Key? key}) : super(key: key);
 
 
 
@@ -46,7 +44,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Padding(
@@ -54,23 +52,23 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    new LinearPercentIndicator(
+                    LinearPercentIndicator(
                       // width: MediaQuery.of(context).size.width - 80,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
                       percent: 0.7,
-                      center: Text("70%"),
+                      center: const Text("70%"),
                       barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                      margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10),
                       child:Align(alignment: Alignment.topLeft,
                           child:Container(
                             decoration: BoxDecoration(
@@ -79,7 +77,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                                   color: Colors.grey.withOpacity(0.3),
                                   spreadRadius: 1,
                                   blurRadius: 10,
-                                  offset: Offset(0, 2), // changes position of shadow
+                                  offset: const Offset(0, 2), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -96,8 +94,8 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                     ),
                     
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.topLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.topLeft,
                         child: Text(
                           "Company Info",
                           textAlign: TextAlign.center,
@@ -110,8 +108,8 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.centerLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.centerLeft,
                         child: Text(
                           "Enter your company information",
                           textAlign: TextAlign.center,
@@ -122,13 +120,13 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                         ),),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -156,19 +154,19 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                     ),
 
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     companyNameInput(_companyNameController!, 'Company Name',
                         TextInputType.text,"assets/images/commpany_name_icon.png"),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -200,12 +198,12 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
 
 
                     //country
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -240,12 +238,12 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                     //   margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
                     //   height: .5,
                     // ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -277,14 +275,14 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
                         TextInputType.text,"assets/images/icon_zip.png"),
 
 
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
@@ -321,14 +319,14 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
           decoration: InputDecoration(
             // border: InputBorder.,
 
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            focusedBorder:const UnderlineInputBorder(
+              borderSide: BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
+            enabledBorder:const UnderlineInputBorder(
+              borderSide: BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
@@ -358,12 +356,12 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         height: 52,
 
         child: Padding(
-          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
           child:Flex(direction: Axis.horizontal,
             children: [
               if(_countryBirthDay==select_your_country)...{
                 Expanded(child: Text(_countryBirthDay,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: hint_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
@@ -371,7 +369,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
               }
               else...{
                 Expanded(child: Text(_countryBirthDay,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color:novalexxa_text_color,
                         fontSize: 18,
                         fontWeight: FontWeight.normal)
@@ -414,7 +412,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -424,7 +422,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -512,7 +510,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
 
             setState(() {
               //_showToast("success");
-              var data = jsonDecode(response.body);
+           //   var data = jsonDecode(response.body);
               Navigator.push(context,MaterialPageRoute(builder: (context)=>CompanyAccountScreen(_userId)));
             });
           }
@@ -525,7 +523,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

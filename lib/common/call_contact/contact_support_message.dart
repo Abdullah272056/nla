@@ -13,13 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
-import '../money_option/pay_nfc/pay_nfc.dart';
-import '../money_option/pay_with_qr_code/pay_with_qr_code.dart';
-import '../money_option/request_money/request_money_page.dart';
-import '../money_option/schedule_a_payment/schedule_a_payment.dart';
-import '../money_option/send_money/send_money_page.dart';
-import '../money_option/transfer_money/transfer_money_for_selected.dart';
-import '../static/loding_dialog.dart';
 import '../static/toast.dart';
 
 
@@ -34,10 +27,10 @@ class ContactSupportMessageScreen extends StatefulWidget {
 }
 
 class _ContactSupportMessageScreenState extends State<ContactSupportMessageScreen> {
-  String _receiverId;
+  final String _receiverId;
   _ContactSupportMessageScreenState(this._receiverId);
 
-  TextEditingController? _inputMessageController = TextEditingController();
+  final TextEditingController? _inputMessageController = TextEditingController();
  // String _senderId="";
   int sendIconVisibility=0;
   List _messageList = [];
@@ -50,7 +43,7 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
     super.initState();
     loadUserIdFromSharePref().then((_) {
 
-      if(_senderId!=null &&!_senderId.isEmpty&&_senderId!=""){
+      if(_senderId.isNotEmpty&&_senderId!=""){
         setState(() {
           _sendMessage(sender: _senderId,file: _file,message: _inputMessage,receiver: _receiverId);
           // _receiverId= _receiverResponse["data"]["id"].toString();
@@ -77,12 +70,12 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
             children: [
               Container(
-                margin: new EdgeInsets.only(left: 25),
+                margin: const EdgeInsets.only(left: 25),
                 child: InkResponse(
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back,
                     color: novalexxa_text_color,
                     size: 30.0,
@@ -116,7 +109,7 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
               ),
               Expanded(child:Column(
-                children: [
+                children: const [
                   Align(
                     alignment: Alignment.centerLeft,
                     child:Text(
@@ -169,7 +162,7 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
               itemCount: _messageList==null||_messageList.length<=0?0
                   :_messageList.length,
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemBuilder: (context,index) {
                 if(_senderId==_messageList[index]["sender"].toString()){
                   sendIconVisibility=0;
@@ -211,12 +204,12 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
             decoration: BoxDecoration(
               color:_senderId==response["sender"].toString()?novalexxa_color1:receiver_message_bg_color ,
-              borderRadius: _senderId==response["sender"].toString()?BorderRadius.only(
+              borderRadius: _senderId==response["sender"].toString()?const BorderRadius.only(
                   topRight: Radius.circular(10.0),
                   bottomRight: Radius.circular(00.0),
                   topLeft: Radius.circular(10.0),
                   bottomLeft: Radius.circular(10.0)):
-              BorderRadius.only(
+              const BorderRadius.only(
                   topRight: Radius.circular(10.0),
                   bottomRight: Radius.circular(10.0),
                   topLeft: Radius.circular(10.0),
@@ -226,8 +219,8 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
 
 
-            margin: EdgeInsets.only(right: 30.0, top: 5, bottom: 5, left: 30),
-            padding: EdgeInsets.only(right: 15.0, top: 12, bottom: 12, left: 15),
+            margin: const EdgeInsets.only(right: 30.0, top: 5, bottom: 5, left: 30),
+            padding: const EdgeInsets.only(right: 15.0, top: 12, bottom: 12, left: 15),
             child: Text(
                convertText(response["message"].toString())
               ,
@@ -256,7 +249,7 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
             Container(
               width: 30,
               height: 30,
-              margin: EdgeInsets.only(right: 00.0, top: 5, bottom: 5, left: 30),
+              margin: const EdgeInsets.only(right: 00.0, top: 5, bottom: 5, left: 30),
               // padding:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15),
@@ -267,7 +260,7 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
                     child: FadeInImage.assetNetwork(
                       fit: BoxFit.fill,
                       placeholder: 'assets/images/empty.jpg',
-                      image: "$BASE_URL"+response["sender_info"]["image"].toString(),
+                      image: BASE_URL+response["sender_info"]["image"].toString(),
                       imageErrorBuilder: (context, url, error) =>
                           Image.asset(
                             'assets/images/empty.jpg',
@@ -284,27 +277,27 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
             Container(
               width: 30,
               height: 30,
-              margin: EdgeInsets.only(right: 00.0, top: 5, bottom: 5, left: 30),
+              margin: const EdgeInsets.only(right: 00.0, top: 5, bottom: 5, left: 30),
             )
           },
 
           Container(
             decoration: BoxDecoration(
               color:_senderId==response["sender"].toString()?novalexxa_color1:receiver_message_bg_color ,
-              borderRadius: _senderId==response["sender"].toString()?BorderRadius.only(
+              borderRadius: _senderId==response["sender"].toString()?const BorderRadius.only(
                   topRight: Radius.circular(10.0),
                   bottomRight: Radius.circular(00.0),
                   topLeft: Radius.circular(10.0),
                   bottomLeft: Radius.circular(10.0)):
-              BorderRadius.only(
+              const BorderRadius.only(
                   topRight: Radius.circular(10.0),
                   bottomRight: Radius.circular(10.0),
                   topLeft: Radius.circular(10.0),
                   bottomLeft: Radius.circular(00.0))
               ,
             ),
-            margin: EdgeInsets.only(right: 30.0, top: 5, bottom: 5, left: 20),
-            padding: EdgeInsets.only(right: 15.0, top: 12, bottom: 12, left: 15),
+            margin: const EdgeInsets.only(right: 30.0, top: 5, bottom: 5, left: 20),
+            padding: const EdgeInsets.only(right: 15.0, top: 12, bottom: 12, left: 15),
             child: Text(
               response["message"].toString(),
               overflow: TextOverflow.ellipsis,
@@ -326,19 +319,19 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
     return Container(
       height: 55,
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 20,right: 20),
+      margin: const EdgeInsets.only(left: 20,right: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextField(
           controller: userInput,
           textInputAction: TextInputAction.search,
           autocorrect: false,
           enableSuggestions: false,
           cursorColor:intello_input_text_color,
-          style: TextStyle(color:novalexxa_text_color,),
+          style: const TextStyle(color:novalexxa_text_color,),
           autofocus: false,
           onChanged: (text){
             if(text.isNotEmpty){
@@ -397,7 +390,7 @@ class _ContactSupportMessageScreenState extends State<ContactSupportMessageScree
 
             hintText: hintTitle,
 
-            hintStyle:  TextStyle(fontSize: 15,
+            hintStyle:  const TextStyle(fontSize: 15,
                 color:novalexxa_hint_text_color,
                 // color: Colors.intello_hint_color,
                 fontStyle: FontStyle.normal),

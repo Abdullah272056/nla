@@ -35,7 +35,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           loging_status=2;
           _delay();
@@ -90,8 +90,8 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
             fit: BoxFit.fill,
           ),
         ),
-        SizedBox(height: 15,),
-        Align(
+        const SizedBox(height: 15,),
+        const Align(
           alignment: Alignment.center,
           child:Text(
             "Logged in Successfully",
@@ -121,21 +121,21 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
           height: 114.0,
           decoration: BoxDecoration(
             color: Colors.white,
-            image: DecorationImage(
+            image: const DecorationImage(
               image: NetworkImage('https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg'),
               fit: BoxFit.fill,
             ),
-            borderRadius: BorderRadius.all( Radius.circular(57.0)),
+            borderRadius: const BorderRadius.all( Radius.circular(57.0)),
             border: Border.all(
               color: Colors.white,
               width: 5,
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
           "Nice to meet you again!",
           textAlign: TextAlign.center,
 
@@ -144,7 +144,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
               fontSize: 23,
               fontWeight: FontWeight.normal),
         ),
-        Text(
+        const Text(
           "Welcome Back",
           textAlign: TextAlign.center,
 
@@ -153,7 +153,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
               fontSize: 23,
               fontWeight: FontWeight.normal),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Align(
@@ -162,13 +162,13 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
             _userName,
             textAlign: TextAlign.center,
 
-            style: TextStyle(
+            style: const TextStyle(
                 color:Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 80,
         ),
 
@@ -181,8 +181,8 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
             fit: BoxFit.fill,
           ),
         ),
-        SizedBox(height: 15,),
-        Align(
+        const SizedBox(height: 15,),
+        const Align(
           alignment: Alignment.center,
           child:Text(
             "Logged in Successfully",
@@ -206,8 +206,8 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
   Widget _buildLoadingView() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
+      children: const [
+        SizedBox(
           child:  CircularProgressIndicator(
             backgroundColor: Colors.white,
             color: hint_color,
@@ -239,7 +239,7 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
   }
 
   _delay(){
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       setState(() {
         loging_status=3;
         _delay2();
@@ -249,12 +249,12 @@ class _LoginLoadingScreenState extends State<LoginLoadingScreen> {
   }
 
   _delay2(){
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       setState(() {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (BuildContext context) => NavigationBarScreen(0,HomePageScreen()),
+            builder: (BuildContext context) => NavigationBarScreen(0,const HomePageScreen()),
           ),
               (route) => false,
         );

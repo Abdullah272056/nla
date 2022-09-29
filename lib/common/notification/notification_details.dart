@@ -54,12 +54,12 @@ class _NotificationsDetailsScreenState
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -68,8 +68,8 @@ class _NotificationsDetailsScreenState
                 ),
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 10),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Notifications",
@@ -94,13 +94,13 @@ class _NotificationsDetailsScreenState
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  NotificationsSettingsScreen()));
+                                  const NotificationsSettingsScreen()));
                     },
                   ),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Expanded(
@@ -108,9 +108,9 @@ class _NotificationsDetailsScreenState
                 children: [
                   _buildMessageSection(),
                   Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 40, right: 10, bottom: 0, top: 0),
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         right: 15.0, top: 15, bottom: 15, left: 15),
 
                     width: 80,
@@ -141,7 +141,7 @@ class _NotificationsDetailsScreenState
               ),
             ),
             _buildBottomButtonSection(),
-            SizedBox(
+            const SizedBox(
               height: 25,
             )
           ],
@@ -161,7 +161,7 @@ class _NotificationsDetailsScreenState
 
   Widget _buildMessageSection() {
     return Container(
-      margin: EdgeInsets.only(right: 30.0, top: 40, bottom: 10, left: 30),
+      margin: const EdgeInsets.only(right: 30.0, top: 40, bottom: 10, left: 30),
 
       decoration: BoxDecoration(
         color: Colors.white,
@@ -186,11 +186,11 @@ class _NotificationsDetailsScreenState
             //teacher profile
             Expanded(child: Container(
               margin:
-              EdgeInsets.only(left: 0.0, right: 0.0, top: 15, bottom: 0),
+              const EdgeInsets.only(left: 0.0, right: 0.0, top: 15, bottom: 0),
               child: SingleChildScrollView(
                 child: Text(
                   notificationMessage,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 15,
                       fontWeight: FontWeight.w400),
@@ -201,12 +201,12 @@ class _NotificationsDetailsScreenState
             Align(
               alignment: Alignment.bottomLeft,
               child: Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     left: 0.0, right: 0.0, top: 20, bottom: 20),
                 child: Text(
                   _dateTimeConvert(_notificationMessageDate)
                   ,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: intello_level_color,
                       fontSize: 10,
                       fontWeight: FontWeight.w400),
@@ -236,18 +236,18 @@ class _NotificationsDetailsScreenState
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    NavigationBarScreen(0, HomePageScreen())));
+                    NavigationBarScreen(0, const HomePageScreen())));
       },
       child: Container(
-        margin: EdgeInsets.only(left: 30, right: 10, bottom: 0, top: 20),
+        margin: const EdgeInsets.only(left: 30, right: 10, bottom: 0, top: 20),
         //width: 80,
         height: 45,
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: novalexxa_color,
           borderRadius: BorderRadius.circular(10),
         ),
         //   height: 150,
-        child: Center(
+        child: const Center(
           child: Text(
             "Go to Home",
             textAlign: TextAlign.center,
@@ -269,11 +269,11 @@ class _NotificationsDetailsScreenState
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => NotificationsDeletedScreen()));
+                builder: (context) => const NotificationsDeletedScreen()));
       },
       child: Container(
-        margin: EdgeInsets.only(left: 10, right: 30, bottom: 0, top: 20),
-        padding: EdgeInsets.only(left: 15, right: 15, bottom: 0, top: 0),
+        margin: const EdgeInsets.only(left: 10, right: 30, bottom: 0, top: 20),
+        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 0, top: 0),
         //width: 80,
         height: 45,
         decoration: BoxDecoration(
@@ -292,7 +292,7 @@ class _NotificationsDetailsScreenState
           ],
         ),
         //   height: 150,
-        child: Center(
+        child: const Center(
           child: Icon(
             Icons.delete,
             color: novalexxa_color,
@@ -303,16 +303,7 @@ class _NotificationsDetailsScreenState
     );
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
   _dateTimeConvert(String dateString) {
     DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
     String outputDateFormat = DateFormat('dd MMM,yyyy').format(parseDate);

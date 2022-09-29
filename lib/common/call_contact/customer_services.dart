@@ -32,11 +32,9 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   var AllTabColor,currencyRatesTabColor,privacyPolicyTabColor,customerServiceTabColor;
   int tab_status = 1;
   int list_grid_status = 1;
-  String _userId = "";
   String _serviceTypeName = "All Question";
   List _customerServiceTypeList = [];
   List _customerServiceList = [];
-  List _customerServiceList1 = [];
   int selectedTabPosition=0;
 
   @override
@@ -55,25 +53,25 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: novalexxa_color,
         ),
         child: Flex(
           direction: Axis.vertical,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
                       size: 30.0,
@@ -82,8 +80,8 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
                 ),
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 10),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Customer Services",
@@ -112,11 +110,11 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             userInputSearchField(_searchController!, 'Search here...', TextInputType.text),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -151,7 +149,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
                     children: [
 
                       _buildTabButton(),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
 
@@ -172,13 +170,13 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
   Widget _buildTabButton() {
     return Container(
         height: 40,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 10.0,
       ),
       child:
       ListView.builder(
           padding: EdgeInsets.zero,
-          itemCount:_customerServiceTypeList==null||_customerServiceTypeList.length<=0?0
+          itemCount:_customerServiceTypeList.length<=0?0
               :_customerServiceTypeList.length,
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
@@ -382,7 +380,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
               child:Text(
                 serviceName,
                 textAlign: TextAlign.left,
-                style: TextStyle(
+                style: const TextStyle(
                     color: novalexxa_text_color,
                     height: 1.2,
                     fontSize: 19,
@@ -393,10 +391,10 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
           ListView.builder(
               padding: EdgeInsets.zero,
 
-              itemCount: _customerServiceList==null||_customerServiceList.length<=0?0
+              itemCount: _customerServiceList.length<=0?0
                   :_customerServiceList.length,
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 return _buildCurrencyRatesItem1(_customerServiceList[index]);
               }),
@@ -415,7 +413,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
         itemCount: responseList["customar_service_info"]==null||responseList["customar_service_info"].length<=0?0
             :responseList["customar_service_info"].length,
         shrinkWrap: true,
-        physics: ClampingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return _buildCurrencyRatesItem(responseList["customar_service_info"][index]);
         });
@@ -427,7 +425,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
       },
       child:Container(
         padding: const EdgeInsets.only(left: 20, top: 19, right: 20, bottom: 0),
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           top: 0.0,
         ),
         child: Column(
@@ -437,11 +435,11 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
               children: [
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right:00),
+                      margin: const EdgeInsets.only(right:00),
                       child: Text(
                         response["customar_service_qustions"].toString(),
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_text_color,
                             height: 1.2,
                             fontSize: 16,
@@ -450,7 +448,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
                     )),
                 Container(
                   margin: const EdgeInsets.only(right:20),
-                  child:Icon(
+                  child:const Icon(
                     Icons.arrow_forward_ios,
                     color:novalexxa_text_color,
                     size: 19,
@@ -500,7 +498,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
               width: 1,
               color: novalexxa_customer_services_tab_border_color//                   <--- border width here
           ),
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
               topRight: Radius.circular(40.0),
               bottomRight: Radius.circular(40.0),
               topLeft: Radius.circular(40.0),
@@ -682,20 +680,20 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
     return Container(
       height: 50,
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 20,right: 20),
+      margin: const EdgeInsets.only(left: 20,right: 20),
       decoration: BoxDecoration(
           color:Colors.white,
 
           borderRadius: BorderRadius.circular(25)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextField(
           controller: userInput,
           textInputAction: TextInputAction.next,
           autocorrect: false,
           enableSuggestions: false,
           cursorColor:intello_input_text_color,
-          style: TextStyle(color:novalexxa_text_color,),
+          style: const TextStyle(color:novalexxa_text_color,),
           autofocus: false,
           decoration: InputDecoration(
             border: InputBorder.none,
@@ -716,7 +714,7 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
 
             hintText: hintTitle,
 
-            hintStyle:  TextStyle(fontSize: 17,
+            hintStyle:  const TextStyle(fontSize: 17,
                 color:novalexxa_hint_text_color,
                 // color: Colors.intello_hint_color,
                 fontStyle: FontStyle.normal),
@@ -731,7 +729,6 @@ class _CustomerServicesScreenState extends State<CustomerServicesScreen> with Si
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
       setState(() {
-        _userId = sharedPreferences.getString(pref_user_id)!;
         // _login_status_check = sharedPreferences.getString(pref_login_status)!;
 
       });

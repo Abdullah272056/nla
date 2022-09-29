@@ -33,7 +33,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     super.initState();
     loadUserIdFromSharePref().then((_) {
 
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getUserNotificationList();
           // _receiverId= _receiverResponse["data"]["id"].toString();
@@ -62,12 +62,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             direction: Axis.horizontal,
             children: [
               Container(
-                margin: new EdgeInsets.only(left: 30),
+                margin: const EdgeInsets.only(left: 30),
                 child: InkResponse(
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back,
                     color: novalexxa_text_color,
                     size: 30.0,
@@ -77,8 +77,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
               Expanded(
                   child: Container(
-                    margin: new EdgeInsets.only(right: 10),
-                    child: Align(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: const Align(
                       alignment: Alignment.center,
                       child: Text(
                         "Notifications",
@@ -100,14 +100,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   color: novalexxa_text_color,
                   onPressed: () {
-                    Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
+                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const NotificationsSettingsScreen()));
 
                   },
                 ),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
 
@@ -117,10 +117,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             Expanded(child:
             ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: _notificationList==null||_notificationList.length<=0?0
+                itemCount: _notificationList.length<=0?0
                     :_notificationList.length,
                 shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   return _buildNotificationItemForList(_notificationList[index]);
                 })
@@ -129,7 +129,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             Expanded(child:  ListView.builder(
                 padding: EdgeInsets.zero,
                 itemCount: 10,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 // physics: ClampingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
@@ -144,9 +144,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   Widget _buildNotificationItemForList(var response) {
     return Container(
-      margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
+      margin: const EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [BoxShadow(
@@ -155,7 +155,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             //  blurRadius: 20.0, // soften the shadow
             blurRadius:20, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset: Offset(
+            offset: const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             )
@@ -174,18 +174,18 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           child: Slidable(
 
             // Specify a key if the Slidable is dismissible.
-            key: ValueKey(0),
+            key: const ValueKey(0),
 
 
             endActionPane:ActionPane(
              extentRatio: .25,
-              motion:DrawerMotion(),
+              motion:const DrawerMotion(),
               children: [
 
                 SlidableAction(
                   autoClose: true,
 
-                  padding: EdgeInsets.only(left: 10,right: 10),
+                  padding: const EdgeInsets.only(left: 10,right: 10),
                   onPressed: (BuildContext context) {
 
                     setState(() {
@@ -195,7 +195,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   },
                   flex: 1,
 
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(10.0),
                         bottomRight: Radius.circular(10.0),
 
@@ -214,7 +214,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             // The child of the Slidable is what the user sees when the
             // component is not dragged.
             child:Container(
-              margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+              margin: const EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
               //color: Colors.white,
               child: SizedBox(
                 child: Flex(
@@ -222,11 +222,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   children: [
                     Container(
                       //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
-                      padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                      padding: const EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
 
                       width: 65,
                       height: 65,
-                      decoration: new BoxDecoration(
+                      decoration: BoxDecoration(
                         color:notification_image_bg_color,
                         borderRadius: BorderRadius.circular(10),
 
@@ -249,7 +249,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       // ) ,
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     Expanded(
@@ -269,7 +269,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
                                         response["content"].toString(),
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color:novalexxa_text_color,
                                             // color: Colors.intello_text_color,
                                             fontSize: 13,
@@ -285,7 +285,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
                               ),
 
-                              SizedBox(
+                              const SizedBox(
                                 height: 10,
                               ),
 
@@ -298,7 +298,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                       child: Text(
                                          _dateTimeConvert(response["created_at"].toString()),
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
 
                                             color:intello_level_color,
                                             // color: Colors.intello_text_color,
@@ -330,9 +330,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   Widget _buildNotificationItemForShimmer() {
     return Container(
-      margin: EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
+      margin: const EdgeInsets.only(right: 20.0, top: 10, bottom: 10, left: 20),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
         // boxShadow: [BoxShadow(
@@ -348,7 +348,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         // )],
       ),
       child: Container(
-        margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+        margin: const EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
         //color: Colors.white,
         child: SizedBox(
           child: Flex(
@@ -359,10 +359,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 highlightColor:shimmer_highlightColor,
                 child:Container(
                   //  margin:  EdgeInsets.only(left: 10, right: 10,bottom: 10,top: 10),
-                  padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
+                  padding: const EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width: 65,
                   height: 65,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(10),
 
@@ -372,7 +372,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               ),
 
 
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -393,8 +393,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(6.0),
@@ -415,7 +415,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
 
@@ -429,8 +429,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 80.0,left: 5,bottom: 00),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 80.0,left: 5,bottom: 00),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(6.0),
@@ -530,24 +530,24 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_start_bg_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -561,7 +561,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   }
 
   _dateTimeConvert(String dateString) {
-    DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
+    DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
     String outputDateFormat = DateFormat('dd MMM,yyyy').format(parseDate);
     String outputTimeFormat = DateFormat('hh:mm a').format(parseDate);
     return outputDateFormat+" at "+outputTimeFormat;

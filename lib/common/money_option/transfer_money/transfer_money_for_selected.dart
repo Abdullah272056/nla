@@ -1,6 +1,5 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular.dart';
@@ -27,7 +26,7 @@ int _particular_company_selected_status=1;
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Padding(
@@ -39,12 +38,12 @@ int _particular_company_selected_status=1;
                       direction: Axis.horizontal,
                       children: [
                         Container(
-                          margin: new EdgeInsets.only(left:00),
+                          margin: const EdgeInsets.only(left:00),
                           child: InkResponse(
                             onTap: () {
                               Navigator.of(context).pop();
                             },
-                            child: Icon(
+                            child: const Icon(
                               Icons.arrow_back,
                               color: novalexxa_text_color,
                               size: 30.0,
@@ -54,8 +53,8 @@ int _particular_company_selected_status=1;
 
                         Expanded(
                             child: Container(
-                              margin: new EdgeInsets.only(right: 60),
-                              child: Align(
+                              margin: const EdgeInsets.only(right: 60),
+                              child: const Align(
                                 alignment: Alignment.center,
                                 child: Text(
                                   "Transfer Money",
@@ -71,10 +70,10 @@ int _particular_company_selected_status=1;
 
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
-                    Text(
+                    const Text(
                       "Who would you like to transfer the money to?",
                       textAlign: TextAlign.center,
 
@@ -83,10 +82,10 @@ int _particular_company_selected_status=1;
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Lorem ipsum dolor sit amet, consectetur do adipiscing elit, sed do eiusmod tempor.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -94,7 +93,7 @@ int _particular_company_selected_status=1;
                           fontSize: 15,
                           fontWeight: FontWeight.w400),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
@@ -104,14 +103,14 @@ int _particular_company_selected_status=1;
                     ]else...{
                       _buildCompanySelectedSection(),
                     },
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
@@ -135,7 +134,7 @@ int _particular_company_selected_status=1;
       child:Stack(
         children: [
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 142,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 142,
                 bottom: 20,
               ),
               child:InkResponse(
@@ -155,7 +154,7 @@ int _particular_company_selected_status=1;
 
 
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 00,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 00,
                 bottom: 20,
               ),
               child:InkResponse(
@@ -184,7 +183,7 @@ int _particular_company_selected_status=1;
       child:Stack(
         children: [
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 00,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 00,
                 bottom: 20,
               ),
               child: InkResponse(
@@ -205,7 +204,7 @@ int _particular_company_selected_status=1;
 
           ),
           Container(
-              margin:EdgeInsets.only(right:00.0,top: 10,left: 142,
+              margin:const EdgeInsets.only(right:00.0,top: 10,left: 142,
                 bottom: 20,
               ),
               child:InkResponse(
@@ -243,7 +242,7 @@ int _particular_company_selected_status=1;
             Fluttertoast.cancel();
            // _showToast("1");
 
-           Navigator.push(context,MaterialPageRoute(builder: (context)=>TransferMoneyDetailForParticularScreen()));
+           Navigator.push(context,MaterialPageRoute(builder: (context)=>const TransferMoneyDetailForParticularScreen()));
           }
           else{
             Fluttertoast.cancel();
@@ -259,7 +258,7 @@ int _particular_company_selected_status=1;
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -269,7 +268,7 @@ int _particular_company_selected_status=1;
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Proceed",
               textAlign: TextAlign.center,
               style: TextStyle(

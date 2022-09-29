@@ -1,11 +1,7 @@
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nova_lexxa/Particular/registration_for_particular.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
 import 'contact_support.dart';
 
@@ -42,25 +38,25 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: novalexxa_color,
         ),
         child: Flex(
           direction: Axis.vertical,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: Colors.white,
                       size: 30.0,
@@ -70,7 +66,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                 Expanded(
                     child: Container(
                       margin: new EdgeInsets.only(right: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "FAQs",
@@ -99,7 +95,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -132,7 +128,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                   hasScrollBody: false,
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 22,
                       ),
                       Align(
@@ -141,7 +137,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                           _serviceName,
                           textAlign: TextAlign.left,
 
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: novalexxa_faqs_text_color,
                               fontSize: 22,
                               decoration: TextDecoration.none,
@@ -149,7 +145,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                         ),
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 25,
                       ),
                       Expanded(child: Text(
@@ -157,7 +153,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                         textAlign: TextAlign.left,
 
 
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_text_color,
                             fontSize: 15,
                             height: 1.5,
@@ -166,10 +162,10 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                       ),),
 
 
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child:  Text(
                           "Was this topic useful to you?",
@@ -182,13 +178,13 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       DelayedWidget(
 
-                        delayDuration: Duration(milliseconds: 100),// Not required
-                        animationDuration: Duration(milliseconds: 1000),// Not required
+                        delayDuration: const Duration(milliseconds: 100),// Not required
+                        animationDuration: const Duration(milliseconds: 1000),// Not required
                         animation: DelayedAnimations.SLIDE_FROM_TOP,// Not required
                         child:Flex(direction: Axis.vertical,
                           children: [
@@ -220,7 +216,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
       child: ElevatedButton(
         onPressed: () {
 
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>ContactSupportScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>const ContactSupportScreen()));
 
 
         },
@@ -238,7 +234,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
 
             height: 45,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "No! I want to contact support",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -271,7 +267,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -281,7 +277,7 @@ class _CustomerServicesDetailScreenState extends State<CustomerServicesDetailScr
 
             height: 45,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Yes",
               textAlign: TextAlign.center,
               style: TextStyle(

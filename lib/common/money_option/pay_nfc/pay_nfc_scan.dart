@@ -36,7 +36,7 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child:Container(
-              decoration:BoxDecoration(
+              decoration:const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -50,19 +50,19 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
               child:Column(
 
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 55,
                   ),
                   Flex(
                     direction: Axis.horizontal,
                     children: [
                       Container(
-                        margin: new EdgeInsets.only(left: 30),
+                        margin: const EdgeInsets.only(left: 30),
                         child: InkResponse(
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: novalexxa_text_color,
                             size: 25.0,
@@ -72,8 +72,8 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
 
                       Expanded(
                           child: Container(
-                            margin: new EdgeInsets.only(right: 60),
-                            child: Align(
+                            margin: const EdgeInsets.only(right: 60),
+                            child: const Align(
                               alignment: Alignment.center,
                               child: Text(
                                 "Pay with NFC",
@@ -94,15 +94,15 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
                     children: [
                       Expanded(child: Container(
 
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: scan_text_box_color,
                             borderRadius: BorderRadius.all(Radius.circular(15))
                         ),
-                        padding:EdgeInsets.only(left: 30.0, right: 30.0,top: 20,bottom: 20),
-                        margin:EdgeInsets.only(left: 20.0, right: 20.0,top: 50,bottom: 18),
+                        padding:const EdgeInsets.only(left: 30.0, right: 30.0,top: 20,bottom: 20),
+                        margin:const EdgeInsets.only(left: 20.0, right: 20.0,top: 50,bottom: 18),
                         child: Column(
 
-                          children: [
+                          children: const [
 
 
                             Text("Pay with NFC",
@@ -133,16 +133,13 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
                     ],
                   ),
 
-                  Expanded(child: Container(
-                    //color:Colors.pink,
-                    child: Center(
-                      child:  Image.asset(
-                        "assets/images/qr_nfc.png",
-                        height: 260,
-                        width: 280,
-                        fit: BoxFit.fill,
-                        ////color: Colors.white,
-                      ),
+                  Expanded(child: Center(
+                    child:  Image.asset(
+                      "assets/images/qr_nfc.png",
+                      height: 260,
+                      width: 280,
+                      fit: BoxFit.fill,
+                      ////color: Colors.white,
                     ),
                   )),
 
@@ -152,7 +149,7 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
                     ],
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   )
 
@@ -173,7 +170,7 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
   Widget _buildOkButton() {
     return InkResponse(
       onTap: (){
-        Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+        Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,const MoneyOptionScreen()));
         Navigator.pushReplacement(context, route);
 
       },
@@ -181,13 +178,13 @@ class _PayNFCScanScreenState extends State<PayNFCScanScreen> {
         height: 50,
         margin: const EdgeInsets.only(left: 45.0, right: 45.0),
         decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+            gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
             borderRadius: BorderRadius.circular(7.0)
         ),
-        child: Center(
+        child: const Center(
           child: Text(
             "Ok",
             textAlign: TextAlign.center,

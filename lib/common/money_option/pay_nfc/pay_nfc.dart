@@ -33,7 +33,7 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child:Container(
-              decoration:BoxDecoration(
+              decoration:const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -47,19 +47,19 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
               child:Column(
 
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 55,
                   ),
                   Flex(
                     direction: Axis.horizontal,
                     children: [
                       Container(
-                        margin: new EdgeInsets.only(left: 30),
+                        margin: const EdgeInsets.only(left: 30),
                         child: InkResponse(
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color: Colors.white,
                             size: 25.0,
@@ -69,8 +69,8 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
 
                       Expanded(
                           child: Container(
-                            margin: new EdgeInsets.only(right: 60),
-                            child: Align(
+                            margin: const EdgeInsets.only(right: 60),
+                            child: const Align(
                               alignment: Alignment.center,
                               child: Text(
                                 "Pay with NFC",
@@ -86,14 +86,14 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
 
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Expanded(child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.wifi,
                         color: Colors.white,
                         size: 50.0,
@@ -108,7 +108,7 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
                       ),
                       InkResponse(
                         onTap: (){
-                          Route route = MaterialPageRoute(builder: (context) => PayNFCScanScreen());
+                          Route route = MaterialPageRoute(builder: (context) => const PayNFCScanScreen());
                           Navigator.pushReplacement(context, route);
                         //  Navigator.push(context,MaterialPageRoute(builder: (context)=>PayNFCScanScreen()));
                         },
@@ -118,10 +118,10 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
 
                               decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(.19),
-                                  borderRadius: BorderRadius.all(Radius.circular(15))
+                                  borderRadius: const BorderRadius.all(Radius.circular(15))
                               ),
-                              padding:EdgeInsets.only(left: 30.0, right: 30.0,top: 20,bottom: 20),
-                              margin:EdgeInsets.only(left: 20.0, right: 20.0,top: 90,bottom: 18),
+                              padding:const EdgeInsets.only(left: 30.0, right: 30.0,top: 20,bottom: 20),
+                              margin:const EdgeInsets.only(left: 20.0, right: 20.0,top: 90,bottom: 18),
                               child: Column(
 
                                 children: [
@@ -134,11 +134,11 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
                                     fit: BoxFit.fill,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 15,
                                   ),
 
-                                  Text("Your NFC is disabled,\nopen your phone setting and active\nthe NFC to make payment",
+                                  const Text("Your NFC is disabled,\nopen your phone setting and active\nthe NFC to make payment",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color:Colors.white,
@@ -155,7 +155,7 @@ class _PayNFCScreenState extends State<PayNFCScreen> {
                     ],
                   )),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
 

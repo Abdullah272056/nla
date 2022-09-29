@@ -114,24 +114,24 @@ class _CardPageScreenState extends State<CardPageScreen> {
               Expanded(
                 child:Center(
                   child: Container(
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                           right: 10, top: 30, left: 10, bottom: 10),
                       height: 163,
                       width: 316,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius: BorderRadius.all(const Radius.circular(15)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(.50),
                             blurRadius: 20.0, // soften the shadow
                             spreadRadius: 0.0, //extend the shadow
-                            offset: Offset(
+                            offset: const Offset(
                               2.0, // Move to right 10  horizontally
                               1.0, // Move to bottom 10 Vertically
                             ),
                           )
                         ],
-                        gradient: LinearGradient(colors: [ novalexxa_hint_text_color,novalexxa_hint_text_color,],
+                        gradient: const LinearGradient(colors: [ novalexxa_hint_text_color,novalexxa_hint_text_color,],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -146,7 +146,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(
+                                      margin: const EdgeInsets.only(
                                           right: 00,
                                           top: 00,
                                           left: 20,
@@ -162,12 +162,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                       child: Align(
                                         alignment: Alignment.centerRight,
                                         child: Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               right: 20,
                                               top: 00,
                                               left: 00,
                                               bottom: 00),
-                                          child:Text(
+                                          child:const Text(
                                             "Freezed Card",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -190,7 +190,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                   child: Text(
                                     _card_number,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         letterSpacing: 2.0,
                                         fontSize: 22,
@@ -202,7 +202,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                               ),
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       right: 00,
                                       top: 00,
                                       left: 00,
@@ -216,12 +216,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                           direction: Axis.vertical,
                                           children: [
                                             Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     right: 10,
                                                     top: 00,
                                                     left: 20,
                                                     bottom: 5),
-                                                child: Text(
+                                                child: const Text(
                                                   "Card Holder Name",
                                                   textAlign:
                                                   TextAlign.center,
@@ -233,12 +233,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                                           .w500),
                                                 )),
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   right: 10,
                                                   top: 00,
                                                   left: 20,
                                                   bottom: 00),
-                                              child: Text(
+                                              child: const Text(
                                                 "Simon Lewis",
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -259,12 +259,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                           direction: Axis.vertical,
                                           children: [
                                             Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     right: 10,
                                                     top: 00,
                                                     left: 20,
                                                     bottom: 5),
-                                                child: Text(
+                                                child: const Text(
                                                   "Expiry Date",
                                                   textAlign:
                                                   TextAlign.center,
@@ -276,14 +276,14 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                                           .w400),
                                                 )),
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   right: 10,
                                                   top: 00,
                                                   left: 20,
                                                   bottom: 00),
                                               child: Text(
                                                 _card_expire_date,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 13.5,
                                                     decoration:
@@ -301,7 +301,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                           alignment:
                                           Alignment.centerRight,
                                           child: Container(
-                                            margin: EdgeInsets.only(
+                                            margin: const EdgeInsets.only(
                                                 right: 20,
                                                 top: 00,
                                                 left: 00,
@@ -323,23 +323,21 @@ class _CardPageScreenState extends State<CardPageScreen> {
                             ],
                           ),
 
-                          BlurryContainer(
+                          const BlurryContainer(
                             child: Text(""),
                             blur: 4.5,
                             height: 163,
                             width: 316,
                             elevation: 0,
                             color: Colors.transparent,
-                            padding: const EdgeInsets.all(8),
-                            borderRadius: const BorderRadius.all(Radius.circular(15)),
+                            padding: EdgeInsets.all(8),
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
-                          Container(
-                            child: Center(
-                              child: Icon(
-                                Icons.lock_rounded,
-                                color: Colors.white,
-                                size: 50.0,
-                              ),
+                          const Center(
+                            child: Icon(
+                              Icons.lock_rounded,
+                              color: Colors.white,
+                              size: 50.0,
                             ),
                           )
 
@@ -352,7 +350,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     right: 00, top: 30, left: 00, bottom: 10),
                 height: 163,
                 width: 19,
@@ -374,7 +372,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
             direction: Axis.horizontal,
             children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     right: 00, top: 30, left: 00, bottom: 10),
                 height: 163,
                 width: 19,
@@ -391,24 +389,24 @@ class _CardPageScreenState extends State<CardPageScreen> {
               Expanded(
                 child:Center(
                   child: Container(
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                           right: 10, top: 30, left: 10, bottom: 10),
                       height: 163,
                       width: 316,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        borderRadius: const BorderRadius.all(Radius.circular(15)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(.50),
                             blurRadius: 20.0, // soften the shadow
                             spreadRadius: 0.0, //extend the shadow
-                            offset: Offset(
+                            offset: const Offset(
                               2.0, // Move to right 10  horizontally
                               1.0, // Move to bottom 10 Vertically
                             ),
                           )
                         ],
-                        gradient: LinearGradient(colors: [ novalexxa_visa_card_start_color,novalexxa_visa_card_end_color,],
+                        gradient: const LinearGradient(colors: [ novalexxa_visa_card_start_color,novalexxa_visa_card_end_color,],
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
                         ),
@@ -423,7 +421,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      margin: EdgeInsets.only(
+                                      margin: const EdgeInsets.only(
                                           right: 00,
                                           top: 00,
                                           left: 20,
@@ -439,7 +437,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                       child: Align(
                                         alignment: Alignment.centerRight,
                                         child: Container(
-                                          margin: EdgeInsets.only(
+                                          margin: const EdgeInsets.only(
                                               right: 20,
                                               top: 00,
                                               left: 00,
@@ -463,7 +461,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                   child: Text(
                                     _card_number,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         letterSpacing: 2.0,
                                         fontSize: 22,
@@ -475,7 +473,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                               ),
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       right: 00,
                                       top: 00,
                                       left: 00,
@@ -489,12 +487,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                           direction: Axis.vertical,
                                           children: [
                                             Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     right: 10,
                                                     top: 00,
                                                     left: 20,
                                                     bottom: 5),
-                                                child: Text(
+                                                child: const Text(
                                                   "Card Holder Name",
                                                   textAlign:
                                                   TextAlign.center,
@@ -506,14 +504,14 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                                           .w500),
                                                 )),
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   right: 10,
                                                   top: 00,
                                                   left: 20,
                                                   bottom: 00),
                                               child: Text(
                                                 _card_holder_name,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 13.5,
                                                     decoration:
@@ -532,12 +530,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                           direction: Axis.vertical,
                                           children: [
                                             Container(
-                                                margin: EdgeInsets.only(
+                                                margin: const EdgeInsets.only(
                                                     right: 10,
                                                     top: 00,
                                                     left: 20,
                                                     bottom: 5),
-                                                child: Text(
+                                                child: const Text(
                                                   "Expiry Date",
                                                   textAlign:
                                                   TextAlign.center,
@@ -549,14 +547,14 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                                           .w400),
                                                 )),
                                             Container(
-                                              margin: EdgeInsets.only(
+                                              margin: const EdgeInsets.only(
                                                   right: 10,
                                                   top: 00,
                                                   left: 20,
                                                   bottom: 00),
                                               child: Text(
                                                 _card_expire_date,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 13.5,
                                                     decoration:
@@ -574,7 +572,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                           alignment:
                                           Alignment.centerRight,
                                           child: Container(
-                                            margin: EdgeInsets.only(
+                                            margin: const EdgeInsets.only(
                                                 right: 20,
                                                 top: 00,
                                                 left: 00,
@@ -667,7 +665,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           _userName,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: novalexxa_text_color,
                               fontSize: 22,
                               decoration: TextDecoration.none,
@@ -676,7 +674,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       ),
                     ),
                     Container(
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                           right: 20, top: 0, left: 10, bottom: 0),
                       child: IconButton(
                         icon: const Icon(
@@ -773,7 +771,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
       required double iconHeight,
       required double iconWidth}) {
     return Padding(
-      padding: EdgeInsets.only(right: 00, top: 00, left: 00, bottom: 10),
+      padding: const EdgeInsets.only(right: 00, top: 00, left: 00, bottom: 10),
       child: InkWell(
          onTap: (){
           // _showToast(_user_uuidId.toString());
@@ -786,7 +784,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                   // margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
                   width: 57,
                   height: 57,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(33),
                     boxShadow: [
@@ -794,7 +792,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                         color: Colors.grey.withOpacity(.35),
                         blurRadius: 20.0, // soften the shadow
                         spreadRadius: 0.0, //extend the shadow
-                        offset: Offset(
+                        offset: const Offset(
                           2.0, // Move to right 10  horizontally
                           1.0, // Move to bottom 10 Vertically
                         ),
@@ -803,7 +801,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                   ),
                   //   height: 150,
                   child: Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         right: 17.0, top: 17, bottom: 17, left: 17),
                     // height: double.infinity,
                     // width: double.infinity,
@@ -816,7 +814,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Expanded(
@@ -826,7 +824,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           itemHeader,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: novalexxa_text_color,
                               fontSize: 17,
                               decoration: TextDecoration.none,
@@ -838,7 +836,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                         child: Text(
                           itemValue,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: novalexxa_hint_text_color,
                               fontSize: 13,
                               fontWeight: FontWeight.w400),
@@ -847,7 +845,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                     ],
                   ),
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Icon(
                     Icons.arrow_forward_ios,
@@ -855,13 +853,13 @@ class _CardPageScreenState extends State<CardPageScreen> {
                     size: 17.0,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
               ],
             ),
             Container(
-              margin: EdgeInsets.only(right: 10, top: 10, left: 65, bottom: 0),
+              margin: const EdgeInsets.only(right: 10, top: 10, left: 65, bottom: 0),
               height: 1,
               color: novalexxa_customer_services_list_divider_color,
             )
@@ -876,7 +874,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
       required String itemValue,
       required String iconLink}) {
     return Padding(
-      padding: EdgeInsets.only(right: 00, top: 00, left: 00, bottom: 10),
+      padding: const EdgeInsets.only(right: 00, top: 00, left: 00, bottom: 10),
       child: Column(
         children: [
           Row(
@@ -885,7 +883,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                 // margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
                 width: 57,
                 height: 57,
-                decoration: new BoxDecoration(
+                decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(33),
                   boxShadow: [
@@ -893,7 +891,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       color: Colors.grey.withOpacity(.35),
                       blurRadius: 20.0, // soften the shadow
                       spreadRadius: 0.0, //extend the shadow
-                      offset: Offset(
+                      offset: const Offset(
                         2.0, // Move to right 10  horizontally
                         1.0, // Move to bottom 10 Vertically
                       ),
@@ -902,7 +900,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                 ),
                 //   height: 150,
                 child: Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       right: 17.0, top: 17, bottom: 17, left: 17),
                   // height: double.infinity,
                   // width: double.infinity,
@@ -915,7 +913,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Expanded(
@@ -925,7 +923,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         itemHeader,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_text_color,
                             fontSize: 17,
                             decoration: TextDecoration.none,
@@ -937,7 +935,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       child: Text(
                         itemValue,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_hint_text_color,
                             fontSize: 13,
                             fontWeight: FontWeight.w400),
@@ -966,13 +964,13 @@ class _CardPageScreenState extends State<CardPageScreen> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
             ],
           ),
           Container(
-            margin: EdgeInsets.only(right: 10, top: 10, left: 65, bottom: 0),
+            margin: const EdgeInsets.only(right: 10, top: 10, left: 65, bottom: 0),
             height: 1,
             color: novalexxa_customer_services_list_divider_color,
           )
@@ -989,9 +987,9 @@ class _CardPageScreenState extends State<CardPageScreen> {
         ),
 
         Container(
-          margin: EdgeInsets.only(right: 20.0, top: 0, bottom: 0, left: 20),
+          margin: const EdgeInsets.only(right: 20.0, top: 0, bottom: 0, left: 20),
           //width: 180,
-          decoration: new BoxDecoration(
+          decoration: BoxDecoration(
             color:Colors.white,
             borderRadius: BorderRadius.circular(12),
             // boxShadow: [BoxShadow(
@@ -1007,7 +1005,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
             // )],
           ),
           child: Container(
-            margin: EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
+            margin: const EdgeInsets.only(right: 10.0, top: 10, bottom: 10, left: 10),
             //color: Colors.white,
             child: SizedBox(
               child: Flex(
@@ -1021,7 +1019,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       //padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                       width: 55,
                       height: 55,
-                      decoration: new BoxDecoration(
+                      decoration: BoxDecoration(
                         color: shimmer_baseColor,
                         borderRadius: BorderRadius.circular(27.5),
 
@@ -1031,7 +1029,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                   ),
 
 
-                  SizedBox(
+                  const SizedBox(
                     width: 5,
                   ),
                   Expanded(
@@ -1052,8 +1050,8 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                     baseColor:shimmer_baseColor,
                                     highlightColor:shimmer_highlightColor,
                                     child:Container(
-                                      margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                      decoration: BoxDecoration(
+                                      margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                      decoration: const BoxDecoration(
                                         color: shimmer_baseColor,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(6.0),
@@ -1074,7 +1072,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
 
                           ),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
 
@@ -1088,8 +1086,8 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                     baseColor:shimmer_baseColor,
                                     highlightColor:shimmer_highlightColor,
                                     child:Container(
-                                      margin: EdgeInsets.only(right: 80.0,left: 5,bottom: 00),
-                                      decoration: BoxDecoration(
+                                      margin: const EdgeInsets.only(right: 80.0,left: 5,bottom: 00),
+                                      decoration: const BoxDecoration(
                                         color: shimmer_baseColor,
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(6.0),
@@ -1124,11 +1122,11 @@ class _CardPageScreenState extends State<CardPageScreen> {
               baseColor:shimmer_baseColor,
               highlightColor:shimmer_highlightColor,
               child:Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     right: 30, top: 30, left: 30, bottom: 10),
                 height: 163,
                 //width: 316,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
                   boxShadow: [
                     // BoxShadow(
@@ -1164,7 +1162,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
             // height: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20.0),
                 topRight: Radius.circular(20.0),
               ),
@@ -1173,7 +1171,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                   color: Colors.grey.withOpacity(.50),
                   blurRadius: 20.0, // soften the shadow
                   spreadRadius: 0.0, //extend the shadow
-                  offset: Offset(
+                  offset: const Offset(
                     2.0, // Move to right 10  horizontally
                     1.0, // Move to bottom 10 Vertically
                   ),
@@ -1201,9 +1199,9 @@ class _CardPageScreenState extends State<CardPageScreen> {
   }
   Widget _buildItemForShimmer() {
     return Container(
-      margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
+      margin: const EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
         // boxShadow: [BoxShadow(
@@ -1219,7 +1217,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
         // )],
       ),
       child: Container(
-        margin: EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
+        margin: const EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
         //color: Colors.white,
         child: SizedBox(
           child: Flex(
@@ -1233,7 +1231,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                  // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width: 57,
                   height: 57,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(28.5),
 
@@ -1243,7 +1241,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
               ),
 
 
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -1264,8 +1262,8 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -1286,7 +1284,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
 
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
 
@@ -1300,8 +1298,8 @@ class _CardPageScreenState extends State<CardPageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 10.0,left: 5,bottom: 00),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 10.0,left: 5,bottom: 00),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -1392,24 +1390,24 @@ class _CardPageScreenState extends State<CardPageScreen> {
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),

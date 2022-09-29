@@ -4,7 +4,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -36,7 +35,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
   String _userId = "";
   String _userName = "------";
 
-  int _current = 0;
   final CarouselController _controller = CarouselController();
   bool trancactionShimmerStatus=true;
   bool buttonShimmerStatus=true;
@@ -48,7 +46,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getUserCurrencyTypeList();
           _getUserTransactionHistoryList();
@@ -117,7 +115,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 alignment: Alignment.centerLeft,
                                 child:Text(
                                   _userName,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: novalexxa_text_color,
                                       fontSize: 22,
                                       decoration: TextDecoration.none,
@@ -125,10 +123,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 ),
                               ) ,),
                               Container(
-                                margin:EdgeInsets.only(right: 15,top: 0,left: 10,bottom: 0),
+                                margin:const EdgeInsets.only(right: 15,top: 0,left: 10,bottom: 0),
                                 child:InkResponse(
                                   onTap: (){
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>CustomerServicesScreen()));
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const CustomerServicesScreen()));
                                   },
                                   child: Image.asset(
                                     'assets/images/call_icon.png',
@@ -139,10 +137,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                               ),
                               Container(
-                                margin:EdgeInsets.only(right: 20,top: 0,left: 10,bottom: 0),
+                                margin:const EdgeInsets.only(right: 20,top: 0,left: 10,bottom: 0),
                                 child:InkResponse(
                                   onTap: (){
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsScreen()));
+                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>const NotificationsScreen()));
 
                                   },
                                   child:Image.asset(
@@ -159,7 +157,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ],
                           ),
 
-                          Align(
+                          const Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "IT60 X054 2811 1010 0000 0123 456",
@@ -211,7 +209,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           aspectRatio: 2.0,
                           onPageChanged: (index, reason) {
                             setState(() {
-                              _current = index;
                             });
                           }),
                     ),
@@ -223,10 +220,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                 if(buttonShimmerStatus==false)...{
                   Container(
-                    padding:EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
+                    padding:const EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.arrow_back_ios,
                           color: Colors.black38,
                           size: 30.0,
@@ -242,10 +239,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   InkWell(
 
                                     child: Container(
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
                                       width: 65,
                                       height: 65,
-                                      decoration: new BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(33),
                                         boxShadow: [
@@ -253,7 +250,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                             color: Colors.grey.withOpacity(.35),
                                             blurRadius: 20.0, // soften the shadow
                                             spreadRadius: 0.0, //extend the shadow
-                                            offset: Offset(
+                                            offset: const Offset(
                                               2.0, // Move to right 10  horizontally
                                               1.0, // Move to bottom 10 Vertically
                                             ),
@@ -263,7 +260,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       //   height: 150,
                                       child: Container(
 
-                                        margin: EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
+                                        margin: const EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
                                         // height: double.infinity,
                                         // width: double.infinity,
                                         color: Colors.white,
@@ -276,13 +273,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       ) ,
                                     ),
                                     onTap: (){
-                                      Navigator.push(context,MaterialPageRoute(builder: (context)=>TopUpScreenScreen()));
+                                      Navigator.push(context,MaterialPageRoute(builder: (context)=>const TopUpScreenScreen()));
                                     },
                                   ),
 
                                   Container(
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
-                                      child:  Text(
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
+                                      child:  const Text(
                                         "Deposit",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -300,7 +297,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     margin:  EdgeInsets.only(left: 15, right: 15,bottom: 10,top: 10),
                                     width: 65,
                                     height: 65,
-                                    decoration: new BoxDecoration(
+                                    decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(33),
                                       boxShadow: [
@@ -317,7 +314,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     ),
                                     //   height: 150,
                                     child: Container(
-                                      margin: EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
+                                      margin: const EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
                                       // height: double.infinity,
                                       // width: double.infinity,
                                       color: Colors.white,
@@ -331,8 +328,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   ),
 
                                   Container(
-                                      margin:  EdgeInsets.only(left: 15, right: 15,bottom: 0,top: 0),
-                                      child:  Text(
+                                      margin:  const EdgeInsets.only(left: 15, right: 15,bottom: 0,top: 0),
+                                      child:  const Text(
                                         "Invite Friends",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -347,10 +344,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               Flex(direction: Axis.vertical,
                                 children: [
                                   Container(
-                                    margin:  EdgeInsets.only(left: 15, right: 15,bottom: 10,top: 10),
+                                    margin:  const EdgeInsets.only(left: 15, right: 15,bottom: 10,top: 10),
                                     width: 65,
                                     height: 65,
-                                    decoration: new BoxDecoration(
+                                    decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(33),
                                       boxShadow: [
@@ -358,7 +355,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           color: Colors.grey.withOpacity(.35),
                                           blurRadius: 20.0, // soften the shadow
                                           spreadRadius: 0.0, //extend the shadow
-                                          offset: Offset(
+                                          offset: const Offset(
                                             2.0, // Move to right 10  horizontally
                                             1.0, // Move to bottom 10 Vertically
                                           ),
@@ -367,7 +364,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     ),
                                     //   height: 150,
                                     child: Container(
-                                      margin: EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
+                                      margin: const EdgeInsets.only(right: 17.0,top: 17,bottom: 17,left: 17),
                                       // height: double.infinity,
                                       // width: double.infinity,
                                       color: Colors.white,
@@ -381,8 +378,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                   ),
 
                                   Container(
-                                      margin:  EdgeInsets.only(left: 15, right: 15,bottom: 0,top: 0),
-                                      child:  Text(
+                                      margin:  const EdgeInsets.only(left: 15, right: 15,bottom: 0,top: 0),
+                                      child:  const Text(
                                         "Stats",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -399,7 +396,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         ///////////////////////////////////
 
 
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_ios,
                           color: Colors.black38,
                           size: 30.0,
@@ -411,10 +408,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 }
                 else...{
                   Container(
-                    padding:EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
+                    padding:const EdgeInsets.only(right: 20,top: 10,left: 20,bottom: 10),
                     child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.arrow_back_ios,
                           color:shimmer_baseColor,
                           size: 30.0,
@@ -431,10 +428,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     baseColor:shimmer_baseColor,
                                     highlightColor:shimmer_highlightColor,
                                     child:Container(
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
                                       width: 65,
                                       height: 65,
-                                      decoration: new BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: shimmer_baseColor,
                                         borderRadius: BorderRadius.circular(33),
 
@@ -450,7 +447,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       height: 17,
                                       width: 65,
                                       color: shimmer_baseColor,
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
 
                                     ),
 
@@ -465,10 +462,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     baseColor:shimmer_baseColor,
                                     highlightColor:shimmer_highlightColor,
                                     child:Container(
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
                                       width: 65,
                                       height: 65,
-                                      decoration: new BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: shimmer_baseColor,
                                         borderRadius: BorderRadius.circular(33),
 
@@ -484,7 +481,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       height: 17,
                                       width: 65,
                                       color: shimmer_baseColor,
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
 
                                     ),
 
@@ -499,10 +496,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                     baseColor:shimmer_baseColor,
                                     highlightColor:shimmer_highlightColor,
                                     child:Container(
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 10,top: 10),
                                       width: 65,
                                       height: 65,
-                                      decoration: new BoxDecoration(
+                                      decoration: BoxDecoration(
                                         color: shimmer_baseColor,
                                         borderRadius: BorderRadius.circular(33),
 
@@ -518,7 +515,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                       height: 17,
                                       width: 65,
                                       color: shimmer_baseColor,
-                                      margin:  EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
+                                      margin:  const EdgeInsets.only(left: 20, right: 15,bottom: 00,top: 0),
 
                                     ),
 
@@ -531,7 +528,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         )),
 
 
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward_ios,
                           color: shimmer_baseColor,
                           size: 30.0,
@@ -545,7 +542,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 if(trancactionShimmerStatus==false)...{
                   Expanded(child: _buildBottomDesign())
                 }else...{
-                  SizedBox(height: 15,),
+                  const SizedBox(height: 15,),
                   Expanded(child: _buildBottomDesignForShimmer())
                 }
 
@@ -566,7 +563,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
        // height: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -575,7 +572,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color: Colors.grey.withOpacity(.50),
               blurRadius: 20.0, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset: Offset(
+              offset: const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               ),
@@ -588,12 +585,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
             const EdgeInsets.only(left:25, top: 10, right: 25, bottom: 10),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
                 children: [
-                  Expanded(child: Align(
+                  const Expanded(child: Align(
                     alignment: Alignment.centerLeft,
                     child:Text(
                       "Transaction History",
@@ -610,7 +607,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     alignment: Alignment.centerRight,
                     child:InkWell(
                       onTap: (){
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>TransactionDetailsScreen()));
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>const TransactionDetailsScreen()));
                       },
                       child:const Text(
                         "Details",
@@ -629,14 +626,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                 ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
                 Row(
                 children: [
                   Expanded(child:  Container(
-                    margin: EdgeInsets.only(left:0, top: 0, right: 10, bottom: 0),
+                    margin: const EdgeInsets.only(left:0, top: 0, right: 10, bottom: 0),
                     height: .4,
                     color: novalexxa_hint_text_color,
 
@@ -650,7 +647,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   //       fontWeight: FontWeight.w400),
                   // ),
                   Expanded(child:  Container(
-                    margin: EdgeInsets.only(left:10, top: 0, right: 0, bottom: 0),
+                    margin: const EdgeInsets.only(left:10, top: 0, right: 0, bottom: 0),
                     height: .4,
                     color: novalexxa_hint_text_color,
 
@@ -661,7 +658,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ),
 
                 if(_transactionHistoryList.length<=0)...{
-                  Expanded(
+                  const Expanded(
                     child: Center(
                       child:
                       Text(
@@ -678,7 +675,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 else...[
                   Expanded(child:  ListView.builder(
                       padding: EdgeInsets.zero,
-                      itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
+                      itemCount: _transactionHistoryList.length<=0?0:
                       _transactionHistoryList.length,
                       // physics: NeverScrollableScrollPhysics(),
 
@@ -696,7 +693,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   Widget transactionItemDesign(var response,Color bgColor) {
-    return Padding(padding: EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
+    return Padding(padding: const EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
     child:  Row(
       children: [
         //image link not
@@ -749,7 +746,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     response["sender_info"]["username"].toString()[0]:
                     response["receiver_info"]["username"].toString()[0]
                       ,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.white,
                           fontSize: 30,
                           decoration: TextDecoration.none,
@@ -769,7 +766,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   response["user_id"].toString()!=_userId?
                   response["sender_info"]["username"].toString():
                   response["receiver_info"]["username"].toString(),
-                style: TextStyle(
+                style: const TextStyle(
                     color: novalexxa_text_color,
                     fontSize: 17,
                     decoration: TextDecoration.none,
@@ -778,7 +775,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             ),
             Flex(direction: Axis.horizontal,
             children: [
-              Align(
+              const Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 "10:45 AM",
@@ -800,7 +797,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 height: 5,
                 width: 5,
               ),
-              Align(alignment: Alignment.centerLeft,
+              const Align(alignment: Alignment.centerLeft,
               child: Text(
                 "pending",
                 textAlign: TextAlign.center,
@@ -829,7 +826,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(width: 10,)
+        const SizedBox(width: 10,)
 
       ],
     ),
@@ -842,11 +839,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
         _showToast("€"+response["current_balance"].toString());
       },
       child:  Container(
-        margin: EdgeInsets.all(5.0),
+        margin: const EdgeInsets.all(5.0),
         height: 150,
         //  width: 350,
 
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
 
           image: DecorationImage(
             image: AssetImage("assets/images/current_balance_card_bg.png"),
@@ -861,8 +858,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: [
 
               Container(
-                  margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
-                  child:  Text(
+                  margin:const EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
+                  child:  const Text(
                     "Current Balance",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -873,11 +870,11 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
 
               Container(
-                margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
+                margin:const EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
                 child: Text(
                     getCurrency(response["currency_information"]["currency_name"].toString())+
                   response["current_balance"].toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       decoration: TextDecoration.none,
@@ -904,12 +901,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
       // },
       child:  Container(
        // margin: EdgeInsets.all(5.0),
-        margin: EdgeInsets.only(left: 30,top: 5,bottom: 5,right: 30),
+        margin: const EdgeInsets.only(left: 30,top: 5,bottom: 5,right: 30),
 
         height: 150,
         //  width: 350,
 
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/current_balance_card_bg.png"),
             fit: BoxFit.fill,
@@ -923,8 +920,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             children: [
 
               Container(
-                  margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
-                  child:  Text(
+                  margin:const EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 5),
+                  child:  const Text(
                     "Current Balance",
                     textAlign: TextAlign.center,
                     style: TextStyle(
@@ -935,8 +932,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
 
               Container(
-                margin:EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
-                child: Text(
+                margin:const EdgeInsets.only(right: 10,top: 00,left: 20,bottom: 00),
+                child: const Text(
 
                   "00",
                   style: TextStyle(
@@ -1029,44 +1026,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     }
   }
 
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
 
   _showToast(String message) {
     Fluttertoast.showToast(
@@ -1095,7 +1054,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
 
   carouselItem(){
-     return _currencyTypeList.map((var response) => Container(
+     return _currencyTypeList.map((var response) => SizedBox(
        height: 170,
        child: cardItemDesign(response),
      ))
@@ -1109,7 +1068,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         // height: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -1118,7 +1077,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               color: Colors.grey.withOpacity(.50),
               blurRadius: 20.0, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset: Offset(
+              offset: const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               ),
@@ -1131,7 +1090,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             const EdgeInsets.only(left:25, top: 10, right: 25, bottom: 10),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -1144,7 +1103,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                         child:Container(
                           width: 150,
                           height: 25,
-                          decoration: new BoxDecoration(
+                          decoration: BoxDecoration(
                             color: shimmer_baseColor,
                             borderRadius: BorderRadius.circular(2.5),
 
@@ -1160,7 +1119,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       child:Container(
                         width: 65,
                         height: 22,
-                        decoration: new BoxDecoration(
+                        decoration: BoxDecoration(
                           color: shimmer_baseColor,
                           borderRadius: BorderRadius.circular(2.5),
 
@@ -1173,14 +1132,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
                 Row(
                   children: [
                     Expanded(child:  Container(
-                      margin: EdgeInsets.only(left:0, top: 0, right: 10, bottom: 0),
+                      margin: const EdgeInsets.only(left:0, top: 0, right: 10, bottom: 0),
                       height: .4,
                       color: novalexxa_hint_text_color,
 
@@ -1194,7 +1153,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     //       fontWeight: FontWeight.w400),
                     // ),
                     Expanded(child:  Container(
-                      margin: EdgeInsets.only(left:10, top: 0, right: 0, bottom: 0),
+                      margin: const EdgeInsets.only(left:10, top: 0, right: 0, bottom: 0),
                       height: .4,
                       color: novalexxa_hint_text_color,
 
@@ -1204,7 +1163,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   ],
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Expanded(child:  ListView.builder(
@@ -1225,14 +1184,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
   Widget _buildTransactionItemForShimmer() {
     return Container(
-      margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
+      margin: const EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Container(
-        margin: EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
+        margin: const EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
         //color: Colors.white,
         child: SizedBox(
           child: Flex(
@@ -1246,7 +1205,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width: 57,
                   height: 57,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(28.5),
 
@@ -1256,7 +1215,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
 
 
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -1277,8 +1236,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -1299,7 +1258,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
 
@@ -1313,8 +1272,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -1337,7 +1296,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ],
                   )
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Shimmer.fromColors(
@@ -1346,7 +1305,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child:Container(
                   width: 65,
                   height: 30,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(2.5),
 
@@ -1364,14 +1323,14 @@ class _HomePageScreenState extends State<HomePageScreen> {
   }
   Widget _buildHeaderForShimmer() {
     return Container(
-      margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
+      margin: const EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Container(
-        margin: EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
+        margin: const EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
         //color: Colors.white,
         child: SizedBox(
           child: Flex(
@@ -1385,7 +1344,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width: 57,
                   height: 57,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(28.5),
 
@@ -1395,7 +1354,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               ),
 
 
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -1416,8 +1375,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -1438,7 +1397,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
 
@@ -1452,8 +1411,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -1476,7 +1435,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                     ],
                   )
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Shimmer.fromColors(
@@ -1485,7 +1444,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child:Container(
                   width: 30,
                   height: 30,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(2.5),
 
@@ -1493,7 +1452,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Shimmer.fromColors(
@@ -1502,7 +1461,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 child:Container(
                   width: 30,
                   height: 30,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(2.5),
 
@@ -1524,7 +1483,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       highlightColor:shimmer_highlightColor,
       child:Container(
         // margin: EdgeInsets.all(5.0),
-        margin: EdgeInsets.only(left: 30,top: 5,bottom: 5,right: 30),
+        margin: const EdgeInsets.only(left: 30,top: 5,bottom: 5,right: 30),
 
         height: 150,
         //  width: 350,

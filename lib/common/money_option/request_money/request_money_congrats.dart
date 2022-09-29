@@ -1,10 +1,7 @@
 
-import 'dart:convert';
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../../navigation_page/money_option.dart';
 import '../../navigation_page/navigation_bar_page.dart';
@@ -28,10 +25,7 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
 
   _RequestMoneyCongratsScreenState(
       this._sendAmount, this._receiverName); //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
+
 
  // String _sendAmount="30",_receiverName="Simon Lewis";
 
@@ -51,7 +45,7 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
 
-                      SizedBox(height: 55,),
+                      const SizedBox(height: 55,),
 
 
                       Image.asset(
@@ -61,11 +55,11 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
                         fit: BoxFit.fill,
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
 
-                      Text(
+                      const Text(
                         "Congratulations!",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -76,13 +70,13 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
 
 
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                        margin: const EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
 
                         child:Text(
                           _receiverName,
 
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               height: 1.5,
                               color: novalexxa_text_color,
                               fontSize: 22,
@@ -91,8 +85,8 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
-                        child:Text(
+                        margin: const EdgeInsets.only(left:30, top: 5, right: 30, bottom: 00),
+                        child:const Text(
                           "received your request",
 
                           textAlign: TextAlign.center,
@@ -112,7 +106,7 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
                       Container(
                         child: _buildSendMoreMoneyButton(),
                       ),
-                      SizedBox(height: 25,),
+                      const SizedBox(height: 25,),
 
 
                     ],
@@ -133,7 +127,7 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: ElevatedButton(
         onPressed: () {
-          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,const MoneyOptionScreen()));
           Navigator.pushReplacement(context, route);
 
         },
@@ -145,7 +139,7 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -155,7 +149,7 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Send More Requests",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -171,31 +165,6 @@ class _RequestMoneyCongratsScreenState extends State<RequestMoneyCongratsScreen>
     );
   }
 
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
-
-
-  void takeImage(ImageSource source)async{
-    final pickedFile= await _picker.getImage(source: source);
-    setState(() {
-      _imageFile=pickedFile!;
-      imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
-
-     // _imageUpload(img64);
-
-    });
-  }
 
 }
 

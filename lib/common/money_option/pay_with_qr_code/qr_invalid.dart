@@ -1,13 +1,11 @@
 
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 
 class QRInvalidScreen extends StatefulWidget {
+  const QRInvalidScreen({Key? key}) : super(key: key);
+
 
   @override
   State<QRInvalidScreen> createState() => _QRInvalidScreenState();
@@ -15,13 +13,6 @@ class QRInvalidScreen extends StatefulWidget {
 }
 
 class _QRInvalidScreenState extends State<QRInvalidScreen> {
-  //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
-
- // String _sendAmount="30",_receiverName="Simon Lewis";
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +24,7 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
             hasScrollBody: false,
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 55,
                 ),
 
@@ -42,8 +33,8 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
                   children: [
                     Expanded(
                         child: Container(
-                          margin: new EdgeInsets.only(right: 00),
-                          child: Align(
+                          margin: const EdgeInsets.only(right: 00),
+                          child: const Align(
                             alignment: Alignment.center,
                             child: Text(
                               "Scan QR Code",
@@ -66,7 +57,7 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
 
-                      SizedBox(height: 55,),
+                      const SizedBox(height: 55,),
 
                       Image.asset(
                         "assets/images/no_data_pana.png",
@@ -76,8 +67,8 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left:30, top: 60, right: 30, bottom: 00),
-                        child:Text(
+                        margin: const EdgeInsets.only(left:30, top: 60, right: 30, bottom: 00),
+                        child:const Text(
                           "The QR code you just scanned is not valid",
 
                           textAlign: TextAlign.center,
@@ -93,7 +84,7 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
                         child: _buildTryAgainButton(),
                       ),
 
-                      SizedBox(height: 25,),
+                      const SizedBox(height: 25,),
 
                     ],
                   ),
@@ -127,7 +118,7 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -137,7 +128,7 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:Text(
+            child:const Text(
               "TryAgain",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -154,30 +145,8 @@ class _QRInvalidScreenState extends State<QRInvalidScreen> {
   }
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
 
 
-  void takeImage(ImageSource source)async{
-    final pickedFile= await _picker.getImage(source: source);
-    setState(() {
-      _imageFile=pickedFile!;
-      imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
-
-     // _imageUpload(img64);
-
-    });
-  }
 
 }
 

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -19,7 +18,7 @@ import '../common/static/toast.dart';
 
 class CompanyAccountScreen extends StatefulWidget {
   String userId;
-  CompanyAccountScreen(this.userId);
+  CompanyAccountScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<CompanyAccountScreen> createState() => _CompanyAccountScreenState(this.userId);
@@ -32,7 +31,6 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
   TextEditingController? _companyIDController = TextEditingController();
   TextEditingController? _responsibleNameController = TextEditingController();
   TextEditingController? _responsibleSurnameController = TextEditingController();
-  String _countryBirthDay="Enter Birthday";
   String select_your_country="Enter Birthday";
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Padding(
@@ -50,23 +48,23 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    new LinearPercentIndicator(
+                    LinearPercentIndicator(
                       // width: MediaQuery.of(context).size.width - 80,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
                       percent: 0.8,
-                      center: Text("80%"),
+                      center: const Text("80%"),
                       barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                      margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10),
                       child:Align(alignment: Alignment.topLeft,
                           child:Container(
                             decoration: BoxDecoration(
@@ -75,7 +73,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                                   color: Colors.grey.withOpacity(0.3),
                                   spreadRadius: 1,
                                   blurRadius: 10,
-                                  offset: Offset(0, 2), // changes position of shadow
+                                  offset: const Offset(0, 2), // changes position of shadow
                                 ),
                               ],
                             ),
@@ -92,8 +90,8 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                     ),
                     
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.topLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.topLeft,
                         child: Text(
                           "Company Info",
                           textAlign: TextAlign.center,
@@ -106,8 +104,8 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.centerLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.centerLeft,
                         child: Text(
                           "Enter your company information",
                           textAlign: TextAlign.center,
@@ -118,13 +116,13 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                         ),),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -152,17 +150,17 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                     ),
 
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     companyInfoInput(_companyIDController!, 'Company ID', TextInputType.text,"assets/images/icon_id.png",15,18),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -194,12 +192,12 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
 
 
                     //country
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text.rich(
                           TextSpan(
@@ -229,14 +227,14 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
                     companyInfoInput(_responsibleSurnameController!, 'Responsible Surname', TextInputType.text,"assets/images/icon_user.png",18,18),
 
 
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
@@ -258,7 +256,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
   }
 
   Widget companyInfoInput(TextEditingController controller, String hintTitle, TextInputType keyboardType,String icon_link,double iconHeight,double iconWidth) {
-    return Container(
+    return SizedBox(
       height: 55,
 
       child: Padding(
@@ -272,15 +270,15 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
           autofocus: false,
           decoration: InputDecoration(
             // border: InputBorder.,
-            contentPadding: EdgeInsets.only(bottom: 5),
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            contentPadding: const EdgeInsets.only(bottom: 5),
+            focusedBorder:const UnderlineInputBorder(
+              borderSide: BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
+            enabledBorder:const UnderlineInputBorder(
+              borderSide: BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
@@ -325,7 +323,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -335,7 +333,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -402,7 +400,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
 
             setState(() {
               //_showToast("success");
-              var data = jsonDecode(response.body);
+             // var data = jsonDecode(response.body);
               Navigator.push(context,MaterialPageRoute(builder: (context)=>ScanDocFrontCompanyScreen(_userId)));
 
             });
@@ -416,7 +414,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

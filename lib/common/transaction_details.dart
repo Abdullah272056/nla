@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -38,7 +37,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
 
           _getUserTransactionHistoryList();
@@ -70,12 +69,12 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   direction: Axis.horizontal,
                   children: [
                     Container(
-                      margin: new EdgeInsets.only(left: 30),
+                      margin: const EdgeInsets.only(left: 30),
                       child: InkResponse(
                         onTap: () {
                           Navigator.of(context).pop();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           color: Colors.white,
                           size: 25.0,
@@ -85,8 +84,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                     Expanded(
                         child: Container(
-                          margin: new EdgeInsets.only(right: 10),
-                          child: Align(
+                          margin: EdgeInsets.only(right: 10),
+                          child: const Align(
                             alignment: Alignment.center,
                             child: Text(
                               "Transaction Details",
@@ -133,7 +132,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     endRangeSelectionColor: Colors.blue,
 
                     // selectionColor: Colors.blue,
-                    monthViewSettings: DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                    monthViewSettings: const DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
                   ),
                 ),
 
@@ -154,7 +153,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     return Container(
         width: double.infinity,
         // height: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
@@ -171,7 +170,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                 Container(
                   height: 31,
                   width: 149,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(
                           'assets/images/drop_shape.png',
@@ -181,7 +180,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                   ),
 
-                 child: Center(
+                 child: const Center(
                    child: RotatedBox(
                        quarterTurns: 1,
                        child: Icon(
@@ -197,13 +196,13 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                 ),
 
-                SizedBox(height: 10,),
+                const SizedBox(height: 10,),
 
 
                 if(transactionShimmerStatus==false)...{
 
                   if(_transactionHistoryList.length<=0)...{
-                    Expanded(
+                    const Expanded(
                       child: Center(
                         child:
                         Text(
@@ -254,7 +253,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
   }
 
   Widget transactionItemDesign(var response) {
-    return Padding(padding: EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
+    return Padding(padding: const EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
       child:  Row(
         children: [
 
@@ -313,7 +312,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                         response["sender_info"]["username"].toString()[0]:
                         response["receiver_info"]["username"].toString()[0]
                         ,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 30,
                             decoration: TextDecoration.none,
@@ -333,7 +332,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     response["user_id"].toString()!=_userId?
                     response["sender_info"]["username"].toString():
                     response["receiver_info"]["username"].toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 17,
                       decoration: TextDecoration.none,
@@ -342,7 +341,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
               ),
               Flex(direction: Axis.horizontal,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "10:45 AM",
@@ -364,7 +363,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     height: 5,
                     width: 5,
                   ),
-                  Align(alignment: Alignment.centerLeft,
+                  const Align(alignment: Alignment.centerLeft,
                     child: Text(
                       "pending",
                       textAlign: TextAlign.center,
@@ -405,7 +404,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
             //       fontWeight: FontWeight.bold),
             // ),
           ),
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
 
         ],
       ),
@@ -512,14 +511,14 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
   Widget _buildTransactionItemForShimmer() {
     return Container(
-      margin: EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
+      margin: const EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
       //width: 180,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color:Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Container(
-        margin: EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
+        margin: const EdgeInsets.only(right: 00.0, top: 10, bottom: 10, left: 00),
         //color: Colors.white,
         child: SizedBox(
           child: Flex(
@@ -533,7 +532,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   // padding: EdgeInsets.only(right: 12.0,top: 12,bottom: 12,left: 12),
                   width: 57,
                   height: 57,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(28.5),
 
@@ -543,7 +542,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
               ),
 
 
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Expanded(
@@ -564,8 +563,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 0),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -586,7 +585,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                       ),
 
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
 
@@ -600,8 +599,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                                 baseColor:shimmer_baseColor,
                                 highlightColor:shimmer_highlightColor,
                                 child:Container(
-                                  margin: EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
-                                  decoration: BoxDecoration(
+                                  margin: const EdgeInsets.only(right: 5.0,left: 5,bottom: 00),
+                                  decoration: const BoxDecoration(
                                     color: shimmer_baseColor,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(3.0),
@@ -624,7 +623,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                     ],
                   )
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Shimmer.fromColors(
@@ -633,7 +632,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                 child:Container(
                   width: 65,
                   height: 30,
-                  decoration: new BoxDecoration(
+                  decoration: BoxDecoration(
                     color: shimmer_baseColor,
                     borderRadius: BorderRadius.circular(2.5),
 
@@ -650,53 +649,6 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     ;
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
+
 }
 

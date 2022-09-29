@@ -33,7 +33,7 @@ class _SchedulePaymentScreenState extends State<SchedulePaymentScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child:Container(
-              decoration:BoxDecoration(
+              decoration:const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -47,19 +47,19 @@ class _SchedulePaymentScreenState extends State<SchedulePaymentScreen> {
               child:Column(
 
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 55,
                   ),
                   Flex(
                     direction: Axis.horizontal,
                     children: [
                       Container(
-                        margin: new EdgeInsets.only(left: 30),
+                        margin: const EdgeInsets.only(left: 30),
                         child: InkResponse(
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_back,
                             color:novalexxa_text_color,
                             size: 25.0,
@@ -69,8 +69,8 @@ class _SchedulePaymentScreenState extends State<SchedulePaymentScreen> {
 
                       Expanded(
                           child: Container(
-                            margin: new EdgeInsets.only(right: 60),
-                            child: Align(
+                            margin: const EdgeInsets.only(right: 60),
+                            child: const Align(
                               alignment: Alignment.center,
                               child: Text(
                                 "Schedule a Payment",

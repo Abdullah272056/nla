@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svprogresshud/flutter_svprogresshud.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:nova_lexxa/common/navigation_page/home_page.dart';
-import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
-import 'package:page_transition/page_transition.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../api_service/api_service.dart';
@@ -97,8 +95,8 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
             fit: BoxFit.fill,
           ),
         ),
-        SizedBox(height: 15,),
-        Align(
+        const SizedBox(height: 15,),
+        const Align(
           alignment: Alignment.center,
           child:Text(
             "Logged in Successfully",
@@ -128,7 +126,7 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
           height: 114.0,
           decoration: BoxDecoration(
             color: Colors.white,
-            image: DecorationImage(
+            image: const DecorationImage(
               image: NetworkImage('https://i.pinimg.com/236x/44/59/80/4459803e15716f7d77692896633d2d9a--business-headshots-professional-headshots.jpg'),
               fit: BoxFit.fill,
             ),
@@ -139,10 +137,10 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
-        Text(
+        const Text(
           "Nice to meet you again!",
           textAlign: TextAlign.center,
 
@@ -151,7 +149,7 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
               fontSize: 23,
               fontWeight: FontWeight.normal),
         ),
-        Text(
+        const Text(
           "Welcome Back",
           textAlign: TextAlign.center,
 
@@ -160,7 +158,7 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
               fontSize: 23,
               fontWeight: FontWeight.normal),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Align(
@@ -169,13 +167,13 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
             _userName,
             textAlign: TextAlign.center,
 
-            style: TextStyle(
+            style: const TextStyle(
                 color:Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 80,
         ),
 
@@ -188,8 +186,8 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
             fit: BoxFit.fill,
           ),
         ),
-        SizedBox(height: 15,),
-        Align(
+        const SizedBox(height: 15,),
+        const Align(
           alignment: Alignment.center,
           child:Text(
             "Logged in Successfully",
@@ -213,8 +211,8 @@ class _FingerPrintLoginLoadingScreenState extends State<FingerPrintLoginLoadingS
   Widget _buildLoadingView() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
+      children: const [
+        SizedBox(
           child:  CircularProgressIndicator(
             backgroundColor: Colors.white,
             color: hint_color,

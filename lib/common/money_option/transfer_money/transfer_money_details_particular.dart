@@ -3,13 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flag/flag_enum.dart';
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
-import 'package:nova_lexxa/Particular/particular_information2.dart';
 import 'package:nova_lexxa/common/money_option/transfer_money/transfer_money_details_particular2.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -32,7 +29,6 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
   TextEditingController? _nameController = TextEditingController();
   TextEditingController? _surnameController = TextEditingController();
   TextEditingController? _emailController = TextEditingController();
-  String _countryBirthDay="Enter Birthday";
   String select_your_country="Enter Birthday";
 
 
@@ -51,19 +47,19 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -73,8 +69,8 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 60),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 60),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Transfer Money",
@@ -90,7 +86,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
 
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
 
@@ -99,26 +95,26 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                 const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                 child: Column(
                   children: [
-                    new LinearPercentIndicator(
+                    LinearPercentIndicator(
                       // width: MediaQuery.of(context).size.width - 80,
                       animation: true,
                       lineHeight: 20.0,
                       animationDuration: 1000,
                       percent: 0.3,
-                      center: Text("30%"),
+                      center: const Text("30%"),
                       barRadius: const Radius.circular(10),
                       fillColor:Colors.white,
                       backgroundColor: novalexxa_indicator_unselected_color,
                       progressColor: novalexxa_color,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
                     
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.center,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.center,
                         child: Text(
                           "Receipient Information",
                           textAlign: TextAlign.center,
@@ -131,8 +127,8 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.center,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.center,
                         child: Text(
                           "Enter the correct and full name\nof your recipient",
                           textAlign: TextAlign.center,
@@ -143,12 +139,12 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                         ),),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Name",
                             style: TextStyle(
@@ -159,17 +155,17 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userInputName(_nameController!, 'Name', TextInputType.text),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Surname",
                             style: TextStyle(
@@ -181,12 +177,12 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                     ),
                     userInputName(_surnameController!, 'Surname', TextInputType.text),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Email",
                             style: TextStyle(
@@ -199,12 +195,12 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                     userInputEmail(_emailController!, 'Email', TextInputType.emailAddress),
 
                     //country
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Recipient Country",
                             style: TextStyle(
@@ -217,22 +213,22 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
 
                     userInputCountry(),
                     Container( color: novalexxa_hint_text_color,
-                      margin:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+                      margin:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
                       height: .5,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
 
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
 
                     DelayedWidget(
 
-                      delayDuration: Duration(milliseconds: 100),// Not required
-                      animationDuration: Duration(milliseconds: 1000),// Not required
+                      delayDuration: const Duration(milliseconds: 100),// Not required
+                      animationDuration: const Duration(milliseconds: 1000),// Not required
                       animation: DelayedAnimations.SLIDE_FROM_BOTTOM,// Not required
                       child:Flex(direction: Axis.vertical,
                         children: [
@@ -254,7 +250,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
   }
 
   Widget userInputName(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
+    return SizedBox(
       height: 55,
 
       child: Padding(
@@ -269,18 +265,18 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
           decoration: InputDecoration(
             // border: InputBorder.,
 
-            focusedBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: 1.0),
+            focusedBorder:const UnderlineInputBorder(
+              borderSide: BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
-              borderSide: const BorderSide(color: novalexxa_hint_text_color, width: .5),
+            enabledBorder:const UnderlineInputBorder(
+              borderSide: BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            suffixIcon: Image(
+            suffixIcon: const Image(
               image: AssetImage(
                 "assets/images/icon_user.png"
               ),
@@ -308,30 +304,30 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
         height: 52,
 
         child: Padding(
-          padding:  EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
+          padding:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
           child:Flex(direction: Axis.horizontal,
             children: [
 
 
               if (_countryName == select_your_country) ...{
                 Flag.fromString(_countryCode, height: 24, width: 24),
-                SizedBox(width: 10,),
+                const SizedBox(width: 10,),
                 Expanded(
                     child: Text(_countryName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_hint_text_color,
                             fontSize: 18,
                             fontWeight: FontWeight.normal))),
               } else ...{
                 Flag.fromString(_countryCode, height: 24, width: 24),
-                SizedBox(width: 10,),
+                const SizedBox(width: 10,),
                 Expanded(
                     child: Text(_countryName,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: novalexxa_text_color,
                             fontSize: 18,
                             fontWeight: FontWeight.normal))),
-                Icon(
+                const Icon(
                   Icons.arrow_drop_down_outlined,
                   color: novalexxa_text_color,
                   size: 30.0,
@@ -348,7 +344,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
   }
 
   Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return Container(
+    return SizedBox(
       height: 55,
 
       child: Padding(
@@ -363,18 +359,18 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
           decoration: InputDecoration(
             // border: InputBorder.,
 
-            focusedBorder:UnderlineInputBorder(
+            focusedBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
+            enabledBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            suffixIcon:  Icon(
+            suffixIcon:  const Icon(
               Icons.email,
               color:hint_color,
               size: 22.0,
@@ -411,7 +407,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -421,7 +417,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -475,7 +471,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -518,7 +514,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       _showToast("No Internet Connection!");
     }
@@ -530,7 +526,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
       builder: (context) {
         // return VerificationScreen();
         return Dialog(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           child: Container(
             // color: Colors.green,
@@ -539,9 +535,9 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                       left: 10.0, right: 10.0, top: 00, bottom: 10),
-                  child: Text(
+                  child: const Text(
                     "Select your country",
                     style: TextStyle(
                       fontSize: 17,
@@ -574,7 +570,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                             });
                           },
                           child: Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 left: 10.0, right: 10.0, top: 10, bottom: 10),
                             child: Column(
                               children: [
@@ -587,14 +583,14 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
                                             .toString(),
                                         height: 25,
                                         width: 25),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
                                       child: Text(
                                         _countryListData[index]['country_name']
                                             .toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 17,
                                           color: Colors.black,
                                           fontWeight: FontWeight.normal,
@@ -629,24 +625,24 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_start_bg_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -663,24 +659,24 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
     return Container(
       height: 50,
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 00,right: 00,bottom: 15,top: 15),
+      margin: const EdgeInsets.only(left: 00,right: 00,bottom: 15,top: 15),
       decoration: BoxDecoration(
           color:scan_text_box_color,
           border: Border.all(color: select_country_search_box_border_color,width: 1),
           borderRadius: BorderRadius.circular(25)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
         child: TextField(
           controller: userInput,
           textInputAction: TextInputAction.search,
           autocorrect: false,
           enableSuggestions: false,
           cursorColor:intello_input_text_color,
-          style: TextStyle(color:novalexxa_text_color,fontSize: 16),
+          style: const TextStyle(color:novalexxa_text_color,fontSize: 16),
           autofocus: false,
           decoration: InputDecoration(
             border: InputBorder.none,
-            prefixIcon:  Icon(
+            prefixIcon:  const Icon(
               Icons.search,
               color: hint_color,
               size: 25.0,
@@ -688,7 +684,7 @@ class _TransferMoneyDetailForParticularScreenState extends State<TransferMoneyDe
 
             hintText: hintTitle,
 
-            hintStyle:  TextStyle(fontSize: 16,
+            hintStyle:  const TextStyle(fontSize: 16,
                 color:novalexxa_hint_text_color,
                 // color: Colors.intello_hint_color,
                 fontStyle: FontStyle.normal),

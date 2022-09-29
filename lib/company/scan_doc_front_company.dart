@@ -1,5 +1,4 @@
 
-import 'dart:convert';
 import 'dart:io';
 
 
@@ -15,7 +14,7 @@ import '../common/static/Colors.dart';
 
 class ScanDocFrontCompanyScreen extends StatefulWidget {
   String userId;
-  ScanDocFrontCompanyScreen(this.userId);
+  ScanDocFrontCompanyScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<ScanDocFrontCompanyScreen> createState() => _ScanDocFrontCompanyScreenState(this.userId);
@@ -27,12 +26,10 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
 
   String countryName="en",countryIcon="icon_country.png";
 
-  int _particular_company_selected_status=1;
 
   ///image upload
   PickedFile? _imageFile;
   final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
   File? imageFile;
 
   @override
@@ -43,19 +40,19 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
         child: Column(
           children: [
 
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
 
             Container(
-              margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+              margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
               child:   LinearPercentIndicator(
                 // width: MediaQuery.of(context).size.width - 80,
                 animation: true,
                 lineHeight: 20.0,
                 animationDuration: 1000,
                 percent: 0.85,
-                center: Text("85%"),
+                center: const Text("85%"),
                 barRadius: const Radius.circular(10),
                 fillColor:Colors.white,
                 backgroundColor: novalexxa_indicator_unselected_color,
@@ -63,7 +60,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
 
@@ -194,7 +191,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -204,7 +201,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -229,7 +226,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "Retry",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -254,92 +251,14 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
         fontSize: 16.0);
   }
 
-  Widget _buildImageSection() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const SizedBox(
-          height: 20,
-        ),
-        Stack(
-          children: [
-            InkResponse(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(65.0),
-                child: Container(
-                    height: 130,
-                    width: 130,
-                    color: Colors.black26,
-                    child: FadeInImage.assetNetwork(
-                      fit: BoxFit.cover,
-                      placeholder: 'assets/images/default_image.png',
-                      image: _imageLink,
-                      imageErrorBuilder: (context, url, error) => Image.asset(
-                        'assets/images/default_image.png',
-                        fit: BoxFit.cover,
-                      ),
-                    )),
-              ),
-              onTap: () {
-                // if (_imageLink.isNotEmpty) {
-                //   Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //           builder: (context) =>
-                //               ProfileFullScreenImage(_imageLink)));
-                // }
-              },
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(
-                  width: 90,
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 90,
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          showModalBottomSheet(context: context, builder: ( (builder) =>_buildImageUploadBottomSheet()));
-
-                        },
-                        icon: Icon(
-                          Icons.camera_alt,
-                          color: Colors.white,
-                          size: 27,
-                        ))
-                  ],
-                ),
-              ],
-            )
-          ],
-        ),
-        // Text(
-        //   _nameValue,
-        //   style: const TextStyle(
-        //     fontSize: 22,
-        //     //fontSize: MediaQuery.of(context).size.height / 25,
-        //     fontWeight: FontWeight.normal,
-        //     color: Colors.white,
-        //   ),
-        // ),
-        SizedBox(
-          height: 20,
-        ),
-      ],
-    );
-  }
 
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {
       _imageFile=pickedFile!;
       imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
+     // final bytes = File(_imageFile!.path).readAsBytesSync();
+    //  String img64 = base64Encode(bytes);
 
      // _imageUpload(img64);
 
@@ -347,65 +266,23 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
   }
 
 
-  _imageUpload(String image64) async {
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      // if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      //   _showLoadingDialog(context,"Uploading...");
-      //   try {
-      //     Response response = await put(Uri.parse('$BASE_URL_API$SUB_URL_FOR_IMAGE_UPLOAD_API$_userId/'),
-      //         headers: {
-      //           "Authorization": "Token $_accessToken",
-      //         },
-      //         body: {
-      //           'profile_image': image64,
-      //
-      //         });
-      //     Navigator.of(context).pop();
-      //
-      //
-      //     if (response.statusCode==200) {
-      //       _showToast("Update Successfully");
-      //       setState(() {
-      //         var data = jsonDecode(response.body);
-      //         _imageLink = data['data']["user_image"].toString();
-      //         saveUserImage(data['data']["user_image"].toString());
-      //
-      //       });
-      //
-      //
-      //     }
-      //     else {
-      //       _showToast("Failed! try again");
-      //     }
-      //
-      //   } catch (e) {
-      //
-      //     print(e.toString());
-      //
-      //   }
-      // }
-    } on SocketException catch (e) {
-
-    }
-  }
 
 
   Widget _buildImageUploadBottomSheet() {
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       child: Column(
         children: [
-          Text("Choose",
-              style: const TextStyle(
+          const Text("Choose",
+              style: TextStyle(
                 fontFamily: 'PT-Sans',
                 fontSize: 18,
                 // color: Colors.black,
               )
           ),
-          SizedBox(height: 20,),
+          const SizedBox(height: 20,),
 
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -415,12 +292,12 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
                   Navigator.of(context).pop();
                   takeImage(ImageSource.camera);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.camera,
                   size: 30.0,
                 ),
-                label: Text('Camera',
-                    style: const TextStyle(
+                label: const Text('Camera',
+                    style: TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 18,
                       // color: Colors.black,
@@ -432,11 +309,11 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
                   Navigator.of(context).pop();
                   takeImage(ImageSource.gallery);
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.image,
                   size: 30.0,
                 ),
-                label: Text('Gallery',style: const TextStyle(
+                label: const Text('Gallery',style: TextStyle(
                   fontFamily: 'PT-Sans',
                   fontSize: 18,
                   // color: Colors.black,

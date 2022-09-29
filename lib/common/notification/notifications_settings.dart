@@ -1,11 +1,8 @@
 
 
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../static/Colors.dart';
 
@@ -20,11 +17,6 @@ class NotificationsSettingsScreen extends StatefulWidget {
 
 class _NotificationsSettingsScreenState extends State<NotificationsSettingsScreen> {
 
-  //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
 
 
   bool _generalSettingItem1=false;
@@ -62,7 +54,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
 
           children: [
 
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
 
@@ -70,12 +62,12 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -85,8 +77,8 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 10),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Notifications Settings",
@@ -114,8 +106,8 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
               children: [
                 Align(alignment: Alignment.topLeft,
                  child:Container(
-                   margin:  EdgeInsets.only(right: 30.0, top: 40, bottom: 0, left: 30),
-                   child:Text(
+                   margin:  const EdgeInsets.only(right: 30.0, top: 40, bottom: 0, left: 30),
+                   child:const Text(
                      "General Settings",
                      textAlign: TextAlign.center,
                      style: TextStyle(
@@ -130,8 +122,8 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
                 generalOptionSection(),
                 Align(alignment: Alignment.topLeft,
                     child:Container(
-                      margin:  EdgeInsets.only(right: 30.0, top: 30, bottom: 0, left: 30),
-                      child:Text(
+                      margin:  const EdgeInsets.only(right: 30.0, top: 30, bottom: 0, left: 30),
+                      child:const Text(
                         "Push Notification",
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -162,7 +154,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
 
   Widget generalOptionSection() {
     return  Container(
-      margin:  EdgeInsets.only(right: 30.0, top: 40, bottom: 10, left: 30),
+      margin:  const EdgeInsets.only(right: 30.0, top: 40, bottom: 10, left: 30),
 
       decoration: BoxDecoration(
         color: Colors.white,
@@ -186,7 +178,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
           children: [
             //teacher profile
 
-            Container(
+            SizedBox(
               height: 60,
               child: g_option_item1("Option Item 1"),
             ),
@@ -226,14 +218,14 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
 
   Widget g_option_item1(String optionsName) {
     return  Padding(
-      padding: EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: [
 
           Expanded(
               child: Text(optionsName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 16,
                       fontWeight: FontWeight.normal))),
@@ -262,14 +254,14 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   }
   Widget g_option_item2(String optionsName) {
     return  Padding(
-      padding: EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: [
 
           Expanded(
               child: Text(optionsName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 16,
                       fontWeight: FontWeight.normal))),
@@ -298,14 +290,14 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   }
   Widget g_option_item3(String optionsName) {
     return  Padding(
-      padding: EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: [
 
           Expanded(
               child: Text(optionsName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 16,
                       fontWeight: FontWeight.normal))),
@@ -334,14 +326,14 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   }
   Widget g_option_item4(String optionsName) {
     return  Padding(
-      padding: EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: [
 
           Expanded(
               child: Text(optionsName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 16,
                       fontWeight: FontWeight.normal))),
@@ -370,7 +362,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   }
   Widget pushNotificationOptionSection() {
     return  Container(
-      margin:  EdgeInsets.only(right: 30.0, top: 30, bottom: 10, left: 30),
+      margin:  const EdgeInsets.only(right: 30.0, top: 30, bottom: 10, left: 30),
 
       decoration: BoxDecoration(
         color: Colors.white,
@@ -416,14 +408,14 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   }
   Widget pn_option_item1(String optionsName) {
     return  Padding(
-      padding: EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: [
 
           Expanded(
               child: Text(optionsName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 16,
                       fontWeight: FontWeight.normal))),
@@ -452,14 +444,14 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
   }
   Widget pn_option_item2(String optionsName) {
     return  Padding(
-      padding: EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
+      padding: const EdgeInsets.only(left: 20.0, top: 0, bottom: 0, right: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: [
 
           Expanded(
               child: Text(optionsName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 16,
                       fontWeight: FontWeight.normal))),
@@ -485,17 +477,6 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
         ],
       ),
     );
-  }
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
   }
 
 

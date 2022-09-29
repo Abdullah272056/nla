@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
-import 'package:nova_lexxa/common/money_option/send_money/send_money_swipe_to_pay_page.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,7 +42,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getEmailTopicList();
 
@@ -75,12 +74,12 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                   direction: Axis.horizontal,
                   children: [
                     Container(
-                      margin: new EdgeInsets.only(left: 30,right: 20),
+                      margin: const EdgeInsets.only(left: 30,right: 20),
                       child: InkResponse(
                         onTap: () {
                           Navigator.of(context).pop();
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.arrow_back,
                           color: intello_input_text_color,
                           size: 30.0,
@@ -114,11 +113,11 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
 
                 if(_customTopic==1)...{
-                  SizedBox(height: 30,),
+                  const SizedBox(height: 30,),
                   userInputCustomTopic(_sendTopicController!, 'Enter your Topic', TextInputType.text,),
                 },
 
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 //message section
 
                 userInputMessage(_sendMoneyMessageController!, 'Enter your message', TextInputType.text,),
@@ -128,14 +127,14 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
                     child: Wrap(
                       children: [
                         Container(
-                          margin: EdgeInsets.only(left: 40, top: 40, right: 40, bottom: 0),
+                          margin: const EdgeInsets.only(left: 40, top: 40, right: 40, bottom: 0),
                           child:  Align(
                             alignment: Alignment.topCenter,
                             child: _buildSendMessageButton(),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 0),
+                          margin: const EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 0),
                           child:  Align(
                             alignment: Alignment.topCenter,
                             child:  _buildCancelButton(),
@@ -156,7 +155,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
   }
 
   Widget toolBarDesign() {
-    return Padding(padding: EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
+    return Padding(padding: const EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
       child:  Row(
         children: [
 
@@ -189,7 +188,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
           ),
           Expanded(child:Column(
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child:Text(
                   "Send us message",
@@ -202,7 +201,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
               ),
 
               Flex(direction: Axis.horizontal,
-                children: [
+                children: const [
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -222,7 +221,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             ],
           ),),
 
-          SizedBox(width: 10,)
+          const SizedBox(width: 10,)
 
         ],
       ),
@@ -239,7 +238,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
           ),)
         ),
 
-        Icon(
+        const Icon(
           Icons.arrow_drop_down,
           color:intello_input_text_color,
           size: 25.0,
@@ -255,7 +254,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         height: 55,
 
         alignment: Alignment.center,
-        margin: new EdgeInsets.only(left: 30,right: 30,top: 50,bottom: 15,),
+        margin: const EdgeInsets.only(left: 30,right: 30,top: 50,bottom: 15,),
 
         decoration: BoxDecoration(
             color:search_send_money_box_color,
@@ -267,9 +266,9 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
               //   menuMaxHeight:55,
               value: _selectName != null && _selectName.isNotEmpty ? _selectName : null,
-              underline:SizedBox.shrink(),
+              underline:const SizedBox.shrink(),
               hint:Row(
-                children: [
+                children: const [
                   SizedBox(width: 20,),
                   Text("Select Your Topic",
                       style: TextStyle(
@@ -289,27 +288,23 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
 
 
-                  child: Container(
-                    // color: Colors.yellow,
-                    child:Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
 
-                        const SizedBox(width: 20,),
-                        Expanded(child: Text(
-                            list["topic_name"].toString(),
-                            style: TextStyle(
-                                color: intello_input_text_color,
-                                //color: intello_text_color,
-                                fontSize: 18,
-                                fontWeight: FontWeight.normal)),),
+                      const SizedBox(width: 20,),
+                      Expanded(child: Text(
+                          list["topic_name"].toString(),
+                          style: const TextStyle(
+                              color: intello_input_text_color,
+                              //color: intello_text_color,
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal)),),
 
 
-                        SizedBox(width: 20,),
+                      const SizedBox(width: 20,),
 
-                      ],
-                    ) ,
-
+                    ],
                   ),
 
                   // Text(list["country_name"].toString()),
@@ -335,7 +330,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
   Widget userInputMessage(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
     return  Container(
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
 
@@ -350,7 +345,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             autocorrect: false,
             enableSuggestions: false,
             cursorColor:intello_input_text_color,
-            style: TextStyle(
+            style: const TextStyle(
                 color:intello_input_text_color,
                 fontSize: 17,
             ),
@@ -370,7 +365,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
   Widget userInputCustomTopic(TextEditingController _controller, String hintTitle, TextInputType keyboardType,) {
     return  Container(
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 20),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 20),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
 
@@ -385,7 +380,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             autocorrect: false,
             enableSuggestions: false,
             cursorColor:intello_input_text_color,
-            style: TextStyle(
+            style: const TextStyle(
               color:intello_input_text_color,
               fontSize: 17,
             ),
@@ -420,7 +415,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         customButton: Container(
           child:userTopicDropDownSection(),
         ),
-        hint: Text('hooseNumber'),
+        hint: const Text('hooseNumber'),
         items: _emailUsTopicList.map((item) {
           return DropdownMenuItem(
             value:item["topic_name"]+"~"+item["topic_id"].toString(),
@@ -447,7 +442,6 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
             int sepPos = abc.indexOf(separator);
             _topicId=abc.substring(sepPos + separator.length);
            // _topicId="1";
-            String value=newVal.toString();
             dropdownvalue =newVal;
           });
         },
@@ -457,13 +451,13 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
   }
 
   Widget _buildDropDownItemDesign(var response) {
-    return Container(
+    return SizedBox(
       height: 55,
       child: Column(
         children: [
           Expanded(child:Row(
             children: [
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
               Align(
                 alignment: Alignment.centerLeft,
                 child:  Text(
@@ -519,7 +513,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -529,7 +523,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Send Message",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -555,7 +549,7 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "Cancel",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -624,24 +618,24 @@ class _EmailUsPageScreenState extends State<EmailUsPageScreen> {
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),

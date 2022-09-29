@@ -1,10 +1,7 @@
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 
 import '../static/Colors.dart';
 import 'no_notifications.dart';
@@ -20,19 +17,15 @@ class NotificationsDeletedScreen extends StatefulWidget {
 
 class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen> {
 
-  //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
+
 
   @override
   @mustCallSuper
   initState() {
     super.initState();
-    Timer(Duration(milliseconds: 1500), () {
+    Timer(const Duration(milliseconds: 1500), () {
       setState(() {
-       Navigator.push(context,MaterialPageRoute(builder: (context)=>NoNotificationsScreen()));
+       Navigator.push(context,MaterialPageRoute(builder: (context)=>const NoNotificationsScreen()));
 
       });
 
@@ -49,10 +42,10 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
 
           children: [
 
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
-            Text(
+            const Text(
               "Notifications",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -77,11 +70,11 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
                   fit: BoxFit.fill,
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
 
-                Text(
+                const Text(
                   "Deleted!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -90,7 +83,7 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
                       fontWeight: FontWeight.w500),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 23,
                 ),
 
@@ -100,7 +93,7 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
                   height: 65,
                   fit: BoxFit.fill,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
               ],
@@ -115,16 +108,7 @@ class _NotificationsDeletedScreenState extends State<NotificationsDeletedScreen>
 
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
 
 

@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -31,7 +30,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
   double keyboardfontTopPadding= 13;
   double keyboardfontBottomPadding= 13;
   String inputText="";
-  TextStyle keyboardTextStyle= TextStyle(
+  TextStyle keyboardTextStyle= const TextStyle(
       color: novalexxa_text_color,
       fontSize: 26,
       decoration: TextDecoration.none,
@@ -52,7 +51,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                 Expanded(child: Stack(
                   children: [
                     //bg
-                    Container(
+                    SizedBox(
                       height: 185,
 
                       child: Image.asset(
@@ -76,12 +75,12 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                           direction: Axis.horizontal,
                           children: [
                             Container(
-                              margin: new EdgeInsets.only(left: 30),
+                              margin: const EdgeInsets.only(left: 30),
                               child: InkResponse(
                                 onTap: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30.0,
@@ -91,8 +90,8 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
 
                             Expanded(
                                 child: Container(
-                                  margin: new EdgeInsets.only(right: 60),
-                                  child: Align(
+                                  margin: const EdgeInsets.only(right: 60),
+                                  child: const Align(
                                     alignment: Alignment.center,
                                     child: Text(
                                       "Request Money",
@@ -134,8 +133,8 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
 
                           ),
                         ),
-                        SizedBox(height: 10,),
-                        Align(alignment: Alignment.topCenter,
+                        const SizedBox(height: 10,),
+                        const Align(alignment: Alignment.topCenter,
                           child:  Text(
                             "Request Money to",
                             textAlign: TextAlign.center,
@@ -145,12 +144,12 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                                 fontWeight: FontWeight.w500),
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Align(alignment: Alignment.topCenter,
                           child:  Text(
                             _receiverName,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: novalexxa_text_color,
                                 fontSize: 26,
                                 fontWeight: FontWeight.w600),
@@ -161,7 +160,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                         Align(alignment: Alignment.topCenter,
                           child: userInputAmountField(_requestMoneyAmountController!, '00 €', TextInputType.text),
                         ),
-                        SizedBox(height: 50,),
+                        const SizedBox(height: 50,),
 
                         Expanded(child:  Align(alignment: Alignment.bottomCenter,
                           child: _buildBottomDesign(),
@@ -190,12 +189,12 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
     return Container(
 
       alignment: Alignment.center,
-      margin: new EdgeInsets.only(left: 30,right: 30,top: 25),
+      margin: const EdgeInsets.only(left: 30,right: 30,top: 25),
       decoration: BoxDecoration(
           color:search_send_money_box_color,
           borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
+        padding: const EdgeInsets.only(left: 10.0, top: 13,bottom: 13, right: 10),
         child: Row(
           children: [
             Expanded(child:Column(
@@ -210,9 +209,9 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                   //   textInputAction: TextInputAction.search,
                   autocorrect: false,
                   enableSuggestions: false,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [FilteringTextInputFormatter.allow(RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$'))],
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_text_color,
                       fontSize: 26,
                       fontWeight: FontWeight.w600),
@@ -221,7 +220,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                     border: InputBorder.none,
 
                     hintText: hintTitle,
-                    hintStyle:  TextStyle(fontSize: 22,
+                    hintStyle:  const TextStyle(fontSize: 22,
                         color:novalexxa_hint_text_color,
                         // color: Colors.intello_hint_color,
                         fontStyle: FontStyle.normal),
@@ -246,7 +245,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -256,7 +255,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
               //  blurRadius: 20.0, // soften the shadow
               blurRadius:20, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset:Offset(
+              offset:const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               )
@@ -276,214 +275,202 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
 
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("1");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "1",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("1");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "1",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("2");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "2",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("2");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "2",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("3");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "3",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("3");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "3",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
 
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("4");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "4",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("4");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "4",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("5");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "5",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("5");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "5",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("6");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "6",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("6");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "6",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("7");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "7",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("7");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "7",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("8");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "8",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("8");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "8",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("9");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "9",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("9");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "9",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard(".");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: const Text(
+                                  ".",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard(".");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    ".",
-                                    textAlign: TextAlign.center,
-
-                                    style: TextStyle(
-                                        color: novalexxa_text_color,
-                                        fontSize: 27,
-                                        decoration: TextDecoration.none,
-                                        fontWeight: FontWeight.w900),
-                                  ),
+                                  style: TextStyle(
+                                      color: novalexxa_text_color,
+                                      fontSize: 27,
+                                      decoration: TextDecoration.none,
+                                      fontWeight: FontWeight.w900),
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("0");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "0",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("0");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "0",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("x");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
-                                  child:Image.asset('assets/images/icon_backspace.png',
-                                    height: 20,
-                                    width: 30,
-                                  ),
-                                  // Text(
-                                  //   "x",
-                                  //   textAlign: TextAlign.center,
-                                  //
-                                  //   style: keyboardTextStyle,
-                                  // ),
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("x");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                child:Image.asset('assets/images/icon_backspace.png',
+                                  height: 20,
+                                  width: 30,
                                 ),
-                              ),),
+                                // Text(
+                                //   "x",
+                                //   textAlign: TextAlign.center,
+                                //
+                                //   style: keyboardTextStyle,
+                                // ),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
 
                       ],
@@ -492,7 +479,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
                 ),
 
 
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
                 Align(alignment: Alignment.bottomCenter,
                   child: _buildContinueButton(),
                 )
@@ -538,7 +525,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
       },
       child: Container(
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -548,7 +535,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
           alignment: Alignment.center,
           child:  Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: const [
               Text(
                 "Continue",
                 textAlign: TextAlign.center,
@@ -576,7 +563,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
     setState(() {
 
       if(inputText.isNotEmpty){
-        String value=inputText+typeKey;
+        // String value=inputText+typeKey;
 
         if(typeKey=="."){
 
@@ -584,7 +571,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
             //_showToast("Already use!");
           }
           else {
-            if(inputText!=null&& inputText.isNotEmpty){
+            if(inputText.isNotEmpty){
               double inputAmountDouble=double.parse(inputText);
               if (inputAmountDouble<=0) {
                 inputText = "0"+typeKey;
@@ -604,7 +591,7 @@ class _RequestMoneyAmountPageScreenState extends State<RequestMoneyAmountPageScr
 
         }
         else if(typeKey=="x") {
-          if (inputText != null && inputText.length > 1) {
+          if (inputText.length > 1) {
             inputText = inputText.substring(0, inputText.length - 1);
           }
           else{

@@ -2,15 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../api_service/api_service.dart';
 import '../../api_service/sharePreferenceDataSaveName.dart';
@@ -35,7 +32,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getSpeakUserList();
           _getChatUserList();
@@ -60,12 +57,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 30.0,
@@ -74,8 +71,8 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 ),
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 10),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Contact Support",
@@ -148,7 +145,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
               ],
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
 
@@ -170,7 +167,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
           Container(
 
             margin:const EdgeInsets.only(left:5, top: 5, right: 5, bottom:5),
-            decoration: new BoxDecoration(
+            decoration: BoxDecoration(
               color:contact_with_us_box_color,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [BoxShadow(
@@ -179,7 +176,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                 //  blurRadius: 20.0, // soften the shadow
                 blurRadius:20, // soften the shadow
                 spreadRadius: 0.0, //extend the shadow
-                offset:Offset(
+                offset:const Offset(
                   2.0, // Move to right 10  horizontally
                   1.0, // Move to bottom 10 Vertically
                 ),
@@ -188,7 +185,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             width: 90,
             height: 92,
             child: Center(
-              child: Container(
+              child: SizedBox(
                 width: 43,
                 height: 47,
                 child: Image.asset(
@@ -203,10 +200,10 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             // child:  ,
           ),
           Container(
-            margin:EdgeInsets.only(left:0, top: 10, right: 0, bottom:5),
+            margin:const EdgeInsets.only(left:0, top: 10, right: 0, bottom:5),
             child:Text(
               itemName,
-              style: TextStyle(
+              style: const TextStyle(
                   color: novalexxa_text_color,
                   fontSize: 13,
                   decoration: TextDecoration.none,
@@ -221,8 +218,8 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
   Widget _build_chat_with_us_section() {
     return Container(
-        margin: EdgeInsets.only(right: 20, top: 10, left: 20, bottom: 10),
-        decoration: new BoxDecoration(
+        margin: const EdgeInsets.only(right: 20, top: 10, left: 20, bottom: 10),
+        decoration: BoxDecoration(
           color:contact_with_us_box_color,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [BoxShadow(
@@ -231,7 +228,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             //  blurRadius: 20.0, // soften the shadow
             blurRadius:20, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset:Offset(
+            offset:const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             ),
@@ -269,7 +266,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   ),
                   Expanded(child:Column(
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child:Text(
                           "Chat with us",
@@ -281,7 +278,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         ),
                       ),
                       Flex(direction: Axis.horizontal,
-                        children: [
+                        children: const [
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -298,7 +295,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         ],
                       ),
                       Flex(direction: Axis.horizontal,
-                        children: [
+                        children: const [
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -320,7 +317,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ],
                   ),),
 
-                  SizedBox(width: 10,)
+                  const SizedBox(width: 10,)
 
                 ],
               ),
@@ -347,7 +344,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
                                   // physics: const NeverScrollableScrollPhysics(),
                                   //itemCount: offerDataList == null ? 0 : offerDataList.length,
-                                  itemCount: _chatWithUsList==null||_chatWithUsList.length<=0?0:
+                                  itemCount: _chatWithUsList.length<=0?0:
                                   _chatWithUsList.length,
                                   itemBuilder: (context, index) {
                                     return _build_chat_with_us_sectionNumberListItem(_chatWithUsList[index]);
@@ -377,8 +374,8 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
     return Container(
       // padding: EdgeInsets.only(right: 10, top: 10, left: 10, bottom: 10),
 
-        margin: EdgeInsets.only(right: 20, top: 20, left: 20, bottom: 10),
-        decoration: new BoxDecoration(
+        margin: const EdgeInsets.only(right: 20, top: 20, left: 20, bottom: 10),
+        decoration: BoxDecoration(
           color:contact_with_us_box_color,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [BoxShadow(
@@ -387,7 +384,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             //  blurRadius: 20.0, // soften the shadow
             blurRadius:20, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset:Offset(
+            offset:const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             ),
@@ -424,7 +421,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   ),
                   Expanded(child:Column(
                     children: [
-                      Align(
+                      const Align(
                         alignment: Alignment.centerLeft,
                         child:Text(
                           "Speak with us",
@@ -436,7 +433,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                         ),
                       ),
                       Flex(direction: Axis.horizontal,
-                        children: [
+                        children: const [
                           Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -459,7 +456,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     ],
                   ),),
 
-                  SizedBox(height: 10,)
+                  const SizedBox(height: 10,)
 
                 ],
               ),
@@ -468,12 +465,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             Container(
               margin:const EdgeInsets.only(left:10, top: 10, right: 10, bottom: 10),
               child: GridView.builder(
-                  itemCount: _speakWithUsList==null||_speakWithUsList.length<=0?0:
+                  itemCount: _speakWithUsList.length<=0?0:
                   _speakWithUsList.length,
                   shrinkWrap: true,
                   padding:const EdgeInsets.only(left:0, top: 00, right: 0, bottom: 0),
-                  physics: ClampingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  physics: const ClampingScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       // crossAxisSpacing: 10.0,
                       // mainAxisSpacing: 10.0,
@@ -504,9 +501,9 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
        // _launchCaller("01994215664");
       },
       child: Container(
-        margin: EdgeInsets.only(right: 5,  left: 10, bottom: 10),
+        margin: const EdgeInsets.only(right: 5,  left: 10, bottom: 10),
         height: 40,
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color:contact_with_us_box_color,
           border: Border.all(width: 1,color:novalexxa_customer_services_tab_border_color),
           boxShadow: [BoxShadow(
@@ -515,12 +512,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
             //  blurRadius: 20.0, // soften the shadow
             blurRadius:20, // soften the shadow
             spreadRadius: 0.0, //extend the shadow
-            offset:Offset(
+            offset:const Offset(
               2.0, // Move to right 10  horizontally
               1.0, // Move to bottom 10 Vertically
             ),
           )],
-          borderRadius: new BorderRadius.all(Radius.circular(20)),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
 
           shape: BoxShape.rectangle,
         ),
@@ -534,10 +531,10 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
               Flag.fromString(response["country_info"]["country_code_name"], height: 20, width: 20,borderRadius:10,fit: BoxFit.fill,),
             ],
 
-            SizedBox(width: 8,),
+            const SizedBox(width: 8,),
             Text(
               response["phone_number"].toString(),
-              style: TextStyle(
+              style: const TextStyle(
                   color: novalexxa_text_color,
                   fontSize: 12,
                   decoration: TextDecoration.none,
@@ -559,15 +556,15 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
         Navigator.push(context,MaterialPageRoute(builder: (context)=>ContactSupportMessageScreen(receiverId: response["id"].toString(),)));
       },
       child: Container(
-        margin: EdgeInsets.only(right: 4, top: 14, left: 14, bottom: 20),
+        margin: const EdgeInsets.only(right: 4, top: 14, left: 14, bottom: 20),
         child:   Flex(
           direction: Axis.vertical,
           children: [
             Container(
-              margin: EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
+              margin: const EdgeInsets.only(right: 4, top: 4, left: 4, bottom: 4),
               width: 60,
               height: 60,
-              decoration: new BoxDecoration(
+              decoration: BoxDecoration(
                 border: Border.all(width: 2,color: Colors.white),
                 boxShadow: [BoxShadow(
 
@@ -575,12 +572,12 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                   //  blurRadius: 20.0, // soften the shadow
                   blurRadius:20, // soften the shadow
                   spreadRadius: 0.0, //extend the shadow
-                  offset:Offset(
+                  offset:const Offset(
                     2.0, // Move to right 10  horizontally
                     1.0, // Move to bottom 10 Vertically
                   ),
                 )],
-                borderRadius: new BorderRadius.all(Radius.circular(30.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
                 shape: BoxShape.rectangle,
               ),
 
@@ -604,26 +601,22 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
                     )),
               ),
             ),
-            Container(
-              // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 10),
-                child: Text(
-                  response["username"].toString() ,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500),
-                )),
-            Container(
-              // margin: EdgeInsets.only(left: 20, right: 15, bottom: 00, top: 3),
-                child: Text(
-                  "Available",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: novalexxa_hint_text_color,
-                      fontSize: 9,
-                      fontWeight: FontWeight.w500),
-                )),
+            Text(
+              response["username"].toString() ,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500),
+            ),
+            const Text(
+              "Available",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: novalexxa_hint_text_color,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w500),
+            ),
           ],
         ),
       ),
@@ -631,16 +624,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
   }
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
   _getSpeakUserList() async {
     try {
@@ -716,24 +700,24 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
           child: Wrap(
             children: [
               Container(
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       left: 15.0, right: 15.0, top: 30, bottom: 30),
                   child: Center(
                     child: Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        CircularProgressIndicator(
+                        const CircularProgressIndicator(
                           backgroundColor: novalexxa_color,
                           strokeWidth: 5,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 12,
                         ),
                         Text(
                           _message,
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                         )
                       ],
                     ),
@@ -760,6 +744,6 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
 
   }
   _callNumber(String number) async{
-    bool? res = await FlutterPhoneDirectCaller.callNumber(number);
+    // bool? res = await FlutterPhoneDirectCaller.callNumber(number);
   }
 }

@@ -2,8 +2,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import '../static/Colors.dart';
 
 import 'notifications_settings.dart';
@@ -19,9 +17,6 @@ class NoNotificationsScreen extends StatefulWidget {
 class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
 
   //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
   File? imageFile;
 
   @override
@@ -33,19 +28,19 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
 
           children: [
 
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: novalexxa_text_color,
                       size: 27.0,
@@ -55,8 +50,8 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 10),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 10),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Notifications",
@@ -78,7 +73,7 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
                     ),
                     color: novalexxa_text_color,
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>NotificationsSettingsScreen()));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>const NotificationsSettingsScreen()));
 
                     },
                   ),
@@ -103,11 +98,11 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
                   fit: BoxFit.fill,
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
 
-                Text(
+                const Text(
                   "You dont have any\nNotification !",
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -119,7 +114,7 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
 
 
                 _buildNotificationsSettingsButton(),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
               ],
@@ -139,11 +134,11 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
        // Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationBarScreen(0,HomePageScreen())));
       },
       child:  Container(
-        margin:  EdgeInsets.only(left: 10, right: 10,bottom: 0,top: 45),
+        margin:  const EdgeInsets.only(left: 10, right: 10,bottom: 0,top: 45),
         //width: 80,
         height: 45,
         width: 280,
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           color: novalexxa_color,
           borderRadius: BorderRadius.circular(10),
 
@@ -151,7 +146,7 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
         //   height: 150,
         child: Center(
           child: Wrap(direction: Axis.horizontal,
-              children: [
+              children: const [
                 Icon(
                   Icons.notifications_none,
                   color: Colors.white,
@@ -177,18 +172,6 @@ class _NoNotificationsScreenState extends State<NoNotificationsScreen> {
     );
 
 
-  }
-
-
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
   }
 
 

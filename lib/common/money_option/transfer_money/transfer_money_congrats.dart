@@ -1,10 +1,9 @@
 
-import 'dart:convert';
-import 'dart:io';
+
+
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../../navigation_page/money_option.dart';
@@ -14,6 +13,8 @@ import '../../static/Colors.dart';
 
 
 class TransferMoneyCongratsScreen extends StatefulWidget {
+  const TransferMoneyCongratsScreen({Key? key}) : super(key: key);
+
 
 
   @override
@@ -21,13 +22,6 @@ class TransferMoneyCongratsScreen extends StatefulWidget {
 }
 
 class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScreen> {
-  //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
-
- // String _sendAmount="30",_receiverName="Simon Lewis";
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +40,16 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
 
 
 
-                      SizedBox(height: 60,),
+                      const SizedBox(height: 60,),
                       Container(
-                        margin: EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
-                        child: new LinearPercentIndicator(
+                        margin: const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 00),
+                        child: LinearPercentIndicator(
                           // width: MediaQuery.of(context).size.width - 80,
                           animation: true,
                           lineHeight: 20.0,
                           animationDuration: 1000,
                           percent: 1,
-                          center: Text("100%"),
+                          center: const Text("100%"),
                           barRadius: const Radius.circular(10),
                           fillColor:Colors.white,
                           backgroundColor: novalexxa_indicator_unselected_color,
@@ -73,11 +67,11 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
                             fit: BoxFit.fill,
                           ),
 
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
 
-                          Text(
+                          const Text(
                             "Congratulations!",
                             textAlign: TextAlign.center,
                             style: TextStyle(
@@ -87,8 +81,8 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
                           ),
 
                           Container(
-                            margin: EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
-                            child:Text(
+                            margin: const EdgeInsets.only(left:30, top: 18, right: 30, bottom: 00),
+                            child:const Text(
                               "Your money is on the way!",
 
                               textAlign: TextAlign.center,
@@ -109,7 +103,7 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
                           Container(
                             child: _buildTransferMoreMoneyButton(),
                           ),
-                          SizedBox(height: 25,),
+                          const SizedBox(height: 25,),
 
                         ],
 
@@ -135,7 +129,7 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
       child: ElevatedButton(
         onPressed: () {
 
-          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,MoneyOptionScreen()));
+          Route route = MaterialPageRoute(builder: (context) => NavigationBarScreen(2,const MoneyOptionScreen()));
           Navigator.pushReplacement(context, route);
 
 
@@ -148,7 +142,7 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -158,7 +152,7 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Transfer More Money",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -175,30 +169,8 @@ class _TransferMoneyCongratsScreenState extends State<TransferMoneyCongratsScree
   }
 
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
 
 
-  void takeImage(ImageSource source)async{
-    final pickedFile= await _picker.getImage(source: source);
-    setState(() {
-      _imageFile=pickedFile!;
-      imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-      String img64 = base64Encode(bytes);
-
-     // _imageUpload(img64);
-
-    });
-  }
 
 }
 

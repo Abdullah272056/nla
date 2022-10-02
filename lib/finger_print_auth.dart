@@ -169,10 +169,11 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
                       style: TextStyle(color: Colors.white, height: 1.5),
                     ),
                   ),
+
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 15.0),
                     width: double.infinity,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: (){
                         // Fluttertoast.showToast(
                         //     msg: "button click",
@@ -184,17 +185,22 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
                         //     fontSize: 16.0);
                         _authenticate();
                       },
-                      elevation: 0.0,
-                      color: Color(0xFF04A5ED),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0, vertical: 14.0),
-                        child: Text(
-                          "Authenticate",
-                          style: TextStyle(color: Colors.white),
+
+                      style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30))),
+
+
+                      child: Ink(
+                      //  color: Color(0xFF04A5ED),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24.0, vertical: 14.0),
+                          child: Text(
+                            "Authenticate",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),

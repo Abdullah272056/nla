@@ -155,8 +155,6 @@ class _ScanDoneCompanyScreenState extends State<ScanDoneCompanyScreen> {
   }
 
 
-
-
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {

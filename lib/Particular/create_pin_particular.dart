@@ -237,7 +237,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             decoration: BoxDecoration(
                 color:search_send_money_box_color,
                 borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+            margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
             padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
             child: Center(
               child: Text(
@@ -253,7 +253,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             decoration: BoxDecoration(
                 color:search_send_money_box_color,
                 borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+            margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
             padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
             child:Center(
               child:  Text(
@@ -269,7 +269,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             decoration: BoxDecoration(
                 color:search_send_money_box_color,
                 borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+            margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
             padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
             child: Center(
               child: Text(
@@ -285,7 +285,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             decoration: BoxDecoration(
                 color:search_send_money_box_color,
                 borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+            margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
             padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
             child: Center(
               child: Text(
@@ -301,7 +301,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             decoration: BoxDecoration(
                 color:search_send_money_box_color,
                 borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+            margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
             padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
             child: Center(
               child: Text(
@@ -317,7 +317,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             decoration: BoxDecoration(
                 color:search_send_money_box_color,
                 borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+            margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
             padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
             child: Center(child: Text(
               _sixthDigitPin,
@@ -350,7 +350,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -482,121 +482,115 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
                           ),
                         ),
 
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("7");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "7",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("7");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "7",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("8");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "8",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("8");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "8",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("9");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "9",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("9");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "9",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
 
-                        Container(
-
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("x");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
-                                  child:Image.asset('assets/images/icon_backspace.png',
-                                    height: 20,
-                                    width: 30,
-                                  ),
-                                  // Text(
-                                  //   "x",
-                                  //   textAlign: TextAlign.center,
-                                  //
-                                  //   style: keyboardTextStyle,
-                                  // ),
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("x");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                child:Image.asset('assets/images/icon_backspace.png',
+                                  height: 20,
+                                  width: 30,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("0");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "0",
-                                    textAlign: TextAlign.center,
+                                // Text(
+                                //   "x",
+                                //   textAlign: TextAlign.center,
+                                //
+                                //   style: keyboardTextStyle,
+                                // ),
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("0");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "0",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  // typeKeyboard("x");
-                                  if(inputText.length<6||inputText.length>6){
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                // typeKeyboard("x");
+                                if(inputText.length<6||inputText.length>6){
 
-                                    _showToast("Input six digit pin");
+                                  _showToast("Input six digit pin");
 
-                                  }
-                                  else{
-                                    Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen(_userId,inputText)));
+                                }
+                                else{
+                                  Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen(_userId,inputText)));
 
-                                  }
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
-                                  child:Image.asset('assets/images/submit_icon.png',
-                                    height: 32,
-                                    width: 32,
-
-                                  ),
+                                }
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                child:Image.asset('assets/images/submit_icon.png',
+                                  height: 32,
+                                  width: 32,
 
                                 ),
-                              ),),
+
+                              ),
+                            ),),
 
 
 
-                            ],
-                          ),
+                          ],
                         ),
 
                       ],
@@ -605,7 +599,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
                 ),
 
 
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
 
               ],
             )));
@@ -614,7 +608,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
-        if (inputText != null && inputText.length > 1) {
+        if (inputText.length > 1) {
           inputText = inputText.substring(0, inputText.length - 1);
         } else {
           inputText = "";
@@ -634,7 +628,7 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
   void setText(String inputText){
 
     setState(() {
-      if(inputText.length==0){
+      if(inputText.isEmpty){
         _firstDigitPin="-";
         _secondDigitPin="-";
         _thirdDigitPin="-";

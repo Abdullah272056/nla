@@ -15,7 +15,7 @@ import 'create_pin_particular.dart';
 
 class CreatePasswordParticularScreen extends StatefulWidget {
   String userId;
-  CreatePasswordParticularScreen(this.userId);
+  CreatePasswordParticularScreen(this.userId, {Key? key}) : super(key: key);
 
   @override
   State<CreatePasswordParticularScreen> createState() => _CreatePasswordParticularScreenState(this.userId);
@@ -39,7 +39,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
         child: Column(
 
           children: [
-            SizedBox(
+            const SizedBox(
               height: 55,
             ),
             Padding(
@@ -48,7 +48,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                 child: Column(
                   children: [
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 00,left: 10),
+                      margin:const EdgeInsets.only(right: 20.0,top: 00,left: 10),
                       child:Align(alignment: Alignment.topLeft,
                         child:Container(
                           decoration: BoxDecoration(
@@ -57,7 +57,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                                 color: Colors.grey.withOpacity(0.3),
                                 spreadRadius: 1,
                                 blurRadius: 10,
-                                offset: Offset(0, 2), // changes position of shadow
+                                offset: const Offset(0, 2), // changes position of shadow
                               ),
                             ],
                           ),
@@ -73,8 +73,8 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                     ),
 
                     Container(
-                      margin:EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.topLeft,
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.topLeft,
                         child: Text(
                           "Create Password",
                           textAlign: TextAlign.center,
@@ -87,8 +87,8 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                       ),
                     ),
                     Container(
-                      margin:EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
-                      child: Align(alignment: Alignment.centerLeft,
+                      margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                      child: const Align(alignment: Alignment.centerLeft,
                         child: Text(
                           "Create a password for your account",
                           textAlign: TextAlign.center,
@@ -99,13 +99,13 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                         ),),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Confirm Password",
                             style: TextStyle(
@@ -115,17 +115,17 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userInputPassword(_passwordController!, 'New Password', TextInputType.visiblePassword),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 35,
                     ),
                     Container(
                       margin: const EdgeInsets.only(left: 10),
-                      child: Align(
+                      child: const Align(
                         alignment: Alignment.topLeft,
                         child: Text("Confirm Password",
                             style: TextStyle(
@@ -135,12 +135,12 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 0,
                     ),
                     userInputConfirmPassword(_confirmPasswordController!, 'Confirm Password', TextInputType.visiblePassword),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
 
@@ -173,14 +173,14 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
           decoration: InputDecoration(
             // border: InputBorder.none,
 
-            focusedBorder:UnderlineInputBorder(
+            focusedBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
             ),
-            enabledBorder:UnderlineInputBorder(
+            enabledBorder:const UnderlineInputBorder(
               borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
             ),
 
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 10,
               minWidth: 15,
             ),
@@ -236,7 +236,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
           obscureText: _isObscure2,
           decoration: InputDecoration(
             // border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 10,
               minWidth: 15,
             ),
@@ -292,7 +292,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -302,7 +302,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -390,7 +390,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
         } catch (e) {
           Navigator.of(context).pop();
           _showToast("Try again!");
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

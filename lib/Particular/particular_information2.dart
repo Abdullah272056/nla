@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:delayed_widget/delayed_widget.dart';
 
 import 'package:flag/flag_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -17,7 +16,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../api_service/api_service.dart';
 import '../common/static/loding_dialog.dart';
 import '../common/static/toast.dart';
-import 'confirm_number_particular.dart';
+
 
 class AddInformationForParticular2Screen extends StatefulWidget {
   String userId;
@@ -49,7 +48,6 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   int _particular_gender_selected_status=1;
 
   //String _countryCode="IT";
-  String _countryCode = "IT";
   List _countryList = [];
 
   String select_your_country="Select your country";

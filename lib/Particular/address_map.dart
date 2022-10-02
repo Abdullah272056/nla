@@ -1,6 +1,5 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/Particular/registration_for_particular.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -23,25 +22,25 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
         ),
         child: Flex(
           direction: Axis.vertical,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             Flex(
               direction: Axis.horizontal,
               children: [
                 Container(
-                  margin: new EdgeInsets.only(left: 30),
+                  margin: const EdgeInsets.only(left: 30),
                   child: InkResponse(
                     onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_back,
                       color: Colors.black,
                       size: 30.0,
@@ -51,8 +50,8 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
 
                 Expanded(
                     child: Container(
-                      margin: new EdgeInsets.only(right: 50),
-                      child: Align(
+                      margin: const EdgeInsets.only(right: 50),
+                      child: const Align(
                         alignment: Alignment.center,
                         child: Text(
                           "Add Address",
@@ -66,7 +65,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
                     )),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Expanded(
@@ -83,7 +82,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
   Widget _buildBottomDesign() {
     return Container(
         //width: double.infinity,
-        decoration:  BoxDecoration(
+        decoration:  const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/map.png"),
             fit: BoxFit.cover,
@@ -98,7 +97,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
           children: [
 
 
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
 
@@ -111,15 +110,13 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
                     child: userInputEmail(searchController!, 'Selected Location', TextInputType.emailAddress),
                   ),
 
-                  Expanded(child:Container(
-                    child: Container()
-                  )),
+                  Expanded(child:Container()),
                   _buildAddAddressDetailsButton(),
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   Align(alignment: Alignment.bottomCenter,
                   child: _buildUseCurrentLocationButton(),
                   ),
-                  SizedBox(height: 35,),
+                  const SizedBox(height: 35,),
                 ],
 
               )
@@ -150,7 +147,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [add_address_button_start_color, add_address_button_end_color],
+              gradient: const LinearGradient(colors: [add_address_button_start_color, add_address_button_end_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -160,7 +157,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Add Address Details",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -181,7 +178,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
       child: ElevatedButton(
         onPressed: () {
 
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>SignUpForParticularScreen()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const SignUpForParticularScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },
@@ -199,7 +196,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Use Current Location",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -232,11 +229,11 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
           autofocus: false,
           decoration: InputDecoration(
             border: InputBorder.none,
-            suffixIconConstraints: BoxConstraints(
+            suffixIconConstraints: const BoxConstraints(
               minHeight: 15,
               minWidth: 15,
             ),
-            suffixIcon: Icon(
+            suffixIcon: const Icon(
               Icons.search,
               color:hint_color,
               size: 25.0,
@@ -246,7 +243,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
             // suffixIcon: Icon(Icons.email,color: Colors.hint_color,),
 
             hintText: hintTitle,
-            hintStyle:TextStyle(fontSize: 18, color:hint_color, fontStyle: FontStyle.normal),
+            hintStyle:const TextStyle(fontSize: 18, color:hint_color, fontStyle: FontStyle.normal),
           ),
           keyboardType: keyboardType,
         ),

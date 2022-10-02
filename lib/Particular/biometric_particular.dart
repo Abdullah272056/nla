@@ -1,11 +1,9 @@
 
-import 'dart:convert';
-import 'dart:io';
+
 
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,12 +24,6 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
   String _userId;
   _BiometricParticularScreenState(this._userId);
 
-  //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
-  String _imageLink = "";
-  File? imageFile;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,19 +33,19 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
 
           Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
 
               Container(
-                margin: EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
+                margin: const EdgeInsets.only(left:20, top: 00, right: 20, bottom: 00),
                 child:   LinearPercentIndicator(
                   // width: MediaQuery.of(context).size.width - 80,
                   animation: true,
                   lineHeight: 20.0,
                   animationDuration: 1000,
                   percent: 0.85,
-                  center: Text("85%"),
+                  center: const Text("85%"),
                   barRadius: const Radius.circular(10),
                   fillColor:Colors.white,
                   backgroundColor: novalexxa_indicator_unselected_color,
@@ -61,7 +53,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
                 ),
               ),
 
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
 
@@ -174,7 +166,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color,novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color,novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -184,7 +176,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Add Fingerprint",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -211,7 +203,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "Maybe Later",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -225,16 +217,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
     );
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
+
 
 
   void saveFingerPrintStatus(String fingerPrintStatus) async {

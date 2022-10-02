@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delayed_widget/delayed_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
@@ -11,7 +10,6 @@ import 'package:nova_lexxa/common/static/Colors.dart';
 
 import '../api_service/api_service.dart';
 import '../common/static/loding_dialog.dart';
-import 'email_verification_particular.dart';
 import 'message_verification_particular.dart';
 
 class ConfirmNumberForParticularScreen extends StatefulWidget {
@@ -71,7 +69,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/bg.png"),
             fit: BoxFit.cover,
@@ -80,19 +78,19 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
         child: Flex(
           direction: Axis.vertical,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 45,
             ),
             Expanded(child:Align(alignment: Alignment.center,
             child: DelayedWidget(
 
-              delayDuration: Duration(milliseconds: 100),// Not required
-              animationDuration: Duration(milliseconds: 400),// Not required
+              delayDuration: const Duration(milliseconds: 100),// Not required
+              animationDuration: const Duration(milliseconds: 400),// Not required
               animation: DelayedAnimations.SLIDE_FROM_LEFT,// Not required
               child: Wrap(
                 children: [
                   Container(
-                    margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 10),
+                    margin:const EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 10),
                     child:Align(alignment: Alignment.center,
                       child:Image.asset(
                         "assets/images/logo_icon.png",
@@ -103,7 +101,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
                     ),
                   ),
 
-                  Align(alignment: Alignment.center,
+                  const Align(alignment: Alignment.center,
                     child:Text(
                       "Novalexxxa",
                       style: TextStyle(
@@ -147,10 +145,10 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
             const EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 30),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 22,
                 ),
-                Text(
+                const Text(
                   "Is this your correct phone number?",
                   textAlign: TextAlign.center,
 
@@ -160,32 +158,32 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Text(
                   _phoneNumber,
                   textAlign: TextAlign.center,
 
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: novalexxa_color,
                       fontSize: 30,
                       decoration: TextDecoration.none,
                       fontWeight: FontWeight.bold),
                 ),
 
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
 
 
 
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
 
                 _buildConfirmButton(),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 _buildWantChangeButton()
@@ -209,7 +207,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -219,7 +217,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Yes, send code by SMS",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -246,7 +244,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "No, I want to change it",
           textAlign: TextAlign.center,
           style: TextStyle(

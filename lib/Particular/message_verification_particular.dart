@@ -1,19 +1,12 @@
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
-import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:nova_lexxa/company/privacy_policy_for_company.dart';
-import 'package:nova_lexxa/Particular/privacy_policy_for_particular.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
+
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../api_service/api_service.dart';
@@ -22,7 +15,7 @@ import 'email_verification_particular.dart';
 
 class MessageVerificationParticularScreen extends StatefulWidget {
   String userId;
-  MessageVerificationParticularScreen(this.userId);
+  MessageVerificationParticularScreen(this.userId, {Key? key}) : super(key: key);
 
 
   @override
@@ -36,14 +29,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   String countryName="en",countryIcon="icon_country.png";
 
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
-  int _particular_company_selected_status=1;
-  TextEditingController? _emailController = TextEditingController();
 
 
 
@@ -57,12 +43,12 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   double keyboardfontTopPadding= 15;
   double keyboardfontBottomPadding= 15;
   String inputText="";
-  TextStyle keyboardTextStyle= TextStyle(
+  TextStyle keyboardTextStyle= const TextStyle(
       color: novalexxa_text_color,
       fontSize: 26,
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500);
-  TextStyle otpInputBoxTextStyle= TextStyle(
+  TextStyle otpInputBoxTextStyle= const TextStyle(
       color: novalexxa_text_color,
       fontSize: 20,
       decoration: TextDecoration.none,
@@ -70,9 +56,6 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
 
   bool _isCountingStatus=false;
   String _time="4:00";
-  late Timer _timer;
-  int _start = 4 * 60;
-  int _second=4 * 60;
 
   @override
   @mustCallSuper
@@ -99,7 +82,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                   children: [
                     Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 55,
                         ),
                         Padding(
@@ -107,26 +90,26 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                             const EdgeInsets.only(left:20, top: 10, right: 20, bottom: 30),
                             child: Column(
                               children: [
-                                new LinearPercentIndicator(
+                                LinearPercentIndicator(
                                   // width: MediaQuery.of(context).size.width - 80,
                                   animation: true,
                                   lineHeight: 20.0,
                                   animationDuration: 1000,
                                   percent: 0.5,
-                                  center: Text("50%"),
+                                  center: const Text("50%"),
                                   barRadius: const Radius.circular(10),
                                   fillColor:Colors.white,
                                   backgroundColor: novalexxa_indicator_unselected_color,
                                   progressColor: novalexxa_color,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 40,
                                 ),
 
                                 Wrap(
                                   children: [
                                     Container(
-                                      margin:EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 10),
+                                      margin:const EdgeInsets.only(right: 10.0,top: 00,left: 10,bottom: 10),
                                       child:Align(alignment: Alignment.center,
                                         child:Container(
                                           decoration: BoxDecoration(
@@ -135,7 +118,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                                 color: Colors.grey.withOpacity(0.3),
                                                 spreadRadius: 1,
                                                 blurRadius: 10,
-                                                offset: Offset(0, 2), // changes position of shadow
+                                                offset: const Offset(0, 2), // changes position of shadow
                                               ),
                                             ],
                                           ),
@@ -149,7 +132,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                       ),
                                     ),
 
-                                    Align(alignment: Alignment.center,
+                                    const Align(alignment: Alignment.center,
                                       child:Text(
                                         "Novalexxxa",
                                         style: TextStyle(
@@ -167,8 +150,8 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                 ),
 
                                 Container(
-                                  margin:EdgeInsets.only(right: 20.0,top: 40,left: 10,bottom: 0),
-                                  child: Align(alignment: Alignment.topCenter,
+                                  margin:const EdgeInsets.only(right: 20.0,top: 40,left: 10,bottom: 0),
+                                  child: const Align(alignment: Alignment.topCenter,
                                     child: Text(
                                       "Please enter the verification code, was send to your mobile ***",
                                       textAlign: TextAlign.center,
@@ -180,12 +163,12 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                 ),
                                 if(_isCountingStatus==false)...[
                                   Container(
-                                    margin:EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
+                                    margin:const EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
                                     child: Align(alignment: Alignment.topCenter,
                                       child: Text(
                                         _time,
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: novalexxa_color,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w400),
@@ -193,7 +176,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                   ),
                                 ]else...[
                                   Container(
-                                    margin:EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
+                                    margin:const EdgeInsets.only(right: 20.0,top: 15,left: 10,bottom: 0),
                                     child: Align(alignment: Alignment.topCenter,
                                       child: InkResponse(
                                         onTap: (){
@@ -201,7 +184,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                           _userReSendCodeWithPhoneNumber();
 
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           "Resend Code",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -214,7 +197,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                                 ],
 
 
-                                SizedBox(
+                                const SizedBox(
                                   height: 30,
                                 ),
                                 _buildTextFieldOTPView1(),
@@ -243,45 +226,6 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   }
 
 
-  Widget _buildTextFieldOTPView({
-    required bool obscureText,
-    Widget? prefixedIcon,
-    String? hintText,
-    String? labelText,
-  }) {
-    return Container(
-      color: Colors.transparent,
-      child: OTPTextField(
-        length: 6,
-        width: MediaQuery.of(context).size.width,
-        textFieldAlignment: MainAxisAlignment.spaceAround,
-        fieldStyle: FieldStyle.box,
-       // contentPadding: EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
-        fieldWidth:45,
-
-        style: TextStyle(
-          fontSize: 18,
-          color: novalexxa_text_color,
-        ),
-        keyboardType: TextInputType.number,
-        inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
-        onCompleted: (pin) {
-
-          _userVerify(userId: _userId,otp:pin );
-
-
-
-          //_otpTxt = pin;
-         // _showToast(pin);
-        },
-        onChanged: (value) {
-          if (value.length < 6) {
-           // _otpTxt = "";
-          }
-        },
-      ),
-    );
-  }
 
   _userSendCodeWithEmail() async {
     try {
@@ -309,7 +253,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
           }
         } catch (e) {
           Navigator.of(context).pop();
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -335,9 +279,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
           if (response.statusCode == 200) {
 
             setState(() {
-              String _time="4:00";
               _showToast("Check your phone number");
-              _start=_second;
               _isCountingStatus=false;
               startTimer();
             });
@@ -349,7 +291,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
           }
         } catch (e) {
           Navigator.of(context).pop();
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -407,57 +349,57 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   //   }
   // }
 
-  Widget _buildLogInButton() {
-    return Container(
-      margin: const EdgeInsets.only(left: 10.0, right: 10.0),
-      child: ElevatedButton(
-        onPressed: () {
-          if(_particular_company_selected_status==1){
-
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForParticularScreen()));
-          }
-          else{
-            Navigator.push(context,MaterialPageRoute(builder: (context)=>PrivacyPolicyForCompanyScreen()));
-
-          }
-
-          _showToast(_particular_company_selected_status.toString());
-          // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
-          // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
-
-        },
-        style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(7))),
-        child: Ink(
-
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
-              borderRadius: BorderRadius.circular(7.0)
-          ),
-          child: Container(
-
-            height: 50,
-            alignment: Alignment.center,
-            child:  Text(
-              "Login",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'PT-Sans',
-                fontSize: 20,
-                fontWeight: FontWeight.normal,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _buildLogInButton() {
+  //   return Container(
+  //     margin: const EdgeInsets.only(left: 10.0, right: 10.0),
+  //     child: ElevatedButton(
+  //       onPressed: () {
+  //         if(_particular_company_selected_status==1){
+  //
+  //           Navigator.push(context,MaterialPageRoute(builder: (context)=>const PrivacyPolicyForParticularScreen()));
+  //         }
+  //         else{
+  //           Navigator.push(context,MaterialPageRoute(builder: (context)=>const PrivacyPolicyForCompanyScreen()));
+  //
+  //         }
+  //
+  //         _showToast(_particular_company_selected_status.toString());
+  //         // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+  //         // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
+  //
+  //       },
+  //       style: ElevatedButton.styleFrom(
+  //           padding: EdgeInsets.zero,
+  //           shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(7))),
+  //       child: Ink(
+  //
+  //         decoration: BoxDecoration(
+  //             gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
+  //               begin: Alignment.centerLeft,
+  //               end: Alignment.centerRight,
+  //             ),
+  //             borderRadius: BorderRadius.circular(7.0)
+  //         ),
+  //         child: Container(
+  //
+  //           height: 50,
+  //           alignment: Alignment.center,
+  //           child:  const Text(
+  //             "Login",
+  //             textAlign: TextAlign.center,
+  //             style: TextStyle(
+  //               fontFamily: 'PT-Sans',
+  //               fontSize: 20,
+  //               fontWeight: FontWeight.normal,
+  //               color: Colors.white,
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
 
   _userVerify(
@@ -493,7 +435,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
           }
         } catch (e) {
           Navigator.of(context).pop();
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {
@@ -519,7 +461,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -530,7 +472,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
               //  blurRadius: 20.0, // soften the shadow
               blurRadius:20, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset:Offset(
+              offset:const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               )
@@ -549,225 +491,213 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
 
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("1");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "1",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("1");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "1",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("2");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "2",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("2");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "2",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("3");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "3",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("3");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "3",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
 
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("4");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "4",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("4");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "4",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("5");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "5",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("5");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "5",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("6");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "6",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("6");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "6",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
 
-                        Container(
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("7");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "7",
+                                  textAlign: TextAlign.center,
 
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("7");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "7",
-                                    textAlign: TextAlign.center,
-
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("8");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "8",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("8");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "8",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("9");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "9",
-                                    textAlign: TextAlign.center,
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("9");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "9",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
+                              ),
+                            ),),
 
-                            ],
-                          ),
+                          ],
                         ),
 
-                        Container(
-
-                          child: Flex(direction: Axis.horizontal,
-                            children: [
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("x");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
-                                  child:Image.asset('assets/images/icon_backspace.png',
-                                    height: 20,
-                                    width: 30,
-                                  ),
-                                  // Text(
-                                  //   "x",
-                                  //   textAlign: TextAlign.center,
-                                  //
-                                  //   style: keyboardTextStyle,
-                                  // ),
+                        Flex(direction: Axis.horizontal,
+                          children: [
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("x");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                child:Image.asset('assets/images/icon_backspace.png',
+                                  height: 20,
+                                  width: 30,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
-                                  typeKeyboard("0");
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-                                  child: Text(
-                                    "0",
-                                    textAlign: TextAlign.center,
+                                // Text(
+                                //   "x",
+                                //   textAlign: TextAlign.center,
+                                //
+                                //   style: keyboardTextStyle,
+                                // ),
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
+                                typeKeyboard("0");
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+                                child: Text(
+                                  "0",
+                                  textAlign: TextAlign.center,
 
-                                    style: keyboardTextStyle,
-                                  ),
+                                  style: keyboardTextStyle,
                                 ),
-                              ),),
-                              Expanded(child:InkWell(
-                                onTap: (){
+                              ),
+                            ),),
+                            Expanded(child:InkWell(
+                              onTap: (){
 
 
-                                  if(inputText.length<6||inputText.length>6){
+                                if(inputText.length<6||inputText.length>6){
 
-                                    _showToast("Input six digit pin");
+                                  _showToast("Input six digit pin");
 
-                                  }
-                                  else{
-                                    _userVerify(userId: _userId,otp:inputText );
+                                }
+                                else{
+                                  _userVerify(userId: _userId,otp:inputText );
 
-                                  }
+                                }
 
-                                },
-                                child: Container(
-                                  padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
-                                  child:Image.asset('assets/images/submit_icon.png',
-                                    height: 32,
-                                    width: 32,
-
-                                  ),
+                              },
+                              child: Container(
+                                padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 10, bottom: keyboardfontBottomPadding),
+                                child:Image.asset('assets/images/submit_icon.png',
+                                  height: 32,
+                                  width: 32,
 
                                 ),
-                              ),),
+
+                              ),
+                            ),),
 
 
 
-                            ],
-                          ),
+                          ],
                         ),
 
                       ],
@@ -776,121 +706,118 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
                 ),
 
 
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
 
               ],
             )));
   }
 
   Widget _buildTextFieldOTPView1() {
-    return  Container(
-
-      child: Flex(direction: Axis.horizontal,
-        children: [
-          Expanded(child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-                color:search_send_money_box_color,
-                borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-            padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-            child: Center(
-              child: Text(
-                _firstDigitPin,
-                textAlign: TextAlign.center,
-
-                style: otpInputBoxTextStyle,
-              ),
-            ),
-          ),),
-          Expanded(child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-                color:search_send_money_box_color,
-                borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-            padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-            child:Center(
-              child:  Text(
-                _secondDigitPin,
-                textAlign: TextAlign.center,
-
-                style: otpInputBoxTextStyle,
-              ),
-            ),
-          ),),
-          Expanded(child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-                color:search_send_money_box_color,
-                borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-            padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-            child: Center(
-              child: Text(
-                _thirdDigitPin,
-                textAlign: TextAlign.center,
-
-                style: otpInputBoxTextStyle,
-              ),
-            ),
-          ),),
-          Expanded(child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-                color:search_send_money_box_color,
-                borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-            padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-            child: Center(
-              child: Text(
-                _fourthDigitPin,
-                textAlign: TextAlign.center,
-
-                style: otpInputBoxTextStyle,
-              ),
-            ),
-          ),),
-          Expanded(child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-                color:search_send_money_box_color,
-                borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-            padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-            child: Center(
-              child: Text(
-                _fifthDigitPin,
-                textAlign: TextAlign.center,
-
-                style: otpInputBoxTextStyle,
-              ),
-            ),
-          ),),
-          Expanded(child: Container(
-            height: 55,
-            decoration: BoxDecoration(
-                color:search_send_money_box_color,
-                borderRadius: BorderRadius.circular(6)),
-            margin:EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
-            padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
-            child: Center(child: Text(
-              _sixthDigitPin,
+    return  Flex(direction: Axis.horizontal,
+      children: [
+        Expanded(child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+              color:search_send_money_box_color,
+              borderRadius: BorderRadius.circular(6)),
+          margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          child: Center(
+            child: Text(
+              _firstDigitPin,
               textAlign: TextAlign.center,
 
               style: otpInputBoxTextStyle,
-            ),),
-          ),),
+            ),
+          ),
+        ),),
+        Expanded(child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+              color:search_send_money_box_color,
+              borderRadius: BorderRadius.circular(6)),
+          margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          child:Center(
+            child:  Text(
+              _secondDigitPin,
+              textAlign: TextAlign.center,
 
-        ],
-      ),
+              style: otpInputBoxTextStyle,
+            ),
+          ),
+        ),),
+        Expanded(child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+              color:search_send_money_box_color,
+              borderRadius: BorderRadius.circular(6)),
+          margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          child: Center(
+            child: Text(
+              _thirdDigitPin,
+              textAlign: TextAlign.center,
+
+              style: otpInputBoxTextStyle,
+            ),
+          ),
+        ),),
+        Expanded(child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+              color:search_send_money_box_color,
+              borderRadius: BorderRadius.circular(6)),
+          margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          child: Center(
+            child: Text(
+              _fourthDigitPin,
+              textAlign: TextAlign.center,
+
+              style: otpInputBoxTextStyle,
+            ),
+          ),
+        ),),
+        Expanded(child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+              color:search_send_money_box_color,
+              borderRadius: BorderRadius.circular(6)),
+          margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          child: Center(
+            child: Text(
+              _fifthDigitPin,
+              textAlign: TextAlign.center,
+
+              style: otpInputBoxTextStyle,
+            ),
+          ),
+        ),),
+        Expanded(child: Container(
+          height: 55,
+          decoration: BoxDecoration(
+              color:search_send_money_box_color,
+              borderRadius: BorderRadius.circular(6)),
+          margin:const EdgeInsets.only(left: 2, top: 2, right: 2, bottom: 2),
+          padding:EdgeInsets.only(left: 00, top: keyboardfontTopPadding, right: 00, bottom: keyboardfontBottomPadding),
+          child: Center(child: Text(
+            _sixthDigitPin,
+            textAlign: TextAlign.center,
+
+            style: otpInputBoxTextStyle,
+          ),),
+        ),),
+
+      ],
     );
   }
 
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
-        if (inputText != null && inputText.length > 1) {
+        if (inputText.length > 1) {
           inputText = inputText.substring(0, inputText.length - 1);
         } else {
           inputText = "";
@@ -910,7 +837,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   void setText(String inputText){
 
     setState(() {
-      if(inputText.length==0){
+      if(inputText.isEmpty){
         _firstDigitPin="-";
         _secondDigitPin="-";
         _thirdDigitPin="-";
@@ -980,26 +907,6 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   }
 
   startTimer() {
-    const oneSec = Duration(seconds: 1);
-    _timer = Timer.periodic(
-      oneSec,
-          (Timer timer) {
-        if (_start == 0) {
-          setState(() {
-            timer.cancel();
-            _isCountingStatus=true;
-          });
-        } else {
-          setState(() {
-            _start--;
-            final df = DateFormat('mm:ss');
-            _time=df.format(new DateTime.fromMillisecondsSinceEpoch(_start*1000)).toString();
-            // timetxt=df.format(new DateTime.fromMillisecondsSinceEpoch(_start*1000));
-
-          });
-        }
-      },
-    );
   }
 
 }

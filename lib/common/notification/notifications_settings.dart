@@ -187,7 +187,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
               color: intello_level_color,
             ),
 
-            Container(
+            SizedBox(
               height: 60,
               child: g_option_item2("Option Item 2"),
             ),
@@ -195,7 +195,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
               height: 1,
               color: intello_level_color,
             ),
-            Container(
+            SizedBox(
               height: 60,
               child: g_option_item3("Option Item 3"),
             ),
@@ -203,7 +203,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
               height: 1,
               color: intello_level_color,
             ),
-            Container(
+            SizedBox(
               height: 60,
               child:  g_option_item4("Option Item 4"),
             ),
@@ -386,7 +386,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
           children: [
             //teacher profile
 
-            Container(
+            SizedBox(
               height: 60,
               child: pn_option_item1("Option Item 1"),
             ),
@@ -395,7 +395,7 @@ class _NotificationsSettingsScreenState extends State<NotificationsSettingsScree
               color: intello_level_color,
             ),
 
-            Container(
+            SizedBox(
               height: 60,
               child: pn_option_item2("Option Item 2"),
             ),

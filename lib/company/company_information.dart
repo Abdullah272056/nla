@@ -304,7 +304,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
   }
 
   Widget companyNameInput(TextEditingController controller, String hintTitle, TextInputType keyboardType,String icon_link) {
-    return Container(
+    return SizedBox(
       height: 55,
 
       child: Padding(

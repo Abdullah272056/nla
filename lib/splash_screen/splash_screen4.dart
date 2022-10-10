@@ -1,15 +1,10 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+
 
 
 import 'package:delayed_widget/delayed_widget.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
-import 'package:page_transition/page_transition.dart';
 
 import '../common/create_account_particular_company.dart';
 import '../common/log_in/log_in.dart';
@@ -25,11 +20,6 @@ class _SplashScreen4State extends State<SplashScreen4> {
   String countryName="en",countryIcon="icon_country.png";
 
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
 
   @override
@@ -41,15 +31,15 @@ class _SplashScreen4State extends State<SplashScreen4> {
           child: Flex(
             direction: Axis.vertical,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 45,
               ),
               Padding(
-                  padding: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 30),
+                  padding: const EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 30),
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 0, top: 0, right: 15, bottom: 0),
+                        margin: const EdgeInsets.only(left: 0, top: 0, right: 15, bottom: 0),
                         child: Align(
                           alignment: Alignment.topRight,
                           child: Container(
@@ -57,7 +47,7 @@ class _SplashScreen4State extends State<SplashScreen4> {
                             height: 40,
 
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(40.0),
                                   bottomRight: Radius.circular(40.0),
                                   topLeft: Radius.circular(40.0),
@@ -77,13 +67,13 @@ class _SplashScreen4State extends State<SplashScreen4> {
                       ),
                       Container(
 
-                        margin:EdgeInsets.only(right:15.0,top: 50,left: 15,
+                        margin:const EdgeInsets.only(right:15.0,top: 50,left: 15,
                           bottom: 50,
                         ),
                         child:DelayedWidget(
 
-                          delayDuration: Duration(milliseconds: 100),// Not required
-                          animationDuration: Duration(milliseconds: 500),// Not required
+                          delayDuration: const Duration(milliseconds: 100),// Not required
+                          animationDuration: const Duration(milliseconds: 500),// Not required
                           animation: DelayedAnimations.SLIDE_FROM_LEFT,// Not required
                           child: Image.asset(
                             "assets/images/vector3.png",
@@ -95,8 +85,8 @@ class _SplashScreen4State extends State<SplashScreen4> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
-                        child:  Align(
+                        margin: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
+                        child:  const Align(
                           alignment: Alignment.topCenter,
                           child: Text(
                             "Send Money Fastly around\nthe World",
@@ -111,8 +101,8 @@ class _SplashScreen4State extends State<SplashScreen4> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
-                        child:  Align(
+                        margin: const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
+                        child:  const Align(
                           alignment: Alignment.topCenter,
                           child: Text(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua",
@@ -126,7 +116,7 @@ class _SplashScreen4State extends State<SplashScreen4> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 20, top: 50, right: 20, bottom: 0),
+                        margin: const EdgeInsets.only(left: 20, top: 50, right: 20, bottom: 0),
                         child:  Align(
                           alignment: Alignment.topCenter,
                           child: Row(
@@ -182,14 +172,14 @@ class _SplashScreen4State extends State<SplashScreen4> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 40, top: 40, right: 40, bottom: 0),
+                        margin: const EdgeInsets.only(left: 40, top: 40, right: 40, bottom: 0),
                         child:  Align(
                           alignment: Alignment.topCenter,
                           child: _buildSignUpButton(),
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 0),
+                        margin: const EdgeInsets.only(left: 40, top: 10, right: 40, bottom: 0),
                         child:  Align(
                           alignment: Alignment.topCenter,
                           child:  _buildLogInButton(),
@@ -216,7 +206,7 @@ class _SplashScreen4State extends State<SplashScreen4> {
       child: ElevatedButton(
         onPressed: () {
 
-         Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateAccountParticularAndCompanyScreen()));
+         Navigator.push(context,MaterialPageRoute(builder: (context)=>const CreateAccountParticularAndCompanyScreen()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
         },
@@ -227,7 +217,7 @@ class _SplashScreen4State extends State<SplashScreen4> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -237,7 +227,7 @@ class _SplashScreen4State extends State<SplashScreen4> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Sign Up",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -256,14 +246,14 @@ class _SplashScreen4State extends State<SplashScreen4> {
   Widget _buildLogInButton() {
     return InkWell(
       onTap: (){
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>LogInScreen()));
+        Navigator.push(context,MaterialPageRoute(builder: (context)=>const LogInScreen()));
 
       },
       child: Container(
 
         height: 50,
         alignment: Alignment.center,
-        child:  Text(
+        child:  const Text(
           "LogIn",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -277,21 +267,11 @@ class _SplashScreen4State extends State<SplashScreen4> {
     );
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.white,
-        fontSize: 16.0);
-  }
 
 
   Widget _buildDropButton() {
     return Container(
-      padding: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 5),
+      padding: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 5),
       child: InkResponse(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(7.0),
@@ -313,13 +293,13 @@ class _SplashScreen4State extends State<SplashScreen4> {
                 ),
 
 
-                SizedBox(width: 5,),
+                const SizedBox(width: 5,),
                 Align(
                   alignment: Alignment.center,
                   child:   Text(
                     countryName,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -329,8 +309,8 @@ class _SplashScreen4State extends State<SplashScreen4> {
                 ),
 
 
-                SizedBox(width: 0,),
-                Align(
+                const SizedBox(width: 0,),
+                const Align(
                   alignment: Alignment.center,
                   child:Icon(
                     Icons.arrow_drop_down_sharp,

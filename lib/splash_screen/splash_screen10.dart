@@ -1,10 +1,7 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 
@@ -43,7 +40,7 @@ class _SplashScreen12State extends State<SplashScreen12> {
           border: Border.all(
             color: Colors.black87,
           ),
-          borderRadius: BorderRadius.all(Radius.circular(10))
+          borderRadius: const BorderRadius.all(Radius.circular(10))
 
       ),
       child: InkResponse(
@@ -57,7 +54,7 @@ class _SplashScreen12State extends State<SplashScreen12> {
         child: Slidable(
 
           // Specify a key if the Slidable is dismissible.
-          key: ValueKey(0),
+          key: const ValueKey(0),
 
           // The start action pane is the one at the left or the top side.
           // startActionPane: ActionPane(
@@ -110,7 +107,7 @@ class _SplashScreen12State extends State<SplashScreen12> {
               Container(
                 width: 80,
 
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.amberAccent,
 
                   borderRadius: BorderRadius.only(
@@ -140,22 +137,18 @@ class _SplashScreen12State extends State<SplashScreen12> {
 
           // The child of the Slidable is what the user sees when the
           // component is not dragged.
-          child:Container(
-
-            child:   Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                ListTile(title: Text('Slide me- Slide me- Slide me- Slide me- Slide me-'+index.toString())),
-                SizedBox(
-                  height: 10,
-                ),
+          child:Column(
+            children: [
+              const SizedBox(
+                height: 10,
+              ),
+              ListTile(title: Text('Slide me- Slide me- Slide me- Slide me- Slide me-'+index.toString())),
+              const SizedBox(
+                height: 10,
+              ),
 
 
-              ],
-            ),
-
+            ],
           ),
         ),
       ),

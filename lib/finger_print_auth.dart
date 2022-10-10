@@ -17,7 +17,6 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
   final auth = LocalAuthentication();
   String authorized = " not authorized";
   bool _canCheckBiometric = false;
-  late List<BiometricType> _availableBiometric;
   String message ="Authenticate using your fingerprint insted of your password";
 
   // static const iosStrings = const IOSAuthMessages(
@@ -27,7 +26,7 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
   //     lockOut: 'Please reenable your Touch ID');
 
 
-  static const iosStrings = const IOSAuthMessages(
+  static const iosStrings = IOSAuthMessages(
       cancelButton: 'cancel',
       goToSettingsButton: 'settings',
       goToSettingsDescription: 'Please set up your Touch ID.',
@@ -58,7 +57,7 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
       if(authenticated){
         message=e.toString();
       }
-      print("Abcd: "+e.toString()+"0000");
+     // print("Abd: "+e.toString()+"0000");
     }
 
 
@@ -69,7 +68,7 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
         _showToast("match");
         Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) =>  HomePageScreen()),
+        MaterialPageRoute(builder: (context) =>  const HomePageScreen()),
         );
       }else{
         _showToast("not match");
@@ -85,7 +84,7 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
     try {
       canCheckBiometric = await auth.canCheckBiometrics;
     } on PlatformException catch (e) {
-      print(e);
+      //print(e);
     }
 
     if (!mounted) return;
@@ -104,15 +103,14 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
 
     try {
       availableBiometric = await auth.getAvailableBiometrics();
-    } on PlatformException catch (e) {
-      print(e);
+    } on PlatformException {
+      //print(e);
     }
 
     setState(() {
 
       //call second
       _showToast("call-2");
-      _availableBiometric = availableBiometric;
     });
   }
 
@@ -129,13 +127,13 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: Text("Fingerprint Auth")),
-      backgroundColor: Color(0xFF3C3E52),
+      backgroundColor: const Color(0xFF3C3E52),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
+            const Center(
               child: Text(
                 "Login",
                 style: TextStyle(
@@ -146,14 +144,14 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 50.0),
+              margin: const EdgeInsets.symmetric(vertical: 50.0),
               child: Column(
                 children: [
                   Image.asset(
                     "assets/images/fingerprint.png",
                     width: 120.0,
                   ),
-                  Text(
+                  const Text(
                     "Fingerprint Auth",
                     style: TextStyle(
                       color: Colors.white,
@@ -162,16 +160,16 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 15.0),
+                    margin: const EdgeInsets.symmetric(vertical: 15.0),
                     child: Text(
                       message,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white, height: 1.5),
+                      style: const TextStyle(color: Colors.white, height: 1.5),
                     ),
                   ),
 
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 15.0),
+                    margin: const EdgeInsets.symmetric(vertical: 15.0),
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: (){
@@ -194,8 +192,8 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
 
                       child: Ink(
                       //  color: Color(0xFF04A5ED),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
                               horizontal: 24.0, vertical: 14.0),
                           child: Text(
                             "Authenticate",

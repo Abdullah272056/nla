@@ -294,7 +294,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               Flex(direction: Axis.vertical,
                                 children: [
                                   Container(
-                                    margin:  EdgeInsets.only(left: 15, right: 15,bottom: 10,top: 10),
+                                    margin:  const EdgeInsets.only(left: 15, right: 15,bottom: 10,top: 10),
                                     width: 65,
                                     height: 65,
                                     decoration: BoxDecoration(
@@ -305,7 +305,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                           color: Colors.grey.withOpacity(.35),
                                           blurRadius: 20.0, // soften the shadow
                                           spreadRadius: 0.0, //extend the shadow
-                                          offset: Offset(
+                                          offset: const Offset(
                                             2.0, // Move to right 10  horizontally
                                             1.0, // Move to bottom 10 Vertically
                                           ),
@@ -984,7 +984,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -1020,7 +1020,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }

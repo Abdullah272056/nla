@@ -462,16 +462,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     ;
   }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
 
   _getUserNotificationList() async {
     try {
@@ -501,7 +491,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -521,44 +511,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   }
 
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const CircularProgressIndicator(
-                          backgroundColor: novalexxa_start_bg_color,
-                          strokeWidth: 5,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: const TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
 
   _dateTimeConvert(String dateString) {
     DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);

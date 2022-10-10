@@ -28,7 +28,6 @@ class TransactionDetailsScreen extends StatefulWidget {
 class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
   String _startDate="", _endDate="";
-  final DateRangePickerController _controller = DateRangePickerController();
   String _userId = "";
   List _transactionHistoryList= [];
   bool transactionShimmerStatus=true;
@@ -84,7 +83,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
                     Expanded(
                         child: Container(
-                          margin: EdgeInsets.only(right: 10),
+                          margin: const EdgeInsets.only(right: 10),
                           child: const Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -219,7 +218,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
                   else...[
                     Expanded(child:  ListView.builder(
                         padding: EdgeInsets.zero,
-                        itemCount: _transactionHistoryList==null||_transactionHistoryList.length<=0?0:
+                        itemCount: _transactionHistoryList.length<=0?0:
                         _transactionHistoryList.length,
                         // physics: NeverScrollableScrollPhysics(),
 
@@ -444,7 +443,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -480,7 +479,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }

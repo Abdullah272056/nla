@@ -18,11 +18,6 @@ class _SplashScreen3State extends State<SplashScreen3> {
   String countryName="en",countryIcon="icon_country.png";
 
 
-  String _genderDropDownSelectedValue = "English";
-  final List<String> _countryNameList = ["English", "French", "Spanish","Italian",
-    "German","Indonesia","Portugues","Romana","Arabics"];
-  final List<String> _countryNameIcon = ["icon_country.png", "icon_country.png", "icon_country.png","icon_country.png",
-    "German","icon_country.png","icon_country.png","icon_country.png","icon_country.png"];
 
 
   @override
@@ -34,7 +29,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
           child: Flex(
             direction: Axis.vertical,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 45,
               ),
               Padding(
@@ -45,7 +40,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
 
 
                       Container(
-                        margin: EdgeInsets.only(left: 0, top: 0, right: 15, bottom: 0),
+                        margin: const EdgeInsets.only(left: 0, top: 0, right: 15, bottom: 0),
                         child:  Align(
                           alignment: Alignment.topRight,
                           child: Container(
@@ -53,7 +48,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
                             height: 40,
 
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(40.0),
                                   bottomRight: Radius.circular(40.0),
                                   topLeft: Radius.circular(40.0),
@@ -74,13 +69,13 @@ class _SplashScreen3State extends State<SplashScreen3> {
 
                       Container(
 
-                        margin:EdgeInsets.only(right:15.0,top: 50,left: 15,
+                        margin:const EdgeInsets.only(right:15.0,top: 50,left: 15,
                           bottom: 50,
                         ),
                         child:DelayedWidget(
 
-                          delayDuration: Duration(milliseconds: 100),// Not required
-                          animationDuration: Duration(milliseconds: 500),// Not required
+                          delayDuration: const Duration(milliseconds: 100),// Not required
+                          animationDuration: const Duration(milliseconds: 500),// Not required
                           animation: DelayedAnimations.SLIDE_FROM_RIGHT,// Not required
                           child: Image.asset(
                             "assets/images/vector2.png",
@@ -92,8 +87,8 @@ class _SplashScreen3State extends State<SplashScreen3> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
-                        child:  Align(
+                        margin: const EdgeInsets.only(left: 20, top: 0, right: 20, bottom: 0),
+                        child:  const Align(
                           alignment: Alignment.topCenter,
                           child: Text(
                             "Send Money Fastly around\nthe World",
@@ -108,8 +103,8 @@ class _SplashScreen3State extends State<SplashScreen3> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
-                        child:  Align(
+                        margin: const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
+                        child:  const Align(
                           alignment: Alignment.topCenter,
                           child: Text(
                             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidi dunt ut labore et dolore magna aliqua",
@@ -123,7 +118,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 20, top: 50, right: 20, bottom: 0),
+                        margin: const EdgeInsets.only(left: 20, top: 50, right: 20, bottom: 0),
                         child:  Align(
                           alignment: Alignment.topCenter,
                           child: Row(
@@ -179,7 +174,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
                       ),
 
                       Container(
-                        margin: EdgeInsets.only(left: 40, top: 40, right: 40, bottom: 0),
+                        margin: const EdgeInsets.only(left: 40, top: 40, right: 40, bottom: 0),
                         child:  Align(
                           alignment: Alignment.topCenter,
                           child: _buildNextButton(),
@@ -203,7 +198,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
+          Navigator.push(context,MaterialPageRoute(builder: (context)=>const SplashScreen4()));
           // Navigator.push(context,MaterialPageRoute(builder: (context)=>SplashScreen4()));
           // Navigator.push(context, PageTransition(type: PageTransitionType.bottomToTop, child: SplashScreen4()));
 
@@ -215,7 +210,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
         child: Ink(
 
           decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [novalexxa_color, novalexxa_color],
+              gradient: const LinearGradient(colors: [novalexxa_color, novalexxa_color],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),
@@ -225,7 +220,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
 
             height: 50,
             alignment: Alignment.center,
-            child:  Text(
+            child:  const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -243,7 +238,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
 
   Widget _buildDropButton() {
     return Container(
-      padding: EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 5),
+      padding: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 5),
       child: InkResponse(
         child: ClipRRect(
           borderRadius: BorderRadius.circular(7.0),
@@ -265,13 +260,13 @@ class _SplashScreen3State extends State<SplashScreen3> {
                 ),
 
 
-                SizedBox(width: 5,),
+                const SizedBox(width: 5,),
                 Align(
                   alignment: Alignment.center,
                   child:   Text(
                     countryName,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'PT-Sans',
                       fontSize: 16,
                       fontWeight: FontWeight.normal,
@@ -281,8 +276,8 @@ class _SplashScreen3State extends State<SplashScreen3> {
                 ),
 
 
-                SizedBox(width: 0,),
-                Align(
+                const SizedBox(width: 0,),
+                const Align(
                   alignment: Alignment.center,
                   child:Icon(
                     Icons.arrow_drop_down_sharp,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
 import '../navigation_page/home_page.dart';
@@ -115,7 +114,7 @@ class _NotificationsDetailsScreenState
 
                     width: 80,
                     height: 80,
-                    decoration: new BoxDecoration(
+                    decoration: BoxDecoration(
                       color: notification_image_bg_color,
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -305,7 +304,7 @@ class _NotificationsDetailsScreenState
 
 
   _dateTimeConvert(String dateString) {
-    DateTime parseDate = new DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
+    DateTime parseDate = DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(dateString);
     String outputDateFormat = DateFormat('dd MMM,yyyy').format(parseDate);
     String outputTimeFormat = DateFormat('hh:mm a').format(parseDate);
    return outputDateFormat+" at "+outputTimeFormat;

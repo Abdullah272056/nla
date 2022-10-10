@@ -1,11 +1,8 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:blurrycontainer/blurrycontainer.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
@@ -31,7 +28,6 @@ class CardPageScreen extends StatefulWidget {
 class _CardPageScreenState extends State<CardPageScreen> {
   double _switchButtonWidth = 45;
   double _switchButtonHeight = 27;
-  double _buttonToggleSize = 20;
   bool _switchButtonStatus = false;
   String _card_number="xxxx xxxx xxxx xxxx";
   String _card_holder_name="-------";
@@ -47,7 +43,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
   initState() {
     super.initState();
     loadUserIdFromSharePref().then((_) {
-      if(_userId!=null &&!_userId.isEmpty&&_userId!=""){
+      if(_userId.isNotEmpty&&_userId!=""){
         setState(() {
           _getUserNovalexxaCardDataList();
           // _getCurrentBalanced();
@@ -98,7 +94,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
             direction: Axis.horizontal,
             children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     right: 00, top: 30, left: 00, bottom: 10),
                 height: 163,
                 width: 19,
@@ -119,7 +115,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                       height: 163,
                       width: 316,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(const Radius.circular(15)),
+                        borderRadius: const BorderRadius.all(Radius.circular(15)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(.50),
@@ -602,7 +598,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
               ),
 
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                     right: 00, top: 30, left: 00, bottom: 10),
                 height: 163,
                 width: 19,
@@ -687,7 +683,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
                     ),
                   ],
                 ),
-                Align(
+                const Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     "IT60 X054 2811 1010 0000 0123 456",
@@ -710,7 +706,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
         // height: double.infinity,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
           ),
@@ -719,7 +715,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
               color: Colors.grey.withOpacity(.50),
               blurRadius: 20.0, // soften the shadow
               spreadRadius: 0.0, //extend the shadow
-              offset: Offset(
+              offset: const Offset(
                 2.0, // Move to right 10  horizontally
                 1.0, // Move to bottom 10 Vertically
               ),
@@ -1376,60 +1372,12 @@ class _CardPageScreenState extends State<CardPageScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
   }
-  void _showLoadingDialog(BuildContext context, String _message) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        // return VerificationScreen();
-        return Dialog(
-          child: Wrap(
-            children: [
-              Container(
-                  margin: const EdgeInsets.only(
-                      left: 15.0, right: 15.0, top: 30, bottom: 30),
-                  child: Center(
-                    child: Row(
-                      children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const CircularProgressIndicator(
-                          backgroundColor: novalexxa_color,
-                          strokeWidth: 5,
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          _message,
-                          style: const TextStyle(fontSize: 25),
-                        )
-                      ],
-                    ),
-                  ))
-            ],
-            // child: VerificationScreen(),
-          ),
-        );
-      },
-    );
-  }
 
-  _showToast(String message) {
-    Fluttertoast.showToast(
-        msg: message,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.white,
-        textColor: Colors.black,
-        fontSize: 16.0);
-  }
 
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

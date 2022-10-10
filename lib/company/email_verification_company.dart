@@ -1,8 +1,11 @@
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -12,6 +15,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../api_service/api_service.dart';
 import '../common/static/loding_dialog.dart';
+import '../common/static/static_value.dart';
 import 'company_information.dart';
 
 class EmailVerificationCompanyScreen extends StatefulWidget {
@@ -22,16 +26,13 @@ class EmailVerificationCompanyScreen extends StatefulWidget {
   State<EmailVerificationCompanyScreen> createState() => _EmailVerificationCompanyScreenState(this.userId);
 }
 
+
+
 class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompanyScreen> {
   String _userId;
   _EmailVerificationCompanyScreenState(this._userId);
   String countryName="en",countryIcon="icon_country.png";
-
-
-
-
-
-
+  
   String _firstDigitPin="-";
   String _secondDigitPin="-";
   String _thirdDigitPin="-";
@@ -42,27 +43,67 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
   double keyboardfontTopPadding= 15;
   double keyboardfontBottomPadding= 15;
   String inputText="";
-  TextStyle keyboardTextStyle= TextStyle(
+  TextStyle keyboardTextStyle= const TextStyle(
       color: novalexxa_text_color,
       fontSize: 26,
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500);
-  TextStyle otpInputBoxTextStyle= TextStyle(
+  TextStyle otpInputBoxTextStyle= const TextStyle(
       color: novalexxa_text_color,
       fontSize: 20,
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500);
 
+
   bool _isCountingStatus=false;
-  String _time="4:00";
+   late Timer _timer;
+   String _startTxt = "00:00";
+
+  void startTimer(int second) {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (second == 0) {
+          setState(() {
+            _isCountingStatus=true;
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            second--;
+
+            _startTxt=_printDuration(Duration(seconds: second));
+          });
+        }
+      },
+    );
+  }
+
+  String _printDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$twoDigitMinutes:$twoDigitSeconds";
+  }
 
   @override
   @mustCallSuper
   void initState() {
     super.initState();
     //countDown();
-    startTimer();
+    _isCountingStatus=false;
+    startTimer(otp_coundown_second);
+    //controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
   }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -160,12 +201,13 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
                                     ),),
                                 ),
 
+
                                 if(_isCountingStatus==false)...[
                                   Container(
                                     margin:const EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
                                     child: Align(alignment: Alignment.topCenter,
                                       child: Text(
-                                        _time,
+                                        _startTxt,
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                             color: novalexxa_color,
@@ -243,11 +285,6 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
     );
   }
 
-
-
-
-
-
   _userVerify(
       {
         required String otp,
@@ -317,7 +354,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
             //String _time="4:00";
             _showToast("Check your phone number");
             _isCountingStatus=false;
-            startTimer();
+            startTimer(otp_coundown_second);
           }
 
           else {
@@ -786,8 +823,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
 
   }
 
-  startTimer() {
-  }
+
 
 }
 

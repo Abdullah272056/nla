@@ -1,5 +1,6 @@
 
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -12,6 +13,7 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import '../api_service/api_service.dart';
 import '../common/static/loding_dialog.dart';
+import '../common/static/static_value.dart';
 import 'email_verification_company.dart';
 
 
@@ -52,17 +54,57 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
       decoration: TextDecoration.none,
       fontWeight: FontWeight.w500);
 
-  bool _isCountingStatus=false;
-  String _time="4:00";
 
+
+
+
+  bool _isCountingStatus=false;
+  late Timer _timer;
+  String _startTxt = "00:00";
+
+  void startTimer(int second) {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+          (Timer timer) {
+        if (second == 0) {
+          setState(() {
+            _isCountingStatus=true;
+            timer.cancel();
+          });
+        } else {
+          setState(() {
+            second--;
+
+            _startTxt=_printDuration(Duration(seconds: second));
+          });
+        }
+      },
+    );
+  }
+
+  String _printDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+    return "$twoDigitMinutes:$twoDigitSeconds";
+  }
 
   @override
   @mustCallSuper
   void initState() {
     super.initState();
     //countDown();
-    startTimer();
-    // passwordController=TextEditingController(text:SharedPref().readUserId());
+    _isCountingStatus=false;
+    startTimer(otp_coundown_second);
+    //controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+
+    super.dispose();
   }
 
 
@@ -163,7 +205,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
                                     margin:const EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
                                     child: Align(alignment: Alignment.topCenter,
                                       child: Text(
-                                        _time,
+                                        _startTxt,
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                             color: novalexxa_color,
@@ -267,7 +309,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
             setState(() {
               _showToast("Check your phone number");
               _isCountingStatus=false;
-              startTimer();
+              startTimer(otp_coundown_second);
             });
           }
           else {
@@ -826,7 +868,5 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
 
   }
 
-  startTimer() {
-  }
 }
 

@@ -70,14 +70,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return  const MaterialApp(
+    return   MaterialApp(
       color:novalexxa_color,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
          // body:MessageVerificationCompanyScreen("1")
-         body: SplashScreen2()
+         body: EmailVerificationParticularScreen("31")
 
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),

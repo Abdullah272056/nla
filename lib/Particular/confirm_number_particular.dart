@@ -17,9 +17,9 @@ class ConfirmNumberForParticularScreen extends StatefulWidget {
   String phoneNumber,userId;
   ConfirmNumberForParticularScreen(
       this.userId,
-      this.phoneNumber
+      this.phoneNumber, {Key? key}
 
-      );
+      ) : super(key: key);
 
 
   @override
@@ -47,7 +47,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     heartbeatAnimation = Tween<double>(begin: 100.0, end: 150.0).animate(controller);
     controller.forward().whenComplete(() {
       //  controller.reverse();
@@ -282,7 +282,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
           }
         } catch (e) {
           Navigator.of(context).pop();
-          print(e.toString());
+          //print(e.toString());
         }
       }
     } on SocketException catch (_) {

@@ -25,12 +25,7 @@ class ScanDocFrontParticularScreen extends StatefulWidget {
 class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScreen> {
   String _userId;
   _ScanDocFrontParticularScreenState(this._userId);
-
-
-
   String countryName="en",countryIcon="icon_country.png";
-
-
   String qrcode = 'Unknown';
 
   //image upload
@@ -133,7 +128,6 @@ class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScr
     );
   }
 
-
   Widget scanMessageSection() {
     return Container(
       height: 110,
@@ -172,7 +166,6 @@ class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScr
       ),
     );
   }
-
 
   Widget _buildNextButton() {
     return Container(
@@ -258,7 +251,6 @@ class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScr
         fontSize: 16.0);
   }
 
-
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {
@@ -270,9 +262,6 @@ class _ScanDocFrontParticularScreenState extends State<ScanDocFrontParticularScr
 
     });
   }
-
-
-
 
   Widget _buildImageUploadBottomSheet() {
     return Container(

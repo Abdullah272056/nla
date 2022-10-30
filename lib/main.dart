@@ -1,8 +1,11 @@
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
@@ -54,7 +57,27 @@ import 'company/scan_doc_front_company.dart';
 import 'create_pin_demo.dart';
 import 'finger_print_auth.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseMessaging.instance
+      .setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+
   runApp( MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
    // systemNavigationBarColor: Color(0xFF000000),
@@ -79,7 +102,7 @@ class MyApp extends StatelessWidget {
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
          // body:MessageVerificationCompanyScreen("1")
-         body: EmailUsPageScreen()
+         body: SplashScreen1()
 
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),

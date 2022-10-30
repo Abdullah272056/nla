@@ -172,6 +172,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
       ),
     );
   }
+
   Widget _buildUseCurrentLocationButton(){
     return Container(
       margin: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -255,4 +256,7 @@ class _AddressMapScreenState extends State<AddressMapScreen> with SingleTickerPr
 
 
 }
+
+
+
 

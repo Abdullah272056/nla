@@ -17,9 +17,6 @@ class SplashScreen3 extends StatefulWidget {
 class _SplashScreen3State extends State<SplashScreen3> {
   String countryName="en",countryIcon="icon_country.png";
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -191,8 +188,6 @@ class _SplashScreen3State extends State<SplashScreen3> {
     );
   }
 
-
-
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
@@ -355,6 +350,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
       ),
     );
   }
+
 }
 
 class MenuItem {
@@ -370,12 +366,10 @@ class MenuItem {
 class MenuItems {
   static const List<MenuItem> firstItems = [English, French, Spanish,Italian];
 
-
   static const English = MenuItem(text: 'en', imageLink: "assets/images/icon_country.png" );
   static const French = MenuItem(text: 'fr', imageLink: "assets/images/icon_country.png");
   static const Spanish = MenuItem(text: 'es', imageLink: "assets/images/icon_country.png");
   static const Italian = MenuItem(text: 'it', imageLink: "assets/images/icon_country.png");
-
 
   static Widget buildItem(MenuItem item) {
     return Flex(

@@ -1,6 +1,4 @@
 
-
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:nova_lexxa/common/static/Colors.dart';
@@ -8,7 +6,6 @@ import 'package:nova_lexxa/splash_screen/splash_screen3.dart';
 
 class SplashScreen2 extends StatefulWidget {
   const SplashScreen2({Key? key}) : super(key: key);
-
   @override
   State<SplashScreen2> createState() => _SplashScreen2State();
 }

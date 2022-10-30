@@ -7,8 +7,6 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'Particular/create_confirm_pin_particular.dart';
 
-
-
 class CreatePinParticularScreen12 extends StatefulWidget {
   String userId;
   CreatePinParticularScreen12(this.userId, {Key? key}) : super(key: key);

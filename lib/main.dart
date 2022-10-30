@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen1.dart';
+
+
 import 'package:nova_lexxa/splash_screen/splash_screen2.dart';
 import 'package:nova_lexxa/splash_screen/splash_screen4.dart';
 
@@ -70,14 +72,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    return   MaterialApp(
+    return  MaterialApp(
       color:novalexxa_color,
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
          // body:MessageVerificationCompanyScreen("1")
-         body: EmailVerificationParticularScreen("31")
+         body: EmailUsPageScreen()
 
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),

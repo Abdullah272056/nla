@@ -326,6 +326,7 @@ class _MessageVerificationCompanyScreenState extends State<MessageVerificationCo
       _showToast("No Internet Connection!");
     }
   }
+
   // _userSendCodeWithEmail() async {
   //   try {
   //     final result = await InternetAddress.lookup('example.com');

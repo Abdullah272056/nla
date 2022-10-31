@@ -652,7 +652,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }
@@ -684,7 +684,7 @@ class _ContactSupportScreenState extends State<ContactSupportScreen> {
           Fluttertoast.cancel();
         }
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       Fluttertoast.cancel();
       showToast("No Internet Connection!");
     }

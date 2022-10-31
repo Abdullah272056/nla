@@ -60,6 +60,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   late Timer _timer;
   String _startTxt = "00:00";
 
+  ///verification timer start
   void startTimer(int second) {
     const oneSec = Duration(seconds: 1);
     _timer = Timer.periodic(
@@ -81,6 +82,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
     );
   }
 
+  ///time convert
   String _printDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, "0");
     String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
@@ -304,6 +306,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
     }
   }
 
+  ///resend api call with phone number
   _userReSendCodeWithPhoneNumber() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -444,6 +447,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
   // }
 
 
+  ///user verify api call
   _userVerify(
       {
         required String otp,
@@ -754,6 +758,8 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
             )));
   }
 
+
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Flex(direction: Axis.horizontal,
       children: [
@@ -856,6 +862,7 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
     );
   }
 
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -876,6 +883,8 @@ class _MessageVerificationParticularScreenState extends State<MessageVerificatio
     });
   }
 
+
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

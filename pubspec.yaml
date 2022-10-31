@@ -131,12 +131,6 @@ dependencies:
   firebase_messaging: ^14.0.2
 
 
-
-
-
-
-
-
 flutter_icons:
   image_path: 'assets/images/logo_icon.png'
   ios: true

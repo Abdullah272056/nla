@@ -95,6 +95,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
     );
   }
 
+  ///user instruction message box
   Widget scanMessageSection() {
     return Container(
       height: 110,
@@ -134,6 +135,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
     );
   }
 
+  ///next button
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -187,6 +189,7 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
     );
   }
 
+  ///may be later button
   Widget _buildMayBeLaterButton() {
     return InkWell(
       onTap: (){
@@ -211,8 +214,6 @@ class _BiometricParticularScreenState extends State<BiometricParticularScreen> {
       ),
     );
   }
-
-
 
 
   void saveFingerPrintStatus(String fingerPrintStatus) async {

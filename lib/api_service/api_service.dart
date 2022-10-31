@@ -2,7 +2,9 @@
 
 
   String BASE_URL = "http://3.249.53.197:8000";
+
   String BASE_URL_API = "http://3.249.53.197:8000/";
+
   String GET_COUNTRY_LIST= "api/country-info/";
 
   //particular registration

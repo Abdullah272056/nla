@@ -19,6 +19,7 @@ import 'Particular/particular_acount_information.dart';
 import 'Particular/particular_information.dart';
 import 'Particular/particular_information2.dart';
 import 'Particular/registration_for_particular.dart';
+import 'Particular/scan_face_particular.dart';
 import 'common/call_contact/contact_support.dart';
 import 'common/call_contact/contact_support_message.dart';
 import 'common/call_contact/customer_services.dart';
@@ -54,7 +55,7 @@ import 'company/email_verification_company.dart';
 import 'company/message_verification_company.dart';
 import 'company/registration_for_company.dart';
 import 'company/scan_doc_front_company.dart';
-import 'create_pin_demo.dart';
+
 import 'finger_print_auth.dart';
 
 void main()async {
@@ -102,7 +103,7 @@ class MyApp extends StatelessWidget {
           //body:CustomerServicesScreen()
          // body:NavigationBarScreen(0,HomePageScreen())
          // body:MessageVerificationCompanyScreen("1")
-         body: SplashScreen1()
+         body: AddInformationForParticular2Screen("1")
 
         // body:PayWithQRAmountPageScreen("2","Boss")
       ),

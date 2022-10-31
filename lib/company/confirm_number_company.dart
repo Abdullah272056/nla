@@ -192,6 +192,7 @@ class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyS
             )));
   }
 
+  ///send user phone number verification code send button
   Widget _buildConfirmButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
@@ -233,6 +234,7 @@ class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyS
     );
   }
 
+  ///phone number change button
   Widget _buildWantChangeButton() {
     return InkWell(
       onTap: (){
@@ -258,6 +260,8 @@ class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyS
     );
   }
   //You can create a function with your desirable animation
+
+  ///send user phone number verification code
   _userSendCodeWithPhoneNumber() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -289,6 +293,8 @@ class _ConfirmNumberForCompanyScreenState extends State<ConfirmNumberForCompanyS
       _showToast("No Internet Connection!");
     }
   }
+
+  ///create toast
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

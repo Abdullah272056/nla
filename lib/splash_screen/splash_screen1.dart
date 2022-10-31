@@ -213,6 +213,7 @@ class _SplashScreen1State extends State<SplashScreen1> {
 
   }
 
+  ///retrieve data from sharepref
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {

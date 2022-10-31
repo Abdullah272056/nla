@@ -24,11 +24,7 @@ class ScanDoneParticularScreen extends StatefulWidget {
 class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
   String _userId;
   _ScanDoneParticularScreenState(this._userId);
-  //image upload
-  PickedFile? _imageFile;
-  final ImagePicker _picker=ImagePicker();
 
-  File? imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +107,7 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
   }
 
 
+  ///done button
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -155,20 +152,6 @@ class _ScanDoneParticularScreenState extends State<ScanDoneParticularScreen> {
 
 
 
-
-
-  void takeImage(ImageSource source)async{
-    final pickedFile= await _picker.getImage(source: source);
-    setState(() {
-      _imageFile=pickedFile!;
-      imageFile = File(pickedFile.path);
-      final bytes = File(_imageFile!.path).readAsBytesSync();
-     // String img64 = base64Encode(bytes);
-
-     // _imageUpload(img64);
-
-    });
-  }
 
 }
 

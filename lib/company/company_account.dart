@@ -299,6 +299,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
     );
   }
 
+  ///next button for send account info
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -349,6 +350,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
     );
   }
 
+  ///user input validation
   _inputValidation({
     required String companyId,
     required String responsibleName,
@@ -376,6 +378,7 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
     return false;
   }
 
+  ///send company info
   _sendCompanyAccountInfo({
     required String companyId,
     required String responsibleName,
@@ -423,6 +426,8 @@ class _CompanyAccountScreenState extends State<CompanyAccountScreen> {
     }
   }
 
+
+  ///create toast
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

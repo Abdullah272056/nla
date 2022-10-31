@@ -173,7 +173,7 @@ class _CreatePinCompanyScreenState extends State<CreatePinCompanyScreen> {
   }
 
 
-
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Flex(direction: Axis.horizontal,
       children: [
@@ -544,6 +544,8 @@ class _CreatePinCompanyScreenState extends State<CreatePinCompanyScreen> {
             )));
   }
 
+
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -564,6 +566,8 @@ class _CreatePinCompanyScreenState extends State<CreatePinCompanyScreen> {
     });
   }
 
+
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

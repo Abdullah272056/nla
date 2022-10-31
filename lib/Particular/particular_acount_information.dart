@@ -327,6 +327,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///input user passport or nid card box
   Widget userInputPassportNoOrIDCard(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -373,6 +374,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///input user country box
   Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){
@@ -411,6 +413,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///user card Input DateOfIssue
   Widget userInputDateOfIssue(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: () async {
@@ -465,6 +468,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///user card Input DateOfExpire
   Widget userInputDateOfExpire(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: () async {
@@ -519,6 +523,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///next button for send account info
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -571,6 +576,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///get country list api call and receive data
   _getCountryDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -601,6 +607,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     }
   }
 
+  ///show all country list data with alert dialog
   void _showAlertDialog(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -690,6 +697,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///loading dialog
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
       context: context,
@@ -729,6 +737,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     );
   }
 
+  ///send user personal info
   _sendPersonalAccountInfo({
     required String passport_or_nid_no,
     required String date_of_issue,
@@ -778,7 +787,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     }
   }
 
-
+  ///user input validation
   _inputValidation(
       { required String passportNo,
         required String dateOfIssue,
@@ -818,6 +827,7 @@ class _ParticularAccountInformationScreenState extends State<ParticularAccountIn
     return false;
   }
 
+  ///create toast
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

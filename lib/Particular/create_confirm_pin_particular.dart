@@ -178,7 +178,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
 
 
 
-
+  ///send user personal pin to server
   _sendPersonalPin({
     required String newPin,
     required String confirmPin,
@@ -231,6 +231,8 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     }
   }
 
+
+  ///save user info data with SharedPreferences
   void saveUserInfo(var userInfo) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -244,6 +246,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
 
   }
 
+  ///save user info data with SharedPreferences
   void saveUserId(String userId) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -519,6 +522,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
             )));
   }
 
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Flex(direction: Axis.horizontal,
       children: [
@@ -621,6 +625,8 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     );
   }
 
+
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -641,6 +647,7 @@ class _CreateConfirmPinParticularScreenState extends State<CreateConfirmPinParti
     });
   }
 
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

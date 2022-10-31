@@ -285,6 +285,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
     );
   }
 
+  ///user verify api call
   _userVerify(
       {
         required String otp,
@@ -338,6 +339,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
         fontSize: 16.0);
   }
 
+  ///resend api call with phone email
   _userSendCodeWithEmail() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -629,6 +631,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
             )));
   }
 
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Flex(direction: Axis.horizontal,
       children: [
@@ -731,6 +734,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
     );
   }
 
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -751,6 +755,7 @@ class _EmailVerificationCompanyScreenState extends State<EmailVerificationCompan
     });
   }
 
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

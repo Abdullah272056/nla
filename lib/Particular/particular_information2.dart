@@ -260,7 +260,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
                     //   _buildCompanySelectedSection(),
                     // },
 
-                    _buildCompanySelectedSection(),
+                    _buildGenderSelectedSection(),
 
                     Container( color: novalexxa_hint_text_color,
                       margin:  const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 10),
@@ -299,6 +299,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   }
 
 
+  ///input user nationality box
   Widget userInputNationality(TextEditingController userInput, ) {
     return InkResponse(
       onTap: (){
@@ -338,6 +339,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     );
   }
 
+  ///input user place of birth box
   Widget userInputPlaceOfBirth(TextEditingController userInput,) {
     return InkResponse(
       onTap: (){
@@ -377,6 +379,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     );
   }
 
+
+  ///next button for send personal info
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -505,7 +509,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   //   );
   // }
 
-  Widget _buildCompanySelectedSection() {
+  ///gender selection box
+  Widget _buildGenderSelectedSection() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
       child:Flex(
@@ -596,6 +601,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   }
 
 
+  ///send user info to server
   _sendPersonalInfo({
     required String nationality,
     required String placeOfBirth,
@@ -644,6 +650,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
   }
 
 
+
+  ///user input data validation
   _inputValidation(
       { required String nationality,
         required String placeOfBirth,
@@ -670,6 +678,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     return false;
   }
 
+
+  ///toast create
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -681,7 +691,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
         fontSize: 16.0);
   }
 
-
+  ///get country list api call and receive data
   _getCountryDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -711,6 +721,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
       showToast("No Internet Connection!");
     }
   }
+
+  ///show all country list data with alert dialog
    void _showAlertDialog(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -800,7 +812,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     );
   }
 
-
+  ///get country list api call and receive data
   _getCountryDataListForNationality() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -830,6 +842,8 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
       showToast("No Internet Connection!");
     }
   }
+
+  ///show all country list data with alert dialog
   void _showAlertDialogForNationality(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -920,6 +934,7 @@ class _AddInformationForParticularScreen2State extends State<AddInformationForPa
     );
   }
 
+  ///loading dialog
    void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
       context: context,

@@ -192,6 +192,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
             )));
   }
 
+  ///send user phone number verification code send button
   Widget _buildConfirmButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
@@ -233,6 +234,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
     );
   }
 
+  ///phone number change button
   Widget _buildWantChangeButton() {
     return InkWell(
       onTap: (){
@@ -259,6 +261,8 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
   }
   //You can create a function with your desirable animation
 
+
+  ///send user phone number verification code
   _userSendCodeWithPhoneNumber() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -291,6 +295,7 @@ class _ConfirmNumberForParticularScreenState extends State<ConfirmNumberForParti
     }
   }
 
+  ///create toast
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

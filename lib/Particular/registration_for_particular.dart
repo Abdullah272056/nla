@@ -340,6 +340,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+
+  ///user email input box
   Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
@@ -383,6 +385,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+  ///user phone input box
   Widget userInputPhoneNumber(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
@@ -424,50 +427,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
-  Widget userInputCountry1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
-    return SizedBox(
-      height: 55,
 
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 0,bottom: 0, right: 20),
-        child: TextField(
-          controller: userInput,
-          textInputAction: TextInputAction.next,
-          autocorrect: false,
-          enableSuggestions: false,
-          cursorColor: novalexxa_text_color,
-          autofocus: false,
-          decoration: InputDecoration(
-            // border: InputBorder.none,
-            suffixIconConstraints: const BoxConstraints(
-              minHeight: 15,
-              minWidth: 15,
-            ),
-            focusedBorder:const UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: 1.0),
-            ),
-            enabledBorder:const UnderlineInputBorder(
-              borderSide:  BorderSide(color: novalexxa_hint_text_color, width: .5),
-            ),
-            suffixIcon:const Image(
-              image: AssetImage(
-                "assets/images/icon_country.png",
-              ),
-              height: 15,
-              width: 18,
-              fit: BoxFit.fill,
-            ),
-
-
-            hintText: hintTitle,
-            hintStyle:  const TextStyle(fontSize: 17, color: novalexxa_text_color, fontStyle: FontStyle.normal),
-          ),
-          keyboardType: keyboardType,
-        ),
-      ),
-    );
-  }
-
+  ///user country input box
   Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){
@@ -510,6 +471,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+
+  ///user Promo Code input box
   Widget userPromoCode(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
@@ -554,6 +517,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+
+  ///next button for send user data
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -604,6 +569,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+  ///get country list api call and receive data
   _getCountryDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -634,6 +600,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     }
   }
 
+  ///show all country list data with alert dialog
   void _showAlertDialog(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -723,6 +690,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+  ///loading dialog
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
       context: context,
@@ -762,6 +730,8 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     );
   }
 
+
+  ///user input data validation
   _inputValidation({
         required String email,
         required String phone,
@@ -804,6 +774,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
     return false;
   }
 
+  ///user registration api call
   _userRegistration({
         required String email,
         required String mobile,
@@ -865,6 +836,7 @@ class _SignUpForParticularScreenState extends State<SignUpForParticularScreen> {
   }
 
 
+  ///create toast
   _showToast(String message){
 
     Fluttertoast.showToast(

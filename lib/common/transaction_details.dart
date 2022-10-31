@@ -148,6 +148,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     );
   }
 
+  ///bottom section  design
   Widget _buildBottomDesign() {
     return Container(
         width: double.infinity,
@@ -251,6 +252,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
             )));
   }
 
+  ///transaction item design
   Widget transactionItemDesign(var response) {
     return Padding(padding: const EdgeInsets.only(right:00,top: 10,left: 00,bottom: 10),
       child:  Row(
@@ -410,7 +412,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     );
   }
 
-
+  ///get User Transaction History List api call with selected date
   _getUserTransactionHistoryList1({required String startDate, required String endDate}) async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -449,6 +451,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     }
   }
 
+  ///get User Transaction History List api call first load
   _getUserTransactionHistoryList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -485,6 +488,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     }
   }
 
+  ///input date convert in format
   void selectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       _startDate = DateFormat('yyyy-MM-dd').format(args.value.startDate).toString();
@@ -494,6 +498,7 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
     });
   }
 
+  ///retrieve data from sharepref
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
@@ -508,6 +513,8 @@ class _TransactionDetailsScreenState extends State<TransactionDetailsScreen> {
 
   }
 
+
+  ///transaction item shimmer design
   Widget _buildTransactionItemForShimmer() {
     return Container(
       margin: const EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),

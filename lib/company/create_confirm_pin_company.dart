@@ -177,7 +177,7 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
     );
   }
 
-
+  ///send user personal pin to server
   _sendCompanyPin({
     required String newPin,
     required String confirmPin,
@@ -242,7 +242,7 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
   //   }
   // }
 
-
+  ///save user info data with SharedPreferences
   void saveUserInfo(var userInfo) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -524,6 +524,7 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
             )));
   }
 
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Flex(direction: Axis.horizontal,
       children: [
@@ -626,6 +627,7 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
     );
   }
 
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -646,6 +648,7 @@ class _CreateConfirmPinCompanyScreenState extends State<CreateConfirmPinCompanyS
     });
   }
 
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

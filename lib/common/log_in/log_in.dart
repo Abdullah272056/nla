@@ -19,32 +19,25 @@ import '../static/loding_dialog.dart';
 import '../static/toast.dart';
 import 'finger_print_input_for_loging.dart';
 
-
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
-
   @override
   State<LogInScreen> createState() => _LogInScreenState();
 }
 
 class _LogInScreenState extends State<LogInScreen> {
   String countryName="en",countryIcon="icon_country.png";
-
-  TextEditingController? _emailController = TextEditingController();
-  TextEditingController? _passwordController = TextEditingController();
-
+  final TextEditingController? _emailController = TextEditingController();
+  final TextEditingController? _passwordController = TextEditingController();
   String _userId = "";
   String _finger_print_permission_status = "";
-
   bool _isObscure = true;
-
 
   @override
   @mustCallSuper
   initState() {
     super.initState();
     loadUserIdFromSharePref();
-
   }
 
   @override
@@ -106,7 +99,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                     ),
                     Container(
-                      margin:const EdgeInsets.only(right: 20.0,top: 10,left: 10,bottom: 0),
+                      margin:const EdgeInsets.only(right: 10.0,top: 10,left: 10,bottom: 0),
                       child: const Align(alignment: Alignment.centerLeft,
                         child: Text(
                           "Login with your email address and password.",
@@ -244,7 +237,7 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
-
+  ///user email input field
   Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return Container(
       height: 55,
@@ -286,6 +279,7 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+  ///user password input field
   Widget userInputPassword(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -327,6 +321,7 @@ class _LogInScreenState extends State<LogInScreen> {
     );
   }
 
+  ///log in button
   Widget _buildLogInButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -371,7 +366,7 @@ class _LogInScreenState extends State<LogInScreen> {
       ),
     );
   }
-
+  ///finger print button
   Widget _buildFingerPrintButton() {
     return   InkWell(
       onTap: (){
@@ -421,9 +416,9 @@ class _LogInScreenState extends State<LogInScreen> {
 
   }
 
-
+  ///log api call
   _userLogIn(
-      {
+        {
         required String email,
         required String password,
       }) async {
@@ -482,7 +477,7 @@ class _LogInScreenState extends State<LogInScreen> {
     }
   }
 
-
+  ///save data after login
   void saveUserInfo(var userInfo) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -496,7 +491,6 @@ class _LogInScreenState extends State<LogInScreen> {
 
   }
 
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -508,6 +502,7 @@ class _LogInScreenState extends State<LogInScreen> {
         fontSize: 16.0);
   }
 
+  ///retrieve data from sharepref
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
@@ -523,6 +518,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
   }
 
+  ///input data validation
   _inputValidation({
     required String email,
     required String Password,
@@ -530,7 +526,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     if (email.isEmpty) {
       Fluttertoast.cancel();
-      validation_showToast("email can't empty");
+      validation_showToast("Email can't empty");
       return;
     }
 
@@ -544,12 +540,12 @@ class _LogInScreenState extends State<LogInScreen> {
 
     if (Password.isEmpty) {
       Fluttertoast.cancel();
-      validation_showToast("password can't empty");
+      validation_showToast("Password can't empty");
       return;
     }
     if (Password.length<8) {
       Fluttertoast.cancel();
-      validation_showToast("must be 8 digit");
+      validation_showToast("Password must be 8 digit");
       return;
     }
 

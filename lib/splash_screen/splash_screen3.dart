@@ -188,6 +188,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
     );
   }
 
+  ///next button design
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 00.0, right: 00.0),
@@ -231,6 +232,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
     );
   }
 
+  ///country selected drop down button design
   Widget _buildDropButton() {
     return Container(
       padding: const EdgeInsets.only(left: 5,right: 5,top: 5,bottom: 5),
@@ -289,7 +291,7 @@ class _SplashScreen3State extends State<SplashScreen3> {
     );
   }
 
-  // Drop Down Menu
+  ///country selected drop down Menu
   Widget _buildDropDownMenu() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -353,6 +355,8 @@ class _SplashScreen3State extends State<SplashScreen3> {
 
 }
 
+
+///country selected drop down Menu item model
 class MenuItem {
   final String text;
   final String imageLink;
@@ -362,7 +366,7 @@ class MenuItem {
     required this.imageLink,
   });
 }
-
+///country selected drop down Menu item model
 class MenuItems {
   static const List<MenuItem> firstItems = [English, French, Spanish,Italian];
 

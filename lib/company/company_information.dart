@@ -303,6 +303,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
+  ///user name input box
   Widget companyNameInput(TextEditingController controller, String hintTitle, TextInputType keyboardType,String icon_link) {
     return SizedBox(
       height: 55,
@@ -347,6 +348,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
+  ///user input birth date select box
   Widget userInputBirthDay(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){
@@ -390,6 +392,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
+  ///next button for send company info
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -438,6 +441,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     );
   }
 
+  ///toast create
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -449,6 +453,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
         fontSize: 16.0);
   }
 
+  ///company input validation
   _inputValidation({
     required String name,
     required String activities,
@@ -481,7 +486,7 @@ class _AddInformationForCompanyScreenState extends State<AddInformationForCompan
     return false;
   }
 
-
+  ///send company info to server
   _sendCompanyInfo({
     required String name,
     required String activities,

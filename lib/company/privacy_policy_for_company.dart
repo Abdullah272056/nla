@@ -150,6 +150,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
             )));
   }
 
+  ///terms and condition accept button
   Widget _buildAcceptButton() {
     return Container(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -192,6 +193,8 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
       ),
     );
   }
+
+  ///terms and condition Decline button
   Widget _buildDeclineButton() {
     return InkWell(
       onTap: (){
@@ -216,8 +219,7 @@ class _PrivacyPolicyForCompanyScreenState extends State<PrivacyPolicyForCompanyS
     );
   }
 
-  //You can create a function with your desirable animation
-
+  ///You can create a function with your desirable animation
   Route createRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,

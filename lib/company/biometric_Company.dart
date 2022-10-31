@@ -104,6 +104,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
     );
   }
 
+  ///instruction info message box
   Widget scanMessageSection() {
     return Container(
       height: 110,
@@ -143,6 +144,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
     );
   }
 
+  ///next button
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -196,6 +198,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
     );
   }
 
+  ///may be later button
   Widget _buildMayBeLaterButton() {
     return InkWell(
       onTap: (){
@@ -221,7 +224,7 @@ class _BiometricCompanyScreenState extends State<BiometricCompanyScreen> {
     );
   }
 
-
+///save finger print status in sharepref
   void saveFingerPrintStatus(String fingerPrintStatus) async {
     try {
       SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

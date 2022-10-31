@@ -82,6 +82,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
     );
   }
 
+
   Widget _buildBottomDesign() {
     return Container(
         width: double.infinity,
@@ -155,6 +156,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
   }
 
 
+  ///terms and condition accept button
   Widget _buildAcceptButton() {
     return Container(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
@@ -198,6 +200,7 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
     );
   }
 
+  ///terms and condition Decline button
   Widget _buildDeclineButton() {
     return InkWell(
       onTap: (){
@@ -223,7 +226,6 @@ class _PrivacyPolicyForParticularScreenState extends State<PrivacyPolicyForParti
   }
 
   //You can create a function with your desirable animation
-
   Route createRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,

@@ -16,9 +16,6 @@ import '../../api_service/sharePreferenceDataSaveName.dart';
 import '../static/loding_dialog.dart';
 import '../static/toast.dart';
 
-
-
-
 class EmailUsPageScreen extends StatefulWidget {
   @override
   State<EmailUsPageScreen> createState() => _EmailUsPageScreenState();

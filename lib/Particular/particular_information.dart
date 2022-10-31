@@ -272,6 +272,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
+  ///user name input box
   Widget userInputName(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -318,6 +319,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
+  ///user input birth date select box
   Widget userInputBirthDay(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: () async {
@@ -372,6 +374,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
+  ///next button for send personal info
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -423,7 +426,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     );
   }
 
-
+  ///user input validation
   _inputValidation(
       { required String name,
         required String surname,
@@ -455,6 +458,8 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     return false;
   }
 
+
+  ///send user info to server
   _sendPersonalInfo({
     required String name,
     required String surname,
@@ -502,6 +507,7 @@ class _AddInformationForParticularScreenState extends State<AddInformationForPar
     }
   }
 
+  ///toast create
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

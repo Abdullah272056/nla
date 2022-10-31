@@ -85,6 +85,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
         ));
   }
 
+  ///card section design
   Widget _buildCardSection() {
     return Column(
       children: [
@@ -618,6 +619,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
     );
   }
 
+  ///user profile section design
   Widget _buildProfileSection() {
     return Row(
       children: [
@@ -700,6 +702,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
     );
   }
 
+  ///bottom section design
   Widget _buildBottomDesign() {
     return Container(
         width: double.infinity,
@@ -760,6 +763,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
             )));
   }
 
+  ///cart option item design
   Widget cartOptionItemDesign(
       {required String itemHeader,
       required String itemValue,
@@ -865,6 +869,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
     );
   }
 
+  ///freeze Card ItemDesign design
   Widget freezeCardItemDesign(
       {required String itemHeader,
       required String itemValue,
@@ -975,6 +980,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
     );
   }
 
+ /// card item shimmer design
   Widget shimmerDesign() {
     return Column(
       children: [
@@ -1193,6 +1199,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
       ],
     );
   }
+
   Widget _buildItemForShimmer() {
     return Container(
       margin: const EdgeInsets.only(right: 00.0, top: 0, bottom: 0, left: 00),
@@ -1326,7 +1333,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
 
     ;
   }
-  //novalexxa card list data
+  ///get all card list api call
   _getUserNovalexxaCardDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -1378,7 +1385,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
     }
   }
 
-
+///retrieve user data from sharepref
   loadUserIdFromSharePref() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     try {
@@ -1394,6 +1401,7 @@ class _CardPageScreenState extends State<CardPageScreen> {
 
   }
 
+  ///date convert in format
    dateConvert(String dateString) {
     DateTime dateTime = DateTime.parse(dateString);
 

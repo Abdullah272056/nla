@@ -182,51 +182,8 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
   }
 
 
-  Widget _buildTextFieldOTPView({
-    required bool obscureText,
-    Widget? prefixedIcon,
-    String? hintText,
-    String? labelText,
-  }) {
-    return Container(
-      color: Colors.transparent,
-      child: OTPTextField(
-        length: 6,
-        width: MediaQuery.of(context).size.width,
-        textFieldAlignment: MainAxisAlignment.spaceAround,
 
-        fieldStyle: FieldStyle.box,
-        // contentPadding: EdgeInsets.only(right: 20.0,top: 20,left: 10,bottom: 0),
-        fieldWidth:45,
-
-
-
-        //   textInputAction: TextInputAction.search,
-
-
-        style: TextStyle(
-          fontSize: 18,
-          color: novalexxa_text_color,
-        ),
-
-        keyboardType: TextInputType.number,
-        inputFormatter: [FilteringTextInputFormatter.allow(RegExp('[0-9]'))],
-        onCompleted: (pin) {
-          //   Navigator.push(context,MaterialPageRoute(builder: (context)=>CreateConfirmPinParticularScreen(_userId,pin)));
-
-
-          //_otpTxt = pin;
-          // _showToast(pin);
-        },
-        onChanged: (value) {
-          if (value.length < 6) {
-            // _otpTxt = "";
-          }
-        },
-      ),
-    );
-  }
-
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Container(
 
@@ -605,6 +562,8 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
             )));
   }
 
+
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -625,6 +584,8 @@ class _CreatePinParticularScreenState extends State<CreatePinParticularScreen> {
     });
   }
 
+
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

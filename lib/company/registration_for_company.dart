@@ -308,6 +308,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///user email input box
   Widget userInputEmail(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -351,6 +352,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///user phone input box
   Widget userInputPhoneNumber(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -392,6 +394,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///user country input box
   Widget userInputCountry1(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -436,6 +439,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///user country input box
   Widget userInputCountry(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return InkResponse(
       onTap: (){
@@ -478,6 +482,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///next button for send user data
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -524,6 +529,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///create toast
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -535,6 +541,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
         fontSize: 16.0);
   }
 
+  ///get country list api call and receive data
   _getCountryDataList() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -564,6 +571,8 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
       showToast("No Internet Connection!");
     }
   }
+
+  ///show all country list data with alert dialog
   void _showAlertDialog(BuildContext context, List _countryListData) {
     showDialog(
       context: context,
@@ -653,7 +662,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
-
+  ///loading dialog
   void _showLoadingDialog(BuildContext context, String _message) {
     showDialog(
       context: context,
@@ -693,6 +702,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     );
   }
 
+  ///user input data validation
   _inputValidation({
     required String email,
     required String phone,
@@ -735,6 +745,7 @@ class _SignUpForCompanyScreenState extends State<SignUpForCompanyScreen> {
     return false;
   }
 
+  ///user registration api call
   _userRegistration({
     required String email,
     required String mobile,

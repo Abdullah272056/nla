@@ -126,7 +126,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
     );
   }
 
-
+  ///user instruction message box
   Widget scanMessageSection() {
     return Container(
       height: 110,
@@ -167,6 +167,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
   }
 
 
+  /// next button for send image to server
   Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 50.0, right: 50.0),
@@ -217,6 +218,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
     );
   }
 
+  /// retry button for reselect image
   Widget _buildRetryButton() {
     return InkWell(
       onTap: (){
@@ -240,6 +242,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
     );
   }
 
+  /// toast design
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -251,7 +254,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
         fontSize: 16.0);
   }
 
-
+  ///image select and get
   void takeImage(ImageSource source)async{
     final pickedFile= await _picker.getImage(source: source);
     setState(() {
@@ -265,9 +268,7 @@ class _ScanDocFrontCompanyScreenState extends State<ScanDocFrontCompanyScreen> {
     });
   }
 
-
-
-
+  ///image upload selection option (camera or gallery) bottom sheet section
   Widget _buildImageUploadBottomSheet() {
     return Container(
       height: 100,

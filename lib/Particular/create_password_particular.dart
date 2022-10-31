@@ -144,7 +144,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
                       height: 50,
                     ),
 
-                    _buildLogInButton()
+                    _buildNextButton()
 
                   ],
                 ))
@@ -155,7 +155,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
     );
   }
 
-
+  ///user password input box
   Widget userInputPassword(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -219,7 +219,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
     );
   }
 
-
+  ///user confirm password input box
   Widget userInputConfirmPassword(TextEditingController userInput, String hintTitle, TextInputType keyboardType) {
     return SizedBox(
       height: 55,
@@ -267,8 +267,8 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
     );
   }
 
-
-  Widget _buildLogInButton() {
+  ///next button for send user password info
+  Widget _buildNextButton() {
     return Container(
       margin: const EdgeInsets.only(left: 10.0, right: 10.0),
       child: ElevatedButton(
@@ -318,6 +318,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
     );
   }
 
+  ///user password data validation
   _inputValidation({
     required String newPassword,
     required String confirmPassword,
@@ -351,6 +352,7 @@ class _CreatePasswordParticularScreenState extends State<CreatePasswordParticula
     return false;
   }
 
+  ///send user password api call
   _sendPasswordInfo({
     required String newPassword,
     required String confirmPassword,

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "607071279746",
+    "project_id": "novalexxa-push-notification",
+    "storage_bucket": "novalexxa-push-notification.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607071279746:android:fa95c701f2dd2b3662729b",
+        "android_client_info": {
+          "package_name": "com.example.nova_lexxa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607071279746-97hfuopinq2rdm2e6l9mr72v6v19kanc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nova_lexxa",
+            "certificate_hash": "f1c00eb297cb82e19b06ae1b13aa87e940daa552"
+          }
+        },
+        {
+          "client_id": "607071279746-5693f1tpq4o5p1iikcp4fi6f3kupd1u5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEzpq9nN3cZzdoP4vV8fVfe9kqk33qXF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607071279746-5693f1tpq4o5p1iikcp4fi6f3kupd1u5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

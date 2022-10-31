@@ -127,9 +127,8 @@ dependencies:
   #count down
   flutter_countdown_timer: ^4.1.0
 
-
-
-
+  firebase_core: ^2.1.0
+  firebase_messaging: ^14.0.2
 
 
 flutter_icons:

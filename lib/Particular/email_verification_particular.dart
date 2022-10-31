@@ -102,10 +102,6 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
     super.dispose();
   }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -266,7 +262,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
 
 
 
-
+  ///user verify api call
   _userVerify(
       {
         required String otp,
@@ -309,6 +305,8 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
       _showToast("No Internet Connection!");
     }
   }
+
+  ///resend api call with phone email
   _userSendCodeWithEmail() async {
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -343,6 +341,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
       _showToast("No Internet Connection!");
     }
   }
+
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -612,6 +611,7 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
             )));
   }
 
+  ///otp field box
   Widget _buildTextFieldOTPView1() {
     return  Flex(direction: Axis.horizontal,
       children: [
@@ -714,6 +714,8 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
     );
   }
 
+
+  ///input otp text combination
   void typeKeyboard(String typeKey) {
     setState(() {
       if (typeKey == "x") {
@@ -734,6 +736,8 @@ class _EmailVerificationParticularScreenState extends State<EmailVerificationPar
     });
   }
 
+
+  ///input text set in text box
   void setText(String inputText){
 
     setState(() {

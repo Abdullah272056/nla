@@ -212,8 +212,6 @@ class _FingerprintAuthState extends State<FingerprintAuth> {
     );
   }
 
-
-
   _showToast(String message) {
     Fluttertoast.showToast(
         msg: message,

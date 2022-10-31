@@ -98,6 +98,7 @@ int _particular_company_selected_status=1;
                       child:Flex(direction: Axis.vertical,
                         children: [
                           _buildNextButton(),
+                          SizedBox(height: 10,),
                           _buildHaveAnAccountButton()
                         ],
                       ),
